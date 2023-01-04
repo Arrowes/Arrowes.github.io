@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png">
+  <link rel="mask-icon" href="/images/arrow.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Python工具：Anaconda，Pycharm，Jupyter，Pytorch">
+<meta property="og:url" content="http://example.com/2022/11/24/Pytorch/index.html">
+<meta property="og:site_name" content="Arrow的笔记本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/3d48dab87c260ef9d021d26f8218f569fece80b9bd7ed27c94cc835121291d52.png">
+<meta property="og:image" content="http://example.com/images/d2e472375bbf282c764539c21d3b00d9f7077d85d09e247faf0f23f092f0b446.png">
+<meta property="og:image" content="http://example.com/images/46d8a3df125599f7e7a98ecf67cc57f419fb6ecd521d180eb4278d435bfbad4d.png">
+<meta property="article:published_time" content="2022-11-24T13:26:44.000Z">
+<meta property="article:modified_time" content="2022-12-11T13:47:10.282Z">
+<meta property="article:author" content="王宇杰">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/3d48dab87c260ef9d021d26f8218f569fece80b9bd7ed27c94cc835121291d52.png">
+
+
+<link rel="canonical" href="http://example.com/2022/11/24/Pytorch/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/11/24/Pytorch/","path":"2022/11/24/Pytorch/","title":"Python工具：Anaconda，Pycharm，Jupyter，Pytorch"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python工具：Anaconda，Pycharm，Jupyter，Pytorch | Arrow的笔记本</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Arrow的笔记本</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="https://s2.loli.net/2022/11/20/LG4pSfyvVZ6iBWc.jpg" alt="Arrow的笔记本">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-bookmarks"><a href="/2022/11/23/Bookmarks/" rel="section"><i class="fa-solid fa-book-bookmark fa-fw"></i>Bookmarks</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Anaconda-Prompt"><span class="nav-number">1.</span> <span class="nav-text">Anaconda Prompt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pycharm"><span class="nav-number">2.1.</span> <span class="nav-text">Pycharm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jupyter-notebook"><span class="nav-number">2.2.</span> <span class="nav-text">Jupyter notebook</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E5%A4%A7%E6%9F%A5%E8%AF%A2%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">两大查询函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorboard%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">Tensorboard可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transform"><span class="nav-number">3.3.</span> <span class="nav-text">Transform</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ToTensor%EF%BC%88%E6%A1%A5%E6%A2%81%EF%BC%8C%E5%BE%88%E5%A4%9A%E8%BE%93%E5%85%A5%E9%83%BD%E8%A6%81%E6%B1%82tensor%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">ToTensor（桥梁，很多输入都要求tensor类型）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#torchvision"><span class="nav-number">3.5.</span> <span class="nav-text">torchvision</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dataloader"><span class="nav-number">3.6.</span> <span class="nav-text">Dataloader</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王宇杰</p>
+  <div class="site-description" itemprop="description">记录一些杂七杂八的东西</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Arrowes" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Arrowes" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/395841716@qq.com" title="E-Mail → 395841716@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/wangyujie.site" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wangyujie.site" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/Arrowes?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Arrowes?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa-brands fa-bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://oshwhub.com/arrows" title="立创EDA → https:&#x2F;&#x2F;oshwhub.com&#x2F;arrows" rel="noopener" target="_blank"><i class="fa-solid fa-microchip fa-fw"></i>立创EDA</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/24/Pytorch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王宇杰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Arrow的笔记本">
+      <meta itemprop="description" content="记录一些杂七杂八的东西">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python工具：Anaconda，Pycharm，Jupyter，Pytorch | Arrow的笔记本">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python工具：Anaconda，Pycharm，Jupyter，Pytorch
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-24 21:26:44" itemprop="dateCreated datePublished" datetime="2022-11-24T21:26:44+08:00">2022-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-11 21:47:10" itemprop="dateModified" datetime="2022-12-11T21:47:10+08:00">2022-12-11</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>888</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h1><p>Anaconda创建环境 <code>conda create -n pytorch python=3.6</code><br>更新 <code>conda update python</code> <code>pip install --upgrade pip</code><br>激活环境 <code>conda activate pytorch</code><br>退出虚拟环境 <code>deactivate</code><br>安装<a target="_blank" rel="noopener" href="https://pytorch.org/">pytorch</a>:<br><code>conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch</code></p>
+<p><strong>查包</strong></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="built_in">list</span> <span class="comment">#列包</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –version <span class="comment">#查python版本</span></span><br></pre></td></tr></table></figure>
+<p>安装特定版本&#x2F;卸载 <code>pip install XXX==2.0</code> &#x2F; <code>pip uninstall XXX</code></p>
+<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境：<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings&gt;Project&gt;interpreter</code><br>环境路径配置： <code>接上interpreter&gt;齿轮&gt;Add&gt;System Interpreter&gt;手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File-&gt;Settings-&gt;Tools-&gt;Terminal-&gt;Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
+<p><strong>Pycharm使用</strong><br>新建.py文件(用作工程)&gt;右上角配置py解释器&gt;运行&#x2F;直接右键运行<br>控制台(用作调试，查参数)&gt;Shift+enter：输入多行&gt;“↑”重新编辑<br>Ctrl+D 快速复制至下一行<br>Ctrl+R 批量修改<br>ctrl+&#x2F; 批量注释<br>调试：打断点&gt;debug&gt;使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
+<p>调试时使用Console的python调试台，print指令<br><img src="/images/3d48dab87c260ef9d021d26f8218f569fece80b9bd7ed27c94cc835121291d52.png" alt="图 1"><img src="/images/d2e472375bbf282c764539c21d3b00d9f7077d85d09e247faf0f23f092f0b446.png" alt="图 2"><img src="/images/46d8a3df125599f7e7a98ecf67cc57f419fb6ecd521d180eb4278d435bfbad4d.png" alt="图 3">  </p>
+<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后 <code>conda install nb_conda</code><br>打开 jupyter notebook<br><code>New&gt;选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#cd 路径</span></span><br><span class="line">	C：\Users\Arrow&gt; cd E：\桌面</span><br><span class="line">	C：\Users\Arrow&gt; E：</span><br><span class="line">        得E：\桌面&gt;i.py</span><br><span class="line"><span class="comment">#亦或直接	</span></span><br><span class="line">        E：\桌面&gt; python E：\桌面\i.py</span><br></pre></td></tr></table></figure>
+
+<p><strong>打包下载：</strong><br> <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> tarfile</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recursive_files</span>(<span class="params">dir_name=<span class="string">&#x27;.&#x27;</span>, ignore=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">for</span> dir_name,subdirs,files <span class="keyword">in</span> os.walk(dir_name):</span><br><span class="line">        <span class="keyword">if</span> ignore <span class="keyword">and</span> os.path.basename(dir_name) <span class="keyword">in</span> ignore: </span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> file_name <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> ignore <span class="keyword">and</span> file_name <span class="keyword">in</span> ignore:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">yield</span> os.path.join(dir_name, file_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_tar_file</span>(<span class="params">dir_name=<span class="string">&#x27;.&#x27;</span>, tar_file_name=<span class="string">&#x27;tarfile.tar&#x27;</span>, ignore=<span class="literal">None</span></span>):</span><br><span class="line">    tar = tarfile.<span class="built_in">open</span>(tar_file_name, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> file_name <span class="keyword">in</span> recursive_files(dir_name, ignore):</span><br><span class="line">        tar.add(file_name)</span><br><span class="line"></span><br><span class="line">    tar.close()</span><br><span class="line"></span><br><span class="line">dir_name = <span class="string">&#x27;.&#x27;</span></span><br><span class="line">tar_file_name = <span class="string">&#x27;archive.tar&#x27;</span></span><br><span class="line">ignore = &#123;<span class="string">&#x27;.ipynb_checkpoints&#x27;</span>, <span class="string">&#x27;__pycache__&#x27;</span>, tar_file_name&#125;</span><br><span class="line">make_tar_file(dir_name, tar_file_name, ignore)</span><br></pre></td></tr></table></figure></p>
+<h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><h2 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h2><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
+<p>文件</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
+<p>计时		</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
+<p>组 </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"> <span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h2><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
+<p>打开</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
+<p>地址	localhost:6006</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
+<h2 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h2><p>transforms.py图像处理工具箱</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
+<h2 id="ToTensor（桥梁，很多输入都要求tensor类型）"><a href="#ToTensor（桥梁，很多输入都要求tensor类型）" class="headerlink" title="ToTensor（桥梁，很多输入都要求tensor类型）"></a>ToTensor（桥梁，很多输入都要求tensor类型）</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
+<h2 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h2><p>torchvision.datasets 数据集处理</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>例：</p>
+<figure class="highlight stan"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">writer = SummaryWriter(<span class="string">&quot;dataloader&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">2</span>):</span><br><span class="line">    <span class="built_in">step</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> <span class="title">data</span> <span class="keyword">in</span> test_loader: <span class="comment">#读数据</span></span><br><span class="line">        imgs, targets = <span class="title">data</span></span><br><span class="line">        writer.add_images(<span class="string">&quot;Epoch: &#123;&#125;&quot;</span>.format(epoch), imgs, <span class="built_in">step</span>)</span><br><span class="line">        <span class="built_in">step</span> = <span class="built_in">step</span> + <span class="number">1</span></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/23/Bookmarks/" rel="prev" title="Bookmarks：常用书签汇总">
+                  <i class="fa fa-chevron-left"></i> Bookmarks：常用书签汇总
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/25/Network/" rel="next" title="Network：从神经网络到深度学习">
+                  Network：从神经网络到深度学习 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa-solid fa-star"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王宇杰</span>
+</div>
+
+
+
+<!--  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div> -->
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span class="post-count">全站共 24.4k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
+</div>
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.8/pdfobject.min.js","integrity":"sha256-tu9j5pBilBQrWSDePOOajCUdz6hWsid/lBNzK4KgEPM="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.7/mermaid.min.js","integrity":"sha256-G58AID1YoX5YaEtWfXSI0VLrZ6N4kvNvwg0BI8zUFxE="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+
+</body>
+</html>
