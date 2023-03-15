@@ -334,64 +334,6 @@
       </tags>
   </entry>
   <entry>
-    <title>DL：深度学习相关概念</title>
-    <url>/2022/12/28/DL/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a><a href="bilibili.com/video/BV14f4y1q7ms?p=3">深度学习框架</a></h1><pre class="mermaid">graph LR
-A[程序框架]-->B[A.黑箱]
-A-->C[B.模块化] -->1.处理数据
-C-->2.构建网络
-C-->3.损失函数
-C-->4.优化函数
-C-->5.模型保存
-A-->E[C.定义]</pre>
-<p><img src="/images/344cde48d397b26519717e0fceb12a89a93ce710b1289e55c503e3209f6fbd61.png" alt="图 10"><br>GPU 网络和数据要同时送进GPU</p>
-<h2 id="感受野"><a href="#感受野" class="headerlink" title="感受野"></a>感受野</h2><p>感受野被定义为卷积神经网络特征所能看到输入图像的区域，换句话说特征输出受感受野区域内的像素点的影响。<img src="/images/ed608fbfae27bd5e0a2b0d5e517c47d1d49d249d7fab85b1e90e8aa329307381.png" alt="图 11"> </p>
-<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><h3 id="Adam和SGD"><a href="#Adam和SGD" class="headerlink" title="Adam和SGD"></a>Adam和SGD</h3><p><img src="/images/588eef77b3289781adf9761b6693e036a88ffe462efd70033b319dce91997f1e.gif" alt="图 12"><br>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="/images/100f42c80b5ce9a14ca53d2ca5ffc3597a7f9a64cd2b39edb339ce47caba89dc.png" alt="图 13">  </p>
-<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成①<em>每个epoch所需的时间</em>（假设算力确定了）和每次迭代(iteration)之间②<em>梯度的平滑程度</em>。</p>
-<blockquote>
-<p>①假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加<br>②如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</p>
-</blockquote>
-<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
-<blockquote>
-<ol>
-<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
-<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
-<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
-</ol>
-</blockquote>
-<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="交叉熵损失函数「Cross-Entropy-Loss」"><a href="#交叉熵损失函数「Cross-Entropy-Loss」" class="headerlink" title="交叉熵损失函数「Cross Entropy Loss」"></a>交叉熵损失函数「Cross Entropy Loss」</h3><p>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。<br>BCELoss和BCEWithLogitsLoss还提供了两个重要参数： </p>
-<blockquote>
-<p>weight：可用于控制各样本的权重，常用作对对齐后的数据进行mask操作（设为0）<br>reduction：控制损失输出模式。设为”sum”表示对样本进行求损失和；设为”mean”表示对样本进行求损失的平均值；而设为”none”表示对样本逐个求损失，输出与输入的shape一样。<br>此外BCEWithLogitsLoss还提供了参数pos_weight用于设置损失的class权重，用于缓解样本的不均衡问题。</p>
-</blockquote>
-<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
-<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<img src="/images/b755f4e3ca501037ef4f31cdf20e76226dab60729dda8999131f3d91b8c73029.png" alt="图 1">  </p>
-<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
-<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<img src="/images/0c5214adad74f71cd2e5a5fb88b290102edf2a73b2c8678c2d5e7b6a6406878c.png" alt="图 8">  </p>
-<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
-<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
-<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<img src="/images/1153e98fa26db00008fadc4159bd04f5e0062eb261e9c5b8d9fd9f70373698f0.png" alt="图 6"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
-<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><p><img src="/images/3bacb5b697b3f89632f000291f5f832066eae51cb75d9d2456e3da41a1b433b5.png" alt="图 17"><br>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
-<blockquote>
-<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
-</blockquote>
-<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="/images/ece9df2376a4c708a78f34277acd60b4bc05822dfc7e08b00313bd6418d9d48c.png" alt="图 19"><br><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#97;&#112;&#64;&#48;&#x2e;&#x35;">&#109;&#97;&#112;&#64;&#48;&#x2e;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。 <img src="/images/29079e96d09fec2291bc4fe2172db27c1d63681908c45aebc4af5a0dd2091ba4.png" alt="图 20">  </p>
-<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<img src="/images/e8ac2b4d0adec392c93af2ec345dcab77ac5628b88cde8e28224c8003b66f1c0.png" alt="图 9"><br><strong>AUC值</strong>：PR曲线下方的面积<br><img src="/images/b9d32332516f48892a5e94bc80f4966a343a6685185ee7d81b506dcca28b23db.png" alt="图 21">  </p>
-<blockquote>
-<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
-</blockquote>
-<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
-<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
-<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
-<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
-<p><strong>换算计算量</strong>,一般一个参数是值一个float，也就是４个字节,1kb&#x3D;1024字节</p>
-<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/images/2e94102787d56e7b4d268071f643aa27b65ad2e4a90dd0cd0f6132990924811f.png" alt="图 14"> <img src="/images/6558163262d7b38fd0622153099684d42af7d3a1c4a3b715b1e8e38e3e65d53c.png" alt="图 15"> <img src="/images/97b9e0eeacec4859c3759422ffa214c05f1184c05511136017169f00bf09374d.png" alt="图 16">  </p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Embedded：嵌入式应用知识</title>
     <url>/2022/12/11/Embedded/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="相关常识"><a href="#相关常识" class="headerlink" title="相关常识"></a>相关常识</h1><h2 id="电容"><a href="#电容" class="headerlink" title="电容"></a>电容</h2><p>电容是电路设计中最为普通常用的器件，是无源元件之一，有源器件简单地说就是需能(电)源的器件叫有源器件，无需能(电)源的器件就是无源器件。<br>电容的作用和用途一般都有好多种，如：在旁路、去耦、滤波、储能方面的作用；在完成振荡、同步以及时间常数的作用：<br><strong>隔直流</strong>：作用是阻止直流通过而让交流通过。<img src="/images/685acd9502b523b1ad4c60f8841f253820460a46961942d9d064915d5d9c2569.png" alt="图 23"><br><strong>旁路（去耦）</strong>：为交流电路中某些并联的元件提供低阻抗通路。<img src="/images/e1ca270364f9eecc8b62658996dfed21c018ee3691ea2d1c9c74e9de6654be0b.png" alt="图 24"><br><strong>旁路电容</strong>：旁路电容，又称为退耦电容，是为某个器件提供能量的储能器件。<br>它利用了电容的频率阻抗特性，理想电容的频率特性随频率的升高，阻抗降低，就像一个水塘，它能使输出电压输出均匀，降低负载电压波动。<br>旁路电容要尽量靠近负载器件的供电电源管脚和地管脚，这是阻抗要求。<br>在画PCB时候特别要注意，只有靠近某个元器件时候才能抑制电压或其他输信号因过大而导致的地电位抬高和噪声。<br>说白了就是把直流电源中的交流分量，通过电容耦合到电源地中，起到了净化直流电源的作用。如图为旁路电容，画图时候要尽量靠近IC1。<img src="/images/0a4bc3d9c1194a0f7fcdd755bd79b48782488782e111218f3c9785b1e2e83c8f.png" alt="图 25"><br><strong>去耦电容</strong>：去耦电容，是把输出信号的干扰作为滤除对象，去耦电容相当于电池，利用其充放电，使得放大后的信号不会因电流的突变而受干扰。<br>它的容量根据信号的频率、抑制波纹程度而定，去耦电容就是起到一个“电池”的作用，满足驱动电路电流的变化，避免相互间的耦合干扰。<br><strong>旁路电容实际也是去耦合的</strong>，只是旁路电容一般是指高频旁路，也就是给高频的开关噪声提高一条低阻抗泄防途径。<br>高频旁路电容一般比较小，根据谐振频率一般取 0.1μF、0.01μF 等。<br>而去耦合电容的容量一般较大，可能是 10μF 或者更大，依据电路中分布参数、以及驱动电流的变化大小来确定。上图C3为去耦电容<br><strong>区别</strong>：旁路是把输入信号中的干扰作为滤除对象，而去耦是把输出信号的干扰作为滤除对象，防止干扰信号返回电源。<br><strong>耦合</strong>：作为两个电路之间的连接，允许交流信号通过并传输到下一级电路 。<br><img src="/images/46e04bdeeed43d3b70755a04ec96b2085cac0b8af0b4f045a4713c509f160368.png" alt="图 26"><br>用电容做耦合的元件，是为了将前级信号传递到后一级，并且隔断前一级的直流对后一级的影响，使电路调试简单，性能稳定。<br>如果不加电容交流信号放大不会改变，只是各级工作点需重新设计，由于前后级影响，调试工作点非常困难，在多级时几乎无法实现。<br><strong>滤波</strong>：这个对电路而言很重要，CPU背后的电容基本都是这个作用。<br>即频率f越大，电容的阻抗Z越小。当低频时，电容C由于阻抗Z比较大，有用信号可以顺利通过；当高频时，电容C由于阻抗Z已经很小了，相当于把高频噪声短路到GND上去了。<br><img src="/images/95b5c2765b6a8ea02741e983fb78885d2c85478ae1c116b2f032f66689ba0a31.png" alt="图 27"> <img src="/images/3a7874de3aaa4d76c2582df477563a03a08b2277fb02137421c47ff7e808a852.png" alt="图 28"><br><strong>滤波作用</strong>：理想电容，电容越大，阻抗越小，通过的频率也越高。<br>电解电容一般都是超过 1uF ，其中的电感成份很大，因此频率高后反而阻抗会大。<br>我们经常看见有时会看到有一个电容量较大电解电容并联了一个小电容，其实大的电容通低频，小电容通高频，这样才能充分滤除高低频。<br>电容频率越高时候则衰减越大，电容像一个水塘，几滴水不足以引起它的很大变化，也就是说电压波动不是你很大时候电压可以缓冲，如图C2：<img src="/images/158c15af5eace10b04f9f4e8c1cd2d74cd2e481f0edbbff2e54ce793df684ade.png" alt="图 29"><br><strong>温度补偿</strong>：针对其它元件对温度的适应性不够带来的影响，而进行补偿，改善电路的稳定性。<img src="/images/4b7c34fcaf3df2820be7fbf0f6d5b97a67344c7ae9b2b2b3aeed01d0b8b8f8fa.png" alt="图 30"><br><strong>分析</strong>：由于定时电容的容量决定了行振荡器的振荡频率，所以要求定时电容的容量非常稳定，不随环境湿度变化而变化，这样才能使行振荡器的振荡频率稳定。<br>因此采用正、负温度系数的电容释联，进行温度互补。<br>当工作温度升高时，Cl的容量在增大，而C2的容量在减小，两只电容并联后的总容量为两只电容容量之和，由于一个容量在增大而另一个在减小，所以总容量基本不变。<br>同理，在温度降低时，一个电容的容量在减小而另一个在增大，总的容量基本不变，稳定了振荡频率，实现温度补偿目的。<br><strong>计时</strong>：电容器与电阻器配合使用，确定电路的时间常数。<img src="/images/6ddf1893b1eb05c8e81791fd84087c60eab61bdc31d02454fa15e77e315f18f3.png" alt="图 31"><br>输入信号由低向高跳变时，经过缓冲1后输入RC电路。<br>电容充电的特性使B点的信号并不会跟随输入信号立即跳变，而是有一个逐渐变大的过程。<br>当变大到一定程度时，缓冲2翻转，在输出端得到了一个延迟的由低向高的跳变。<br><strong>时间常数</strong>：以常见的 RC 串联构成积分电路为例，当输入信号电压加在输入端时，电容上的电压逐渐上升。<br>而其充电电流则随着电压的上升而减小，电阻R和电容C串联接入输入信号VI，由电容C输出信号V0，当RC (τ)数值与输入方波宽度tW之间满足：τ》》tW，这种电路称为积分电路。<br><strong>调谐</strong>：对与频率相关的电路进行系统调谐，比如手机、收音机、电视机。<img src="/images/9583af04fd08345d4a2cd72350e921cfc725d277f6520357dec844e6cbf8968a.png" alt="图 32"><br>因为lc调谐的振荡电路的谐振频率是lc的函数，我们发现振荡电路的最大与最小谐振频率之比随着电容比的平方根变化。<br>此处电容比是指反偏电压最小时的电容与反偏电压最大时的电容之比。<br>因而，电路的调谐特征曲线（偏压一谐振频率）基本上是一条抛物线。<br><strong>整流</strong>：在预定的时间开或者关半闭导体开关元件。<img src="/images/2a2a2af5cce9cbe1cf3e6dd6aab20aa5a38092ebb92af8c4885675a3f57d4b56.png" alt="图 33"><br><strong>储能</strong>：储存电能，用于必须要的时候释放。<br>例如相机闪光灯，加热设备等等．（如今某些电容的储能水平己经接近锂电池的水准，一个电容储存的电能可以供一个手机使用一天。<br>一般地，电解电容都会有储能的作用，对于专门的储能作用的电容，电容储能的机理为双电层电容以及法拉第电容。<br>其主要形式为超级电容储能，其中超级电容器是利用双电层原理的电容器。<br>当外加电压加到超级电容器的两个极板上时，与普通电容器一样，极板的正电极存储正电荷，负极板存储负电荷。<br>在超级电容器的两极板上电荷产生的电场作用下，在电解液与电极间的界面上形成相反的电荷，以平衡电解液的内电场。<br>这种正电荷与负电荷在两个不同相之间的接触面上，以正负电荷之间极短间隙排列在相反的位置上，这个电荷分布层叫做双电层，因此电容量非常大。</p>
@@ -634,8 +576,225 @@ A-->E[C.定义]</pre>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">model = torch.load(<span class="string">&quot;tudui_29_gpu.pth&quot;</span>, map_location=torch.device(<span class="string">&#x27;cpu&#x27;</span>)) </span><br><span class="line"><span class="built_in">print</span>(model) 	<span class="comment">#训练好的权重代入模型</span></span><br><span class="line">image = torch.reshape(image, (<span class="number">1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    output = model(image)</span><br><span class="line"><span class="built_in">print</span>(output)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>python</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Paper：科研灌水方法总结</title>
+    <url>/2023/03/15/Paper/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="文献管理神器：Zotero"><a href="#文献管理神器：Zotero" class="headerlink" title="文献管理神器：Zotero"></a>文献管理神器：Zotero</h1><p><a href="https://www.zotero.org/">Zotero官网</a>，安装软件后再装浏览器插件，可以很方便的在浏览器随时导入文献；<br>顺便在官网注册一个账号，用于同步,且可登陆官网在线查看自己的论文库；<br><img src="/images/21cdf30c18b270e8a5c8c5c410baff6f4a3695b951052c913b58ef89462e345c.png" alt="图 1">  </p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h3><blockquote>
+<p>编辑 &gt; 首选项 &gt; 同步 &gt; 登陆<br>编辑 &gt; 首选项 &gt; 高级 &gt; 文件和文件夹 &gt; 更改数据储存路径  #自选合适的位置存储本地文件</p>
+</blockquote>
+<h3 id="SCI-Hub抓取pdf"><a href="#SCI-Hub抓取pdf" class="headerlink" title="SCI-Hub抓取pdf"></a>SCI-Hub抓取pdf</h3><ol>
+<li>打开Zotero 首选项-&gt;高级-&gt;设置编辑器</li>
+<li>搜索 <code>extensions.zotero.findPDFs.resolvers</code> ，搜到之后双击打开，在对话框中填入：<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;Sci-Hub&quot;</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>:<span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="string">&quot;url&quot;</span>:<span class="string">&quot;https://sci-hub.ren/&#123;doi&#125;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;mode&quot;</span>:<span class="string">&quot;html&quot;</span>,</span><br><span class="line">    <span class="string">&quot;selector&quot;</span>:<span class="string">&quot;<span class="subst">#pdf</span>&quot;</span>,</span><br><span class="line">    <span class="string">&quot;attribute&quot;</span>:<span class="string">&quot;src&quot;</span>,</span><br><span class="line">    <span class="string">&quot;automatic&quot;</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>实现抓取任意文献pdf（知网和部分新文献不行） <img src="/images/12f9f2092cb14543eb8fbec9c5ae60d0c04accb8bb91517f50fa02ce735ef659.png" alt="图 2"></li>
+</ol>
+<h3 id="配置搜索引擎"><a href="#配置搜索引擎" class="headerlink" title="配置搜索引擎"></a>配置搜索引擎</h3><ol>
+<li><a href="https://www.123pan.com/s/goS7Vv-kIKbd.html">下载 engines.json 文件</a></li>
+<li>打开数据储存路径,替换同名文件 <code>...\Zotero\locate\engines.json</code></li>
+<li>重启Zotero后，实现多搜索引擎，很方便 <img src="/images/447faaac4d96dda3def60f4290e022204a679b4a2b21133c14f1ecb1780681a6.png" alt="图 3"></li>
+</ol>
+<h3 id="Word插件"><a href="#Word插件" class="headerlink" title="Word插件"></a>Word插件</h3><p>安装word插件，实现高效插入引文，并且可以根据期刊选择参考文献样式</p>
+<blockquote>
+<p>编辑 &gt; 首选项 &gt; 引用 &gt; 文字处理软件 &gt; 安装word插件</p>
+</blockquote>
+<p><img src="/images/fc3941d72452e0435b42ca8a823294ce1e2d346915232d2a2ac917159c8f3f74.png" alt="图 4">  </p>
+<h2 id="插件，让Zotero真正好用"><a href="#插件，让Zotero真正好用" class="headerlink" title="插件，让Zotero真正好用"></a>插件，让Zotero真正好用</h2><p><a href="https://www.zotero.org/support/plugins">官方插件下载地址</a><br>安装方法：下载.xpi 文件到你的电脑。然后，在 Zotero，点击“工具→插件（附加组件）”，然后拖动插件的 .xpi 文件到插件窗口打开，或者选择从文件中安装。安装完成后重新启动软件即可。</p>
+<p><strong>下面是强烈推荐的5个必备插件，嫌麻烦可以直接安装我上传的，都是2023年最新的，5个全部拖进去即可，地址：<a href="https://www.123pan.com/s/goS7Vv-mIKbd.html">推荐插件下载</a></strong></p>
+<h3 id="Zotero-PDF-Translate"><a href="#Zotero-PDF-Translate" class="headerlink" title="Zotero PDF Translate"></a>Zotero PDF Translate</h3><p><a href="https://github.com/windingwind/zotero-pdf-translate/releases">zotero-pdf-translate 下载</a>，实现划词翻译，但是需要在插件设置里配置翻译引擎（免费,推荐腾讯云），<a href="https://doc.tern.1c7.me/zh/folder/setting/#%E8%85%BE%E8%AE%AF%E4%BA%91">配置方法文档</a> </p>
+<h3 id="Jasminum-茉莉花"><a href="#Jasminum-茉莉花" class="headerlink" title="Jasminum - 茉莉花"></a>Jasminum - 茉莉花</h3><p><a href="https://github.com/l0o0/jasminum/releases">Jasminum 下载</a>，一个简单的 Zotero 中文插件, 优化知网中文论文管理体验</p>
+<h3 id="Zotero-DOI-Manager"><a href="#Zotero-DOI-Manager" class="headerlink" title="Zotero DOI Manager"></a>Zotero DOI Manager</h3><p><a href="https://github.com/bwiernik/zotero-shortdoi/releases">Zotero DOI Manager 下载</a>，更新抓取文献的DOI号，提高SCI-Hub抓取pdf成功率</p>
+<h3 id="Zotero-IF"><a href="#Zotero-IF" class="headerlink" title="Zotero IF"></a>Zotero IF</h3><p><a href="https://pan.baidu.com/s/1-nIHvhRj_wK_t6LMsNF6rg#list/path=%2Fsharelink3626522904-21879764921069%2FZotero%20IF&parentPath=%2Fsharelink3626522904-21879764921069">Zotero IF百度云地址，提取码: apeh</a>,为所抓取的文献更新影响因子</p>
+<h3 id="Zotero-Citation-Counts-Manager"><a href="#Zotero-Citation-Counts-Manager" class="headerlink" title="Zotero Citation Counts Manager"></a>Zotero Citation Counts Manager</h3><p><a href="https://github.com/eschnett/zotero-citationcounts/releases">Zotero Citation Counts Manager 下载</a>，抓取引用数，一般选Semantic Scholar citation count</p>
+<h1 id="论文规范"><a href="#论文规范" class="headerlink" title="论文规范"></a>论文规范</h1><h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><ol>
+<li><p>一个词或词组在文中出现三次或以上才可以用缩写，否则需要写出全称。也就是说如果只出现一次或两次，每次都要写出全称，而缩略语就不需要给出了。<br>出现的次数是在摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果一个词在摘要中出现一次，正文中出现多次，图注中又出现一次，那么摘要中只要用全称，不要用缩写；正文中第一次出现时用全称，后面用缩写； 图注中用全称，不用缩写。<br>一些期刊只允许对正文中出现3次以上的术语使用缩写。<br>一些期刊禁止在标题和摘要中使用任何缩写词。<br>从写作风格上讲，大多数期刊都建议作者不要在句首使用缩写词。在这种情况下，作者要详细说明术语的含义，或者改用别的措辞重写句子。<br>在论文中，将摘要看做是独立的部分。因此，如果您需要在摘要和论文中同时使用一个缩写词时，您需要两次介绍这个缩写词：首次在摘要中使用时介绍一次；首次 在论文中使用时介绍一次。然而 ，如果您发现在摘要中介绍的一个缩写词仅仅出现了一两次，没必要缩写——可以考虑避免缩写，每次都用全拼代替（除非您认为读者更了解缩写词）</p>
+</li>
+<li><p>缩略语在文中第一次出现时需要定义。这里所谓第一次，也是摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果摘要和正文都符合上面所说使用缩写的规则，那么摘要中需要定义一次，正文中还需要定义一次。定义就是写出全称并在括号中给出缩写。<br>The patient was diagnosed with pulmonary arterial hypertension (PAH).<br>如果图例或表格中为了节省空间出现了缩写，那么在图注或表注中要解释缩写。<br>PH: pulmonary hypertension, PAH: pulmonary arterial hypertension.<br>写全称时一般是全部用小写，除非是人名、地名等专有名词，而缩写一般是全大写，除非是约定俗成的写法，比如用ChIP 代表chromatin immunoprecipitation。<br>应该考虑到也许有其他领域或者新进入这门领域的读者会阅读这篇论文，所以期刊都规定缩略语要先定义再使用。有些期刊会列出该期刊中不需要定义就可以直接使用的缩略语，比如Journal of Clinical Investigation 就给出<a href="http://www.jci.org/kiosk/publish/abbreviations">标准缩略语列表</a>并指出这些缩略语可以直接使用。如果期刊没有特别规定，应该每个缩略语使用时都要先定义。定义之后记得要一直使用缩略语，不要再使用全称。</p>
+</li>
+<li><p>尽量避免使用缩略语。一篇文章完全不使用缩略语不见得可行，但是尽量少用为好，而且只使用比较常见的缩略语。使用缩略语的目的是为了便于读者对文章的阅读理解，比较长的词组如果反复出现，不便于读者的快速阅读，所以用缩写更合适。有些词可能多数读者对缩写更熟悉，这些词用缩写也便于读者理解。如果很多比较短的词也用缩写，而且不是普遍使用的缩写，读者就经常要停下来去查找缩写代表的词意，思路就会被打断，所以会影响对文章的理解。</p>
+</li>
+<li><p>一个缩略语代表一个词或词组。在一篇文章中，一个缩略语只能代表一个词（组），而且一个词（组）也只能用一个缩略语代表。</p>
+</li>
+<li><p>缩写相关的复数和冠词的用法。多数情况下，我们会用缩略语来代替一个名词，所以如果是可数名词也是有复数的。一般来说，缩略语代表的是名词的单数形式，我们在后面加s（或者加es如果缩略语的最后一个字母是s）来表示复数。定义缩写的时候通常就可以看出来，比如 endothelial cells (ECs)。<br>如果缩略语名词前面需要加不定冠词，要根据缩写的读音来决定是用a还是an。例如human immunodeficiency virus缩写成HIV时我们是念这三个字母，第一个字母H虽然是个辅音字母，念这个字母时却是元音开头，所以HIV这个词的第一个音是元音，前面要用an，例如 an HIV-positive test result。</p>
+</li>
+<li><p>在技术写作中最常见的关于首字母缩写和缩略词的错误，就是大部分人以为缩写中出现的大写字母在缩写前的词组中也需要大写，实际上并不是这样的。例如，作为商业管理哲学的「total quality management」缩写为「TQM」，但它的全称却常常被错误地写成「Total Quality Management」，这有可能是因为部分作者忘记了这个词本身并不是专有名词，甚至是更糟糕的情况──作者根本从一开始就没有完全了解这个词的含意！请记住，在文章中缩写术语之前，首先了解该术语的含意和来源是很重要的，因为作者在论文中处理首字母缩写和缩略词的态度与方法常常反映了他们自己对于运用术语的了解程度。<br>掌握了上面这几个原则，我们就可以通过恰当地使用缩略语来增加文章的可读性。</p>
+</li>
+</ol>
+<h2 id="字母"><a href="#字母" class="headerlink" title="字母"></a>字母</h2><ol>
+<li>什么时候用斜体(italic)？</li>
+</ol>
+<ol>
+<li>变量(variables)应该用斜体表示：例如T表示温度(temperature)，r表示速率(rate)，x代表摩尔分数(molar fraction).</li>
+<li>坐标轴(axes)：the y axis.</li>
+<li>平面(planes)：plane P.</li>
+<li>行列式(determinants)和矩阵(matrices)中的元素：gn.</li>
+<li>常数(constants)符号: g, 重力加速度</li>
+<li>描述变量的函数:f(x).</li>
+</ol>
+<ol start="2">
+<li>什么时候不用斜体，而采用罗马字体(Roman)?<br>备注：这里的Roman字体指非特殊性字体，与每个期刊的正文字体一致</li>
+</ol>
+<ol>
+<li>数字；</li>
+<li>标点符号和括号；</li>
+<li>大多数运算符；</li>
+<li>量度单位和时间单位：毫克, mg; 帕斯卡, Pa; 毫米汞柱, mmHg.</li>
+<li>非数学符号和数量：s, 原子轨道(atomic orbital);</li>
+<li>变量的多字符缩</li>
+<li>数学常量(mathematical constants):自然对数,e;复数的虚部,i;圆周率,π.</li>
+<li>矩阵的转置(transposes), AT(T是矩阵A的转置)</li>
+<li>点(point)和线(line): point A, line AB.</li>
+<li>行列式(determinants)： A是矩阵A的行列式</li>
+<li>三角函数和其他数学函数:正弦函数sin;最大值max,极限lim;对数log等.</li>
+</ol>
+<ol start="3">
+<li><p>什么时候用粗体(Boldface)？<br>1）向量(vectors)；<br>2）张量(tensors)；<br>3）矩阵(matrics);<br>4）多维物理量：磁场强度，H.</p>
+</li>
+<li><p>什么时候使用希腊字母(Greek letters)?<br>任何拉丁字母可以使用的地方都可以，包括变量，常量，向量等。</p>
+</li>
+<li><p>当上下标本身就是代表物理量或数字的符号时，用斜体(italic),如果上下标是缩写或者不是符号时，不用斜体，采用罗马字体(Roman).<br>举例：Cp for heat capacity at constant pressure常压比热（p是压力的符号，采用斜体）<br>CB for heat capacity of substance B 物质B的比热（B不是符号，不用斜体）<br>Cg where g is gas 气体比热 (g是gas的缩写，不用斜体)<br>Ei for energy of the ith level, where i is a number(i是代表数字的符号)<br>gn where n is normal(n是气体normal的缩写，不用斜体)</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Project：多个项目汇总</title>
+    <url>/2023/02/15/Project/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
+<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="/images/11daa2bff272eb1f5565e4c2dfcce3a4120442bdf056e950cce5d8f5498f8c59.png" alt="图 20">  </p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
+<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="/images/b03d6ffc6a94c4a919929acf95b126d2371f226a815654843516200f21f4ffe6.png" alt="图 22"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
+<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="/images/91ed1c8890986bb5917f66253b8b4a7b704b0c228acb7e54b82145bffe67e051.png" alt="图 21">  </p>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="/images/61a1e9ad1fd04c0c4e7546681e3bafd6a8577865941d404edcd6c84b3992080c.png" alt="图 23"><br><img src="/images/7b67596d623f5522d4a7268a4107525d49cf982282b9312b9c90112fe5f124d7.png" alt="图 24">  </p>
+<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a>基于 STM32 的智能空压机状态监测系统</h1><p>2020-2021<br>优秀毕设</p>
+<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
+<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
+<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="/images/85742add8e4e7a47b580bf4e01c0489428b6a5d93a075ce568bc86fe73b16c7c.png" alt="图 14"><br><img src="/images/4f8131f3436b0213fd6ca44e4255dbb1eefae7e424aa33ee38dfd7ce547b32b3.png" alt="图 15">  </p>
+<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="/images/8aebc069d704b425f466578c620a90811fe554232cca1e8ac5f469a20dc592d4.png" alt="图 16">  </p>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="/images/673a0e0b922735d39f5a4eb8b106b6d5d80d5320ad7234bf51b37d2419a066ee.png" alt="图 18">  </p>
+<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="/images/9c3a9ed0311e98478769574aeedb2c5454b2d0d9b8238c4bf332242aa293b7e3.png" alt="图 19">  </p>
+<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
+<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
+<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
+<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="/images/1b4f5da604e884e3723910e210ec011730e169a84d6a16779e46e3d70ed68888.png" alt="图 11">  </p>
+<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="/images/3b9c1bb38e5fe48dd2e53ccb690461b3827768f803c22230f99e0581d97dbce0.png" alt="图 12">  </p>
+<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="/images/4550945f4f8c831257d5239c1a181f9f75b5e04d337922eae0f9ee09dfdadc5b.png" alt="图 13">  </p>
+<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
+<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
+<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
+<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="/images/299429b1b5786fd7a0c3e568413399db90aafac642c71be21d40bb2a9506dce2.png" alt="图 9">  </p>
+<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="/images/86415da3df66947266145f0b3bf1a728ef9accdd950ba594cb0f92a39405e3b3.png" alt="图 10">  </p>
+<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
+<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
+<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
+<p>技术创新：</p>
+<blockquote>
+<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+</blockquote>
+<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
+<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
+<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="/images/a75c5363a70b2ff962ccc9e81bb6322f8e858faffb295ffdfe4451a2e9ae6b0a.png" alt="图 6"> </p>
+<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p> <img src="/images/eca2994dc9c4c30b1dc8dd88aac21f9c658b881f282e535745071d9cc2d9426d.png" alt="图 7"><br><img src="/images/9371d0f843c7d8cc41448e2abaf73dbbf2eaa1706c9f4cbfd68258db55993ac0.png" alt="图 8">  </p>
+<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="/images/d3f751b606c1540946908dafa21bf9e0e9d4c0ccaa701e1948c0e2e0baa58b18.png" alt="图 2"><br><img src="/images/3f808e8f94670fae6a99f1373a81041b9b600b94ff07f77a850a1bc02f9f16ff.png" alt="图 4">  </p>
+]]></content>
+      <tags>
+        <tag>技术</tag>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python工具：Anaconda，Pycharm，Jupyter，Pytorch</title>
+    <url>/2022/11/24/Pytorch/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h1><p>Anaconda创建环境 <code>conda create -n pytorch python=3.6</code><br>更新 <code>conda update python</code> <code>pip install --upgrade pip</code><br>激活环境 <code>conda activate pytorch</code><br>退出虚拟环境 <code>deactivate</code><br>安装<a href="https://pytorch.org/">pytorch</a>:<br><code>conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch</code></p>
+<p><strong>查包</strong></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">pip <span class="built_in">list</span> <span class="comment">#列包</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –version <span class="comment">#查python版本</span></span><br></pre></td></tr></table></figure>
+<p>安装特定版本&#x2F;卸载 <code>pip install XXX==2.0</code> &#x2F; <code>pip uninstall XXX</code></p>
+<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境：<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings&gt;Project&gt;interpreter</code><br>环境路径配置： <code>接上interpreter&gt;齿轮&gt;Add&gt;System Interpreter&gt;手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File-&gt;Settings-&gt;Tools-&gt;Terminal-&gt;Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
+<p><strong>Pycharm使用</strong><br>新建.py文件(用作工程)&gt;右上角配置py解释器&gt;运行&#x2F;直接右键运行<br>控制台(用作调试，查参数)&gt;Shift+enter：输入多行&gt;“↑”重新编辑<br>Ctrl+D 快速复制至下一行<br>Ctrl+R 批量修改<br>ctrl+&#x2F; 批量注释<br>调试：打断点&gt;debug&gt;使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
+<p>调试时使用Console的python调试台，print指令<br><img src="/images/3d48dab87c260ef9d021d26f8218f569fece80b9bd7ed27c94cc835121291d52.png" alt="图 1"><img src="/images/d2e472375bbf282c764539c21d3b00d9f7077d85d09e247faf0f23f092f0b446.png" alt="图 2"><img src="/images/46d8a3df125599f7e7a98ecf67cc57f419fb6ecd521d180eb4278d435bfbad4d.png" alt="图 3">  </p>
+<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后 <code>conda install nb_conda</code><br>打开 jupyter notebook<br><code>New&gt;选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#cd 路径</span></span><br><span class="line">	C：\Users\Arrow&gt; cd E：\桌面</span><br><span class="line">	C：\Users\Arrow&gt; E：</span><br><span class="line">        得E：\桌面&gt;i.py</span><br><span class="line"><span class="comment">#亦或直接	</span></span><br><span class="line">        E：\桌面&gt; python E：\桌面\i.py</span><br></pre></td></tr></table></figure>
+
+<p><strong>打包下载：</strong><br> <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> tarfile</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recursive_files</span>(<span class="params">dir_name=<span class="string">&#x27;.&#x27;</span>, ignore=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">for</span> dir_name,subdirs,files <span class="keyword">in</span> os.walk(dir_name):</span><br><span class="line">        <span class="keyword">if</span> ignore <span class="keyword">and</span> os.path.basename(dir_name) <span class="keyword">in</span> ignore: </span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> file_name <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> ignore <span class="keyword">and</span> file_name <span class="keyword">in</span> ignore:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">yield</span> os.path.join(dir_name, file_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_tar_file</span>(<span class="params">dir_name=<span class="string">&#x27;.&#x27;</span>, tar_file_name=<span class="string">&#x27;tarfile.tar&#x27;</span>, ignore=<span class="literal">None</span></span>):</span><br><span class="line">    tar = tarfile.<span class="built_in">open</span>(tar_file_name, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> file_name <span class="keyword">in</span> recursive_files(dir_name, ignore):</span><br><span class="line">        tar.add(file_name)</span><br><span class="line"></span><br><span class="line">    tar.close()</span><br><span class="line"></span><br><span class="line">dir_name = <span class="string">&#x27;.&#x27;</span></span><br><span class="line">tar_file_name = <span class="string">&#x27;archive.tar&#x27;</span></span><br><span class="line">ignore = &#123;<span class="string">&#x27;.ipynb_checkpoints&#x27;</span>, <span class="string">&#x27;__pycache__&#x27;</span>, tar_file_name&#125;</span><br><span class="line">make_tar_file(dir_name, tar_file_name, ignore)</span><br></pre></td></tr></table></figure></p>
+<h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><h2 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h2><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
+<p>文件</p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
+<p>计时		</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
+<p>组 </p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"> <span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h2><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
+<p>打开</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
+<p>地址	localhost:6006</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
+<h2 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h2><p>transforms.py图像处理工具箱</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
+<h2 id="ToTensor（桥梁，很多输入都要求tensor类型）"><a href="#ToTensor（桥梁，很多输入都要求tensor类型）" class="headerlink" title="ToTensor（桥梁，很多输入都要求tensor类型）"></a>ToTensor（桥梁，很多输入都要求tensor类型）</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
+<h2 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h2><p>torchvision.datasets 数据集处理</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>例：</p>
+<figure class="highlight stan"><table><tr><td class="code"><pre><span class="line">writer = SummaryWriter(<span class="string">&quot;dataloader&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">2</span>):</span><br><span class="line">    <span class="built_in">step</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> <span class="title">data</span> <span class="keyword">in</span> test_loader: <span class="comment">#读数据</span></span><br><span class="line">        imgs, targets = <span class="title">data</span></span><br><span class="line">        writer.add_images(<span class="string">&quot;Epoch: &#123;&#125;&quot;</span>.format(epoch), imgs, <span class="built_in">step</span>)</span><br><span class="line">        <span class="built_in">step</span> = <span class="built_in">step</span> + <span class="number">1</span></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Yolo：Colab，Config，Ideas</title>
+    <url>/2022/11/27/Yolo/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="YOLOv8"><a href="#YOLOv8" class="headerlink" title="YOLOv8"></a><a href="https://github.com/ultralytics/ultralytics">YOLOv8</a></h2><p>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
+<blockquote>
+<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
+</blockquote>
+<h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
+<h2 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a>Google Colab</h2><p>查看GPU</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改&gt;笔记本设置&gt;GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.test.gpu_device_name()</span><br><span class="line"></span><br><span class="line">!/opt/<span class="built_in">bin</span>/nvidia-smi <span class="comment">#详情</span></span><br></pre></td></tr></table></figure>
+<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">!unzip /content/yolov5-master.<span class="built_in">zip</span> -d /content/yolov5-master <span class="comment">#解压</span></span><br><span class="line">%cd /content/yolov5-master <span class="comment">#进入：</span></span><br><span class="line">!pip install -r requirements.txt <span class="comment">#安装</span></span><br><span class="line">%load_ext tensorboard <span class="comment">#加载</span></span><br><span class="line">%tensorboard --logdir=runs/train <span class="comment">#执行</span></span><br><span class="line">!python train.py --rect <span class="comment">#训练</span></span><br><span class="line">!rm -rf /content/yolov5-master/mydata <span class="comment">#删除</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"> <span class="comment">#指定Google Drive云端硬盘的根目录，名为drive</span></span><br><span class="line">!mkdir -p drive</span><br><span class="line">!google-drive-ocamlfuse drive</span><br><span class="line"></span><br><span class="line"><span class="comment">#connect to self drive</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"><span class="comment">#云训练时还是要将盘里的文件拿出来再开始，否则容易直接断连!</span></span><br></pre></td></tr></table></figure>
+<p>续航插件：Colab Alive</p>
+<h2 id="Yolo"><a href="#Yolo" class="headerlink" title="Yolo"></a>Yolo</h2><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p><a href="https://blog.csdn.net/wjinjie/article/details/107509243?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163082957716780366599375%2522%252C%2522scm%2522%253A%252220140713.130102334%E2%80%A6%2522%257D&request_id=163082957716780366599375&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2alltop_positive~default-1-107509243.first_rank_v2_pc_rank_v29&utm_term=yolo&spm=1018.2226.3001.4187">YOLO系列算法精讲：从yolov1至yolov5的进阶之路</a><br><a href="https://zhuanlan.zhihu.com/p/172121380">深入浅出Yolo系列之Yolov5核心基础知识完整讲解</a><br><a href="https://blog.csdn.net/athrunsunny/article/details/125951001?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0-125951001-blog-125883770.pc_relevant_show_downloadRating&spm=1001.2101.3001.4242.1&utm_relevant_index=1">理解yolov7网络结构</a> <a href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a></p>
+<h3 id="Detect参数"><a href="#Detect参数" class="headerlink" title="Detect参数"></a>Detect参数</h3><p>调用电脑摄像头:<br><code>--view-img --source 0</code><br><img src="/images/bce32bd51c230995cacfc6c64597d2551a7812527b4d38b5d68746a1c2282a31.png" alt="图 1">  </p>
+<p>调用手机摄像头：<br>DroidCamX App，关闭代理 连同一个网：<br><code>http://192.168.0.102:4747/video</code> </p>
+<h3 id="Train参数"><a href="#Train参数" class="headerlink" title="Train参数"></a>Train参数</h3><p><code>action=&#39;store_true&#39; #触发了为true，否则为false 和 default=False 效果一样</code></p>
+<h2 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>混合数据集：彩色+红外<br>开源驾驶员行为数据集：<a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a><br>最好输入图像大小设置成和作者一样，输入图像的大小要求必须是32的倍数<br>针对红外图像优化<br>数据增强：抖动模糊<br>扩大数据集 旋转 偏移（数据量不够？）<br>各集种类分配不均，测试集用不同的人<br>测试集怎么用<br>WBF预处理<br>合成三通道</p>
+<p><code>类别：c0：安全驾驶 c1：玩手机 c2：喝水c3:危险驾驶（双手脱离方向盘） c4：疲劳驾驶（打哈欠）</code></p>
+<h3 id="anchor"><a href="#anchor" class="headerlink" title="anchor"></a>anchor</h3><p>设计——anchor的计算函数autoanchor<br><img src="/images/5fa9f11acfa0f2a400cb70630314bf87fb6670a72a3ddd3ed9a7071a4785d6ad.png" alt="图 2">  </p>
+<h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p>models&#x2F;common.py：加入新的结构代码<br>models&#x2F;yolo.py的parse_model函数：引入上面新写的结构名称<br>.yaml:修改网络结构<br><img src="/images/77c2bef1cba713cd8573b5115b983e41448ddb1399c3681df539bbbd14b91242.png" alt="图 2">  </p>
+<h3 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h3><p><a href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a><br>通道注意力机制<br>在上采样+concat之后接一个注意力机制可能会更好？<br>channel-wise比spatial-wise更好用？<br>backbone结尾使用一个注意力机制？<br>每个block（如residual block）结尾使用比每个Conv里使用更好？</p>
+<p>transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块</p>
+<h3 id="激活函数-activations-py"><a href="#激活函数-activations-py" class="headerlink" title="激活函数 activations.py"></a>激活函数 activations.py</h3><p><img src="/images/f539efce7ea9687323fb7fb3a5faf5e95df2ada73ba97313d9823cb67232230b.png" alt="图 1"><br>FRELU激活函数（Funnel Activiation）<br>比较看好的激活函数是 DyReLU和meta-AconC这两个激活函数</p>
+<blockquote>
+<p>activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数<br>common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面</p>
+</blockquote>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>构建一个初始模型：①YoloV5-XL ②图像的分辨率从3K调整为512</p>
+<p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
+<p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
+<p>用5折交叉验证</p>
+<p>矩形训练<br><img src="/images/1d0d9b858bfa9a9517a89072d8d201aa8d88dddfbedf616d86295a67bbaa343f.png" alt="图 3">  </p>
+<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>safe重新标注√<br>通道压缩 *<br>Resize × 保持原始图像比例调整大小更安全<br>删mosic<br>删卷积层<br>把通道扩展图像增强工作流加入算法？</p>
+<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><p>数据集扩大时，若显存不足，需要调小batchsize或分辨率<br>可以从小模型中学到的权重开始，对更大模型进行训练</p>
+<p>大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛</p>
+<p>参数调优过程一般要反复多次进行微调&lt;-&gt;训练&lt;-&gt;测试，最终得出符合需求&#x2F;较优的HyperPara，应用在项目中	<code>data/hyps/hyp.finetune.yaml</code></p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -848,220 +1007,61 @@ B-->C</pre>
       </tags>
   </entry>
   <entry>
-    <title>Project：多个项目汇总</title>
-    <url>/2023/02/15/Project/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
-<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="/images/11daa2bff272eb1f5565e4c2dfcce3a4120442bdf056e950cce5d8f5498f8c59.png" alt="图 20">  </p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
-<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="/images/b03d6ffc6a94c4a919929acf95b126d2371f226a815654843516200f21f4ffe6.png" alt="图 22"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
-<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="/images/91ed1c8890986bb5917f66253b8b4a7b704b0c228acb7e54b82145bffe67e051.png" alt="图 21">  </p>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="/images/61a1e9ad1fd04c0c4e7546681e3bafd6a8577865941d404edcd6c84b3992080c.png" alt="图 23"><br><img src="/images/7b67596d623f5522d4a7268a4107525d49cf982282b9312b9c90112fe5f124d7.png" alt="图 24">  </p>
-<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a>基于 STM32 的智能空压机状态监测系统</h1><p>2020-2021<br>优秀毕设</p>
-<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
-<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
-<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="/images/85742add8e4e7a47b580bf4e01c0489428b6a5d93a075ce568bc86fe73b16c7c.png" alt="图 14"><br><img src="/images/4f8131f3436b0213fd6ca44e4255dbb1eefae7e424aa33ee38dfd7ce547b32b3.png" alt="图 15">  </p>
-<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="/images/8aebc069d704b425f466578c620a90811fe554232cca1e8ac5f469a20dc592d4.png" alt="图 16">  </p>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="/images/673a0e0b922735d39f5a4eb8b106b6d5d80d5320ad7234bf51b37d2419a066ee.png" alt="图 18">  </p>
-<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="/images/9c3a9ed0311e98478769574aeedb2c5454b2d0d9b8238c4bf332242aa293b7e3.png" alt="图 19">  </p>
-<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
-<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
-<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
-<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="/images/1b4f5da604e884e3723910e210ec011730e169a84d6a16779e46e3d70ed68888.png" alt="图 11">  </p>
-<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="/images/3b9c1bb38e5fe48dd2e53ccb690461b3827768f803c22230f99e0581d97dbce0.png" alt="图 12">  </p>
-<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="/images/4550945f4f8c831257d5239c1a181f9f75b5e04d337922eae0f9ee09dfdadc5b.png" alt="图 13">  </p>
-<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
-<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
-<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
-<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="/images/299429b1b5786fd7a0c3e568413399db90aafac642c71be21d40bb2a9506dce2.png" alt="图 9">  </p>
-<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="/images/86415da3df66947266145f0b3bf1a728ef9accdd950ba594cb0f92a39405e3b3.png" alt="图 10">  </p>
-<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
-<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
-<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
-<p>技术创新：</p>
+    <title>DL：深度学习相关概念</title>
+    <url>/2022/12/28/DL/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a><a href="bilibili.com/video/BV14f4y1q7ms?p=3">深度学习框架</a></h1><pre class="mermaid">graph LR
+A[程序框架]-->B[A.黑箱]
+A-->C[B.模块化] -->1.处理数据
+C-->2.构建网络
+C-->3.损失函数
+C-->4.优化函数
+C-->5.模型保存
+A-->E[C.定义]</pre>
+<p><img src="/images/344cde48d397b26519717e0fceb12a89a93ce710b1289e55c503e3209f6fbd61.png" alt="图 10"><br>GPU 网络和数据要同时送进GPU</p>
+<h2 id="感受野"><a href="#感受野" class="headerlink" title="感受野"></a>感受野</h2><p>感受野被定义为卷积神经网络特征所能看到输入图像的区域，换句话说特征输出受感受野区域内的像素点的影响。<img src="/images/ed608fbfae27bd5e0a2b0d5e517c47d1d49d249d7fab85b1e90e8aa329307381.png" alt="图 11"> </p>
+<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><h3 id="Adam和SGD"><a href="#Adam和SGD" class="headerlink" title="Adam和SGD"></a>Adam和SGD</h3><p><img src="/images/588eef77b3289781adf9761b6693e036a88ffe462efd70033b319dce91997f1e.gif" alt="图 12"><br>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="/images/100f42c80b5ce9a14ca53d2ca5ffc3597a7f9a64cd2b39edb339ce47caba89dc.png" alt="图 13">  </p>
+<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成①<em>每个epoch所需的时间</em>（假设算力确定了）和每次迭代(iteration)之间②<em>梯度的平滑程度</em>。</p>
 <blockquote>
-<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+<p>①假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加<br>②如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</p>
 </blockquote>
-<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
-<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
-<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="/images/a75c5363a70b2ff962ccc9e81bb6322f8e858faffb295ffdfe4451a2e9ae6b0a.png" alt="图 6"> </p>
-<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p> <img src="/images/eca2994dc9c4c30b1dc8dd88aac21f9c658b881f282e535745071d9cc2d9426d.png" alt="图 7"><br><img src="/images/9371d0f843c7d8cc41448e2abaf73dbbf2eaa1706c9f4cbfd68258db55993ac0.png" alt="图 8">  </p>
-<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="/images/d3f751b606c1540946908dafa21bf9e0e9d4c0ccaa701e1948c0e2e0baa58b18.png" alt="图 2"><br><img src="/images/3f808e8f94670fae6a99f1373a81041b9b600b94ff07f77a850a1bc02f9f16ff.png" alt="图 4">  </p>
-]]></content>
-      <tags>
-        <tag>技术</tag>
-        <tag>总结</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Paper：科研灌水方法总结</title>
-    <url>/2023/03/15/Paper/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="文献管理神器：Zotero"><a href="#文献管理神器：Zotero" class="headerlink" title="文献管理神器：Zotero"></a>文献管理神器：Zotero</h1><p><a href="https://www.zotero.org/">Zotero官网</a>，安装软件后再装浏览器插件，可以很方便的在浏览器随时导入文献；<br>顺便在官网注册一个账号，用于同步,且可登陆官网在线查看自己的论文库；<br><img src="/images/21cdf30c18b270e8a5c8c5c410baff6f4a3695b951052c913b58ef89462e345c.png" alt="图 1">  </p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h3><blockquote>
-<p>编辑 &gt; 首选项 &gt; 同步 &gt; 登陆<br>编辑 &gt; 首选项 &gt; 高级 &gt; 文件和文件夹 &gt; 更改数据储存路径  #自选合适的位置存储本地文件</p>
-</blockquote>
-<h3 id="SCI-Hub抓取pdf"><a href="#SCI-Hub抓取pdf" class="headerlink" title="SCI-Hub抓取pdf"></a>SCI-Hub抓取pdf</h3><ol>
-<li>打开Zotero 首选项-&gt;高级-&gt;设置编辑器</li>
-<li>搜索 extensions.zotero.findPDFs.resolvers ，搜到之后双击打开，在对话框中填入：<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;Sci-Hub&quot;</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>:<span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="string">&quot;url&quot;</span>:<span class="string">&quot;https://sci-hub.ren/&#123;doi&#125;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;mode&quot;</span>:<span class="string">&quot;html&quot;</span>,</span><br><span class="line">    <span class="string">&quot;selector&quot;</span>:<span class="string">&quot;<span class="subst">#pdf</span>&quot;</span>,</span><br><span class="line">    <span class="string">&quot;attribute&quot;</span>:<span class="string">&quot;src&quot;</span>,</span><br><span class="line">    <span class="string">&quot;automatic&quot;</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>实现抓取任意文献pdf（知网和部分新文献不行） <img src="/images/12f9f2092cb14543eb8fbec9c5ae60d0c04accb8bb91517f50fa02ce735ef659.png" alt="图 2"></li>
-</ol>
-<h3 id="配置搜索引擎"><a href="#配置搜索引擎" class="headerlink" title="配置搜索引擎"></a>配置搜索引擎</h3><ol>
-<li><a href="https://www.123pan.com/s/goS7Vv-kIKbd.html">下载 engines.json 文件</a></li>
-<li>打开数据储存路径,替换同名文件 <code>...\Zotero\locate\engines.json</code></li>
-<li>重启Zotero后，实现多搜索引擎，很方便 <img src="/images/447faaac4d96dda3def60f4290e022204a679b4a2b21133c14f1ecb1780681a6.png" alt="图 3"></li>
-</ol>
-<h3 id="Word插件"><a href="#Word插件" class="headerlink" title="Word插件"></a>Word插件</h3><p>安装word插件，实现高效插入引文，并且可以根据期刊选择参考文献样式</p>
+<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
 <blockquote>
-<p>编辑 &gt; 首选项 &gt; 引用 &gt; 文字处理软件 &gt; 安装word插件</p>
-</blockquote>
-<p><img src="/images/fc3941d72452e0435b42ca8a823294ce1e2d346915232d2a2ac917159c8f3f74.png" alt="图 4">  </p>
-<h2 id="插件，让Zotero真正好用"><a href="#插件，让Zotero真正好用" class="headerlink" title="插件，让Zotero真正好用"></a>插件，让Zotero真正好用</h2><p><a href="https://www.zotero.org/support/plugins">官方插件下载地址</a><br>安装方法：下载.xpi 文件到你的电脑。然后，在 Zotero，点击“工具→插件（附加组件）”，然后拖动插件的 .xpi 文件到插件窗口打开，或者选择从文件中安装。安装完成后重新启动软件即可。</p>
-<p><strong>下面是强烈推荐的5个必备插件，嫌麻烦可以直接安装我上传的，都是2023年最新的，5个全部拖进去即可，地址：<a href="https://www.123pan.com/s/goS7Vv-mIKbd.html">推荐插件下载</a></strong></p>
-<h3 id="Zotero-PDF-Translate"><a href="#Zotero-PDF-Translate" class="headerlink" title="Zotero PDF Translate"></a>Zotero PDF Translate</h3><p><a href="https://github.com/windingwind/zotero-pdf-translate/releases">zotero-pdf-translate 下载</a>，实现划词翻译，但是需要在插件设置里配置翻译引擎（免费,推荐腾讯云），<a href="https://doc.tern.1c7.me/zh/folder/setting/#%E8%85%BE%E8%AE%AF%E4%BA%91">配置方法文档</a> </p>
-<h3 id="Jasminum-茉莉花"><a href="#Jasminum-茉莉花" class="headerlink" title="Jasminum - 茉莉花"></a>Jasminum - 茉莉花</h3><p><a href="https://github.com/l0o0/jasminum/releases">Jasminum 下载</a>，一个简单的 Zotero 中文插件, 优化知网中文论文管理体验</p>
-<h3 id="Zotero-DOI-Manager"><a href="#Zotero-DOI-Manager" class="headerlink" title="Zotero DOI Manager"></a>Zotero DOI Manager</h3><p><a href="https://github.com/bwiernik/zotero-shortdoi/releases">Zotero DOI Manager 下载</a>，更新抓取文献的DOI号，提高SCI-Hub抓取pdf成功率</p>
-<h3 id="Zotero-IF"><a href="#Zotero-IF" class="headerlink" title="Zotero IF"></a>Zotero IF</h3><p><a href="https://pan.baidu.com/s/1-nIHvhRj_wK_t6LMsNF6rg#list/path=%2Fsharelink3626522904-21879764921069%2FZotero%20IF&parentPath=%2Fsharelink3626522904-21879764921069">Zotero IF百度云地址，提取码: apeh</a>,为所抓取的文献更新影响因子</p>
-<h3 id="Zotero-Citation-Counts-Manager"><a href="#Zotero-Citation-Counts-Manager" class="headerlink" title="Zotero Citation Counts Manager"></a>Zotero Citation Counts Manager</h3><p><a href="https://github.com/eschnett/zotero-citationcounts/releases">Zotero Citation Counts Manager 下载</a>，抓取引用数，一般选Semantic Scholar citation count</p>
-<h1 id="论文规范"><a href="#论文规范" class="headerlink" title="论文规范"></a>论文规范</h1><h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><ol>
-<li><p>一个词或词组在文中出现三次或以上才可以用缩写，否则需要写出全称。也就是说如果只出现一次或两次，每次都要写出全称，而缩略语就不需要给出了。<br>出现的次数是在摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果一个词在摘要中出现一次，正文中出现多次，图注中又出现一次，那么摘要中只要用全称，不要用缩写；正文中第一次出现时用全称，后面用缩写； 图注中用全称，不用缩写。<br>一些期刊只允许对正文中出现3次以上的术语使用缩写。<br>一些期刊禁止在标题和摘要中使用任何缩写词。<br>从写作风格上讲，大多数期刊都建议作者不要在句首使用缩写词。在这种情况下，作者要详细说明术语的含义，或者改用别的措辞重写句子。<br>在论文中，将摘要看做是独立的部分。因此，如果您需要在摘要和论文中同时使用一个缩写词时，您需要两次介绍这个缩写词：首次在摘要中使用时介绍一次；首次 在论文中使用时介绍一次。然而 ，如果您发现在摘要中介绍的一个缩写词仅仅出现了一两次，没必要缩写——可以考虑避免缩写，每次都用全拼代替（除非您认为读者更了解缩写词）</p>
-</li>
-<li><p>缩略语在文中第一次出现时需要定义。这里所谓第一次，也是摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果摘要和正文都符合上面所说使用缩写的规则，那么摘要中需要定义一次，正文中还需要定义一次。定义就是写出全称并在括号中给出缩写。<br>The patient was diagnosed with pulmonary arterial hypertension (PAH).<br>如果图例或表格中为了节省空间出现了缩写，那么在图注或表注中要解释缩写。<br>PH: pulmonary hypertension, PAH: pulmonary arterial hypertension.<br>写全称时一般是全部用小写，除非是人名、地名等专有名词，而缩写一般是全大写，除非是约定俗成的写法，比如用ChIP 代表chromatin immunoprecipitation。<br>应该考虑到也许有其他领域或者新进入这门领域的读者会阅读这篇论文，所以期刊都规定缩略语要先定义再使用。有些期刊会列出该期刊中不需要定义就可以直接使用的缩略语，比如Journal of Clinical Investigation 就给出<a href="http://www.jci.org/kiosk/publish/abbreviations">标准缩略语列表</a>并指出这些缩略语可以直接使用。如果期刊没有特别规定，应该每个缩略语使用时都要先定义。定义之后记得要一直使用缩略语，不要再使用全称。</p>
-</li>
-<li><p>尽量避免使用缩略语。一篇文章完全不使用缩略语不见得可行，但是尽量少用为好，而且只使用比较常见的缩略语。使用缩略语的目的是为了便于读者对文章的阅读理解，比较长的词组如果反复出现，不便于读者的快速阅读，所以用缩写更合适。有些词可能多数读者对缩写更熟悉，这些词用缩写也便于读者理解。如果很多比较短的词也用缩写，而且不是普遍使用的缩写，读者就经常要停下来去查找缩写代表的词意，思路就会被打断，所以会影响对文章的理解。</p>
-</li>
-<li><p>一个缩略语代表一个词或词组。在一篇文章中，一个缩略语只能代表一个词（组），而且一个词（组）也只能用一个缩略语代表。</p>
-</li>
-<li><p>缩写相关的复数和冠词的用法。多数情况下，我们会用缩略语来代替一个名词，所以如果是可数名词也是有复数的。一般来说，缩略语代表的是名词的单数形式，我们在后面加s（或者加es如果缩略语的最后一个字母是s）来表示复数。定义缩写的时候通常就可以看出来，比如 endothelial cells (ECs)。<br>如果缩略语名词前面需要加不定冠词，要根据缩写的读音来决定是用a还是an。例如human immunodeficiency virus缩写成HIV时我们是念这三个字母，第一个字母H虽然是个辅音字母，念这个字母时却是元音开头，所以HIV这个词的第一个音是元音，前面要用an，例如 an HIV-positive test result。</p>
-</li>
-<li><p>在技术写作中最常见的关于首字母缩写和缩略词的错误，就是大部分人以为缩写中出现的大写字母在缩写前的词组中也需要大写，实际上并不是这样的。例如，作为商业管理哲学的「total quality management」缩写为「TQM」，但它的全称却常常被错误地写成「Total Quality Management」，这有可能是因为部分作者忘记了这个词本身并不是专有名词，甚至是更糟糕的情况──作者根本从一开始就没有完全了解这个词的含意！请记住，在文章中缩写术语之前，首先了解该术语的含意和来源是很重要的，因为作者在论文中处理首字母缩写和缩略词的态度与方法常常反映了他们自己对于运用术语的了解程度。<br>掌握了上面这几个原则，我们就可以通过恰当地使用缩略语来增加文章的可读性。</p>
-</li>
-</ol>
-<h2 id="字母"><a href="#字母" class="headerlink" title="字母"></a>字母</h2><ol>
-<li>什么时候用斜体(italic)？</li>
-</ol>
 <ol>
-<li>变量(variables)应该用斜体表示：例如T表示温度(temperature)，r表示速率(rate)，x代表摩尔分数(molar fraction).</li>
-<li>坐标轴(axes)：the y axis.</li>
-<li>平面(planes)：plane P.</li>
-<li>行列式(determinants)和矩阵(matrices)中的元素：gn.</li>
-<li>常数(constants)符号: g, 重力加速度</li>
-<li>描述变量的函数:f(x).</li>
+<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
+<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
+<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
 </ol>
-<ol start="2">
-<li>什么时候不用斜体，而采用罗马字体(Roman)?<br>备注：这里的Roman字体指非特殊性字体，与每个期刊的正文字体一致</li>
-</ol>
-<ol>
-<li>数字；</li>
-<li>标点符号和括号；</li>
-<li>大多数运算符；</li>
-<li>量度单位和时间单位：毫克, mg; 帕斯卡, Pa; 毫米汞柱, mmHg.</li>
-<li>非数学符号和数量：s, 原子轨道(atomic orbital);</li>
-<li>变量的多字符缩</li>
-<li>数学常量(mathematical constants):自然对数,e;复数的虚部,i;圆周率,π.</li>
-<li>矩阵的转置(transposes), AT(T是矩阵A的转置)</li>
-<li>点(point)和线(line): point A, line AB.</li>
-<li>行列式(determinants)： A是矩阵A的行列式</li>
-<li>三角函数和其他数学函数:正弦函数sin;最大值max,极限lim;对数log等.</li>
-</ol>
-<ol start="3">
-<li><p>什么时候用粗体(Boldface)？<br>1）向量(vectors)；<br>2）张量(tensors)；<br>3）矩阵(matrics);<br>4）多维物理量：磁场强度，H.</p>
-</li>
-<li><p>什么时候使用希腊字母(Greek letters)?<br>任何拉丁字母可以使用的地方都可以，包括变量，常量，向量等。</p>
-</li>
-<li><p>当上下标本身就是代表物理量或数字的符号时，用斜体(italic),如果上下标是缩写或者不是符号时，不用斜体，采用罗马字体(Roman).<br>举例：Cp for heat capacity at constant pressure常压比热（p是压力的符号，采用斜体）<br>CB for heat capacity of substance B 物质B的比热（B不是符号，不用斜体）<br>Cg where g is gas 气体比热 (g是gas的缩写，不用斜体)<br>Ei for energy of the ith level, where i is a number(i是代表数字的符号)<br>gn where n is normal(n是气体normal的缩写，不用斜体)</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>总结</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python工具：Anaconda，Pycharm，Jupyter，Pytorch</title>
-    <url>/2022/11/24/Pytorch/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Anaconda-Prompt"><a href="#Anaconda-Prompt" class="headerlink" title="Anaconda Prompt"></a>Anaconda Prompt</h1><p>Anaconda创建环境 <code>conda create -n pytorch python=3.6</code><br>更新 <code>conda update python</code> <code>pip install --upgrade pip</code><br>激活环境 <code>conda activate pytorch</code><br>退出虚拟环境 <code>deactivate</code><br>安装<a href="https://pytorch.org/">pytorch</a>:<br><code>conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch</code></p>
-<p><strong>查包</strong></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">pip <span class="built_in">list</span> <span class="comment">#列包</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –version <span class="comment">#查python版本</span></span><br></pre></td></tr></table></figure>
-<p>安装特定版本&#x2F;卸载 <code>pip install XXX==2.0</code> &#x2F; <code>pip uninstall XXX</code></p>
-<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境：<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings&gt;Project&gt;interpreter</code><br>环境路径配置： <code>接上interpreter&gt;齿轮&gt;Add&gt;System Interpreter&gt;手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File-&gt;Settings-&gt;Tools-&gt;Terminal-&gt;Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
-<p><strong>Pycharm使用</strong><br>新建.py文件(用作工程)&gt;右上角配置py解释器&gt;运行&#x2F;直接右键运行<br>控制台(用作调试，查参数)&gt;Shift+enter：输入多行&gt;“↑”重新编辑<br>Ctrl+D 快速复制至下一行<br>Ctrl+R 批量修改<br>ctrl+&#x2F; 批量注释<br>调试：打断点&gt;debug&gt;使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
-<p>调试时使用Console的python调试台，print指令<br><img src="/images/3d48dab87c260ef9d021d26f8218f569fece80b9bd7ed27c94cc835121291d52.png" alt="图 1"><img src="/images/d2e472375bbf282c764539c21d3b00d9f7077d85d09e247faf0f23f092f0b446.png" alt="图 2"><img src="/images/46d8a3df125599f7e7a98ecf67cc57f419fb6ecd521d180eb4278d435bfbad4d.png" alt="图 3">  </p>
-<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后 <code>conda install nb_conda</code><br>打开 jupyter notebook<br><code>New&gt;选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#cd 路径</span></span><br><span class="line">	C：\Users\Arrow&gt; cd E：\桌面</span><br><span class="line">	C：\Users\Arrow&gt; E：</span><br><span class="line">        得E：\桌面&gt;i.py</span><br><span class="line"><span class="comment">#亦或直接	</span></span><br><span class="line">        E：\桌面&gt; python E：\桌面\i.py</span><br></pre></td></tr></table></figure>
-
-<p><strong>打包下载：</strong><br> <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> tarfile</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recursive_files</span>(<span class="params">dir_name=<span class="string">&#x27;.&#x27;</span>, ignore=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">for</span> dir_name,subdirs,files <span class="keyword">in</span> os.walk(dir_name):</span><br><span class="line">        <span class="keyword">if</span> ignore <span class="keyword">and</span> os.path.basename(dir_name) <span class="keyword">in</span> ignore: </span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> file_name <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> ignore <span class="keyword">and</span> file_name <span class="keyword">in</span> ignore:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">yield</span> os.path.join(dir_name, file_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_tar_file</span>(<span class="params">dir_name=<span class="string">&#x27;.&#x27;</span>, tar_file_name=<span class="string">&#x27;tarfile.tar&#x27;</span>, ignore=<span class="literal">None</span></span>):</span><br><span class="line">    tar = tarfile.<span class="built_in">open</span>(tar_file_name, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> file_name <span class="keyword">in</span> recursive_files(dir_name, ignore):</span><br><span class="line">        tar.add(file_name)</span><br><span class="line"></span><br><span class="line">    tar.close()</span><br><span class="line"></span><br><span class="line">dir_name = <span class="string">&#x27;.&#x27;</span></span><br><span class="line">tar_file_name = <span class="string">&#x27;archive.tar&#x27;</span></span><br><span class="line">ignore = &#123;<span class="string">&#x27;.ipynb_checkpoints&#x27;</span>, <span class="string">&#x27;__pycache__&#x27;</span>, tar_file_name&#125;</span><br><span class="line">make_tar_file(dir_name, tar_file_name, ignore)</span><br></pre></td></tr></table></figure></p>
-<h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><h2 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h2><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
-<p>文件</p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
-<p>计时		</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
-<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
-<p>组 </p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"> <span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h2><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
-<p>打开</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
-<p>地址	localhost:6006</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
-<h2 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h2><p>transforms.py图像处理工具箱</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
-<h2 id="ToTensor（桥梁，很多输入都要求tensor类型）"><a href="#ToTensor（桥梁，很多输入都要求tensor类型）" class="headerlink" title="ToTensor（桥梁，很多输入都要求tensor类型）"></a>ToTensor（桥梁，很多输入都要求tensor类型）</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
-<h2 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h2><p>torchvision.datasets 数据集处理</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<p>例：</p>
-<figure class="highlight stan"><table><tr><td class="code"><pre><span class="line">writer = SummaryWriter(<span class="string">&quot;dataloader&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">2</span>):</span><br><span class="line">    <span class="built_in">step</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> <span class="title">data</span> <span class="keyword">in</span> test_loader: <span class="comment">#读数据</span></span><br><span class="line">        imgs, targets = <span class="title">data</span></span><br><span class="line">        writer.add_images(<span class="string">&quot;Epoch: &#123;&#125;&quot;</span>.format(epoch), imgs, <span class="built_in">step</span>)</span><br><span class="line">        <span class="built_in">step</span> = <span class="built_in">step</span> + <span class="number">1</span></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Yolo：Colab，Config，Ideas</title>
-    <url>/2022/11/27/Yolo/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="YOLOv8"><a href="#YOLOv8" class="headerlink" title="YOLOv8"></a><a href="https://github.com/ultralytics/ultralytics">YOLOv8</a></h2><p>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
-<blockquote>
-<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
 </blockquote>
-<h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
-<h2 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a>Google Colab</h2><p>查看GPU</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改&gt;笔记本设置&gt;GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.test.gpu_device_name()</span><br><span class="line"></span><br><span class="line">!/opt/<span class="built_in">bin</span>/nvidia-smi <span class="comment">#详情</span></span><br></pre></td></tr></table></figure>
-<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">!unzip /content/yolov5-master.<span class="built_in">zip</span> -d /content/yolov5-master <span class="comment">#解压</span></span><br><span class="line">%cd /content/yolov5-master <span class="comment">#进入：</span></span><br><span class="line">!pip install -r requirements.txt <span class="comment">#安装</span></span><br><span class="line">%load_ext tensorboard <span class="comment">#加载</span></span><br><span class="line">%tensorboard --logdir=runs/train <span class="comment">#执行</span></span><br><span class="line">!python train.py --rect <span class="comment">#训练</span></span><br><span class="line">!rm -rf /content/yolov5-master/mydata <span class="comment">#删除</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"> <span class="comment">#指定Google Drive云端硬盘的根目录，名为drive</span></span><br><span class="line">!mkdir -p drive</span><br><span class="line">!google-drive-ocamlfuse drive</span><br><span class="line"></span><br><span class="line"><span class="comment">#connect to self drive</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"><span class="comment">#云训练时还是要将盘里的文件拿出来再开始，否则容易直接断连!</span></span><br></pre></td></tr></table></figure>
-<p>续航插件：Colab Alive</p>
-<h2 id="Yolo"><a href="#Yolo" class="headerlink" title="Yolo"></a>Yolo</h2><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p><a href="https://blog.csdn.net/wjinjie/article/details/107509243?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163082957716780366599375%2522%252C%2522scm%2522%253A%252220140713.130102334%E2%80%A6%2522%257D&request_id=163082957716780366599375&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2alltop_positive~default-1-107509243.first_rank_v2_pc_rank_v29&utm_term=yolo&spm=1018.2226.3001.4187">YOLO系列算法精讲：从yolov1至yolov5的进阶之路</a><br><a href="https://zhuanlan.zhihu.com/p/172121380">深入浅出Yolo系列之Yolov5核心基础知识完整讲解</a><br><a href="https://blog.csdn.net/athrunsunny/article/details/125951001?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0-125951001-blog-125883770.pc_relevant_show_downloadRating&spm=1001.2101.3001.4242.1&utm_relevant_index=1">理解yolov7网络结构</a> <a href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a></p>
-<h3 id="Detect参数"><a href="#Detect参数" class="headerlink" title="Detect参数"></a>Detect参数</h3><p>调用电脑摄像头:<br><code>--view-img --source 0</code><br><img src="/images/bce32bd51c230995cacfc6c64597d2551a7812527b4d38b5d68746a1c2282a31.png" alt="图 1">  </p>
-<p>调用手机摄像头：<br>DroidCamX App，关闭代理 连同一个网：<br><code>http://192.168.0.102:4747/video</code> </p>
-<h3 id="Train参数"><a href="#Train参数" class="headerlink" title="Train参数"></a>Train参数</h3><p><code>action=&#39;store_true&#39; #触发了为true，否则为false 和 default=False 效果一样</code></p>
-<h2 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>混合数据集：彩色+红外<br>开源驾驶员行为数据集：<a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a><br>最好输入图像大小设置成和作者一样，输入图像的大小要求必须是32的倍数<br>针对红外图像优化<br>数据增强：抖动模糊<br>扩大数据集 旋转 偏移（数据量不够？）<br>各集种类分配不均，测试集用不同的人<br>测试集怎么用<br>WBF预处理<br>合成三通道</p>
-<p><code>类别：c0：安全驾驶 c1：玩手机 c2：喝水c3:危险驾驶（双手脱离方向盘） c4：疲劳驾驶（打哈欠）</code></p>
-<h3 id="anchor"><a href="#anchor" class="headerlink" title="anchor"></a>anchor</h3><p>设计——anchor的计算函数autoanchor<br><img src="/images/5fa9f11acfa0f2a400cb70630314bf87fb6670a72a3ddd3ed9a7071a4785d6ad.png" alt="图 2">  </p>
-<h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p>models&#x2F;common.py：加入新的结构代码<br>models&#x2F;yolo.py的parse_model函数：引入上面新写的结构名称<br>.yaml:修改网络结构<br><img src="/images/77c2bef1cba713cd8573b5115b983e41448ddb1399c3681df539bbbd14b91242.png" alt="图 2">  </p>
-<h3 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h3><p><a href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a><br>通道注意力机制<br>在上采样+concat之后接一个注意力机制可能会更好？<br>channel-wise比spatial-wise更好用？<br>backbone结尾使用一个注意力机制？<br>每个block（如residual block）结尾使用比每个Conv里使用更好？</p>
-<p>transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块</p>
-<h3 id="激活函数-activations-py"><a href="#激活函数-activations-py" class="headerlink" title="激活函数 activations.py"></a>激活函数 activations.py</h3><p><img src="/images/f539efce7ea9687323fb7fb3a5faf5e95df2ada73ba97313d9823cb67232230b.png" alt="图 1"><br>FRELU激活函数（Funnel Activiation）<br>比较看好的激活函数是 DyReLU和meta-AconC这两个激活函数</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="交叉熵损失函数「Cross-Entropy-Loss」"><a href="#交叉熵损失函数「Cross-Entropy-Loss」" class="headerlink" title="交叉熵损失函数「Cross Entropy Loss」"></a>交叉熵损失函数「Cross Entropy Loss」</h3><p>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。<br>BCELoss和BCEWithLogitsLoss还提供了两个重要参数： </p>
 <blockquote>
-<p>activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数<br>common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面</p>
+<p>weight：可用于控制各样本的权重，常用作对对齐后的数据进行mask操作（设为0）<br>reduction：控制损失输出模式。设为”sum”表示对样本进行求损失和；设为”mean”表示对样本进行求损失的平均值；而设为”none”表示对样本逐个求损失，输出与输入的shape一样。<br>此外BCEWithLogitsLoss还提供了参数pos_weight用于设置损失的class权重，用于缓解样本的不均衡问题。</p>
 </blockquote>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>构建一个初始模型：①YoloV5-XL ②图像的分辨率从3K调整为512</p>
-<p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
-<p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
-<p>用5折交叉验证</p>
-<p>矩形训练<br><img src="/images/1d0d9b858bfa9a9517a89072d8d201aa8d88dddfbedf616d86295a67bbaa343f.png" alt="图 3">  </p>
-<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>safe重新标注√<br>通道压缩 *<br>Resize × 保持原始图像比例调整大小更安全<br>删mosic<br>删卷积层<br>把通道扩展图像增强工作流加入算法？</p>
-<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><p>数据集扩大时，若显存不足，需要调小batchsize或分辨率<br>可以从小模型中学到的权重开始，对更大模型进行训练</p>
-<p>大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛</p>
-<p>参数调优过程一般要反复多次进行微调&lt;-&gt;训练&lt;-&gt;测试，最终得出符合需求&#x2F;较优的HyperPara，应用在项目中	<code>data/hyps/hyp.finetune.yaml</code></p>
+<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
+<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<img src="/images/b755f4e3ca501037ef4f31cdf20e76226dab60729dda8999131f3d91b8c73029.png" alt="图 1">  </p>
+<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
+<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<img src="/images/0c5214adad74f71cd2e5a5fb88b290102edf2a73b2c8678c2d5e7b6a6406878c.png" alt="图 8">  </p>
+<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
+<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
+<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<img src="/images/1153e98fa26db00008fadc4159bd04f5e0062eb261e9c5b8d9fd9f70373698f0.png" alt="图 6"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
+<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><p><img src="/images/3bacb5b697b3f89632f000291f5f832066eae51cb75d9d2456e3da41a1b433b5.png" alt="图 17"><br>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
+<blockquote>
+<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
+</blockquote>
+<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="/images/ece9df2376a4c708a78f34277acd60b4bc05822dfc7e08b00313bd6418d9d48c.png" alt="图 19"><br><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#x61;&#x70;&#x40;&#48;&#46;&#53;">&#109;&#x61;&#x70;&#x40;&#48;&#46;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。 <img src="/images/29079e96d09fec2291bc4fe2172db27c1d63681908c45aebc4af5a0dd2091ba4.png" alt="图 20">  </p>
+<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<img src="/images/e8ac2b4d0adec392c93af2ec345dcab77ac5628b88cde8e28224c8003b66f1c0.png" alt="图 9"><br><strong>AUC值</strong>：PR曲线下方的面积<br><img src="/images/b9d32332516f48892a5e94bc80f4966a343a6685185ee7d81b506dcca28b23db.png" alt="图 21">  </p>
+<blockquote>
+<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
+</blockquote>
+<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
+<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
+<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
+<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
+<p><strong>换算计算量</strong>,一般一个参数是值一个float，也就是４个字节,1kb&#x3D;1024字节</p>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="/images/2e94102787d56e7b4d268071f643aa27b65ad2e4a90dd0cd0f6132990924811f.png" alt="图 14"> <img src="/images/6558163262d7b38fd0622153099684d42af7d3a1c4a3b715b1e8e38e3e65d53c.png" alt="图 15"> <img src="/images/97b9e0eeacec4859c3759422ffa214c05f1184c05511136017169f00bf09374d.png" alt="图 16">  </p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
-        <tag>python</tag>
       </tags>
   </entry>
 </search>
