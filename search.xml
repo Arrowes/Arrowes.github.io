@@ -49,7 +49,7 @@ A-->E[C.定义]</pre>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#97;&#112;&#64;&#48;&#x2e;&#53;">&#x6d;&#97;&#112;&#64;&#48;&#x2e;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#x61;&#112;&#x40;&#48;&#x2e;&#53;">&#x6d;&#x61;&#112;&#x40;&#48;&#x2e;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "50%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -172,74 +172,6 @@ A-->E[C.定义]</pre>
       </tags>
   </entry>
   <entry>
-    <title>Git：github工作流</title>
-    <url>/2022/11/29/Git/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ/?spm_id_from=333.1007.tianma.1-2-2.click&vd_source=b530b63b4657d68926b54a618d047d04">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
-<h2 id="主要指令"><a href="#主要指令" class="headerlink" title="主要指令"></a>主要指令</h2><p>1.<code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地<br>2.<code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上<br>3.修改或者添加本地代码（部署在硬盘的源文件上）<br>4.<code>git diff</code> 查看自己对代码做出的改变<br>5.<code>git add</code> 上传更新后的代码至暂存区<br>6.<code>git commit</code> 可以将暂存区里更新后的代码更新到本地git<br>7.<code>git push origin xxx</code> 将本地的xxxgit分支上传至github上的git</p>
-<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变<br>1.<code>git checkout main</code> 切换回main分支<br>2.<code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地<br>3.<code>git checkout xxx</code> 回到xxx分支<br>4.<code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict —–》手动选择保留哪段代码）<br>5.<code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上<br>（-f —》强行）<br>6.原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</p>
-<p>远端完成更新后<br>1.<code>git branch -d xxx</code> 删除本地的git分支<br>2.<code>git pull origin master</code> 再把远端的最新代码拉至本地</p>
-<h2 id="详细状态过程"><a href="#详细状态过程" class="headerlink" title="详细状态过程"></a>详细状态过程</h2><p><code>git clone &lt;https://github.com/example/example.git&gt; </code></p>
-<blockquote>
-<p>状态<br>•	Remote git repo 的状态: main(master) init<br>•	本地 git repo 的状态: main(master) init<br>•	本地磁盘存储文件的状态: main(master) init</p>
-</blockquote>
-<p>准备在本地修改代码, 先建立一个新的 branch<br><code>git checkout -b my-feature</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master) init<br>•	local:<br>    main(master) init<br>    my-feature init<br>•	Disk:<br>    my-feature init</p>
-</blockquote>
-<p>对本地代码做出修改, <code>git diff</code> 显示变动<br>当我们确认好修改的文件, 准备把文件告知 local git 的时候 <code>git add &lt;changed_file&gt;</code>, 此时 local git 会把这些文件放到暂存区<br>使用 <code>git commit</code> 把所有的修改真正的提交到 local git </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
-</blockquote>
-<p>我们需要把 local git 的变化告知 remote git<br><code>git push origin my-feature </code><br>这个命令结束之后, remote git 会多出来一个 branch </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
-</blockquote>
-<p>紧接着我们会遇到非常常见的情况: 在我们修改本地代码的时候, remote git 也发生了更新, 此时当然是要测试我们刚在做的 feature 在新的 update 下能不能正常运行 </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
-</blockquote>
-<p>首先要 local git 切换回 main<br><code>git checkout main</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    main(master): Init</p>
-</blockquote>
-<p><code>git pull origin master</code> 把 remote git 的变化同步到 local git 以及 disk </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    main(master): Init –&gt; update</p>
-</blockquote>
-<p>回到 my-feature 分支 <code>git checkout my-feature</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
-</blockquote>
-<p><code>git rebase main</code> 把 my-feature 的修改先放在一边, 然后把 main 的修改同步到 my-feature, 如果有冲突, 需要先手动去解决冲突 </p>
-<blockquote>
-<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; f-commit<br>•	local:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>o	my-feature: Init –&gt; update –&gt; f-commit</p>
-</blockquote>
-<p>更新完 my-feature 之后, 需要把 local git 的 my-feature 分支同步到 remote git 的 my-feature 分支<br><code>git push -f origin my-feature</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; update –&gt; f-commit<br>•	local:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>o	my-feature: Init –&gt; update –&gt; f-commit</p>
-</blockquote>
-<p>此时需要把我们更新的代码合并到 main branch 上, 这个过程就是 pull request, 在 main 分支的维护者, 审查完 my-feature 的代码后, 进行一个 Squash and merge 操作.<br>•	Squash and merge 把一个分支上面的所有改变, 合并成一个改变, 然后把这个 commit 放到 main branch</p>
-<blockquote>
-<p>状态<br>o	remote:<br>	main(master): Init –&gt; update –&gt; update2<br>	my-feature: Init –&gt; update –&gt; f-commit<br>o	local:<br>	main(master): Init –&gt; update<br>	my-feature: Init –&gt; update –&gt; f-commit<br>o	Disk:<br>	my-feature: Init –&gt; update –&gt; f-commit</p>
-</blockquote>
-<p>一般情况下, main branch 的维护者会在 merge 完这个分之后, 把这个分支删除掉 delete branch 此时在本地, <code>git checkout main</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update –&gt; update2<br>•	local:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>o	main(master): Init –&gt; update</p>
-</blockquote>
-<p>然后使用, <code>git branch -D my-feature</code> 删除 local git 的 my-feature </p>
-<blockquote>
-<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update –&gt; update2<br>•	local:<br>o	main(master): Init –&gt; update<br>•	Disk:<br>o	main(master): Init –&gt; update</p>
-</blockquote>
-<p>最后, git pull origin master</p>
-<blockquote>
-<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update –&gt; update2<br>•	local:<br>o	main(master): Init –&gt; update –&gt; update2<br>•	Disk:<br>o	main(master): Init –&gt; update –&gt; update2</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello Blog! 从零开始搭建自己的博客网站</title>
     <url>/2022/11/22/Hello-blog/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
@@ -311,6 +243,74 @@ A-->E[C.定义]</pre>
 <a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
 <a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
 <a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+      <tags>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git：github工作流</title>
+    <url>/2022/11/29/Git/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ/?spm_id_from=333.1007.tianma.1-2-2.click&vd_source=b530b63b4657d68926b54a618d047d04">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
+<h2 id="主要指令"><a href="#主要指令" class="headerlink" title="主要指令"></a>主要指令</h2><p>1.<code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地<br>2.<code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上<br>3.修改或者添加本地代码（部署在硬盘的源文件上）<br>4.<code>git diff</code> 查看自己对代码做出的改变<br>5.<code>git add</code> 上传更新后的代码至暂存区<br>6.<code>git commit</code> 可以将暂存区里更新后的代码更新到本地git<br>7.<code>git push origin xxx</code> 将本地的xxxgit分支上传至github上的git</p>
+<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变<br>1.<code>git checkout main</code> 切换回main分支<br>2.<code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地<br>3.<code>git checkout xxx</code> 回到xxx分支<br>4.<code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict —–》手动选择保留哪段代码）<br>5.<code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上<br>（-f —》强行）<br>6.原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</p>
+<p>远端完成更新后<br>1.<code>git branch -d xxx</code> 删除本地的git分支<br>2.<code>git pull origin master</code> 再把远端的最新代码拉至本地</p>
+<h2 id="详细状态过程"><a href="#详细状态过程" class="headerlink" title="详细状态过程"></a>详细状态过程</h2><p><code>git clone &lt;https://github.com/example/example.git&gt; </code></p>
+<blockquote>
+<p>状态<br>•	Remote git repo 的状态: main(master) init<br>•	本地 git repo 的状态: main(master) init<br>•	本地磁盘存储文件的状态: main(master) init</p>
+</blockquote>
+<p>准备在本地修改代码, 先建立一个新的 branch<br><code>git checkout -b my-feature</code></p>
+<blockquote>
+<p>状态<br>•	remote:<br>    main(master) init<br>•	local:<br>    main(master) init<br>    my-feature init<br>•	Disk:<br>    my-feature init</p>
+</blockquote>
+<p>对本地代码做出修改, <code>git diff</code> 显示变动<br>当我们确认好修改的文件, 准备把文件告知 local git 的时候 <code>git add &lt;changed_file&gt;</code>, 此时 local git 会把这些文件放到暂存区<br>使用 <code>git commit</code> 把所有的修改真正的提交到 local git </p>
+<blockquote>
+<p>状态<br>•	remote:<br>    main(master): Init<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
+</blockquote>
+<p>我们需要把 local git 的变化告知 remote git<br><code>git push origin my-feature </code><br>这个命令结束之后, remote git 会多出来一个 branch </p>
+<blockquote>
+<p>状态<br>•	remote:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
+</blockquote>
+<p>紧接着我们会遇到非常常见的情况: 在我们修改本地代码的时候, remote git 也发生了更新, 此时当然是要测试我们刚在做的 feature 在新的 update 下能不能正常运行 </p>
+<blockquote>
+<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
+</blockquote>
+<p>首先要 local git 切换回 main<br><code>git checkout main</code></p>
+<blockquote>
+<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    main(master): Init</p>
+</blockquote>
+<p><code>git pull origin master</code> 把 remote git 的变化同步到 local git 以及 disk </p>
+<blockquote>
+<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    main(master): Init –&gt; update</p>
+</blockquote>
+<p>回到 my-feature 分支 <code>git checkout my-feature</code></p>
+<blockquote>
+<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
+</blockquote>
+<p><code>git rebase main</code> 把 my-feature 的修改先放在一边, 然后把 main 的修改同步到 my-feature, 如果有冲突, 需要先手动去解决冲突 </p>
+<blockquote>
+<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; f-commit<br>•	local:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>o	my-feature: Init –&gt; update –&gt; f-commit</p>
+</blockquote>
+<p>更新完 my-feature 之后, 需要把 local git 的 my-feature 分支同步到 remote git 的 my-feature 分支<br><code>git push -f origin my-feature</code></p>
+<blockquote>
+<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; update –&gt; f-commit<br>•	local:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>o	my-feature: Init –&gt; update –&gt; f-commit</p>
+</blockquote>
+<p>此时需要把我们更新的代码合并到 main branch 上, 这个过程就是 pull request, 在 main 分支的维护者, 审查完 my-feature 的代码后, 进行一个 Squash and merge 操作.<br>•	Squash and merge 把一个分支上面的所有改变, 合并成一个改变, 然后把这个 commit 放到 main branch</p>
+<blockquote>
+<p>状态<br>o	remote:<br>	main(master): Init –&gt; update –&gt; update2<br>	my-feature: Init –&gt; update –&gt; f-commit<br>o	local:<br>	main(master): Init –&gt; update<br>	my-feature: Init –&gt; update –&gt; f-commit<br>o	Disk:<br>	my-feature: Init –&gt; update –&gt; f-commit</p>
+</blockquote>
+<p>一般情况下, main branch 的维护者会在 merge 完这个分之后, 把这个分支删除掉 delete branch 此时在本地, <code>git checkout main</code></p>
+<blockquote>
+<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update –&gt; update2<br>•	local:<br>o	main(master): Init –&gt; update<br>o	my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>o	main(master): Init –&gt; update</p>
+</blockquote>
+<p>然后使用, <code>git branch -D my-feature</code> 删除 local git 的 my-feature </p>
+<blockquote>
+<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update –&gt; update2<br>•	local:<br>o	main(master): Init –&gt; update<br>•	Disk:<br>o	main(master): Init –&gt; update</p>
+</blockquote>
+<p>最后, git pull origin master</p>
+<blockquote>
+<p>状态<br>•	remote:<br>o	main(master): Init –&gt; update –&gt; update2<br>•	local:<br>o	main(master): Init –&gt; update –&gt; update2<br>•	Disk:<br>o	main(master): Init –&gt; update –&gt; update2</p>
+</blockquote>
+]]></content>
       <tags>
         <tag>技术</tag>
       </tags>
