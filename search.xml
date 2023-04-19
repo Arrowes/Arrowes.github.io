@@ -1,6 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Embedded：嵌入式应用知识</title>
+    <url>/2022/12/11/Embedded/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="相关常识"><a href="#相关常识" class="headerlink" title="相关常识"></a>相关常识</h1><h2 id="电容"><a href="#电容" class="headerlink" title="电容"></a>电容</h2><p>电容是电路设计中最为普通常用的器件，是无源元件之一，有源器件简单地说就是需能(电)源的器件叫有源器件，无需能(电)源的器件就是无源器件。<br>电容的作用和用途一般都有好多种，如：在旁路、去耦、滤波、储能方面的作用；在完成振荡、同步以及时间常数的作用：<br><strong>隔直流</strong>：作用是阻止直流通过而让交流通过。<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded23.png" width = "50%" /></p>
+<p><strong>旁路（去耦）</strong>：为交流电路中某些并联的元件提供低阻抗通路。<br><img alt="图 24" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded24.png" width = "50%"/>  </p>
+<p><strong>旁路电容</strong>：旁路电容，又称为退耦电容，是为某个器件提供能量的储能器件。<br>它利用了电容的频率阻抗特性，理想电容的频率特性随频率的升高，阻抗降低，就像一个水塘，它能使输出电压输出均匀，降低负载电压波动。<br>旁路电容要尽量靠近负载器件的供电电源管脚和地管脚，这是阻抗要求。<br>在画PCB时候特别要注意，只有靠近某个元器件时候才能抑制电压或其他输信号因过大而导致的地电位抬高和噪声。<br>说白了就是把直流电源中的交流分量，通过电容耦合到电源地中，起到了净化直流电源的作用。如图为旁路电容，画图时候要尽量靠近IC1。<br> <img alt="图 25" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded25.png" width = "50%"/>  </p>
+<p><strong>去耦电容</strong>：去耦电容，是把输出信号的干扰作为滤除对象，去耦电容相当于电池，利用其充放电，使得放大后的信号不会因电流的突变而受干扰。<br>它的容量根据信号的频率、抑制波纹程度而定，去耦电容就是起到一个“电池”的作用，满足驱动电路电流的变化，避免相互间的耦合干扰。<br><strong>旁路电容实际也是去耦合的</strong>，只是旁路电容一般是指高频旁路，也就是给高频的开关噪声提高一条低阻抗泄防途径。<br>高频旁路电容一般比较小，根据谐振频率一般取 0.1μF、0.01μF 等。<br>而去耦合电容的容量一般较大，可能是 10μF 或者更大，依据电路中分布参数、以及驱动电流的变化大小来确定。上图C3为去耦电容<br><strong>区别</strong>：旁路是把输入信号中的干扰作为滤除对象，而去耦是把输出信号的干扰作为滤除对象，防止干扰信号返回电源。<br><strong>耦合</strong>：作为两个电路之间的连接，允许交流信号通过并传输到下一级电路 。<br><img alt="图 26" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded26.png" width = "50%"/>  </p>
+<p>用电容做耦合的元件，是为了将前级信号传递到后一级，并且隔断前一级的直流对后一级的影响，使电路调试简单，性能稳定。<br>如果不加电容交流信号放大不会改变，只是各级工作点需重新设计，由于前后级影响，调试工作点非常困难，在多级时几乎无法实现。<br><strong>滤波</strong>：这个对电路而言很重要，CPU背后的电容基本都是这个作用。<br>即频率f越大，电容的阻抗Z越小。当低频时，电容C由于阻抗Z比较大，有用信号可以顺利通过；当高频时，电容C由于阻抗Z已经很小了，相当于把高频噪声短路到GND上去了。<br><img alt="图 27" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded27.png" width = "50%"/>  <img alt="图 39" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded28.png" width = "50%"/>  </p>
+<p><strong>滤波作用</strong>：理想电容，电容越大，阻抗越小，通过的频率也越高。<br>电解电容一般都是超过 1uF ，其中的电感成份很大，因此频率高后反而阻抗会大。<br>我们经常看见有时会看到有一个电容量较大电解电容并联了一个小电容，其实大的电容通低频，小电容通高频，这样才能充分滤除高低频。<br>电容频率越高时候则衰减越大，电容像一个水塘，几滴水不足以引起它的很大变化，也就是说电压波动不是你很大时候电压可以缓冲，如图C2：<br> <img alt="图 29" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded29.png" width = "50%"/>  </p>
+<p><strong>温度补偿</strong>：针对其它元件对温度的适应性不够带来的影响，而进行补偿，改善电路的稳定性。<br>  <img alt="图 30" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded30.png" />  </p>
+<p><strong>分析</strong>：由于定时电容的容量决定了行振荡器的振荡频率，所以要求定时电容的容量非常稳定，不随环境湿度变化而变化，这样才能使行振荡器的振荡频率稳定。<br>因此采用正、负温度系数的电容释联，进行温度互补。<br>当工作温度升高时，Cl的容量在增大，而C2的容量在减小，两只电容并联后的总容量为两只电容容量之和，由于一个容量在增大而另一个在减小，所以总容量基本不变。<br>同理，在温度降低时，一个电容的容量在减小而另一个在增大，总的容量基本不变，稳定了振荡频率，实现温度补偿目的。<br><strong>计时</strong>：电容器与电阻器配合使用，确定电路的时间常数。<br> <img alt="图 31" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded31.png" />  </p>
+<p>输入信号由低向高跳变时，经过缓冲1后输入RC电路。<br>电容充电的特性使B点的信号并不会跟随输入信号立即跳变，而是有一个逐渐变大的过程。<br>当变大到一定程度时，缓冲2翻转，在输出端得到了一个延迟的由低向高的跳变。<br><strong>时间常数</strong>：以常见的 RC 串联构成积分电路为例，当输入信号电压加在输入端时，电容上的电压逐渐上升。<br>而其充电电流则随着电压的上升而减小，电阻R和电容C串联接入输入信号VI，由电容C输出信号V0，当RC (τ)数值与输入方波宽度tW之间满足：τ》》tW，这种电路称为积分电路。<br><strong>调谐</strong>：对与频率相关的电路进行系统调谐，比如手机、收音机、电视机。<br><img alt="图 32" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded32.png" width = "50%"/>  </p>
+<p>因为lc调谐的振荡电路的谐振频率是lc的函数，我们发现振荡电路的最大与最小谐振频率之比随着电容比的平方根变化。<br>此处电容比是指反偏电压最小时的电容与反偏电压最大时的电容之比。<br>因而，电路的调谐特征曲线（偏压一谐振频率）基本上是一条抛物线。<br><strong>整流</strong>：在预定的时间开或者关半闭导体开关元件。<br><img alt="图 44" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded33.png" width = "70%"/>  </p>
+<p><strong>储能</strong>：储存电能，用于必须要的时候释放。<br>例如相机闪光灯，加热设备等等．（如今某些电容的储能水平己经接近锂电池的水准，一个电容储存的电能可以供一个手机使用一天。<br>一般地，电解电容都会有储能的作用，对于专门的储能作用的电容，电容储能的机理为双电层电容以及法拉第电容。<br>其主要形式为超级电容储能，其中超级电容器是利用双电层原理的电容器。<br>当外加电压加到超级电容器的两个极板上时，与普通电容器一样，极板的正电极存储正电荷，负极板存储负电荷。<br>在超级电容器的两极板上电荷产生的电场作用下，在电解液与电极间的界面上形成相反的电荷，以平衡电解液的内电场。<br>这种正电荷与负电荷在两个不同相之间的接触面上，以正负电荷之间极短间隙排列在相反的位置上，这个电荷分布层叫做双电层，因此电容量非常大。</p>
+<h1 id="PCB布局布线"><a href="#PCB布局布线" class="headerlink" title="PCB布局布线"></a>PCB布局布线</h1><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>元器件布局的10条规则：</p>
+<ol>
+<li>遵照<strong>先大后小，先难后易</strong>的布置原则，即重要的单元电路、核心元器件应当优先布局。</li>
+<li>布局中应参考原理框图，根据单板的主信号流向规律安排主要元器件。</li>
+<li>元器件的排列要便于调试和维修，亦即小元件周围不能放置大元件、需调试的元器件周围要有足够的空间。 </li>
+<li>相同结构电路部分，尽可能采用“对称式”标准布局。</li>
+<li>按照均匀分布、重心平衡、版面美观的标准优化布局。 </li>
+<li>同类型插装元器件在X或Y方向上应朝一个方向放置。同一种类型的有极性分立元件也要力争在X或Y方向上保持一致，便于生产和检验。 </li>
+<li>发热元件一般应均匀分布，以利于单板和整机的散热，除温度检测元件以外的温度敏感器件应远离发热量大的元器件。 </li>
+<li>布局应尽量满足以下要求：总的连线尽可能短，关键信号线最短；高电压、大电流信号与小电流，低电压的弱信号完全分开；模拟信号与数字信号分开；高频信号与低频信号分开；高频元器件的间隔要充分。</li>
+<li>去耦电容的布局要尽量靠近IC的电源管脚，并使之与电源和地之间形成的回路最短。 </li>
+<li>元件布局时，应适当考虑使用同一种电源的器件尽量放在一起, 以便于将来的电源分隔。</li>
+</ol>
+<h2 id="布线"><a href="#布线" class="headerlink" title="布线"></a>布线</h2><h3 id="（1）布线优先次序"><a href="#（1）布线优先次序" class="headerlink" title="（1）布线优先次序"></a>（1）布线优先次序</h3><p>关键信号线优先：模拟小信号、高速信号、时钟信号和同步信号等关键信号优先布线<br>密度优先原则：从单板上连接关系最复杂的器件优先布线。从单板上连线 最密集的区域开始布线<br>注意点：</p>
+<blockquote>
+<p>a. 尽量为时钟信号、高频信号、敏感信号等关键信号提供专门的布线层，并保证其最小的回路面积。必要时应采取手工优先布线、屏蔽和加大安全间距等方法。保证信号质量。<br>b. 电源层和地层之间的EMC环境较差，应避免布置对干扰敏感的信号。<br>c. 有阻抗控制要求的网络应尽量按线长线宽要求布线。 </p>
+</blockquote>
+<h3 id="（2）四种具体走线方式"><a href="#（2）四种具体走线方式" class="headerlink" title="（2）四种具体走线方式"></a>（2）四种具体走线方式</h3><h4 id="1-时钟的布线："><a href="#1-时钟的布线：" class="headerlink" title="1. 时钟的布线："></a>1. 时钟的布线：</h4><p>时钟线是对EMC 影响最大的因素之一。在时钟线上应少打过孔，尽量避免和其它信号线并行走线，且应远离一般信号线，避免对信号线的干扰。同时应避开板上的电源部分，以防止电源和时钟互相干扰。<br>如果板上有专门的时钟发生芯片，其下方不可走线，应在其下方铺铜，必要时还可以对其专门割地。对于很多芯片都有参考的晶体振荡器，这些晶振下方也不应走线，要铺铜隔离。<br><img alt="图 45" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded1.png" width = "80%"/>  </p>
+<h4 id="2-直角走线"><a href="#2-直角走线" class="headerlink" title="2. 直角走线:"></a>2. 直角走线:</h4><p>直角走线一般是PCB布线中要求尽量避免的情况，也几乎成为衡量布线好坏的标准之一，那么直角走线究竟会对信号传输产生多大的影响呢？从原理上说，直角走线会使传输线的线宽发生变化，造成阻抗的不连续。其实不光是直角走线，顿角，锐角走线都可能会造成阻抗变化的情况。</p>
+<p>直角走线的对信号的影响就是主要体现在三个方面：</p>
+<blockquote>
+<p>一是拐角可以等效为传输线上的容性负载，减缓上升时间；<br>二是阻抗不连续会造成信号的反射；<br>三是直角尖端产生的EMI。</p>
+</blockquote>
+<h4 id="3-差分走线"><a href="#3-差分走线" class="headerlink" title="3. 差分走线:"></a>3. 差分走线:</h4><p>参看：Altium Designer – 差分布线和阻抗匹配<br><strong>差分信号</strong>（Differential Signal）在高速电路设计中的应用越来越广泛，电路中最关键的信号往往都要采用差分结构设计.定义:通俗地说，就是驱动端发送两个等值、反相的信号，接收端通过比较这两个电压的差值来判断逻辑状态“0”还是“1”。而承载差分信号的那一对走线就称为差分走线。<br>差分信号和普通的单端信号走线相比，最明显的优势体现在以下三个方面：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span>.抗干扰能力强，因为两根差分走线之间的耦合很好，当外界存在噪声干扰时，几乎是同时被耦合到两条线上，而接收端关心的只是两信号的差值，所以外界的共模噪声可以被完全抵消。</span><br><span class="line"><span class="selector-tag">b</span>.能有效抑制EMI，同样的道理，由于两根信号的极性相反，他们对外辐射的电磁场可以相互抵消，耦合的越紧密，泄放到外界的电磁能量越少。</span><br><span class="line">c.时序定位精确，由于差分信号的开关变化是位于两个信号的交点，而不像普通单端信号依靠高低两个阈值电压判断，因而受工艺，温度的影响小，能降低时序上的误差，同时也更适合于低幅度信号的电路。目前流行的LVDS（low voltage differential signaling）就是指这种小振幅差分信号技术。</span><br></pre></td></tr></table></figure>
+<p>对于PCB工程师来说，最关注的还是如何确保在实际走线中能完全发挥差分走线的这些优势。也许只要是接触过Layout的人都会了解差分走线的一般要求，那就是“等长、等距”。</p>
+<p>等长是为了保证两个差分信号时刻保持相反极性，减少共模分量；等距则主要是为了保证两者差分阻抗一致，减少反射。“尽量靠近原则”有时候也是差分走线的要求之一。</p>
+<h4 id="4-蛇形线"><a href="#4-蛇形线" class="headerlink" title="4. 蛇形线:"></a>4. 蛇形线:</h4><p>蛇形线是Layout中经常使用的一类走线方式。其主要目的就是为了调节延时，满足系统时序设计要求。<br>设计者首先要有这样的认识：<br>蛇形线会破坏信号质量，改变传输延时，布线时要尽量避免使用。但实际设计中，为了保证信号有足够的保持时间，或者减小同组信号之间的时间偏移，往往不得不故意进行绕线。<br>注意点:<br>成对出现的差分信号线，一般平行走线，尽量少打过孔，必须打孔时，应两线一同打孔，以做到阻抗匹配。<br>相同属性的一组总线，应尽量并排走线，做到尽量等长。从贴片焊盘引出的过孔尽量离焊盘远些。<br><img alt="图 2" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded2.png" width = "60%"/>  </p>
+<h3 id="（3）布线常用规则"><a href="#（3）布线常用规则" class="headerlink" title="（3）布线常用规则"></a>（3）布线常用规则</h3><ol>
+<li><p>走线的方向控制规则：<br>即相邻层的走线方向成正交结构。避免将不同的信号线在相邻层走成同一方向，以减少不必要的层间串扰；<br>当由于板结构限制（如某些背板）难以避免出现该情况，特别是信号速率较高时，应考虑用地平面隔离各布线层，用地信号线隔离各信号线。 </p>
+<img alt="图 3" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded3.png" width = "50%"/>  
+</li>
+<li><p>走线的开环检查规则：<br>一般不允许出现一端浮空的布线（Dangling Line), 主要是为了避免产生”天线效应”，减少不必要的干扰辐射和接受，否则可能带来不可预知的结果。   </p>
+<img alt="图 4" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded4.png" width = "50%"/>  
+</li>
+<li><p>阻抗匹配检查规则：<br>同一网络的布线宽度应保持一致，线宽的变化会造成线路特性阻抗的不均匀，当传输的速度较高时会产生反射，在设计中应该尽量避免这种情况。<br>在某些条件下，如接插件引出线，BGA封装的引出线类似的结构时，可能无法避免线宽的变化，应该尽量减少中间不一致部分的有效长度。</p>
+<img alt="图 5" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded5.png" width = "50%"/>  
+</li>
+<li><p>走线长度控制规则：<br>即短线规则，在设计时应该尽量让布线长度尽量短，以减少由于走线过长带来的干扰问题，特别是一些重要信号线，如时钟线，务必将其振荡器放在离器件很近的地方。对驱动多个器件的情况，应根据具体情况决定采用何种网络拓扑结构。 </p>
+<img alt="图 6" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded6.png" width = "50%"/>  
+</li>
+<li><p>倒角规则：<br>PCB设计中应避免产生锐角和直角， 产生不必要的辐射，同时工艺性能也不好。</p>
+ <img alt="图 7" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded7.png" width = "50%"/>  
+</li>
+<li><p>器件去耦规则：<br>A. 在印制版上增加必要的去耦电容，滤除电源上的干扰信号，使电源信号稳定。<br>在多层板中，对去耦电容的位置一般要求不太高，但对双层板，去耦电容的布局及电源的布线方式将直接影响到整个系统的稳定性，有时甚至关系到设计的成败。<br>B. 在双层板设计中，一般应该使电流先经过滤波电容滤波再供器件使用。<br>C. 在高速电路设计中，能否正确地使用去耦电容，关系到整个板的稳定性。 </p>
+<img alt="图 8" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded8.png" width = "50%"/>  
+</li>
+<li><p>器件布局分区&#x2F;分层规则：<br>A. 主要是为了防止不同工作频率的模块之间的互相干扰，同时尽量缩短高频部分的布线长度。<br>B. 对混合电路，也有将模拟与数字电路分别布置在印制板的两面，分别使用不同的层布线，中间用地层隔离的方式。</p>
+<img alt="图 9" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded9.png" width = "50%"/>  
+</li>
+<li><p>地线回路规则：<br>环路最小规则，即信号线与其回路构成的环面积要尽可能小，环面积越小，对外的辐射越少，接收外界的干扰也越小。 </p>
+<img alt="图 10" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded10.png" width = "50%"/>  
+</li>
+<li><p>电源与地线层的完整性规则：<br>对于导通孔密集的区域，要注意避免孔在电源和地层的挖空区域相互连接，形成对平面层的分割，从而破坏平面层的完整性，并进而导致信号线在地层的回路面积增大。</p>
+<img alt="图 11" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded11.png" width = "50%"/>  
+</li>
+<li><p>3W规则：<br>为了减少线间串扰，应保证线间距足够大，当线中心间距不少于3倍线宽时，则可保持70%的电场不互相干扰，称为3W规则。如要达到98%的电场不互相干扰，可使用10W的间距。</p>
+ <img alt="图 12" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded12.png" width = "50%"/>  
+</li>
+<li><p>屏蔽保护：<br>对应地线回路规则，实际上也是为了尽量减小信号的回路面积，多见于一些比较重要的信号，如时钟信号，同步信号；<br>对一些特别重要，频率特别高的信号，应该考虑采用铜轴电缆屏蔽结构设计，即将所布的线上下左右用地线隔离，而且还要考虑好如何有效的让屏蔽地与实际地平面有效结合。 </p>
+ <img alt="图 13" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded13.png" width = "50%"/>  
+</li>
+<li><p>走线终结网络规则：<br>在高速数字电路中， 当PCB布线的延迟时间大于信号上升时间（或下降时间） 的1&#x2F;4时，该布线即可以看成传输线，为了保证信号的输入和输出阻抗与传输线的阻抗正确匹配，可以采用多种形式的匹配方法， 所选择的匹配方法与网络的连接方式和布线的拓朴结构有关。<br>A. 对于点对点（一个输出对应一个输入） 连接， 可以选择始端串联匹配或终端并联匹配。前者结构简单，成本低，但延迟较大。后者匹配效果好，但结构复杂，成本较高。<br>B. 对于点对多点（一个输出对应多个输出） 连接， 当网络的拓朴结构为菊花链时，应选择终端并联匹配。<br>当网络为星型结构时，可以参考点对点结构。星形和菊花链为两种基本的拓扑结构, 其他结构可看成基本结构的变形, 可采取一些灵活措施进行匹配。<br>在实际操作中要兼顾成本、 功耗和性能等因素， 一般不追求完全匹配，只要将失配引起的反射等干扰限制在可接受的范围即可。</p>
+<img alt="图 14" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded14.png" width = "50%"/>  
+</li>
+<li><p>走线闭环检查规则：<br>防止信号线在不同层间形成自环。在多层板设计中容易发生此类问题， 自环将引起辐射干扰。</p>
+<img alt="图 15" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded15.png" width = "50%"/>  
+</li>
+<li><p>走线的分枝长度控制规则：<br>尽量控制分枝的长度，一般的要求是Tdelay&lt;&#x3D;Trise&#x2F;20。</p>
+ <img alt="图 16" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded16.png" width = "50%"/>  
+</li>
+<li><p>走线的谐振规则：<br>主要针对高频信号设计而言， 即布线长度不得与其波长成整数倍关系， 以免产生谐振现象。</p>
+<img alt="图 17" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded17.png" width = "50%"/>  
+</li>
+<li><p>孤立铜区控制规则：<br>孤立铜区的出现， 将带来一些不可预知的问题， 因此将孤立铜区与别的信号相接， 有助于改善信号质量，通常是将孤立铜区接地或删除。<br>在实际的制作中， PCB厂家将一些板的空置部分增加了一些铜箔，这主要是为了方便印制板加工，同时对防止印制板翘曲也有一定的作用。</p>
+<img alt="图 18" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded18.png" width = "50%"/>  
+</li>
+<li><p>重叠电源与地线层规则：<br>不同电源层在空间上要避免重叠。主要是为了减少不同电源之间的干扰， 特别是一些电压相差很大的电源之间， 电源平面的重叠问题一定要设法避免， 难以避免时可考虑中间隔地层。</p>
+<img alt="图 19" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded19.png" width = "50%"/>  
+</li>
+<li><p>20H规则：<br>由于电源层与地层之间的电场是变化的， 在板的边缘会向外辐射电磁干扰。称为边沿效应。<br>解决的办法是将电源层内缩， 使得电场只在接地层的范围内传导。以一个H（电源和地之间的介质厚度）为单位，若内缩20H则可以将70%的电场限制在接地层边沿内；内缩100H则可以将98%的电场限制在内。 </p>
+<img alt="图 20" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded20.png" width = "50%"/></li>
+</ol>
+<h3 id="（4）其他"><a href="#（4）其他" class="headerlink" title="（4）其他"></a>（4）其他</h3><p>对于单双层板电源线应尽量粗而短。电源线和地线的宽度要求可以根据1mm的线宽最大对应1A 的电流来计算，电源和地构成的环路尽量小。<br> <img alt="图 21" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded21.png" width = "60%"/>  </p>
+<p>为了防止电源线较长时，电源线上的耦合杂讯直接进入负载器件，应在进入每个器件之前，先对电源去耦。且为了防止它们彼此间的相互干扰，对每个负载的电源独立去耦，并做到先滤波再进入负载。<br>在布线中应保持接地良好。如下图。<br><img alt="图 22" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded22.png" width = "60%"/>  </p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DL：深度学习相关概念</title>
     <url>/2022/12/28/DL/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a><a href="bilibili.com/video/BV14f4y1q7ms?p=3">深度学习框架</a></h1><pre class="mermaid">graph LR
@@ -133,110 +237,6 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Embedded：嵌入式应用知识</title>
-    <url>/2022/12/11/Embedded/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="相关常识"><a href="#相关常识" class="headerlink" title="相关常识"></a>相关常识</h1><h2 id="电容"><a href="#电容" class="headerlink" title="电容"></a>电容</h2><p>电容是电路设计中最为普通常用的器件，是无源元件之一，有源器件简单地说就是需能(电)源的器件叫有源器件，无需能(电)源的器件就是无源器件。<br>电容的作用和用途一般都有好多种，如：在旁路、去耦、滤波、储能方面的作用；在完成振荡、同步以及时间常数的作用：<br><strong>隔直流</strong>：作用是阻止直流通过而让交流通过。<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded23.png" width = "50%" /></p>
-<p><strong>旁路（去耦）</strong>：为交流电路中某些并联的元件提供低阻抗通路。<br><img alt="图 24" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded24.png" width = "50%"/>  </p>
-<p><strong>旁路电容</strong>：旁路电容，又称为退耦电容，是为某个器件提供能量的储能器件。<br>它利用了电容的频率阻抗特性，理想电容的频率特性随频率的升高，阻抗降低，就像一个水塘，它能使输出电压输出均匀，降低负载电压波动。<br>旁路电容要尽量靠近负载器件的供电电源管脚和地管脚，这是阻抗要求。<br>在画PCB时候特别要注意，只有靠近某个元器件时候才能抑制电压或其他输信号因过大而导致的地电位抬高和噪声。<br>说白了就是把直流电源中的交流分量，通过电容耦合到电源地中，起到了净化直流电源的作用。如图为旁路电容，画图时候要尽量靠近IC1。<br> <img alt="图 25" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded25.png" width = "50%"/>  </p>
-<p><strong>去耦电容</strong>：去耦电容，是把输出信号的干扰作为滤除对象，去耦电容相当于电池，利用其充放电，使得放大后的信号不会因电流的突变而受干扰。<br>它的容量根据信号的频率、抑制波纹程度而定，去耦电容就是起到一个“电池”的作用，满足驱动电路电流的变化，避免相互间的耦合干扰。<br><strong>旁路电容实际也是去耦合的</strong>，只是旁路电容一般是指高频旁路，也就是给高频的开关噪声提高一条低阻抗泄防途径。<br>高频旁路电容一般比较小，根据谐振频率一般取 0.1μF、0.01μF 等。<br>而去耦合电容的容量一般较大，可能是 10μF 或者更大，依据电路中分布参数、以及驱动电流的变化大小来确定。上图C3为去耦电容<br><strong>区别</strong>：旁路是把输入信号中的干扰作为滤除对象，而去耦是把输出信号的干扰作为滤除对象，防止干扰信号返回电源。<br><strong>耦合</strong>：作为两个电路之间的连接，允许交流信号通过并传输到下一级电路 。<br><img alt="图 26" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded26.png" width = "50%"/>  </p>
-<p>用电容做耦合的元件，是为了将前级信号传递到后一级，并且隔断前一级的直流对后一级的影响，使电路调试简单，性能稳定。<br>如果不加电容交流信号放大不会改变，只是各级工作点需重新设计，由于前后级影响，调试工作点非常困难，在多级时几乎无法实现。<br><strong>滤波</strong>：这个对电路而言很重要，CPU背后的电容基本都是这个作用。<br>即频率f越大，电容的阻抗Z越小。当低频时，电容C由于阻抗Z比较大，有用信号可以顺利通过；当高频时，电容C由于阻抗Z已经很小了，相当于把高频噪声短路到GND上去了。<br><img alt="图 27" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded27.png" width = "50%"/>  <img alt="图 39" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded28.png" width = "50%"/>  </p>
-<p><strong>滤波作用</strong>：理想电容，电容越大，阻抗越小，通过的频率也越高。<br>电解电容一般都是超过 1uF ，其中的电感成份很大，因此频率高后反而阻抗会大。<br>我们经常看见有时会看到有一个电容量较大电解电容并联了一个小电容，其实大的电容通低频，小电容通高频，这样才能充分滤除高低频。<br>电容频率越高时候则衰减越大，电容像一个水塘，几滴水不足以引起它的很大变化，也就是说电压波动不是你很大时候电压可以缓冲，如图C2：<br> <img alt="图 29" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded29.png" width = "50%"/>  </p>
-<p><strong>温度补偿</strong>：针对其它元件对温度的适应性不够带来的影响，而进行补偿，改善电路的稳定性。<br>  <img alt="图 30" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded30.png" />  </p>
-<p><strong>分析</strong>：由于定时电容的容量决定了行振荡器的振荡频率，所以要求定时电容的容量非常稳定，不随环境湿度变化而变化，这样才能使行振荡器的振荡频率稳定。<br>因此采用正、负温度系数的电容释联，进行温度互补。<br>当工作温度升高时，Cl的容量在增大，而C2的容量在减小，两只电容并联后的总容量为两只电容容量之和，由于一个容量在增大而另一个在减小，所以总容量基本不变。<br>同理，在温度降低时，一个电容的容量在减小而另一个在增大，总的容量基本不变，稳定了振荡频率，实现温度补偿目的。<br><strong>计时</strong>：电容器与电阻器配合使用，确定电路的时间常数。<br> <img alt="图 31" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded31.png" />  </p>
-<p>输入信号由低向高跳变时，经过缓冲1后输入RC电路。<br>电容充电的特性使B点的信号并不会跟随输入信号立即跳变，而是有一个逐渐变大的过程。<br>当变大到一定程度时，缓冲2翻转，在输出端得到了一个延迟的由低向高的跳变。<br><strong>时间常数</strong>：以常见的 RC 串联构成积分电路为例，当输入信号电压加在输入端时，电容上的电压逐渐上升。<br>而其充电电流则随着电压的上升而减小，电阻R和电容C串联接入输入信号VI，由电容C输出信号V0，当RC (τ)数值与输入方波宽度tW之间满足：τ》》tW，这种电路称为积分电路。<br><strong>调谐</strong>：对与频率相关的电路进行系统调谐，比如手机、收音机、电视机。<br><img alt="图 32" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded32.png" width = "50%"/>  </p>
-<p>因为lc调谐的振荡电路的谐振频率是lc的函数，我们发现振荡电路的最大与最小谐振频率之比随着电容比的平方根变化。<br>此处电容比是指反偏电压最小时的电容与反偏电压最大时的电容之比。<br>因而，电路的调谐特征曲线（偏压一谐振频率）基本上是一条抛物线。<br><strong>整流</strong>：在预定的时间开或者关半闭导体开关元件。<br><img alt="图 44" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded33.png" width = "70%"/>  </p>
-<p><strong>储能</strong>：储存电能，用于必须要的时候释放。<br>例如相机闪光灯，加热设备等等．（如今某些电容的储能水平己经接近锂电池的水准，一个电容储存的电能可以供一个手机使用一天。<br>一般地，电解电容都会有储能的作用，对于专门的储能作用的电容，电容储能的机理为双电层电容以及法拉第电容。<br>其主要形式为超级电容储能，其中超级电容器是利用双电层原理的电容器。<br>当外加电压加到超级电容器的两个极板上时，与普通电容器一样，极板的正电极存储正电荷，负极板存储负电荷。<br>在超级电容器的两极板上电荷产生的电场作用下，在电解液与电极间的界面上形成相反的电荷，以平衡电解液的内电场。<br>这种正电荷与负电荷在两个不同相之间的接触面上，以正负电荷之间极短间隙排列在相反的位置上，这个电荷分布层叫做双电层，因此电容量非常大。</p>
-<h1 id="PCB布局布线"><a href="#PCB布局布线" class="headerlink" title="PCB布局布线"></a>PCB布局布线</h1><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>元器件布局的10条规则：</p>
-<ol>
-<li>遵照<strong>先大后小，先难后易</strong>的布置原则，即重要的单元电路、核心元器件应当优先布局。</li>
-<li>布局中应参考原理框图，根据单板的主信号流向规律安排主要元器件。</li>
-<li>元器件的排列要便于调试和维修，亦即小元件周围不能放置大元件、需调试的元器件周围要有足够的空间。 </li>
-<li>相同结构电路部分，尽可能采用“对称式”标准布局。</li>
-<li>按照均匀分布、重心平衡、版面美观的标准优化布局。 </li>
-<li>同类型插装元器件在X或Y方向上应朝一个方向放置。同一种类型的有极性分立元件也要力争在X或Y方向上保持一致，便于生产和检验。 </li>
-<li>发热元件一般应均匀分布，以利于单板和整机的散热，除温度检测元件以外的温度敏感器件应远离发热量大的元器件。 </li>
-<li>布局应尽量满足以下要求：总的连线尽可能短，关键信号线最短；高电压、大电流信号与小电流，低电压的弱信号完全分开；模拟信号与数字信号分开；高频信号与低频信号分开；高频元器件的间隔要充分。</li>
-<li>去耦电容的布局要尽量靠近IC的电源管脚，并使之与电源和地之间形成的回路最短。 </li>
-<li>元件布局时，应适当考虑使用同一种电源的器件尽量放在一起, 以便于将来的电源分隔。</li>
-</ol>
-<h2 id="布线"><a href="#布线" class="headerlink" title="布线"></a>布线</h2><h3 id="（1）布线优先次序"><a href="#（1）布线优先次序" class="headerlink" title="（1）布线优先次序"></a>（1）布线优先次序</h3><p>关键信号线优先：模拟小信号、高速信号、时钟信号和同步信号等关键信号优先布线<br>密度优先原则：从单板上连接关系最复杂的器件优先布线。从单板上连线 最密集的区域开始布线<br>注意点：</p>
-<blockquote>
-<p>a. 尽量为时钟信号、高频信号、敏感信号等关键信号提供专门的布线层，并保证其最小的回路面积。必要时应采取手工优先布线、屏蔽和加大安全间距等方法。保证信号质量。<br>b. 电源层和地层之间的EMC环境较差，应避免布置对干扰敏感的信号。<br>c. 有阻抗控制要求的网络应尽量按线长线宽要求布线。 </p>
-</blockquote>
-<h3 id="（2）四种具体走线方式"><a href="#（2）四种具体走线方式" class="headerlink" title="（2）四种具体走线方式"></a>（2）四种具体走线方式</h3><h4 id="1-时钟的布线："><a href="#1-时钟的布线：" class="headerlink" title="1. 时钟的布线："></a>1. 时钟的布线：</h4><p>时钟线是对EMC 影响最大的因素之一。在时钟线上应少打过孔，尽量避免和其它信号线并行走线，且应远离一般信号线，避免对信号线的干扰。同时应避开板上的电源部分，以防止电源和时钟互相干扰。<br>如果板上有专门的时钟发生芯片，其下方不可走线，应在其下方铺铜，必要时还可以对其专门割地。对于很多芯片都有参考的晶体振荡器，这些晶振下方也不应走线，要铺铜隔离。<br><img alt="图 45" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded1.png" width = "80%"/>  </p>
-<h4 id="2-直角走线"><a href="#2-直角走线" class="headerlink" title="2. 直角走线:"></a>2. 直角走线:</h4><p>直角走线一般是PCB布线中要求尽量避免的情况，也几乎成为衡量布线好坏的标准之一，那么直角走线究竟会对信号传输产生多大的影响呢？从原理上说，直角走线会使传输线的线宽发生变化，造成阻抗的不连续。其实不光是直角走线，顿角，锐角走线都可能会造成阻抗变化的情况。</p>
-<p>直角走线的对信号的影响就是主要体现在三个方面：</p>
-<blockquote>
-<p>一是拐角可以等效为传输线上的容性负载，减缓上升时间；<br>二是阻抗不连续会造成信号的反射；<br>三是直角尖端产生的EMI。</p>
-</blockquote>
-<h4 id="3-差分走线"><a href="#3-差分走线" class="headerlink" title="3. 差分走线:"></a>3. 差分走线:</h4><p>参看：Altium Designer – 差分布线和阻抗匹配<br><strong>差分信号</strong>（Differential Signal）在高速电路设计中的应用越来越广泛，电路中最关键的信号往往都要采用差分结构设计.定义:通俗地说，就是驱动端发送两个等值、反相的信号，接收端通过比较这两个电压的差值来判断逻辑状态“0”还是“1”。而承载差分信号的那一对走线就称为差分走线。<br>差分信号和普通的单端信号走线相比，最明显的优势体现在以下三个方面：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span>.抗干扰能力强，因为两根差分走线之间的耦合很好，当外界存在噪声干扰时，几乎是同时被耦合到两条线上，而接收端关心的只是两信号的差值，所以外界的共模噪声可以被完全抵消。</span><br><span class="line"><span class="selector-tag">b</span>.能有效抑制EMI，同样的道理，由于两根信号的极性相反，他们对外辐射的电磁场可以相互抵消，耦合的越紧密，泄放到外界的电磁能量越少。</span><br><span class="line">c.时序定位精确，由于差分信号的开关变化是位于两个信号的交点，而不像普通单端信号依靠高低两个阈值电压判断，因而受工艺，温度的影响小，能降低时序上的误差，同时也更适合于低幅度信号的电路。目前流行的LVDS（low voltage differential signaling）就是指这种小振幅差分信号技术。</span><br></pre></td></tr></table></figure>
-<p>对于PCB工程师来说，最关注的还是如何确保在实际走线中能完全发挥差分走线的这些优势。也许只要是接触过Layout的人都会了解差分走线的一般要求，那就是“等长、等距”。</p>
-<p>等长是为了保证两个差分信号时刻保持相反极性，减少共模分量；等距则主要是为了保证两者差分阻抗一致，减少反射。“尽量靠近原则”有时候也是差分走线的要求之一。</p>
-<h4 id="4-蛇形线"><a href="#4-蛇形线" class="headerlink" title="4. 蛇形线:"></a>4. 蛇形线:</h4><p>蛇形线是Layout中经常使用的一类走线方式。其主要目的就是为了调节延时，满足系统时序设计要求。<br>设计者首先要有这样的认识：<br>蛇形线会破坏信号质量，改变传输延时，布线时要尽量避免使用。但实际设计中，为了保证信号有足够的保持时间，或者减小同组信号之间的时间偏移，往往不得不故意进行绕线。<br>注意点:<br>成对出现的差分信号线，一般平行走线，尽量少打过孔，必须打孔时，应两线一同打孔，以做到阻抗匹配。<br>相同属性的一组总线，应尽量并排走线，做到尽量等长。从贴片焊盘引出的过孔尽量离焊盘远些。<br><img alt="图 2" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded2.png" width = "60%"/>  </p>
-<h3 id="（3）布线常用规则"><a href="#（3）布线常用规则" class="headerlink" title="（3）布线常用规则"></a>（3）布线常用规则</h3><ol>
-<li><p>走线的方向控制规则：<br>即相邻层的走线方向成正交结构。避免将不同的信号线在相邻层走成同一方向，以减少不必要的层间串扰；<br>当由于板结构限制（如某些背板）难以避免出现该情况，特别是信号速率较高时，应考虑用地平面隔离各布线层，用地信号线隔离各信号线。 </p>
-<img alt="图 3" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded3.png" width = "50%"/>  
-</li>
-<li><p>走线的开环检查规则：<br>一般不允许出现一端浮空的布线（Dangling Line), 主要是为了避免产生”天线效应”，减少不必要的干扰辐射和接受，否则可能带来不可预知的结果。   </p>
-<img alt="图 4" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded4.png" width = "50%"/>  
-</li>
-<li><p>阻抗匹配检查规则：<br>同一网络的布线宽度应保持一致，线宽的变化会造成线路特性阻抗的不均匀，当传输的速度较高时会产生反射，在设计中应该尽量避免这种情况。<br>在某些条件下，如接插件引出线，BGA封装的引出线类似的结构时，可能无法避免线宽的变化，应该尽量减少中间不一致部分的有效长度。</p>
-<img alt="图 5" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded5.png" width = "50%"/>  
-</li>
-<li><p>走线长度控制规则：<br>即短线规则，在设计时应该尽量让布线长度尽量短，以减少由于走线过长带来的干扰问题，特别是一些重要信号线，如时钟线，务必将其振荡器放在离器件很近的地方。对驱动多个器件的情况，应根据具体情况决定采用何种网络拓扑结构。 </p>
-<img alt="图 6" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded6.png" width = "50%"/>  
-</li>
-<li><p>倒角规则：<br>PCB设计中应避免产生锐角和直角， 产生不必要的辐射，同时工艺性能也不好。</p>
- <img alt="图 7" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded7.png" width = "50%"/>  
-</li>
-<li><p>器件去耦规则：<br>A. 在印制版上增加必要的去耦电容，滤除电源上的干扰信号，使电源信号稳定。<br>在多层板中，对去耦电容的位置一般要求不太高，但对双层板，去耦电容的布局及电源的布线方式将直接影响到整个系统的稳定性，有时甚至关系到设计的成败。<br>B. 在双层板设计中，一般应该使电流先经过滤波电容滤波再供器件使用。<br>C. 在高速电路设计中，能否正确地使用去耦电容，关系到整个板的稳定性。 </p>
-<img alt="图 8" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded8.png" width = "50%"/>  
-</li>
-<li><p>器件布局分区&#x2F;分层规则：<br>A. 主要是为了防止不同工作频率的模块之间的互相干扰，同时尽量缩短高频部分的布线长度。<br>B. 对混合电路，也有将模拟与数字电路分别布置在印制板的两面，分别使用不同的层布线，中间用地层隔离的方式。</p>
-<img alt="图 9" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded9.png" width = "50%"/>  
-</li>
-<li><p>地线回路规则：<br>环路最小规则，即信号线与其回路构成的环面积要尽可能小，环面积越小，对外的辐射越少，接收外界的干扰也越小。 </p>
-<img alt="图 10" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded10.png" width = "50%"/>  
-</li>
-<li><p>电源与地线层的完整性规则：<br>对于导通孔密集的区域，要注意避免孔在电源和地层的挖空区域相互连接，形成对平面层的分割，从而破坏平面层的完整性，并进而导致信号线在地层的回路面积增大。</p>
-<img alt="图 11" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded11.png" width = "50%"/>  
-</li>
-<li><p>3W规则：<br>为了减少线间串扰，应保证线间距足够大，当线中心间距不少于3倍线宽时，则可保持70%的电场不互相干扰，称为3W规则。如要达到98%的电场不互相干扰，可使用10W的间距。</p>
- <img alt="图 12" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded12.png" width = "50%"/>  
-</li>
-<li><p>屏蔽保护：<br>对应地线回路规则，实际上也是为了尽量减小信号的回路面积，多见于一些比较重要的信号，如时钟信号，同步信号；<br>对一些特别重要，频率特别高的信号，应该考虑采用铜轴电缆屏蔽结构设计，即将所布的线上下左右用地线隔离，而且还要考虑好如何有效的让屏蔽地与实际地平面有效结合。 </p>
- <img alt="图 13" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded13.png" width = "50%"/>  
-</li>
-<li><p>走线终结网络规则：<br>在高速数字电路中， 当PCB布线的延迟时间大于信号上升时间（或下降时间） 的1&#x2F;4时，该布线即可以看成传输线，为了保证信号的输入和输出阻抗与传输线的阻抗正确匹配，可以采用多种形式的匹配方法， 所选择的匹配方法与网络的连接方式和布线的拓朴结构有关。<br>A. 对于点对点（一个输出对应一个输入） 连接， 可以选择始端串联匹配或终端并联匹配。前者结构简单，成本低，但延迟较大。后者匹配效果好，但结构复杂，成本较高。<br>B. 对于点对多点（一个输出对应多个输出） 连接， 当网络的拓朴结构为菊花链时，应选择终端并联匹配。<br>当网络为星型结构时，可以参考点对点结构。星形和菊花链为两种基本的拓扑结构, 其他结构可看成基本结构的变形, 可采取一些灵活措施进行匹配。<br>在实际操作中要兼顾成本、 功耗和性能等因素， 一般不追求完全匹配，只要将失配引起的反射等干扰限制在可接受的范围即可。</p>
-<img alt="图 14" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded14.png" width = "50%"/>  
-</li>
-<li><p>走线闭环检查规则：<br>防止信号线在不同层间形成自环。在多层板设计中容易发生此类问题， 自环将引起辐射干扰。</p>
-<img alt="图 15" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded15.png" width = "50%"/>  
-</li>
-<li><p>走线的分枝长度控制规则：<br>尽量控制分枝的长度，一般的要求是Tdelay&lt;&#x3D;Trise&#x2F;20。</p>
- <img alt="图 16" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded16.png" width = "50%"/>  
-</li>
-<li><p>走线的谐振规则：<br>主要针对高频信号设计而言， 即布线长度不得与其波长成整数倍关系， 以免产生谐振现象。</p>
-<img alt="图 17" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded17.png" width = "50%"/>  
-</li>
-<li><p>孤立铜区控制规则：<br>孤立铜区的出现， 将带来一些不可预知的问题， 因此将孤立铜区与别的信号相接， 有助于改善信号质量，通常是将孤立铜区接地或删除。<br>在实际的制作中， PCB厂家将一些板的空置部分增加了一些铜箔，这主要是为了方便印制板加工，同时对防止印制板翘曲也有一定的作用。</p>
-<img alt="图 18" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded18.png" width = "50%"/>  
-</li>
-<li><p>重叠电源与地线层规则：<br>不同电源层在空间上要避免重叠。主要是为了减少不同电源之间的干扰， 特别是一些电压相差很大的电源之间， 电源平面的重叠问题一定要设法避免， 难以避免时可考虑中间隔地层。</p>
-<img alt="图 19" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded19.png" width = "50%"/>  
-</li>
-<li><p>20H规则：<br>由于电源层与地层之间的电场是变化的， 在板的边缘会向外辐射电磁干扰。称为边沿效应。<br>解决的办法是将电源层内缩， 使得电场只在接地层的范围内传导。以一个H（电源和地之间的介质厚度）为单位，若内缩20H则可以将70%的电场限制在接地层边沿内；内缩100H则可以将98%的电场限制在内。 </p>
-<img alt="图 20" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded20.png" width = "50%"/></li>
-</ol>
-<h3 id="（4）其他"><a href="#（4）其他" class="headerlink" title="（4）其他"></a>（4）其他</h3><p>对于单双层板电源线应尽量粗而短。电源线和地线的宽度要求可以根据1mm的线宽最大对应1A 的电流来计算，电源和地构成的环路尽量小。<br> <img alt="图 21" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded21.png" width = "60%"/>  </p>
-<p>为了防止电源线较长时，电源线上的耦合杂讯直接进入负载器件，应在进入每个器件之前，先对电源去耦。且为了防止它们彼此间的相互干扰，对每个负载的电源独立去耦，并做到先滤波再进入负载。<br>在布线中应保持接地良好。如下图。<br><img alt="图 22" src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded22.png" width = "60%"/>  </p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -480,6 +480,54 @@ return ids.length + &quot; item(s) updated&quot;;
       </tags>
   </entry>
   <entry>
+    <title>Project：多个项目汇总</title>
+    <url>/2023/02/15/Project/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
+<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
+<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
+<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
+<p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
+<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
+<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
+<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
+<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
+<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
+<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
+<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
+<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
+<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
+<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
+<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
+<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
+<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
+<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
+<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
+<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
+<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
+<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
+<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
+<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
+<p>技术创新：</p>
+<blockquote>
+<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+</blockquote>
+<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
+<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
+<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
+<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
+<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
+]]></content>
+      <tags>
+        <tag>技术</tag>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Photograph：个人摄影笔记</title>
     <url>/2022/12/01/Photograph/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="摄影笔记"><a href="#摄影笔记" class="headerlink" title="摄影笔记"></a>摄影笔记</h1><p>四要素：<code>取景，曝光，虚实，构图</code></p>
@@ -687,54 +735,6 @@ B-->C</pre>
       <tags>
         <tag>技术</tag>
         <tag>摄影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Project：多个项目汇总</title>
-    <url>/2023/02/15/Project/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
-<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
-<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
-<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
-<p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
-<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
-<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
-<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
-<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
-<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
-<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
-<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
-<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
-<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
-<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
-<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
-<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
-<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
-<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
-<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
-<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
-<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
-<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
-<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
-<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
-<p>技术创新：</p>
-<blockquote>
-<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
-</blockquote>
-<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
-<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
-<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
-<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
-<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://ghproxy.com/https://raw.githubusercontent.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
-]]></content>
-      <tags>
-        <tag>技术</tag>
-        <tag>总结</tag>
       </tags>
   </entry>
   <entry>
