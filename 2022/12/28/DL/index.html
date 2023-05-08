@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL14.png">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL15.png">
 <meta property="article:published_time" content="2022-12-28T12:22:05.000Z">
-<meta property="article:modified_time" content="2023-05-07T15:01:11.584Z">
+<meta property="article:modified_time" content="2023-05-08T06:16:15.805Z">
 <meta property="article:author" content="王宇杰">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -159,7 +159,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">深度学习框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E5%8F%97%E9%87%8E"><span class="nav-number">1.1.</span> <span class="nav-text">感受野</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optimizer"><span class="nav-number">1.2.</span> <span class="nav-text">Optimizer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-size"><span class="nav-number">1.3.</span> <span class="nav-text">Batch size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E3%80%8CCross-Entropy-Loss%E3%80%8D"><span class="nav-number">1.4.1.</span> <span class="nav-text">交叉熵损失函数「Cross Entropy Loss」</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%EF%BC%88Attention-Mechanism%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">注意力机制（Attention Mechanism）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%9F%9F"><span class="nav-number">2.1.</span> <span class="nav-text">软注意力的注意力域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%9F%9F%EF%BC%88Spatial-Domain%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">空间域（Spatial Domain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%9F%9F%EF%BC%88Channel-Domain%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">通道域（Channel Domain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%9F%9F%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.3.</span> <span class="nav-text">时域注意力机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%92%8C%E7%A9%BA%E9%97%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.4.</span> <span class="nav-text">通道和空间注意力机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Metrics-%E8%AF%84%E4%BC%B0"><span class="nav-number">3.</span> <span class="nav-text">Metrics 评估</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5"><span class="nav-number">3.1.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation-parameters"><span class="nav-number">3.2.</span> <span class="nav-text">Evaluation parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%A1%E7%AE%97%E9%87%8F-FLOPs-%E5%92%8C%E5%8F%82%E6%95%B0%E9%87%8F-Params"><span class="nav-number">3.3.</span> <span class="nav-text">模型计算量(FLOPs)和参数量(Params)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformer"><span class="nav-number">4.</span> <span class="nav-text">Transformer</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">深度学习框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E5%8F%97%E9%87%8E"><span class="nav-number">1.1.</span> <span class="nav-text">感受野</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.2.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optimizer"><span class="nav-number">1.3.</span> <span class="nav-text">Optimizer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-size"><span class="nav-number">1.4.</span> <span class="nav-text">Batch size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E3%80%8Closs-function%E3%80%8D"><span class="nav-number">1.5.</span> <span class="nav-text">损失函数「loss function」</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%EF%BC%88Attention-Mechanism%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">注意力机制（Attention Mechanism）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%9F%9F"><span class="nav-number">2.1.</span> <span class="nav-text">软注意力的注意力域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%9F%9F%EF%BC%88Spatial-Domain%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">空间域（Spatial Domain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%9F%9F%EF%BC%88Channel-Domain%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">通道域（Channel Domain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%9F%9F%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.3.</span> <span class="nav-text">时域注意力机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%92%8C%E7%A9%BA%E9%97%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.4.</span> <span class="nav-text">通道和空间注意力机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Metrics-%E8%AF%84%E4%BC%B0"><span class="nav-number">3.</span> <span class="nav-text">Metrics 评估</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5"><span class="nav-number">3.1.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation-parameters"><span class="nav-number">3.2.</span> <span class="nav-text">Evaluation parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%A1%E7%AE%97%E9%87%8F-FLOPs-%E5%92%8C%E5%8F%82%E6%95%B0%E9%87%8F-Params"><span class="nav-number">3.3.</span> <span class="nav-text">模型计算量(FLOPs)和参数量(Params)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformer"><span class="nav-number">4.</span> <span class="nav-text">Transformer</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -274,7 +274,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-05-07 23:01:11" itemprop="dateModified" datetime="2023-05-07T23:01:11+08:00">2023-05-07</time>
+      <time title="修改时间：2023-05-08 14:16:15" itemprop="dateModified" datetime="2023-05-08T14:16:15+08:00">2023-05-08</time>
     </span>
 
   
@@ -284,14 +284,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.4k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>12 分钟</span>
+      <span>13 分钟</span>
     </span>
 </div>
 
@@ -316,12 +316,16 @@ A-->E[C.定义]</pre>
 
 <p>GPU 网络和数据要同时送进GPU</p>
 <h2 id="感受野"><a href="#感受野" class="headerlink" title="感受野"></a>感受野</h2><p>感受野被定义为卷积神经网络特征所能看到输入图像的区域，换句话说特征输出受感受野区域内的像素点的影响。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL2.png" width = "50%" /></p>
+<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
 <h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL3.gif" width = "60%" />
 
 <p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL4.png" alt="图 4">  </p>
-<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成①<em>每个epoch所需的时间</em>（假设算力确定了）和每次迭代(iteration)之间②<em>梯度的平滑程度</em>。</p>
+<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> ^1^（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> ^2^。</p>
 <blockquote>
-<p>①假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加<br>②如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</p>
+<ol>
+<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
+<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
+</ol>
 </blockquote>
 <p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
 <blockquote>
@@ -331,10 +335,12 @@ A-->E[C.定义]</pre>
 <li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
 </ol>
 </blockquote>
-<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="交叉熵损失函数「Cross-Entropy-Loss」"><a href="#交叉熵损失函数「Cross-Entropy-Loss」" class="headerlink" title="交叉熵损失函数「Cross Entropy Loss」"></a>交叉熵损失函数「Cross Entropy Loss」</h3><p>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。<br>BCELoss和BCEWithLogitsLoss还提供了两个重要参数： </p>
+<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
+<p><strong>均方误差损失函数（MSE）</strong><br>$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。<br><strong>L2损失函数（平方误差损失函数）</strong><br>$L_2 &#x3D; \frac{1}{n} \sum_{i&#x3D;1}^{n}(y_i - \hat{y_i})^2$<br>L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。<br>BCELoss和BCEWithLogitsLoss还提供了两个重要参数： </p>
 <blockquote>
 <p>weight：可用于控制各样本的权重，常用作对对齐后的数据进行mask操作（设为0）<br>reduction：控制损失输出模式。设为”sum”表示对样本进行求损失和；设为”mean”表示对样本进行求损失的平均值；而设为”none”表示对样本逐个求损失，输出与输入的shape一样。<br>此外BCEWithLogitsLoss还提供了参数pos_weight用于设置损失的class权重，用于缓解样本的不均衡问题。</p>
 </blockquote>
+<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
 <h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
 <h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL5.png" width = "50%" /></p>
 <h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
@@ -349,7 +355,7 @@ A-->E[C.定义]</pre>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#97;&#x70;&#64;&#x30;&#46;&#x35;">&#x6d;&#97;&#x70;&#64;&#x30;&#46;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#97;&#x70;&#64;&#48;&#46;&#53;">&#x6d;&#97;&#x70;&#64;&#48;&#46;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "50%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -422,7 +428,7 @@ A-->E[C.定义]</pre>
 <div class="theme-info">
   <div class="powered-by"></div>
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <span class="post-count">全站共 28.9k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
+  <span class="post-count">全站共 29.1k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
 </div>
     </div>
   </footer>
