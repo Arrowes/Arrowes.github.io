@@ -25,7 +25,7 @@
 <meta property="og:url" content="http://example.com/2023/05/10/TDA4VM/index.html">
 <meta property="og:site_name" content="Arrow的笔记本">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.ti.com.cn/ds_dgm/images/fbd_sprsp36j.gif">
+<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg">
 <meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/_images/psdk_rtos_block_diagram_j721e.png">
 <meta property="og:image" content="https://e2echina.ti.com/resized-image/__size/320x240/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-78/pastedimage1655446872409v1.png">
 <meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/dnn-workflow.png">
@@ -34,12 +34,12 @@
 <meta property="og:image" content="https://e2echina.ti.com/resized-image/__size/320x240/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-78/pastedimage1655446934974v4.png">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/3step.png">
 <meta property="article:published_time" content="2023-05-10T09:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-13T01:46:01.971Z">
+<meta property="article:modified_time" content="2023-05-13T03:58:36.324Z">
 <meta property="article:author" content="王宇杰">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.ti.com.cn/ds_dgm/images/fbd_sprsp36j.gif">
+<meta name="twitter:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg">
 
 
 <link rel="canonical" href="http://example.com/2023/05/10/TDA4VM/">
@@ -268,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-05-13 09:46:01" itemprop="dateModified" datetime="2023-05-13T09:46:01+08:00">2023-05-13</time>
+      <time title="修改时间：2023-05-13 11:58:36" itemprop="dateModified" datetime="2023-05-13T11:58:36+08:00">2023-05-13</time>
     </span>
 
   
@@ -297,8 +297,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a target="_blank" rel="noopener" href="https://www.ti.com.cn/product/zh-cn/TDA4VM">Ti官网——TDA4VM</a></p>
-<h1 id="TDA4VM芯片数据手册研读"><a href="#TDA4VM芯片数据手册研读" class="headerlink" title="TDA4VM芯片数据手册研读"></a>TDA4VM芯片数据手册研读</h1><p><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ds/symlink/tda4vm.pdf">TDA4VM数据手册</a><br>适用于 ADAS 和自动驾驶汽车的TDA4VM Jacinto™ 处理器,具有深度学习、视觉功能和多媒体加速器的双核 Arm® Cortex®-A72 SoC 和 C7x DSP.<br>Jacinto 7系列架构芯片含两款汽车级芯片：TDA4VM 处理器和 DRA829V 处理器，前者应用于 ADAS，后者应用于网关系统，以及加速数据密集型任务的专用加速器，如计算机视觉和深度学习。</p>
-<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><img alt="图 2" src="https://www.ti.com.cn/ds_dgm/images/fbd_sprsp36j.gif" />  
+<h1 id="TDA4VM芯片数据手册研读"><a href="#TDA4VM芯片数据手册研读" class="headerlink" title="TDA4VM芯片数据手册研读"></a>TDA4VM芯片数据手册研读</h1><p><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ds/symlink/tda4vm.pdf">TDA4VM数据手册</a><br>适用于 ADAS 和自动驾驶汽车的TDA4VM Jacinto™ 处理器,具有深度学习、视觉功能和多媒体加速器的双核 Arm® Cortex®-A72 SoC 和 C7x DSP.<br>Jacinto 7系列架构芯片含两款汽车级芯片：TDA4VM 处理器和 DRA829V 处理器，前者应用于 ADAS，后者应用于网关系统，以及加速数据密集型任务的专用加速器，如计算机视觉和深度学习。二者都基于J721E平台开发。</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg" />  
 
 <h2 id="处理器内核"><a href="#处理器内核" class="headerlink" title="处理器内核"></a>处理器内核</h2><ul>
 <li><strong>C7x 浮点矢量 DSP，性能高达 1.0GHz、 80GFLOPS、256GOPS</strong>：C7x是TI的一款高性能数字信号处理器，其中的浮点矢量 DSP 可以进行高效的信号处理、滤波和计算，大幅提高神经网络模型的计算效率。<br><em>GHz-每秒钟执行10亿次计算，GFLOPS-每秒10亿次浮点运算，GOPS-每秒10亿次通用操作。</em></li>
@@ -411,7 +411,7 @@ PSDK RTOS Block Diagram
 
 <h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX User Guide</a><br><a target="_blank" rel="noopener" href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><code>Vx_context</code>：一个context就是一个运行环境，包含多种不同的功能，在不同场景下被调度。一般很少有使用到多context的场景；<br><code>Vx_graph</code>：一个graph就是一个功能，是由多个步骤连接在一起的完整功能；<br><code>Vx_node</code>：一个node就是一个最小的调度单元，可以是图像预处理算法，可以是边缘检测算法。<br>每个进程内可以有多个context（上下文），每个context内可以有多个graph（图，或连接关系），每个graph内可以有多个node（节点）。</p>
-<h3 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h3><p><code>Vx_image,Vx_tensor,Vx_matrix,Vx_array,Vx_user_object_data</code><br>OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。</p>
+<h3 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h3><p><code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code><br>OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。</p>
 <h3 id="OpenVX与TDA4VM"><a href="#OpenVX与TDA4VM" class="headerlink" title="OpenVX与TDA4VM"></a>OpenVX与TDA4VM</h3><p>TIOVX是TI公司对OpenVX的实现,TIOVX Framework包含了官方OpenVX的标准API和TI扩展的API，其中包括</p>
 <ul>
 <li>public: Context, Parameter, Kernel, Node, Graph Array, Image, Scalar, Pyramid, ObjectArray ；</li>
