@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://e2echina.ti.com/resized-image/__size/320x240/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-78/pastedimage1655446934974v4.png">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/3step.png">
 <meta property="article:published_time" content="2023-05-10T09:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-12T14:27:26.786Z">
+<meta property="article:modified_time" content="2023-05-13T01:46:01.971Z">
 <meta property="article:author" content="王宇杰">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
@@ -268,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-05-12 22:27:26" itemprop="dateModified" datetime="2023-05-12T22:27:26+08:00">2023-05-12</time>
+      <time title="修改时间：2023-05-13 09:46:01" itemprop="dateModified" datetime="2023-05-13T09:46:01+08:00">2023-05-13</time>
     </span>
 
   
@@ -278,7 +278,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.6k</span>
+      <span>2.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -382,14 +382,14 @@ PSDK RTOS Block Diagram
 </ul>
 <img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/dnn-workflow.png">
 
-<p>RTOS SDK 中集成了众多的Demo展示TIDL在TDA4处理器上对实时的语义分割和 SSD 目标检测的能力。如下图,AVP的demo展示了使用TIDL对泊车点、车辆的检测。[^当深度学习遇上TDA4]<br>[^当深度学习遇上TDA4]:<a target="_blank" rel="noopener" href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a></p>
+<p>RTOS SDK 中集成了众多的Demo展示TIDL在TDA4处理器上对实时的语义分割和 SSD 目标检测的能力。如下图,AVP的demo展示了使用TIDL对泊车点、车辆的检测。<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[当深度学习遇上TDA4](https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4)">[1]</span></a></sup></p>
 <img src="https://e2echina.ti.com/resized-image/__size/320x240/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-78/pastedimage1655446893573v2.png">
 
 <p>TIDL当前支持的训练框架有Tensorflow、Pytorch、Caffe等，用户可以根据需要选择合适的训练框架进行模型训练。TIDL可以将PC端训练好的模型导入编译生成TIDL可以识别的模型格式，同时在导入编译过程中进行层级合并以及量化等操作，方便导入编译后的模型高效的运行在具有高性能定点数据感知能力TDA4硬件加速器上。 TIDL提供了一些的工具，如模型导入工具，模型可视化工具等，非常便捷地可以对训练好地模型进行导入。<br>TIDL Tools<br><img src="https://e2echina.ti.com/resized-image/__size/320x240/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-78/pastedimage1655446913516v3.png"></p>
 <h3 id="TIDL-RT-TIDL-Runtime"><a href="#TIDL-RT-TIDL-Runtime" class="headerlink" title="TIDL-RT(TIDL Runtime)"></a>TIDL-RT(TIDL Runtime)</h3><p>TIDL Runtime 是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。 特点：互用性、高精度、高性能、可扩展。</p>
 <img src="https://e2echina.ti.com/resized-image/__size/320x240/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-78/pastedimage1655446934974v4.png">
 
-<p>如图所示是TIDL的软件框架。在TIDL上，深度学习网络应用开发主要分为三个大的步骤（以TI Jacinto7TM TDA4VM处理器为例）[^基于Pytorch训练并部署ONNX模型在TDA4]:<br>[^基于Pytorch训练并部署ONNX模型在TDA4]:<a target="_blank" rel="noopener" href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf">基于 Pytorch 训练并部署 ONNX 模型在TDA4</a></p>
+<p>如图所示是TIDL的软件框架。在TIDL上，深度学习网络应用开发主要分为三个大的步骤（以TI Jacinto7TM TDA4VM处理器为例）</p>
 <ol>
 <li>基于Tensorflow、Pytorch、Caffe 等训练框架，训练模型：选择一个训练框，然后定义模型，最后使用相应的数据集训练出满足需求的模型。</li>
 <li>基于TI Jacinto7TM TDA4VM处理器导入模型： 训练好的模型，需要使用TIDL Importer工具导入成可在TIDL上运行的模型。导入的主要目的是对输入的模型进行量化、优化并保存为TIDL能够识别的网络模型和网络参数文件。</li>
@@ -420,9 +420,10 @@ PSDK RTOS Block Diagram
 <ul>
 <li>TI官方提供OpenVX的支持，提供标准算法的硬件加速实现，提供各个功能的Demo，能够简化开发调试工作。</li>
 <li>简化多核异构的开发，可以在X86模拟运行，所有的板级开发和调试都位于A72 Linux端，减少了对RTOS调试的工作量。</li>
-<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响。[^OpenVX视觉加速中间件与TDA4VM平台上的应用][^TDA4横扫行泊一体市场与其背后的OpenVX]<br>[^OpenVX视觉加速中间件与TDA4VM平台上的应用]:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a><br><br>[^TDA4横扫行泊一体市场与其背后的OpenVX]:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a></li>
+<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响。<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832)
+">[3]</span></a></sup><sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[4]</span></a></sup></li>
 </ul>
-
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf">基于 Pytorch 训练并部署 ONNX 模型在TDA4</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li></ol></div></div>
     </div>
 
     
@@ -480,7 +481,7 @@ PSDK RTOS Block Diagram
 <div class="theme-info">
   <div class="powered-by"></div>
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <span class="post-count">全站共 32.2k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
+  <span class="post-count">全站共 32.1k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
 </div>
     </div>
   </footer>
