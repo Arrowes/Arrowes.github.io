@@ -31,12 +31,17 @@
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMTIDLflow.png">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdemo.png">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/3step.png">
+<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/openvxflow.png">
+<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/openvxexample.png">
+<meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png">
+<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/tiovx.png">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png">
+<meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png">
 <meta property="article:published_time" content="2023-05-10T09:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-14T13:24:39.705Z">
+<meta property="article:modified_time" content="2023-05-15T04:30:30.990Z">
 <meta property="article:author" content="王宇杰">
-<meta property="article:tag" content="嵌入式">
 <meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="嵌入式">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg">
 
@@ -152,7 +157,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TDA4VM%E8%8A%AF%E7%89%87%E6%95%B0%E6%8D%AE%E6%89%8B%E5%86%8C%E7%A0%94%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">TDA4VM芯片数据手册研读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E5%86%85%E6%A0%B8"><span class="nav-number">1.2.</span> <span class="nav-text">处理器内核</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SDK"><span class="nav-number">2.</span> <span class="nav-text">SDK</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Processor-SDK-RTOS-PSDK-RTOS"><span class="nav-number">2.1.</span> <span class="nav-text">Processor SDK RTOS (PSDK RTOS)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SDK-Components"><span class="nav-number">2.1.1.</span> <span class="nav-text">SDK Components</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIDL"><span class="nav-number">2.2.</span> <span class="nav-text">TIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TIDL-RT"><span class="nav-number">2.2.1.</span> <span class="nav-text">TIDL-RT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenVX"><span class="nav-number">2.3.</span> <span class="nav-text">OpenVX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.2.</span> <span class="nav-text">基本数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenVX%E4%B8%8ETDA4VM"><span class="nav-number">2.3.3.</span> <span class="nav-text">OpenVX与TDA4VM</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">算法部署</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TDA4VM%E8%8A%AF%E7%89%87%E6%95%B0%E6%8D%AE%E6%89%8B%E5%86%8C%E7%A0%94%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">TDA4VM芯片数据手册研读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E5%86%85%E6%A0%B8"><span class="nav-number">1.2.</span> <span class="nav-text">处理器内核</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SDK"><span class="nav-number">2.</span> <span class="nav-text">SDK</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Processor-SDK-RTOS-PSDK-RTOS"><span class="nav-number">2.1.</span> <span class="nav-text">Processor SDK RTOS (PSDK RTOS)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SDK-Components"><span class="nav-number">2.1.1.</span> <span class="nav-text">SDK Components</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIDL"><span class="nav-number">2.2.</span> <span class="nav-text">TIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TIDL-RT"><span class="nav-number">2.2.1.</span> <span class="nav-text">TIDL-RT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenVX"><span class="nav-number">2.3.</span> <span class="nav-text">OpenVX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.2.</span> <span class="nav-text">基本数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIOVX"><span class="nav-number">2.3.3.</span> <span class="nav-text">TIOVX</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">算法部署</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -267,7 +272,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-05-14 21:24:39" itemprop="dateModified" datetime="2023-05-14T21:24:39+08:00">2023-05-14</time>
+      <time title="修改时间：2023-05-15 12:30:30" itemprop="dateModified" datetime="2023-05-15T12:30:30+08:00">2023-05-15</time>
     </span>
 
   
@@ -277,14 +282,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.6k</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
+      <span>10 分钟</span>
     </span>
 </div>
 
@@ -300,33 +305,24 @@
 <h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg" />  
 
 <h2 id="处理器内核"><a href="#处理器内核" class="headerlink" title="处理器内核"></a>处理器内核</h2><ul>
-<li><p><strong>C7x 浮点矢量 DSP，性能高达 1.0GHz、 80GFLOPS、256GOPS</strong>：C7x是TI的一款高性能数字信号处理器，其中的浮点矢量 DSP 可以进行高效的信号处理、滤波和计算，大幅提高神经网络模型的计算效率。<br><em>GHz-每秒钟执行10亿次计算，GFLOPS-每秒10亿次浮点运算，GOPS-每秒10亿次通用操作。</em></p>
-</li>
-<li><p><strong>深度学习矩阵乘法加速器 (MMA)，性能高达8TOPS (8b)（频率为1.0GHz）</strong>：可以高效地执行矩阵乘法和卷积等运算。<br><em>TOPS-每秒万亿次操作，8b-8位精度的运算。</em></p>
-</li>
-<li><p>**具有图像信号处理器 (ISP) 和多个视觉辅助加速器的视觉处理加速器 (VPAC)**：可以高效地执行图像处理、计算机视觉和感知任务。</p>
-</li>
-<li><p>**深度和运动处理加速器(DMPAC)**：可以高效地执行深度计算和运动估计等任务。</p>
-</li>
-<li><p><strong>双核 64 位 Arm® Cortex®-A72 微处理器子系统，性能高达 2.0GHz</strong>：可以高效地执行复杂的应用程序。</p>
-<ul>
+<li><strong>C7x 浮点矢量 DSP，性能高达 1.0GHz、 80GFLOPS、256GOPS</strong>：C7x是TI的一款高性能数字信号处理器，其中的浮点矢量 DSP 可以进行高效的信号处理、滤波和计算，大幅提高神经网络模型的计算效率。<br><em>GHz-每秒钟执行10亿次计算，GFLOPS-每秒10亿次浮点运算，GOPS-每秒10亿次通用操作。</em></li>
+<li><strong>深度学习矩阵乘法加速器 (MMA)，性能高达8TOPS (8b)（频率为1.0GHz）</strong>：可以高效地执行矩阵乘法和卷积等运算。<br><em>TOPS-每秒万亿次操作，8b-8位精度的运算。</em></li>
+<li>**具有图像信号处理器 (ISP) 和多个视觉辅助加速器的视觉处理加速器 (VPAC)**：可以高效地执行图像处理、计算机视觉和感知任务。</li>
+<li>**深度和运动处理加速器(DMPAC)**：可以高效地执行深度计算和运动估计等任务。</li>
+<li><strong>双核 64 位 Arm® Cortex®-A72 微处理器子系统，性能高达 2.0GHz</strong>：可以高效地执行复杂的应用程序。<ul>
 <li>每个双核 Cortex®-A72 集群具有 1MB L2 共享缓存 </li>
 <li>每个 Cortex®-A72 内核具有 32KB L1 数据缓存 和 48KB L1 指令缓存<br><em>L1缓存（一级缓存）：小而快，缓存CPU频繁使用的数据和指令，以提高内存访问速度；L2：大，帮助CPU更快地访问主内存中的数据。</em></li>
 </ul>
 </li>
-<li><p><strong>六个 Arm® Cortex®-R5F MCU，性能高达 1.0GHz</strong>：一组小型、低功耗的微控制器单元，用于处理实时任务和控制应用程序</p>
-<ul>
+<li><strong>六个 Arm® Cortex®-R5F MCU，性能高达 1.0GHz</strong>：一组小型、低功耗的微控制器单元，用于处理实时任务和控制应用程序<ul>
 <li>16K 指令缓存，16K 数据缓存，64K L2 TCM（Tightly-Coupled Memory）</li>
 <li>隔离 MCU 子系统中有两个 Arm® Cortex®-R5F MCU</li>
 <li>通用计算分区中有四个 Arm® Cortex®-R5F MCU</li>
 </ul>
 </li>
-<li><p><strong>两个 C66x 浮点 DSP，性能高达 1.35GHz、 40GFLOPS、160GOPS</strong>：另一款高性能数字信号处理器，可以高效地执行信号处理、滤波和计算任务。</p>
-</li>
-<li><p><strong>3D GPU PowerVR® Rogue 8XE GE8430，性能高达 750MHz、96GFLOPS、6Gpix&#x2F;s</strong>：专门用于图形处理的硬件单元，可以实现高效的图形渲染和计算。<br><em>Gpix&#x2F;s-每秒可以处理10亿像素数</em></p>
-</li>
-<li><p><strong>定制设计的互联结构，支持接近于最高的处理能力</strong>：处理器内部的互连结构，用于连接各种硬件单元，并支持高效的数据传输和协议。</p>
-</li>
+<li><strong>两个 C66x 浮点 DSP，性能高达 1.35GHz、 40GFLOPS、160GOPS</strong>：另一款高性能数字信号处理器，可以高效地执行信号处理、滤波和计算任务。</li>
+<li><strong>3D GPU PowerVR® Rogue 8XE GE8430，性能高达 750MHz、96GFLOPS、6Gpix&#x2F;s</strong>：专门用于图形处理的硬件单元，可以实现高效的图形渲染和计算。<br><em>Gpix&#x2F;s-每秒可以处理10亿像素数</em></li>
+<li><strong>定制设计的互联结构，支持接近于最高的处理能力</strong>：处理器内部的互连结构，用于连接各种硬件单元，并支持高效的数据传输和协议。</li>
 </ul>
 <h1 id="SDK"><a href="#SDK" class="headerlink" title="SDK"></a>SDK</h1><p>Download：<a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a>，提供Linux SDK、QNX SDK和RTOS SDK<br>Document：<a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a>，<a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a>（<a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/index.html#">Processor SDK Linux for Edge AI</a>，<a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-qnx-jacinto7/08_06_00_07/exports/docs/index.html"><del>QNX SDK</del></a>）</p>
 <p><em>To run many of the demos in this SDK, the companion Processor SDK Linux(PSDK_Linux) for J721E also needs to be downloaded separately, together form a multi-processor software development kit for the J721E platform</em></p>
@@ -372,10 +368,11 @@
 <td><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiadalg/TIAutonomousDrivingAlgorithmLibrary_ReleaseNotes.html#Documentation">TIADALG</a></td>
 </tr>
 </tbody></table>
-<h2 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a>TIDL</h2><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/index.html">TI Deep Learning Product User Guide</a></p>
-<p>TIDL（TI Deep Learning Library） 是TI平台基于深度学习算法的<em>软件生态系统</em>，可以将一些常见的深度学习算法模型快速的部署到TI嵌入式平台。<br>Features: Understand the trained output of popular frameworks, Layer types, Sparse convolution, Quantized inference and on-the-fly quantization, Host emulation, Support for a variety of training frameworks, Low power consumption.[^TIDL]<br>[^TIDL]:<a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf">Embedded low-power deep learning with TIDL</a></p>
-<p>Popular operators supported include: Convolution，Pooling，Element Wise，Inner-Product，Soft-Max，Bias Add，Concatenate，Scale，Batch Normalization，Re-size ，Arg-max，Slice，Crop，Flatten，Shuffle Channel，Detection output ，Deconvolution&#x2F;Transpose convolution</p>
-<p>TIDL is a fundamental software component of <a target="_blank" rel="noopener" href="https://www.ti.com/edgeai">TI’s Edge AI solution</a>.<strong>TI’s Edge AI Tools</strong>：</p>
+<h2 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a>TIDL</h2><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/index.html">TIDL</a>（TI Deep Learning Library）是TI平台基于深度学习算法的<em>软件生态系统</em>，可以将一些常见的深度学习算法模型快速的部署到TI嵌入式平台。</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">Features</span><span class="operator">:</span> <span class="variable">Understand</span> <span class="variable">the</span> <span class="variable">trained</span> <span class="variable">output</span> <span class="variable">of</span> <span class="variable">popular</span> <span class="variable">frameworks</span><span class="operator">,</span> <span class="variable">Layer</span> <span class="variable">types</span><span class="operator">,</span> <span class="variable">Sparse</span> <span class="variable">convolution</span><span class="operator">,</span> <span class="variable">Quantized</span> <span class="variable">inference</span> <span class="variable">and</span> <span class="variable">on</span><span class="operator">-</span><span class="variable">the</span><span class="operator">-</span><span class="variable">fly</span> <span class="variable">quantization</span><span class="operator">,</span> <span class="variable">Host</span> <span class="variable">emulation</span><span class="operator">,</span> <span class="variable">Support</span> <span class="variable">for</span> <span class="variable">a</span> <span class="variable">variety</span> <span class="variable">of</span> <span class="variable">training</span> <span class="variable">frameworks</span><span class="operator">,</span> <span class="variable">Low</span> <span class="variable">power</span> <span class="variable">consumption</span><span class="operator">.</span></span><br><span class="line"><span class="variable">Popular</span> <span class="variable">operators</span> <span class="variable">supported</span><span class="operator">:</span> <span class="variable">Convolution</span>，<span class="variable">Pooling</span>，<span class="built_in">Element</span> <span class="variable">Wise</span>，<span class="built_in">Inner</span><span class="operator">-</span><span class="built_in">Product</span>，<span class="variable">Soft</span><span class="operator">-</span><span class="built_in">Max</span>，<span class="variable">Bias</span> <span class="variable">Add</span>，<span class="variable">Concatenate</span>，<span class="built_in">Scale</span>，<span class="variable">Batch</span> <span class="variable">Normalization</span>，<span class="built_in">Re</span><span class="operator">-</span><span class="variable">size</span> ，<span class="built_in">Arg</span><span class="operator">-</span><span class="variable">max</span>，<span class="variable">Slice</span>，<span class="variable">Crop</span>，<span class="built_in">Flatten</span>，<span class="variable">Shuffle</span> <span class="variable">Channel</span>，<span class="variable">Detection</span> <span class="variable">output</span> ，<span class="variable">Deconvolution</span><span class="operator">/</span><span class="built_in">Transpose</span> <span class="variable">convolution</span> </span><br></pre></td></tr></table></figure>
+<p><sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Embedded low-power deep learning with TIDL](https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf)">[1]</span></a></sup></p>
+<p>TIDL is a fundamental software component of <a target="_blank" rel="noopener" href="https://www.ti.com/edgeai">TI’s Edge AI solution</a>.</p>
+<p><strong>TI’s Edge AI Tools</strong>：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://dev.ti.com/edgeai/">Edge AI Studio</a>:Integrated development environment for development of AI applications for edge processors.（需授权）</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-modelzoo">Model zoo</a>:A large collection of pre-trained models for data scientists,其中有<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-modelzoo/tree/master/models/vision/detection">YOLO例程</a></li>
@@ -387,7 +384,7 @@
 <p>RTOS SDK 中集成了众多的Demo展示TIDL在TDA4处理器上对实时的语义分割和 SSD 目标检测的能力。如下图,	Vision Apps User Guide 中 <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/07_02_00_06/exports/docs/vision_apps/docs/user_guide/group_apps_dl_demos_app_tidl_avp3.html">AVP Demo</a> 的展示了使用TIDL对泊车点、车辆的检测。<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Deep Learning with Jacinto™ 7 SoCs: TDA4x](https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf) | [当深度学习遇上TDA4](https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4)">[2]</span></a></sup></p>
 <img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdemo.png" />  
 
-<h3 id="TIDL-RT"><a href="#TIDL-RT" class="headerlink" title="TIDL-RT"></a>TIDL-RT</h3><p>TIDL Runtime 是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。<br>特点：互用性、高精度、高性能、可扩展。</p>
+<h3 id="TIDL-RT"><a href="#TIDL-RT" class="headerlink" title="TIDL-RT"></a>TIDL-RT</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_overview.html">TIDL Runtime</a> 是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。 特点：互用性、高精度、高性能、可扩展。</p>
 <p>如图所示是TIDL的软件框架。在TIDL上，深度学习网络应用开发主要分为三个大的步骤（以TI Jacinto7TM TDA4VM处理器为例）: <sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[基于Pytorch训练并在TDA4上部署ONNX模型](https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf)">[3]</span></a></sup></p>
 <ol>
 <li>基于Tensorflow、Pytorch、Caffe 等训练框架，训练模型：选择一个训练框，然后定义模型，最后使用相应的数据集训练出满足需求的模型。</li>
@@ -408,30 +405,43 @@
 </ol>
 <img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/3step.png" />  
 
-<h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX User Guide</a><br><a target="_blank" rel="noopener" href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
+<h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a target="_blank" rel="noopener" href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><code>Vx_context</code>：一个context就是一个运行环境，包含多种不同的功能，在不同场景下被调度。一般很少有使用到多context的场景；<br><code>Vx_graph</code>：一个graph就是一个功能，是由多个步骤连接在一起的完整功能；<br><code>Vx_node</code>：一个node就是一个最小的调度单元，可以是图像预处理算法，可以是边缘检测算法。<br>每个进程内可以有多个context（上下文），每个context内可以有多个graph（图，或连接关系），每个graph内可以有多个node（节点）。</p>
+<img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/openvxflow.png" />  
+
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Example Program</span></span><br><span class="line">vx_context context = vx<span class="constructor">CreateContext()</span>; <span class="comment">//创建 OpenVX 上下文,即整个应用程序的运行环境</span></span><br><span class="line">vx_graph graph = vx<span class="constructor">CreateGraph( <span class="params">context</span> )</span>; <span class="comment">//在上下文中创建一个图，表示图像处理的流程</span></span><br><span class="line">vx_image input = vx<span class="constructor">CreateImage( <span class="params">context</span>, 640, 480, VX_DF_IMAGE_U8 )</span>;</span><br><span class="line">vx_image output = vx<span class="constructor">CreateImage( <span class="params">context</span>, 640, 480, VX_DF_IMAGE_U8 )</span>; <span class="comment">//创建输入和输出图像，分别用于存储输入和处理后的图像。</span></span><br><span class="line">vx_image intermediate = vx<span class="constructor">CreateVirtualImage( <span class="params">graph</span>, 640, 480, VX_DF_IMAGE_U8 )</span>; <span class="comment">//创建虚拟图像，用于存储第一次处理后的结果，供下一步处理使用</span></span><br><span class="line">vx_node F1 = vx<span class="constructor">F1Node( <span class="params">graph</span>, <span class="params">input</span>, <span class="params">intermediate</span> )</span>;</span><br><span class="line">vx_node F2 = vx<span class="constructor">F2Node( <span class="params">graph</span>, <span class="params">intermediate</span>, <span class="params">output</span> )</span>; <span class="comment">//创建两个节点，分别表示两个不同的图像处理操作，并将它们添加到图中</span></span><br><span class="line">vx<span class="constructor">VerifyGraph( <span class="params">graph</span> )</span>; <span class="comment">//验证图的正确性</span></span><br><span class="line">vx<span class="constructor">ProcessGraph( <span class="params">graph</span> )</span>; <span class="comment">//执行图像处理</span></span><br></pre></td></tr></table></figure>
+<img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/openvxexample.png" />  
+
+<p><sup id="fnref:4"><a href="#fn:4" rel="footnote">&lt;span class&#x3D;”hint–top hint–error hint–medium hint–rounded hint–bounce” aria-label&#x3D;”<a target="_blank" rel="noopener" href="https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf">TIOVX – TI’s OpenVX Implementation</a></p>
 <h3 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h3><p><code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code><br>OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。</p>
-<h3 id="OpenVX与TDA4VM"><a href="#OpenVX与TDA4VM" class="headerlink" title="OpenVX与TDA4VM"></a>OpenVX与TDA4VM</h3><p>TIOVX是TI公司对OpenVX的实现,TIOVX Framework包含了官方OpenVX的标准API和TI扩展的API，其中包括</p>
-<ul>
-<li>public: Context, Parameter, Kernel, Node, Graph Array, Image, Scalar, Pyramid, ObjectArray ；</li>
-<li>TI: Target, Target Kernel, Obj Desc。TIOVX Platform提供了特定硬件(如TDAx, AM65x)的操作系统(如TI-RTOS, Linux)调用API。</li>
-</ul>
+<h3 id="TIOVX"><a href="#TIOVX" class="headerlink" title="TIOVX"></a>TIOVX</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a> 是TI公司对OpenVX的实现。<br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png">“&gt;[4]</span></a></sup></p>
+<p>TIOVX Platform提供了特定硬件(如TDAx, AM65x)的操作系统(如TI-RTOS, Linux)调用API。TIOVX Framework包含了官方OpenVX的标准API和TI扩展的API，其中包括</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">public</span><span class="operator">:</span> <span class="built_in">Context</span><span class="operator">,</span> <span class="built_in">Parameter</span><span class="operator">,</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Node</span><span class="operator">,</span> <span class="built_in">Graph</span> <span class="built_in">Array</span><span class="operator">,</span> <span class="built_in">Image</span><span class="operator">,</span> <span class="variable">Scalar</span><span class="operator">,</span> <span class="built_in">Pyramid</span><span class="operator">,</span> <span class="variable">ObjectArray</span> ；</span><br><span class="line"><span class="variable">TI</span><span class="operator">:</span> <span class="variable">Target</span><span class="operator">,</span> <span class="variable">Target</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Obj</span> <span class="variable">Desc</span>。</span><br></pre></td></tr></table></figure>
+
 <p><strong>优势</strong></p>
 <ul>
 <li>TI官方提供OpenVX的支持，提供标准算法的硬件加速实现，提供各个功能的Demo，能够简化开发调试工作。</li>
 <li>简化多核异构的开发，可以在X86模拟运行，所有的板级开发和调试都位于A72 Linux端，减少了对RTOS调试的工作量。</li>
-<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响。<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832) | [TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[4]</span></a></sup></li>
+<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832) | [TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[5]</span></a></sup></li>
 </ul>
+<img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/tiovx.png" />  
+
+<p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/PYTIOVX.html">PyTIOVX</a>: Automated OpenVX “C” Code Generation</p>
 <h1 id="算法部署"><a href="#算法部署" class="headerlink" title="算法部署"></a>算法部署</h1><ul>
 <li><p>Network selection：</p>
 </li>
-<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积[^deploy]<br>[^deploy]:<a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a>
-</p>
+<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积<sup id="fnref:6"><a href="#fn:6" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[适用于嵌入式应用的深度学习推理参考设计](https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf)">[6]</span></a></sup></p>
 </li>
 <li><p>Deployment：</p>
 <img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" /></li>
 </ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf">Deep Learning with Jacinto™ 7 SoCs: TDA4x</a> | <a target="_blank" rel="noopener" href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf">基于Pytorch训练并在TDA4上部署ONNX模型</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a> | <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li></ol></div></div>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf">Embedded low-power deep learning with TIDL</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf">Deep Learning with Jacinto™ 7 SoCs: TDA4x</a> | <a target="_blank" rel="noopener" href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf">基于Pytorch训练并在TDA4上部署ONNX模型</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf">TIOVX – TI’s OpenVX Implementation</a>
+### 基本数据结构
+<code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code>
+OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。
+### TIOVX
+<a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a> 是TI公司对OpenVX的实现。
+<img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png"><a href="#fnref:4" rev="footnote"> ↩</a></span></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a> | <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:5" rev="footnote"> ↩</a></span></li><li id="fn:6"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">6.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a><a href="#fnref:6" rev="footnote"> ↩</a></span></li></ol></div></div>
     </div>
 
     
@@ -440,8 +450,8 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
               <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
           </div>
 
         
@@ -489,7 +499,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <span class="post-count">全站共 32.2k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
+  <span class="post-count">全站共 32.5k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
 </div>
     </div>
   </footer>

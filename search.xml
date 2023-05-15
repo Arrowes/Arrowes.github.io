@@ -1,6 +1,296 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DL：深度学习相关概念</title>
+    <url>/2022/12/28/DL/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>从机器学习到深度学习：<a href="https://www.cnblogs.com/subconscious/p/4107357.html">从机器学习谈起</a>，<a href="https://www.cnblogs.com/subconscious/p/5058741.html">从神经元到深度学习</a><br>什么是卷积讲解视频：<a href="https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a">：大白话讲解卷积神经网络工作原理</a></p>
+<h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a><a href="bilibili.com/video/BV14f4y1q7ms?p=3">深度学习框架</a></h1><pre class="mermaid">graph LR
+A[程序框架]-->B[A.黑箱]
+A-->C[B.模块化] -->1.处理数据
+C-->2.构建网络
+C-->3.损失函数
+C-->4.优化函数
+C-->5.模型保存
+A-->E[C.定义]</pre>
+
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL1.png" width = "80%" />
+
+<p>GPU 网络和数据要同时送进GPU</p>
+<h2 id="感受野"><a href="#感受野" class="headerlink" title="感受野"></a>感受野</h2><p>感受野被定义为卷积神经网络特征所能看到输入图像的区域，换句话说特征输出受感受野区域内的像素点的影响。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL2.png" width = "50%" /></p>
+<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
+<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL3.gif" width = "60%" />
+
+<p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL4.png" alt="图 4">  </p>
+<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> ^1^（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> ^2^。</p>
+<blockquote>
+<ol>
+<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
+<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
+</ol>
+</blockquote>
+<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
+<blockquote>
+<ol>
+<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
+<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
+<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
+</ol>
+</blockquote>
+<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
+<h3 id="基于距离度量的损失函数"><a href="#基于距离度量的损失函数" class="headerlink" title="基于距离度量的损失函数"></a>基于距离度量的损失函数</h3><p>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。<br><strong>L1范数损失函数（MAE）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；<br><strong>L2损失函数（MSE均方误差损失函数）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
+<h3 id="基于概率分布度量的损失函数"><a href="#基于概率分布度量的损失函数" class="headerlink" title="基于概率分布度量的损失函数"></a>基于概率分布度量的损失函数</h3><p>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。<br><strong>KL散度（ Kullback-Leibler divergence）</strong><br>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。</p>
+<p>交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数</p>
+<p>在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。</p>
+<p>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 </p>
+<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
+<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
+<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL5.png" width = "50%" /></p>
+<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
+<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL6.png" alt="图 6">  </p>
+<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
+<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
+<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL7.png" alt="图 7"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
+<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL8.png" width = "70%" />
+
+<p>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
+<blockquote>
+<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
+</blockquote>
+<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#x61;&#x70;&#64;&#48;&#x2e;&#x35;">&#109;&#x61;&#x70;&#64;&#48;&#x2e;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "50%" /></p>
+<p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
+<blockquote>
+<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
+</blockquote>
+<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
+<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
+<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
+<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
+<p><strong>换算计算量</strong>,一般一个参数是值一个float，也就是４个字节,1kb&#x3D;1024字节</p>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL13.png" alt="图 13"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL14.png" alt="图 14"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL15.png" alt="图 15">  </p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux：Ubuntu，Docker</title>
+    <url>/2022/11/28/Linux/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><p>Virtual Box+Ubuntu 20.04<br>64bit:Bios enable intel virsualization<br>Host 键:右ctrl<br>换源：华为云，更新索引</p>
+<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><p><code>Ctrl+alt+T</code>	Terminal<br><code>Ctrl+h</code>	显示隐藏文件</p>
+<p><code>sudo nautilu</code>	执行文件操作<br><code>ls</code>	检索<br><code>chmod u+x …</code>		添加可执行文件<br><code>sudo apt update</code>	更新索引<br><code>sudo passwd root；su</code>	权限</p>
+<h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><p>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code><br>共享文件夹ubuntu中不显示&gt;重新安装VMware tools
+ </p>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" alt="图 2">  </p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
+<h3 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
+    <url>/2022/11/22/Hello-blog/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
+[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
+[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
+[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
+[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
+[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>。</p>
+<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Hello-blogBlogPhoto.jpg" width = "50%"/>  
+
+<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
+<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
+<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
+<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
+<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
+<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
+<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
+<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
+<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
+<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
+<li>引用时直接 &#x2F;resume&#x2F;</li>
+</ol>
+<h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
+<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>或自定义配置：<br>打开themes\next\layout_partial\footer.swig文件，在文件末尾添加：</p>
+<figure class="highlight handlebars"><table><tr><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;theme-info&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;powered-by&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-count&quot;</span>&gt;</span>全站共</span><span class="template-variable">&#123;&#123; <span class="name">totalcount</span>(<span class="name">site</span>) &#125;&#125;</span><span class="language-xml">字<span class="tag">&lt;/<span class="name">span</span>&gt;</span> | 访问量<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>次</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>阅读时间：</p>
+<ol>
+<li>npm install hexo-word-counter</li>
+<li>Hexo _config.yml：<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">exclude_codeblock:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">4</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">275</span></span><br><span class="line">  <span class="attr">suffix:</span> <span class="string">&quot;mins.&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>&#x2F;next&#x2F;_config:将设置item_text_total为true</li>
+</ol>
+<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><ol>
+<li>在项目根目录下运行 <code>npm install hexo-generator-searchdb --save</code></li>
+<li>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable从false改为true</li>
+</ol>
+<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
+<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
+</li>
+<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
+ <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">5</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在主题配置文件&#x2F;next&#x2F;_config中 excerpt_description 改为true</p>
+</li>
+</ol>
+<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
+<li>配置 主题配置文件中删掉tags的注释</li>
+<li>文件 新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
+<li>文章 <code>tags: - XXX</code></li>
+</ol>
+<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>文章内：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">title:</span></span><br><span class="line"><span class="attr">date:</span></span><br><span class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p>主题配置文件：<code>mathjax:  enable: true</code></p>
+<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
+<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
+<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
+<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.sevencdn.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.sevencdn.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
+<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
+<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
+<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，参考的<a href="https://blog.csdn.net/HTL2018/article/details/106876940">方法</a>存疑</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<strong>Download ZIP</strong>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
+<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
+<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
+<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
+<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
+<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+      <tags>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Paper：科研方法总结</title>
+    <url>/2023/03/15/Paper/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="论文工具"><a href="#论文工具" class="headerlink" title="论文工具"></a>论文工具</h1><h2 id="1-找论文"><a href="#1-找论文" class="headerlink" title="1.找论文"></a>1.找论文</h2><p>参考目标期刊相似论文的架构，搭框架，填内容<br>订阅论文：<a href="https://www.storkapp.me/?ref=1003">文献鸟</a>，设置关键字订阅相关论文<br>下载论文：<a href="https://tool.yovisun.com/scihub/">SCI-Hub论文下载</a>, <a href="https://www.drugfuture.com/cnpat/cn_patent.asp">中国专利下载</a><br>查期刊：<a href="https://www.letpub.com.cn/index.php?page=journalapp">LetPub</a>，有期刊的介绍及投稿人的讨论<br>下载书籍：<a href="https://lib-xg7r2un3uz6rivi4ibrvtfls.resist.tel/">Z-library</a><br>快速总结论文：Newbing，<a href="https://chatpaper.org/">ChatPaper</a></p>
+<h2 id="2-中译英"><a href="#2-中译英" class="headerlink" title="2.中译英"></a>2.中译英</h2><p><a href="https://www.deepl.com/translator">DeepL翻译器</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper1.png" alt="图 1">  </p>
+<h2 id="3-润色"><a href="#3-润色" class="headerlink" title="3.润色"></a>3.润色</h2><p><a href="https://chat.openai.com/chat">ChatGPT</a>，按照期刊风格润色，<a href="https://ai.newzone.top/">ChatGPT提示词参考</a></p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">I want you <span class="keyword">to</span> act <span class="keyword">as</span> an academic journal editor. </span><br><span class="line">Please [proofreading] <span class="keyword">the</span> [<span class="built_in">paragraph</span>] <span class="keyword">from</span> an academic angle based <span class="keyword">on</span> <span class="keyword">the</span> writing style <span class="keyword">of</span> <span class="keyword">the</span> [CVPR]: </span><br><span class="line">[<span class="built_in">text</span>]</span><br></pre></td></tr></table></figure>
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper2.png" width = "90%" />
+
+<h2 id="4-语法"><a href="#4-语法" class="headerlink" title="4.语法"></a>4.语法</h2><p><a href="https://www.grammarly.com/office-addin">Grammarly</a>，安装Word插件修正语法<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper3.png" alt="图 3">  </p>
+<h1 id="文献管理神器：Zotero"><a href="#文献管理神器：Zotero" class="headerlink" title="文献管理神器：Zotero"></a>文献管理神器：Zotero</h1><p>Zotero能管理个人文献库、插入引文、论文阅读和记笔记、pdf下载和翻译、查看论文分区、影响因子等信息</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://www.zotero.org/">Zotero官网</a>，安装软件后再装浏览器插件，可以很方便的在浏览器随时导入文献；<br>顺便在官网注册一个账号，用于同步,且可登陆官网在线查看自己的论文库；<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper4.png" width = "100%" /></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h3><p><code>编辑 &gt; 首选项 &gt; 同步 &gt; 登陆</code><br><code>编辑 &gt; 首选项 &gt; 高级 &gt; 文件和文件夹 &gt; 更改数据储存路径  #自选合适的位置存储本地文件</code></p>
+<h3 id="SCI-Hub抓取pdf"><a href="#SCI-Hub抓取pdf" class="headerlink" title="SCI-Hub抓取pdf"></a>SCI-Hub抓取pdf</h3><ol>
+<li>打开Zotero 首选项-&gt;高级-&gt;设置编辑器</li>
+<li>搜索 <code>extensions.zotero.findPDFs.resolvers</code> ，搜到之后双击打开，在对话框中填入：<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;Sci-Hub&quot;</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>:<span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="string">&quot;url&quot;</span>:<span class="string">&quot;https://sci-hub.ren/&#123;doi&#125;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;mode&quot;</span>:<span class="string">&quot;html&quot;</span>,</span><br><span class="line">    <span class="string">&quot;selector&quot;</span>:<span class="string">&quot;<span class="subst">#pdf</span>&quot;</span>,</span><br><span class="line">    <span class="string">&quot;attribute&quot;</span>:<span class="string">&quot;src&quot;</span>,</span><br><span class="line">    <span class="string">&quot;automatic&quot;</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>实现抓取任意文献pdf（知网和部分新文献不行）</li>
+</ol>
+<h3 id="配置搜索引擎"><a href="#配置搜索引擎" class="headerlink" title="配置搜索引擎"></a>配置搜索引擎</h3><ol>
+<li><a href="https://www.123pan.com/s/goS7Vv-kIKbd.html">下载 engines.json 文件</a></li>
+<li>打开数据储存路径,替换同名文件 <code>...\Zotero\locate\engines.json</code></li>
+<li>重启Zotero后，实现多搜索引擎，很方便</li>
+</ol>
+<h3 id="安装Word插件"><a href="#安装Word插件" class="headerlink" title="安装Word插件"></a>安装Word插件</h3><p>安装word插件，实现高效插入引文，并且可以根据期刊选择参考文献样式<br><code>编辑 &gt; 首选项 &gt; 引用 &gt; 文字处理软件 &gt; 安装word插件</code><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper5.png" width = "80%" /></p>
+<h3 id="插件，让Zotero真正好用"><a href="#插件，让Zotero真正好用" class="headerlink" title="插件，让Zotero真正好用"></a>插件，让Zotero真正好用</h3><p><a href="https://www.zotero.org/support/plugins">官方插件下载地址</a><br>安装方法：下载.xpi 文件到你的电脑。然后，在 Zotero，点击“工具→插件（附加组件）”，然后拖动插件的 .xpi 文件到插件窗口打开，或者选择从文件中安装。安装完成后重新启动软件即可。</p>
+<p><strong>下面是强烈推荐的5个必备插件，嫌麻烦可以直接安装我上传的，都是2023年最新的，5个全部拖进去即可，地址：<a href="https://www.123pan.com/s/goS7Vv-mIKbd.html">推荐插件下载</a></strong></p>
+<p><strong>Zotero PDF Translate</strong><br><a href="https://github.com/windingwind/zotero-pdf-translate/releases">zotero-pdf-translate 下载</a>，实现划词翻译，但是需要在插件设置里配置翻译引擎（免费,推荐腾讯云），<a href="https://doc.tern.1c7.me/zh/folder/setting/#%E8%85%BE%E8%AE%AF%E4%BA%91">配置方法文档</a> </p>
+<p><strong>Jasminum - 茉莉花</strong><br><a href="https://github.com/l0o0/jasminum/releases">Jasminum 下载</a>，一个简单的 Zotero 中文插件, 优化知网中文论文管理体验</p>
+<p><strong>Zotero DOI Manager</strong><br><a href="https://github.com/bwiernik/zotero-shortdoi/releases">Zotero DOI Manager 下载</a>，更新抓取文献的DOI号，提高SCI-Hub抓取pdf成功率</p>
+<p><strong>Zotero IF</strong><br><a href="https://pan.baidu.com/s/1-nIHvhRj_wK_t6LMsNF6rg#list/path=%2Fsharelink3626522904-21879764921069%2FZotero%20IF&parentPath=%2Fsharelink3626522904-21879764921069">Zotero IF百度云地址，提取码: apeh</a>,为所抓取的文献更新影响因子</p>
+<p><strong>Zotero Citation Counts Manager</strong><br><a href="https://github.com/eschnett/zotero-citationcounts/releases">Zotero Citation Counts Manager 下载</a>，抓取引用数，一般选Semantic Scholar citation count</p>
+<details>
+  <summary>清空其它信息:工具-->开发者-->Run Javascript-->运行以下代码</summary>
+
+<pre><code>var fieldName = &quot;extra&quot;;
+var newValue = &quot;&quot;;
+
+var fieldID = Zotero.ItemFields.getID(fieldName);
+var s = new Zotero.Search();
+s.libraryID = ZoteroPane.getSelectedLibraryID();
+var ids = await s.search();
+if (!ids.length) &#123;
+return &quot;No items found&quot;;
+&#125;
+await Zotero.DB.executeTransaction(async function () &#123;
+for (let id of ids) &#123;
+let item = await Zotero.Items.getAsync(id);
+let mappedFieldID = Zotero.ItemFields.getFieldIDFromTypeAndBase(item.itemTypeID, fieldName);
+item.setField(mappedFieldID ? mappedFieldID : fieldID, newValue);
+await item.save();
+&#125;
+&#125;);
+return ids.length + &quot; item(s) updated&quot;;
+</code></pre>
+</details>
+
+<h1 id="LaTex"><a href="#LaTex" class="headerlink" title="LaTex"></a>LaTex</h1><p>在线编辑器：<a href="https://www.overleaf.com/">Overleaf</a>，可以多人在线共同编辑、批注；<br>将期刊提供的LaTex模板导入编辑器，直接在模板里写；<br>查询文档：<a href="https://github.com/sailist/LaTeXdoc">LaTeXdoc</a>, <a href="https://zhuanlan.zhihu.com/p/508559139">Latex简明速查手册(8页)</a></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><h3 id="单篇论文的参考文献引用"><a href="#单篇论文的参考文献引用" class="headerlink" title="单篇论文的参考文献引用"></a>单篇论文的参考文献引用</h3><ol>
+<li>使用<code>\begin&#123;thebibliography&#125;</code>开始参考文献的引用；使用<code>\end&#123;thebibliography&#125;</code>结束；</li>
+<li>使用<code>\bibitem&#123;&#125;</code>添加文献，在文章中只用使用<code>\cite&#123;&#125;</code>引用，需要自己改，比较麻烦；</li>
+</ol>
+<h3 id="overleaf-zotero多篇论文-bib文件引用"><a href="#overleaf-zotero多篇论文-bib文件引用" class="headerlink" title="overleaf+zotero多篇论文.bib文件引用"></a>overleaf+zotero多篇论文.bib文件引用</h3><ol>
+<li>使用zotero，将文章所需参考文献导入至一个新文件夹中，选择导出分类，选择文件夹导出<code>ref.bib</code>格式的文件；</li>
+<li>打开overleaf，将刚刚的<code>ref.bib</code>文件导入</li>
+<li>接下来就是在文章中导入参考文献:</li>
+</ol>
+<p>（1）首先导入如下命令，注意是在文章最后，<code>\end&#123;document&#125;</code>之前：</p>
+<figure class="highlight fsharp"><table><tr><td class="code"><pre><span class="line">\<span class="keyword">bibliographystyle</span>&#123;ieicetr&#125; <span class="operator">%</span>引文期刊格式</span><br><span class="line">\<span class="keyword">bibliography</span>&#123;<span class="built_in">ref</span>&#125; <span class="operator">%.</span>bib文件名</span><br></pre></td></tr></table></figure>
+<p>(2)编译后还不能显示你的参考文献列表，只有在文章中添加了<code>\cite&#123;&#125;</code>之后才可以正常显示<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper6.png" alt="图 6"><br><code>\cite&#123;liu_ceam-yolov7_2022&#125;</code></p>
+<h2 id="公式图表"><a href="#公式图表" class="headerlink" title="公式图表"></a>公式图表</h2><h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">\<span class="keyword">begin</span>&#123;equation&#125;</span><br><span class="line">  <span class="keyword">x</span>+y</span><br><span class="line">\<span class="keyword">end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">%h: 表示浮动体尽可能地放在当前位置。t: 表示浮动体放在页面顶部。b: 表示浮动体放在页面底部。p: 表示浮动体放在一个单独的页面上。</span><br><span class="line">\begin&#123;<span class="selector-tag">figure</span>&#125;<span class="selector-attr">[htb]</span></span><br><span class="line">\begin&#123;center&#125;</span><br><span class="line">\includegraphics<span class="selector-attr">[width=1\columnwidth]</span>&#123;FEY-YOLOv7/<span class="selector-tag">figure</span>/fig.<span class="number">1</span><span class="selector-class">.png</span>&#125;</span><br><span class="line">\end&#123;center&#125;</span><br><span class="line">\<span class="selector-tag">caption</span>&#123;RGB-infrared Datasets.&#125;</span><br><span class="line">\<span class="selector-tag">label</span>&#123;fig:<span class="number">1</span>&#125;</span><br><span class="line">\end&#123;<span class="selector-tag">figure</span>&#125;</span><br><span class="line">%跨栏显示：&#123;<span class="selector-tag">figure</span>*&#125;</span><br><span class="line">%若编译不显示图片：菜单&gt;选择用XELATEX编译</span><br><span class="line">%引用：shown in Fig.\ref&#123;fig:<span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\begin&#123;table&#125;[htb]</span></span><br><span class="line"><span class="string">\caption&#123;Effect</span> <span class="keyword">of</span> different datasets <span class="literal">on</span> the YOLOv7.&#125;</span><br><span class="line"><span class="string">\label&#123;table:4&#125;</span></span><br><span class="line"><span class="string">\begin&#123;center&#125;</span></span><br><span class="line"><span class="string">\begin&#123;tabular&#125;&#123;ll&#125;</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line">    <span class="string">\textbf&#123;Dataset&#125;</span> &amp; <span class="string">\textit&#123;mAP&#125;\\</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line">    IR dataset &amp; <span class="number">0.85</span> <span class="string">\\</span></span><br><span class="line">    RGB dataset &amp; <span class="number">0.758</span> <span class="string">\\</span></span><br><span class="line">    RGB-infrared dataset &amp; <span class="number">0.962</span> <span class="string">\\</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line"><span class="string">\end&#123;tabular&#125;%</span></span><br><span class="line"><span class="string">\end&#123;center&#125;</span></span><br><span class="line"><span class="string">\end&#123;table&#125;</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p>IEICE期刊论文投稿的LaTeX模板中提供了EUC、SJIS和UTF三种不同的模板。这些模板的区别在于它们所使用的字符编码方式，其中UTF-8是其中最为常用的一种编码方式。<br><code>Ctrl + S 编译</code></p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">%分点</span><br><span class="line"><span class="string">\begin&#123;itemize&#125;</span></span><br><span class="line">  <span class="string">\item</span> [<span class="number">1.</span>]</span><br><span class="line">  <span class="string">\item</span> </span><br><span class="line">  <span class="string">\item</span> </span><br><span class="line"><span class="string">\end&#123;itemize&#125;</span></span><br><span class="line"></span><br><span class="line">空行：<span class="string">\\</span>  下划线：<span class="string">\_&#123;&#125;</span>  百分号:<span class="string">\%</span>  加粗：<span class="string">\textbf&#123;&#125;</span></span><br><span class="line">斜体：<span class="string">\textit&#123;&#125;</span> 或 $x$  或公式斜体：<span class="string">\mathit&#123;&#125;</span>  </span><br><span class="line"></span><br><span class="line">%文章结构</span><br><span class="line">章：<span class="string">\section&#123;&#125;</span>   节：<span class="string">\subsection&#123;&#125;</span>   条：<span class="string">\subsubsection&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="论文规范"><a href="#论文规范" class="headerlink" title="论文规范"></a>论文规范</h1><h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><ol>
+<li><p>一个词或词组在文中出现三次或以上才可以用缩写，否则需要写出全称。也就是说如果只出现一次或两次，每次都要写出全称，而缩略语就不需要给出了。<br>出现的次数是在摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果一个词在摘要中出现一次，正文中出现多次，图注中又出现一次，那么摘要中只要用全称，不要用缩写；正文中第一次出现时用全称，后面用缩写； 图注中用全称，不用缩写。<br>一些期刊只允许对正文中出现3次以上的术语使用缩写。<br>一些期刊禁止在标题和摘要中使用任何缩写词。<br>从写作风格上讲，大多数期刊都建议作者不要在句首使用缩写词。在这种情况下，作者要详细说明术语的含义，或者改用别的措辞重写句子。<br>在论文中，将摘要看做是独立的部分。因此，如果您需要在摘要和论文中同时使用一个缩写词时，您需要两次介绍这个缩写词：首次在摘要中使用时介绍一次；首次 在论文中使用时介绍一次。然而 ，如果您发现在摘要中介绍的一个缩写词仅仅出现了一两次，没必要缩写——可以考虑避免缩写，每次都用全拼代替（除非您认为读者更了解缩写词）</p>
+</li>
+<li><p>缩略语在文中第一次出现时需要定义。这里所谓第一次，也是摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果摘要和正文都符合上面所说使用缩写的规则，那么摘要中需要定义一次，正文中还需要定义一次。定义就是写出全称并在括号中给出缩写。<br>The patient was diagnosed with pulmonary arterial hypertension (PAH).<br>如果图例或表格中为了节省空间出现了缩写，那么在图注或表注中要解释缩写。<br>PH: pulmonary hypertension, PAH: pulmonary arterial hypertension.<br>写全称时一般是全部用小写，除非是人名、地名等专有名词，而缩写一般是全大写，除非是约定俗成的写法，比如用ChIP 代表chromatin immunoprecipitation。<br>应该考虑到也许有其他领域或者新进入这门领域的读者会阅读这篇论文，所以期刊都规定缩略语要先定义再使用。有些期刊会列出该期刊中不需要定义就可以直接使用的缩略语，比如Journal of Clinical Investigation 就给出<a href="http://www.jci.org/kiosk/publish/abbreviations">标准缩略语列表</a>并指出这些缩略语可以直接使用。如果期刊没有特别规定，应该每个缩略语使用时都要先定义。定义之后记得要一直使用缩略语，不要再使用全称。</p>
+</li>
+<li><p>尽量避免使用缩略语。一篇文章完全不使用缩略语不见得可行，但是尽量少用为好，而且只使用比较常见的缩略语。使用缩略语的目的是为了便于读者对文章的阅读理解，比较长的词组如果反复出现，不便于读者的快速阅读，所以用缩写更合适。有些词可能多数读者对缩写更熟悉，这些词用缩写也便于读者理解。如果很多比较短的词也用缩写，而且不是普遍使用的缩写，读者就经常要停下来去查找缩写代表的词意，思路就会被打断，所以会影响对文章的理解。</p>
+</li>
+<li><p>一个缩略语代表一个词或词组。在一篇文章中，一个缩略语只能代表一个词（组），而且一个词（组）也只能用一个缩略语代表。</p>
+</li>
+<li><p>缩写相关的复数和冠词的用法。多数情况下，我们会用缩略语来代替一个名词，所以如果是可数名词也是有复数的。一般来说，缩略语代表的是名词的单数形式，我们在后面加s（或者加es如果缩略语的最后一个字母是s）来表示复数。定义缩写的时候通常就可以看出来，比如 endothelial cells (ECs)。<br>如果缩略语名词前面需要加不定冠词，要根据缩写的读音来决定是用a还是an。例如human immunodeficiency virus缩写成HIV时我们是念这三个字母，第一个字母H虽然是个辅音字母，念这个字母时却是元音开头，所以HIV这个词的第一个音是元音，前面要用an，例如 an HIV-positive test result。</p>
+</li>
+<li><p>在技术写作中最常见的关于首字母缩写和缩略词的错误，就是大部分人以为缩写中出现的大写字母在缩写前的词组中也需要大写，实际上并不是这样的。例如，作为商业管理哲学的「total quality management」缩写为「TQM」，但它的全称却常常被错误地写成「Total Quality Management」，这有可能是因为部分作者忘记了这个词本身并不是专有名词，甚至是更糟糕的情况──作者根本从一开始就没有完全了解这个词的含意！请记住，在文章中缩写术语之前，首先了解该术语的含意和来源是很重要的，因为作者在论文中处理首字母缩写和缩略词的态度与方法常常反映了他们自己对于运用术语的了解程度。<br>掌握了上面这几个原则，我们就可以通过恰当地使用缩略语来增加文章的可读性。</p>
+</li>
+</ol>
+<h2 id="字母"><a href="#字母" class="headerlink" title="字母"></a>字母</h2><ol>
+<li><p>什么时候用斜体(italic)？</p>
+<blockquote>
+<p>1)变量(variables)应该用斜体表示：例如<em>T</em>表示温度(temperature)，<em>r</em>表示速率(rate)，<em>x</em>代表摩尔分数(molar fraction).<br>2)坐标轴(axes)：the <em>y</em> axis.<br>3)平面(planes)：plane <em>P</em>.<br>4)行列式(determinants)和矩阵(matrices)中的元素：<em>gn</em>.<br>5)常数(constants)符号: <em>g</em>, 重力加速度<br>6)描述变量的函数:<em>f(x)</em>.</p>
+</blockquote>
+</li>
+<li><p>什么时候不用斜体，而采用罗马字体(Roman)?<br>这里的Roman字体指非特殊性字体，与每个期刊的正文字体一致</p>
+<blockquote>
+<p>1)数字；<br>2)标点符号和括号；<br>3)大多数运算符；<br>4)量度单位和时间单位：毫克, mg; 帕斯卡, Pa; 毫米汞柱, mmHg.<br>5)非数学符号和数量：s, 原子轨道(atomic orbital);<br>6)变量的多字符缩写<br>7)数学常量(mathematical constants):自然对数,e;复数的虚部,i;圆周率,π.<br>8)矩阵的转置(transposes), <strong>A</strong>T(T是矩阵<strong>A</strong>的转置)<br>9)点(point)和线(line): point A, line AB.<br>10)行列式(determinants)： A是矩阵<strong>A</strong>的行列式<br>11)三角函数和其他数学函数:正弦函数sin;最大值max,极限lim;对数log等.</p>
+</blockquote>
+</li>
+<li><p>什么时候用粗体(Boldface)？</p>
+<blockquote>
+<p>1）向量(vectors)；<br>2）张量(tensors)；<br>3）矩阵(matrics);<br>4）多维物理量：磁场强度，<strong>H</strong>.</p>
+</blockquote>
+</li>
+<li><p>什么时候使用希腊字母(Greek letters)?</p>
+<blockquote>
+<p>任何拉丁字母可以使用的地方都可以，包括变量，常量，向量等。</p>
+</blockquote>
+</li>
+<li><p>当上下标本身就是代表物理量或数字的符号时，用斜体(italic),如果上下标是缩写或者不是符号时，不用斜体，采用罗马字体(Roman).</p>
+<blockquote>
+<p>举例：<em>Cp</em> for heat capacity at constant pressure常压比热（<em>p</em>是压力的符号，采用斜体）<br><em>C</em>B for heat capacity of substance B 物质B的比热（B不是符号，不用斜体）<br><em>C</em>g where g is gas 气体比热 (g是gas的缩写，不用斜体)<br><em>Ei</em> for energy of the <em>i</em>th level, where <em>i</em> is a number(<em>i</em>是代表数字的符号)<br><em>g</em>n where n is normal(n是气体normal的缩写，不用斜体)</p>
+</blockquote>
+</li>
+</ol>
+<p><a href="https://journal.cricaas.com.cn/attached/file/20210517/20210517161953_566.pdf">[GB 3102.11-93] 物理科学和技术中使用的数学符号</a></p>
+]]></content>
+      <tags>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git：github工作流</title>
     <url>/2022/11/29/Git/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ/?spm_id_from=333.1007.tianma.1-2-2.click&vd_source=b530b63b4657d68926b54a618d047d04">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
@@ -174,250 +464,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
-    <url>/2022/11/22/Hello-blog/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
-[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
-[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
-[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
-[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
-[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>。</p>
-<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Hello-blogBlogPhoto.jpg" width = "50%"/>  
-
-<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
-<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
-<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
-<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
-<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
-<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
-<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
-<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
-<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
-<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
-<li>引用时直接 &#x2F;resume&#x2F;</li>
-</ol>
-<h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
-<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
-<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>或自定义配置：<br>打开themes\next\layout_partial\footer.swig文件，在文件末尾添加：</p>
-<figure class="highlight handlebars"><table><tr><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;theme-info&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;powered-by&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-count&quot;</span>&gt;</span>全站共</span><span class="template-variable">&#123;&#123; <span class="name">totalcount</span>(<span class="name">site</span>) &#125;&#125;</span><span class="language-xml">字<span class="tag">&lt;/<span class="name">span</span>&gt;</span> | 访问量<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>次</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>阅读时间：</p>
-<ol>
-<li>npm install hexo-word-counter</li>
-<li>Hexo _config.yml：<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">exclude_codeblock:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">4</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">275</span></span><br><span class="line">  <span class="attr">suffix:</span> <span class="string">&quot;mins.&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li>&#x2F;next&#x2F;_config:将设置item_text_total为true</li>
-</ol>
-<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><ol>
-<li>在项目根目录下运行 <code>npm install hexo-generator-searchdb --save</code></li>
-<li>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable从false改为true</li>
-</ol>
-<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
-<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
-</li>
-<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">5</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在主题配置文件&#x2F;next&#x2F;_config中 excerpt_description 改为true</p>
-</li>
-</ol>
-<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
-<li>配置 主题配置文件中删掉tags的注释</li>
-<li>文件 新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
-<li>文章 <code>tags: - XXX</code></li>
-</ol>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>文章内：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">title:</span></span><br><span class="line"><span class="attr">date:</span></span><br><span class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
-<p>主题配置文件：<code>mathjax:  enable: true</code></p>
-<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
-<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
-<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
-<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.sevencdn.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.sevencdn.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
-<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
-<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
-<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，参考的<a href="https://blog.csdn.net/HTL2018/article/details/106876940">方法</a>存疑</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<strong>Download ZIP</strong>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
-<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
-<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
-<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
-<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
-<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
-      <tags>
-        <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux：Ubuntu，Docker</title>
-    <url>/2022/11/28/Linux/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><p>Virtual Box+Ubuntu 20.04<br>64bit:Bios enable intel virsualization<br>Host 键:右ctrl<br>换源：华为云，更新索引</p>
-<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><p><code>Ctrl+alt+T</code>	Terminal<br><code>Ctrl+h</code>	显示隐藏文件</p>
-<p><code>sudo nautilu</code>	执行文件操作<br><code>ls</code>	检索<br><code>chmod u+x …</code>		添加可执行文件<br><code>sudo apt update</code>	更新索引<br><code>sudo passwd root；su</code>	权限</p>
-<h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><p>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code><br>共享文件夹ubuntu中不显示&gt;重新安装VMware tools
- </p>
-<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" alt="图 2">  </p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
-<h3 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Network：神经网络代码</title>
-    <url>/2022/11/25/Network/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="TORCH-NN"><a href="#TORCH-NN" class="headerlink" title="TORCH.NN"></a>TORCH.NN</h2><p><strong>Module 所有神经网络模块的基类</strong></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Model</span>(nn.Module): <span class="comment"># 继承Module模板（父类），在该模板基础上进行修改</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>): <span class="comment">#初始化</span></span><br><span class="line">        <span class="built_in">super</span>(Model, self).__init__() 	<span class="comment">#父类初始化</span></span><br><span class="line">        self.conv1 = Conv2d(in_channels=<span class="number">3</span>, out_channels=<span class="number">6</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>) <span class="comment">#2维卷积</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):<span class="comment">#前向传播 x即input</span></span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        <span class="keyword">return</span> x </span><br><span class="line">model=Model() 		<span class="comment">#创建神经网络</span></span><br><span class="line">output=model(x)</span><br><span class="line"><span class="built_in">print</span>(output)</span><br></pre></td></tr></table></figure>
-<p><strong>maxpool 下采样</strong><br><code>self.maxpool1 = MaxPool2d(kernel_size=3, ceil_mode=False) #ceil_mode=True为向上取整</code><br><strong>Non-linear Activations</strong><br><code>m = nn.ReLU() # inplace=True为直接替换input</code><br><strong>批标准化</strong><br><code>m = nn.BatchNorm2d(100)</code><br><strong>线性层</strong></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">dataset = torchvision.datasets.CIFAR10(<span class="string">&quot;../data&quot;</span>, train=<span class="literal">False</span>，</span><br><span class="line">			transform=torchvision.transforms.ToTensor(),download=<span class="literal">True</span>)</span><br><span class="line">dataloader = DataLoader(dataset, batch_size=<span class="number">64</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Tudui</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(Tudui, self).__init__()</span><br><span class="line">        self.linear1 = Linear(<span class="number">196608</span>, <span class="number">10</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span></span>):</span><br><span class="line">        output = self.linear1(<span class="built_in">input</span>)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"> </span><br><span class="line">tudui = Tudui()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> data <span class="keyword">in</span> dataloader:</span><br><span class="line">    imgs, targets = data</span><br><span class="line">    <span class="built_in">print</span>(imgs.shape)</span><br><span class="line">    output = torch.flatten(imgs) <span class="comment">#数据摊平</span></span><br><span class="line">    <span class="built_in">print</span>(output.shape)</span><br><span class="line">    output = tudui(output)</span><br><span class="line">    <span class="built_in">print</span>(output.shape)</span><br></pre></td></tr></table></figure>
-<h2 id="CIFAR-10-model结构"><a href="#CIFAR-10-model结构" class="headerlink" title="CIFAR 10 model结构"></a>CIFAR 10 model结构</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Network1.png" alt="图 1">  </p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> Conv2d, MaxPool2d, Flatten, Linear</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">WYJ</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(WYJ,self).__init__()</span><br><span class="line">        self.conv1=Conv2d(<span class="number">3</span>,<span class="number">32</span>,<span class="number">5</span>,padding=<span class="number">2</span>)</span><br><span class="line">        self.maxpool1=MaxPool2d(<span class="number">2</span>)</span><br><span class="line">        self.conv2 = Conv2d(<span class="number">32</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line">        self.maxpool2 = MaxPool2d(<span class="number">2</span>)</span><br><span class="line">        self.conv3 = Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line">        self.maxpool3 = MaxPool2d(<span class="number">2</span>)</span><br><span class="line">        self.flatten=Flatten()</span><br><span class="line">        self.linear1=Linear(<span class="number">1024</span>,<span class="number">64</span>)</span><br><span class="line">   self.linear2 = Linear(<span class="number">64</span>,<span class="number">10</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self,x</span>):</span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.maxpool1(x)</span><br><span class="line">        x = self.conv2(x)</span><br><span class="line">        x = self.maxpool2(x)</span><br><span class="line">        x = self.conv3(x)</span><br><span class="line">        x = self.maxpool3(x)</span><br><span class="line">        x = self.flatten(x)</span><br><span class="line">        x = self.linear1(x)</span><br><span class="line">        x = self.linear2(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"> </span><br><span class="line">wyj = WYJ()</span><br><span class="line"><span class="built_in">print</span>(wyj)</span><br><span class="line"><span class="built_in">input</span> = torch.ones((<span class="number">64</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">output = wyj(<span class="built_in">input</span>)</span><br><span class="line"><span class="built_in">print</span>(output.shape)</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> Conv2d, MaxPool2d, Flatten, Linear, Sequential</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"> <span class="comment"># Sequential 的妙用</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Tudui</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(Tudui, self).__init__()</span><br><span class="line">        self.model1 = Sequential(</span><br><span class="line">            Conv2d(<span class="number">3</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Flatten(),</span><br><span class="line">            Linear(<span class="number">1024</span>, <span class="number">64</span>),</span><br><span class="line">            Linear(<span class="number">64</span>, <span class="number">10</span>)</span><br><span class="line">        )</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = self.model1(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"> </span><br><span class="line">tudui = Tudui()</span><br><span class="line"><span class="built_in">print</span>(tudui)</span><br><span class="line"><span class="built_in">input</span> = torch.ones((<span class="number">64</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">output = tudui(<span class="built_in">input</span>)</span><br><span class="line"><span class="built_in">print</span>(output.shape)</span><br><span class="line"> </span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;../logs_seq&quot;</span>)</span><br><span class="line">writer.add_graph(tudui, <span class="built_in">input</span>)</span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
-<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">0.1</span>, <span class="number">0.2</span>, <span class="number">0.3</span>])</span><br><span class="line">y = torch.tensor([<span class="number">1</span>])</span><br><span class="line">x = torch.reshape(x, (<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line">loss_cross = nn.CrossEntropyLoss()    <span class="comment">#注意输入输出形状</span></span><br><span class="line">result_cross = loss_cross(x, y)</span><br></pre></td></tr></table></figure>
-<p><strong>反向传播</strong><br><code>result_loss.backward()</code></p>
-<h2 id="优化器-梯度下降"><a href="#优化器-梯度下降" class="headerlink" title="优化器(梯度下降)"></a>优化器(梯度下降)</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">input</span>, target <span class="keyword">in</span> dataset:</span><br><span class="line">    optimizer.zero_grad()              <span class="comment">#梯度清零</span></span><br><span class="line">    output = model(<span class="built_in">input</span>)</span><br><span class="line">    loss = loss_fn(ou tput, target)</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure>
-<h2 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h2><p>添加<br><code>vgg16_true.classifier.add_module(&#39;add_linear&#39;, nn.Linear(1000, 10)) #在vgg16网络中的classifier 模块中加入一个linear层</code><br>修改<br><code>vgg16_false.classifier[6] = nn.Linear(4096, 10) #修改vgg16网络中的classifier 第6层</code></p>
-<p>保存</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">vgg16 = torchvision.models.vgg16(pretrained=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存方式1,模型结构+模型参数</span></span><br><span class="line">torch.save(vgg16, <span class="string">&quot;vgg16_method1.pth&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 保存方式2，模型参数（官方推荐）</span></span><br><span class="line">torch.save(vgg16.state_dict(), <span class="string">&quot;vgg16_method2.pth&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>加载</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方式1</span></span><br><span class="line">model = torch.load(<span class="string">&quot;vgg16_method1.pth&quot;</span>)</span><br><span class="line"> <span class="comment">#若为自定义网络模型，加载时需要引入定义：</span></span><br><span class="line"><span class="keyword">from</span> model_save <span class="keyword">import</span> *  </span><br><span class="line"><span class="comment">#一定要在同一个文件夹下</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 方式2，加载模型</span></span><br><span class="line">vgg16 = torchvision.models.vgg16(pretrained=<span class="literal">False</span>)</span><br><span class="line">vgg16.load_state_dict(torch.load(<span class="string">&quot;vgg16_method2.pth&quot;</span>)) <span class="comment">#读取字典中的参数</span></span><br></pre></td></tr></table></figure>
-<h2 id="CPU训练"><a href="#CPU训练" class="headerlink" title="CPU训练"></a>CPU训练</h2> <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> …</span><br><span class="line"><span class="keyword">from</span> model <span class="keyword">import</span> * <span class="comment">#引入CIFAR 10 model网络定义</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">#准备数据集 </span></span><br><span class="line">train_data = torchvision.datasets.CIFAR10(root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">True</span>, transform=torchvision.transforms.ToTensor(),download=<span class="literal">True</span>)</span><br><span class="line">test_data = torchvision.datasets.CIFAR10(root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">False</span>, transform=torchvision.transforms.ToTensor(),download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">#length 数据集长度</span></span><br><span class="line">train_data_size = <span class="built_in">len</span>(train_data)</span><br><span class="line">test_data_size = <span class="built_in">len</span>(test_data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;训练数据集的长度为：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(train_data_size))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;测试数据集的长度为：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(test_data_size))</span><br><span class="line"> </span><br><span class="line"> <span class="comment">#利用 DataLoader 来加载数据集</span></span><br><span class="line">train_dataloader = DataLoader(train_data, batch_size=<span class="number">64</span>)</span><br><span class="line">test_dataloader = DataLoader(test_data, batch_size=<span class="number">64</span>)</span><br><span class="line"> </span><br><span class="line"> <span class="comment">#创建网络模型</span></span><br><span class="line">tudui = Tudui()</span><br><span class="line"> <span class="comment">#损失函数</span></span><br><span class="line">loss_fn = nn.CrossEntropyLoss()</span><br><span class="line"> <span class="comment">#优化器</span></span><br><span class="line">learning_rate = <span class="number">1e-2</span></span><br><span class="line">optimizer = torch.optim.SGD(tudui.parameters(), lr=learning_rate)</span><br><span class="line"> </span><br><span class="line"> <span class="comment">#设置训练网络的一些参数</span></span><br><span class="line"> <span class="comment">#记录训练的次数</span></span><br><span class="line">total_train_step = <span class="number">0</span></span><br><span class="line"> <span class="comment">#记录测试的次数</span></span><br><span class="line">total_test_step = <span class="number">0</span></span><br><span class="line"> <span class="comment">#训练的轮数</span></span><br><span class="line">epoch = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">#添加tensorboard</span></span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;../logs_train&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(epoch):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;------第 &#123;&#125; 轮训练开始------&quot;</span>.<span class="built_in">format</span>(i+<span class="number">1</span>))</span><br><span class="line">    <span class="comment">#训练步骤开始</span></span><br><span class="line">    tudui.train() <span class="comment">#网络设为训练模式</span></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> train_dataloader:</span><br><span class="line">        imgs, targets = data</span><br><span class="line">        outputs = tudui(imgs)</span><br><span class="line">        loss = loss_fn(outputs, targets)</span><br><span class="line"> </span><br><span class="line">        <span class="comment"># 优化器优化模型</span></span><br><span class="line">        optimizer.zero_grad() <span class="comment">#梯度清零</span></span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line"> </span><br><span class="line">        total_train_step = total_train_step + <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> total_train_step % <span class="number">100</span> == <span class="number">0</span>: <span class="comment">#逢百进一</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;训练次数：&#123;&#125;, Loss: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(total_train_step, loss.item()))</span><br><span class="line">            writer.add_scalar(<span class="string">&quot;train_loss&quot;</span>, loss.item(), total_train_step)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 验证步骤开始</span></span><br><span class="line">    tudui.<span class="built_in">eval</span>() <span class="comment">#网络设为验证模式</span></span><br><span class="line">    total_test_loss = <span class="number">0</span></span><br><span class="line">    total_accuracy = <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad(): <span class="comment">#避免验证过程加入梯度，以节约内存</span></span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> test_dataloader:</span><br><span class="line">            imgs, targets = data</span><br><span class="line">            outputs = tudui(imgs)</span><br><span class="line">            loss = loss_fn(outputs, targets)</span><br><span class="line">            total_test_loss = total_test_loss + loss.item()</span><br><span class="line">            accuracy = (outputs.argmax(<span class="number">1</span>) == targets).<span class="built_in">sum</span>() <span class="comment">#argmax(1)：横轴取最大值并输出序号[0,1,0,0,…]</span></span><br><span class="line">            total_accuracy = total_accuracy + accuracy</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;整体测试集上的Loss: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(total_test_loss))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;整体测试集上的正确率: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(total_accuracy/test_data_size))</span><br><span class="line">    writer.add_scalar(<span class="string">&quot;test_loss&quot;</span>, total_test_loss, total_test_step)</span><br><span class="line">    writer.add_scalar(<span class="string">&quot;test_accuracy&quot;</span>, total_accuracy/test_data_size, total_test_step)</span><br><span class="line">    total_test_step = total_test_step + <span class="number">1</span></span><br><span class="line">    <span class="comment">#每epoch保存一个</span></span><br><span class="line">    torch.save(tudui, <span class="string">&quot;tudui_&#123;&#125;.pth&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;模型已保存&quot;</span>) </span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
-<h2 id="GPU训练"><a href="#GPU训练" class="headerlink" title="GPU训练"></a>GPU训练</h2><p>改cuda：网络、损失函数、data<br>① .cuda()</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">    tudui = tudui.cuda()</span><br></pre></td></tr></table></figure>
-<p>② .to(device)</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">device = torch.device(<span class="string">&quot;cuda&quot;</span>) <span class="comment">#只需修改此处在CPU,GPU之间切换	“cpu”</span></span><br><span class="line">tudui = tudui.to(device)</span><br><span class="line"></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> “cpu”)</span><br></pre></td></tr></table></figure>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">model = torch.load(<span class="string">&quot;tudui_29_gpu.pth&quot;</span>, map_location=torch.device(<span class="string">&#x27;cpu&#x27;</span>)) </span><br><span class="line"><span class="built_in">print</span>(model) 	<span class="comment">#训练好的权重代入模型</span></span><br><span class="line">image = torch.reshape(image, (<span class="number">1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    output = model(image)</span><br><span class="line"><span class="built_in">print</span>(output)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>python</tag>
-        <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Paper：科研方法总结</title>
-    <url>/2023/03/15/Paper/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="论文工具"><a href="#论文工具" class="headerlink" title="论文工具"></a>论文工具</h1><h2 id="1-找论文"><a href="#1-找论文" class="headerlink" title="1.找论文"></a>1.找论文</h2><p>参考目标期刊相似论文的架构，搭框架，填内容<br>订阅论文：<a href="https://www.storkapp.me/?ref=1003">文献鸟</a>，设置关键字订阅相关论文<br>下载论文：<a href="https://tool.yovisun.com/scihub/">SCI-Hub论文下载</a>, <a href="https://www.drugfuture.com/cnpat/cn_patent.asp">中国专利下载</a><br>查期刊：<a href="https://www.letpub.com.cn/index.php?page=journalapp">LetPub</a>，有期刊的介绍及投稿人的讨论<br>下载书籍：<a href="https://lib-xg7r2un3uz6rivi4ibrvtfls.resist.tel/">Z-library</a><br>快速总结论文：Newbing，<a href="https://chatpaper.org/">ChatPaper</a></p>
-<h2 id="2-中译英"><a href="#2-中译英" class="headerlink" title="2.中译英"></a>2.中译英</h2><p><a href="https://www.deepl.com/translator">DeepL翻译器</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper1.png" alt="图 1">  </p>
-<h2 id="3-润色"><a href="#3-润色" class="headerlink" title="3.润色"></a>3.润色</h2><p><a href="https://chat.openai.com/chat">ChatGPT</a>，按照期刊风格润色，<a href="https://ai.newzone.top/">ChatGPT提示词参考</a></p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">I want you <span class="keyword">to</span> act <span class="keyword">as</span> an academic journal editor. </span><br><span class="line">Please [proofreading] <span class="keyword">the</span> [<span class="built_in">paragraph</span>] <span class="keyword">from</span> an academic angle based <span class="keyword">on</span> <span class="keyword">the</span> writing style <span class="keyword">of</span> <span class="keyword">the</span> [CVPR]: </span><br><span class="line">[<span class="built_in">text</span>]</span><br></pre></td></tr></table></figure>
-<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper2.png" width = "90%" />
-
-<h2 id="4-语法"><a href="#4-语法" class="headerlink" title="4.语法"></a>4.语法</h2><p><a href="https://www.grammarly.com/office-addin">Grammarly</a>，安装Word插件修正语法<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper3.png" alt="图 3">  </p>
-<h1 id="文献管理神器：Zotero"><a href="#文献管理神器：Zotero" class="headerlink" title="文献管理神器：Zotero"></a>文献管理神器：Zotero</h1><p>Zotero能管理个人文献库、插入引文、论文阅读和记笔记、pdf下载和翻译、查看论文分区、影响因子等信息</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://www.zotero.org/">Zotero官网</a>，安装软件后再装浏览器插件，可以很方便的在浏览器随时导入文献；<br>顺便在官网注册一个账号，用于同步,且可登陆官网在线查看自己的论文库；<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper4.png" width = "100%" /></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h3><p><code>编辑 &gt; 首选项 &gt; 同步 &gt; 登陆</code><br><code>编辑 &gt; 首选项 &gt; 高级 &gt; 文件和文件夹 &gt; 更改数据储存路径  #自选合适的位置存储本地文件</code></p>
-<h3 id="SCI-Hub抓取pdf"><a href="#SCI-Hub抓取pdf" class="headerlink" title="SCI-Hub抓取pdf"></a>SCI-Hub抓取pdf</h3><ol>
-<li>打开Zotero 首选项-&gt;高级-&gt;设置编辑器</li>
-<li>搜索 <code>extensions.zotero.findPDFs.resolvers</code> ，搜到之后双击打开，在对话框中填入：<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;Sci-Hub&quot;</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>:<span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="string">&quot;url&quot;</span>:<span class="string">&quot;https://sci-hub.ren/&#123;doi&#125;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;mode&quot;</span>:<span class="string">&quot;html&quot;</span>,</span><br><span class="line">    <span class="string">&quot;selector&quot;</span>:<span class="string">&quot;<span class="subst">#pdf</span>&quot;</span>,</span><br><span class="line">    <span class="string">&quot;attribute&quot;</span>:<span class="string">&quot;src&quot;</span>,</span><br><span class="line">    <span class="string">&quot;automatic&quot;</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>实现抓取任意文献pdf（知网和部分新文献不行）</li>
-</ol>
-<h3 id="配置搜索引擎"><a href="#配置搜索引擎" class="headerlink" title="配置搜索引擎"></a>配置搜索引擎</h3><ol>
-<li><a href="https://www.123pan.com/s/goS7Vv-kIKbd.html">下载 engines.json 文件</a></li>
-<li>打开数据储存路径,替换同名文件 <code>...\Zotero\locate\engines.json</code></li>
-<li>重启Zotero后，实现多搜索引擎，很方便</li>
-</ol>
-<h3 id="安装Word插件"><a href="#安装Word插件" class="headerlink" title="安装Word插件"></a>安装Word插件</h3><p>安装word插件，实现高效插入引文，并且可以根据期刊选择参考文献样式<br><code>编辑 &gt; 首选项 &gt; 引用 &gt; 文字处理软件 &gt; 安装word插件</code><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper5.png" width = "80%" /></p>
-<h3 id="插件，让Zotero真正好用"><a href="#插件，让Zotero真正好用" class="headerlink" title="插件，让Zotero真正好用"></a>插件，让Zotero真正好用</h3><p><a href="https://www.zotero.org/support/plugins">官方插件下载地址</a><br>安装方法：下载.xpi 文件到你的电脑。然后，在 Zotero，点击“工具→插件（附加组件）”，然后拖动插件的 .xpi 文件到插件窗口打开，或者选择从文件中安装。安装完成后重新启动软件即可。</p>
-<p><strong>下面是强烈推荐的5个必备插件，嫌麻烦可以直接安装我上传的，都是2023年最新的，5个全部拖进去即可，地址：<a href="https://www.123pan.com/s/goS7Vv-mIKbd.html">推荐插件下载</a></strong></p>
-<p><strong>Zotero PDF Translate</strong><br><a href="https://github.com/windingwind/zotero-pdf-translate/releases">zotero-pdf-translate 下载</a>，实现划词翻译，但是需要在插件设置里配置翻译引擎（免费,推荐腾讯云），<a href="https://doc.tern.1c7.me/zh/folder/setting/#%E8%85%BE%E8%AE%AF%E4%BA%91">配置方法文档</a> </p>
-<p><strong>Jasminum - 茉莉花</strong><br><a href="https://github.com/l0o0/jasminum/releases">Jasminum 下载</a>，一个简单的 Zotero 中文插件, 优化知网中文论文管理体验</p>
-<p><strong>Zotero DOI Manager</strong><br><a href="https://github.com/bwiernik/zotero-shortdoi/releases">Zotero DOI Manager 下载</a>，更新抓取文献的DOI号，提高SCI-Hub抓取pdf成功率</p>
-<p><strong>Zotero IF</strong><br><a href="https://pan.baidu.com/s/1-nIHvhRj_wK_t6LMsNF6rg#list/path=%2Fsharelink3626522904-21879764921069%2FZotero%20IF&parentPath=%2Fsharelink3626522904-21879764921069">Zotero IF百度云地址，提取码: apeh</a>,为所抓取的文献更新影响因子</p>
-<p><strong>Zotero Citation Counts Manager</strong><br><a href="https://github.com/eschnett/zotero-citationcounts/releases">Zotero Citation Counts Manager 下载</a>，抓取引用数，一般选Semantic Scholar citation count</p>
-<details>
-  <summary>清空其它信息:工具-->开发者-->Run Javascript-->运行以下代码</summary>
-
-<pre><code>var fieldName = &quot;extra&quot;;
-var newValue = &quot;&quot;;
-
-var fieldID = Zotero.ItemFields.getID(fieldName);
-var s = new Zotero.Search();
-s.libraryID = ZoteroPane.getSelectedLibraryID();
-var ids = await s.search();
-if (!ids.length) &#123;
-return &quot;No items found&quot;;
-&#125;
-await Zotero.DB.executeTransaction(async function () &#123;
-for (let id of ids) &#123;
-let item = await Zotero.Items.getAsync(id);
-let mappedFieldID = Zotero.ItemFields.getFieldIDFromTypeAndBase(item.itemTypeID, fieldName);
-item.setField(mappedFieldID ? mappedFieldID : fieldID, newValue);
-await item.save();
-&#125;
-&#125;);
-return ids.length + &quot; item(s) updated&quot;;
-</code></pre>
-</details>
-
-<h1 id="LaTex"><a href="#LaTex" class="headerlink" title="LaTex"></a>LaTex</h1><p>在线编辑器：<a href="https://www.overleaf.com/">Overleaf</a>，可以多人在线共同编辑、批注；<br>将期刊提供的LaTex模板导入编辑器，直接在模板里写；<br>查询文档：<a href="https://github.com/sailist/LaTeXdoc">LaTeXdoc</a>, <a href="https://zhuanlan.zhihu.com/p/508559139">Latex简明速查手册(8页)</a></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><h3 id="单篇论文的参考文献引用"><a href="#单篇论文的参考文献引用" class="headerlink" title="单篇论文的参考文献引用"></a>单篇论文的参考文献引用</h3><ol>
-<li>使用<code>\begin&#123;thebibliography&#125;</code>开始参考文献的引用；使用<code>\end&#123;thebibliography&#125;</code>结束；</li>
-<li>使用<code>\bibitem&#123;&#125;</code>添加文献，在文章中只用使用<code>\cite&#123;&#125;</code>引用，需要自己改，比较麻烦；</li>
-</ol>
-<h3 id="overleaf-zotero多篇论文-bib文件引用"><a href="#overleaf-zotero多篇论文-bib文件引用" class="headerlink" title="overleaf+zotero多篇论文.bib文件引用"></a>overleaf+zotero多篇论文.bib文件引用</h3><ol>
-<li>使用zotero，将文章所需参考文献导入至一个新文件夹中，选择导出分类，选择文件夹导出<code>ref.bib</code>格式的文件；</li>
-<li>打开overleaf，将刚刚的<code>ref.bib</code>文件导入</li>
-<li>接下来就是在文章中导入参考文献:</li>
-</ol>
-<p>（1）首先导入如下命令，注意是在文章最后，<code>\end&#123;document&#125;</code>之前：</p>
-<figure class="highlight fsharp"><table><tr><td class="code"><pre><span class="line">\<span class="keyword">bibliographystyle</span>&#123;ieicetr&#125; <span class="operator">%</span>引文期刊格式</span><br><span class="line">\<span class="keyword">bibliography</span>&#123;<span class="built_in">ref</span>&#125; <span class="operator">%.</span>bib文件名</span><br></pre></td></tr></table></figure>
-<p>(2)编译后还不能显示你的参考文献列表，只有在文章中添加了<code>\cite&#123;&#125;</code>之后才可以正常显示<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper6.png" alt="图 6"><br><code>\cite&#123;liu_ceam-yolov7_2022&#125;</code></p>
-<h2 id="公式图表"><a href="#公式图表" class="headerlink" title="公式图表"></a>公式图表</h2><h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">\<span class="keyword">begin</span>&#123;equation&#125;</span><br><span class="line">  <span class="keyword">x</span>+y</span><br><span class="line">\<span class="keyword">end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">%h: 表示浮动体尽可能地放在当前位置。t: 表示浮动体放在页面顶部。b: 表示浮动体放在页面底部。p: 表示浮动体放在一个单独的页面上。</span><br><span class="line">\begin&#123;<span class="selector-tag">figure</span>&#125;<span class="selector-attr">[htb]</span></span><br><span class="line">\begin&#123;center&#125;</span><br><span class="line">\includegraphics<span class="selector-attr">[width=1\columnwidth]</span>&#123;FEY-YOLOv7/<span class="selector-tag">figure</span>/fig.<span class="number">1</span><span class="selector-class">.png</span>&#125;</span><br><span class="line">\end&#123;center&#125;</span><br><span class="line">\<span class="selector-tag">caption</span>&#123;RGB-infrared Datasets.&#125;</span><br><span class="line">\<span class="selector-tag">label</span>&#123;fig:<span class="number">1</span>&#125;</span><br><span class="line">\end&#123;<span class="selector-tag">figure</span>&#125;</span><br><span class="line">%跨栏显示：&#123;<span class="selector-tag">figure</span>*&#125;</span><br><span class="line">%若编译不显示图片：菜单&gt;选择用XELATEX编译</span><br><span class="line">%引用：shown in Fig.\ref&#123;fig:<span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\begin&#123;table&#125;[htb]</span></span><br><span class="line"><span class="string">\caption&#123;Effect</span> <span class="keyword">of</span> different datasets <span class="literal">on</span> the YOLOv7.&#125;</span><br><span class="line"><span class="string">\label&#123;table:4&#125;</span></span><br><span class="line"><span class="string">\begin&#123;center&#125;</span></span><br><span class="line"><span class="string">\begin&#123;tabular&#125;&#123;ll&#125;</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line">    <span class="string">\textbf&#123;Dataset&#125;</span> &amp; <span class="string">\textit&#123;mAP&#125;\\</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line">    IR dataset &amp; <span class="number">0.85</span> <span class="string">\\</span></span><br><span class="line">    RGB dataset &amp; <span class="number">0.758</span> <span class="string">\\</span></span><br><span class="line">    RGB-infrared dataset &amp; <span class="number">0.962</span> <span class="string">\\</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line"><span class="string">\end&#123;tabular&#125;%</span></span><br><span class="line"><span class="string">\end&#123;center&#125;</span></span><br><span class="line"><span class="string">\end&#123;table&#125;</span> </span><br></pre></td></tr></table></figure>
-
-<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p>IEICE期刊论文投稿的LaTeX模板中提供了EUC、SJIS和UTF三种不同的模板。这些模板的区别在于它们所使用的字符编码方式，其中UTF-8是其中最为常用的一种编码方式。<br><code>Ctrl + S 编译</code></p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">%分点</span><br><span class="line"><span class="string">\begin&#123;itemize&#125;</span></span><br><span class="line">  <span class="string">\item</span> [<span class="number">1.</span>]</span><br><span class="line">  <span class="string">\item</span> </span><br><span class="line">  <span class="string">\item</span> </span><br><span class="line"><span class="string">\end&#123;itemize&#125;</span></span><br><span class="line"></span><br><span class="line">空行：<span class="string">\\</span>  下划线：<span class="string">\_&#123;&#125;</span>  百分号:<span class="string">\%</span>  加粗：<span class="string">\textbf&#123;&#125;</span></span><br><span class="line">斜体：<span class="string">\textit&#123;&#125;</span> 或 $x$  或公式斜体：<span class="string">\mathit&#123;&#125;</span>  </span><br><span class="line"></span><br><span class="line">%文章结构</span><br><span class="line">章：<span class="string">\section&#123;&#125;</span>   节：<span class="string">\subsection&#123;&#125;</span>   条：<span class="string">\subsubsection&#123;&#125;</span></span><br></pre></td></tr></table></figure>
-<h1 id="论文规范"><a href="#论文规范" class="headerlink" title="论文规范"></a>论文规范</h1><h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><ol>
-<li><p>一个词或词组在文中出现三次或以上才可以用缩写，否则需要写出全称。也就是说如果只出现一次或两次，每次都要写出全称，而缩略语就不需要给出了。<br>出现的次数是在摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果一个词在摘要中出现一次，正文中出现多次，图注中又出现一次，那么摘要中只要用全称，不要用缩写；正文中第一次出现时用全称，后面用缩写； 图注中用全称，不用缩写。<br>一些期刊只允许对正文中出现3次以上的术语使用缩写。<br>一些期刊禁止在标题和摘要中使用任何缩写词。<br>从写作风格上讲，大多数期刊都建议作者不要在句首使用缩写词。在这种情况下，作者要详细说明术语的含义，或者改用别的措辞重写句子。<br>在论文中，将摘要看做是独立的部分。因此，如果您需要在摘要和论文中同时使用一个缩写词时，您需要两次介绍这个缩写词：首次在摘要中使用时介绍一次；首次 在论文中使用时介绍一次。然而 ，如果您发现在摘要中介绍的一个缩写词仅仅出现了一两次，没必要缩写——可以考虑避免缩写，每次都用全拼代替（除非您认为读者更了解缩写词）</p>
-</li>
-<li><p>缩略语在文中第一次出现时需要定义。这里所谓第一次，也是摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果摘要和正文都符合上面所说使用缩写的规则，那么摘要中需要定义一次，正文中还需要定义一次。定义就是写出全称并在括号中给出缩写。<br>The patient was diagnosed with pulmonary arterial hypertension (PAH).<br>如果图例或表格中为了节省空间出现了缩写，那么在图注或表注中要解释缩写。<br>PH: pulmonary hypertension, PAH: pulmonary arterial hypertension.<br>写全称时一般是全部用小写，除非是人名、地名等专有名词，而缩写一般是全大写，除非是约定俗成的写法，比如用ChIP 代表chromatin immunoprecipitation。<br>应该考虑到也许有其他领域或者新进入这门领域的读者会阅读这篇论文，所以期刊都规定缩略语要先定义再使用。有些期刊会列出该期刊中不需要定义就可以直接使用的缩略语，比如Journal of Clinical Investigation 就给出<a href="http://www.jci.org/kiosk/publish/abbreviations">标准缩略语列表</a>并指出这些缩略语可以直接使用。如果期刊没有特别规定，应该每个缩略语使用时都要先定义。定义之后记得要一直使用缩略语，不要再使用全称。</p>
-</li>
-<li><p>尽量避免使用缩略语。一篇文章完全不使用缩略语不见得可行，但是尽量少用为好，而且只使用比较常见的缩略语。使用缩略语的目的是为了便于读者对文章的阅读理解，比较长的词组如果反复出现，不便于读者的快速阅读，所以用缩写更合适。有些词可能多数读者对缩写更熟悉，这些词用缩写也便于读者理解。如果很多比较短的词也用缩写，而且不是普遍使用的缩写，读者就经常要停下来去查找缩写代表的词意，思路就会被打断，所以会影响对文章的理解。</p>
-</li>
-<li><p>一个缩略语代表一个词或词组。在一篇文章中，一个缩略语只能代表一个词（组），而且一个词（组）也只能用一个缩略语代表。</p>
-</li>
-<li><p>缩写相关的复数和冠词的用法。多数情况下，我们会用缩略语来代替一个名词，所以如果是可数名词也是有复数的。一般来说，缩略语代表的是名词的单数形式，我们在后面加s（或者加es如果缩略语的最后一个字母是s）来表示复数。定义缩写的时候通常就可以看出来，比如 endothelial cells (ECs)。<br>如果缩略语名词前面需要加不定冠词，要根据缩写的读音来决定是用a还是an。例如human immunodeficiency virus缩写成HIV时我们是念这三个字母，第一个字母H虽然是个辅音字母，念这个字母时却是元音开头，所以HIV这个词的第一个音是元音，前面要用an，例如 an HIV-positive test result。</p>
-</li>
-<li><p>在技术写作中最常见的关于首字母缩写和缩略词的错误，就是大部分人以为缩写中出现的大写字母在缩写前的词组中也需要大写，实际上并不是这样的。例如，作为商业管理哲学的「total quality management」缩写为「TQM」，但它的全称却常常被错误地写成「Total Quality Management」，这有可能是因为部分作者忘记了这个词本身并不是专有名词，甚至是更糟糕的情况──作者根本从一开始就没有完全了解这个词的含意！请记住，在文章中缩写术语之前，首先了解该术语的含意和来源是很重要的，因为作者在论文中处理首字母缩写和缩略词的态度与方法常常反映了他们自己对于运用术语的了解程度。<br>掌握了上面这几个原则，我们就可以通过恰当地使用缩略语来增加文章的可读性。</p>
-</li>
-</ol>
-<h2 id="字母"><a href="#字母" class="headerlink" title="字母"></a>字母</h2><ol>
-<li><p>什么时候用斜体(italic)？</p>
-<blockquote>
-<p>1)变量(variables)应该用斜体表示：例如<em>T</em>表示温度(temperature)，<em>r</em>表示速率(rate)，<em>x</em>代表摩尔分数(molar fraction).<br>2)坐标轴(axes)：the <em>y</em> axis.<br>3)平面(planes)：plane <em>P</em>.<br>4)行列式(determinants)和矩阵(matrices)中的元素：<em>gn</em>.<br>5)常数(constants)符号: <em>g</em>, 重力加速度<br>6)描述变量的函数:<em>f(x)</em>.</p>
-</blockquote>
-</li>
-<li><p>什么时候不用斜体，而采用罗马字体(Roman)?<br>这里的Roman字体指非特殊性字体，与每个期刊的正文字体一致</p>
-<blockquote>
-<p>1)数字；<br>2)标点符号和括号；<br>3)大多数运算符；<br>4)量度单位和时间单位：毫克, mg; 帕斯卡, Pa; 毫米汞柱, mmHg.<br>5)非数学符号和数量：s, 原子轨道(atomic orbital);<br>6)变量的多字符缩写<br>7)数学常量(mathematical constants):自然对数,e;复数的虚部,i;圆周率,π.<br>8)矩阵的转置(transposes), <strong>A</strong>T(T是矩阵<strong>A</strong>的转置)<br>9)点(point)和线(line): point A, line AB.<br>10)行列式(determinants)： A是矩阵<strong>A</strong>的行列式<br>11)三角函数和其他数学函数:正弦函数sin;最大值max,极限lim;对数log等.</p>
-</blockquote>
-</li>
-<li><p>什么时候用粗体(Boldface)？</p>
-<blockquote>
-<p>1）向量(vectors)；<br>2）张量(tensors)；<br>3）矩阵(matrics);<br>4）多维物理量：磁场强度，<strong>H</strong>.</p>
-</blockquote>
-</li>
-<li><p>什么时候使用希腊字母(Greek letters)?</p>
-<blockquote>
-<p>任何拉丁字母可以使用的地方都可以，包括变量，常量，向量等。</p>
-</blockquote>
-</li>
-<li><p>当上下标本身就是代表物理量或数字的符号时，用斜体(italic),如果上下标是缩写或者不是符号时，不用斜体，采用罗马字体(Roman).</p>
-<blockquote>
-<p>举例：<em>Cp</em> for heat capacity at constant pressure常压比热（<em>p</em>是压力的符号，采用斜体）<br><em>C</em>B for heat capacity of substance B 物质B的比热（B不是符号，不用斜体）<br><em>C</em>g where g is gas 气体比热 (g是gas的缩写，不用斜体)<br><em>Ei</em> for energy of the <em>i</em>th level, where <em>i</em> is a number(<em>i</em>是代表数字的符号)<br><em>g</em>n where n is normal(n是气体normal的缩写，不用斜体)</p>
-</blockquote>
-</li>
-</ol>
-<p><a href="https://journal.cricaas.com.cn/attached/file/20210517/20210517161953_566.pdf">[GB 3102.11-93] 物理科学和技术中使用的数学符号</a></p>
-]]></content>
-      <tags>
-        <tag>总结</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Project：多个项目汇总</title>
     <url>/2023/02/15/Project/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
@@ -466,78 +512,182 @@ return ids.length + &quot; item(s) updated&quot;;
       </tags>
   </entry>
   <entry>
-    <title>DL：深度学习相关概念</title>
-    <url>/2022/12/28/DL/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>从机器学习到深度学习：<a href="https://www.cnblogs.com/subconscious/p/4107357.html">从机器学习谈起</a>，<a href="https://www.cnblogs.com/subconscious/p/5058741.html">从神经元到深度学习</a><br>什么是卷积讲解视频：<a href="https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a">：大白话讲解卷积神经网络工作原理</a></p>
-<h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a><a href="bilibili.com/video/BV14f4y1q7ms?p=3">深度学习框架</a></h1><pre class="mermaid">graph LR
-A[程序框架]-->B[A.黑箱]
-A-->C[B.模块化] -->1.处理数据
-C-->2.构建网络
-C-->3.损失函数
-C-->4.优化函数
-C-->5.模型保存
-A-->E[C.定义]</pre>
+    <title>TDA4VM, TIDL, OpenVX</title>
+    <url>/2023/05/10/TDA4VM/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.ti.com.cn/product/zh-cn/TDA4VM">TDA4VM官网</a>， <a href="https://e2e.ti.com/support/processors-group/processors/f/processors-forum">TI e2e论坛</a></p>
+<h1 id="TDA4VM芯片数据手册研读"><a href="#TDA4VM芯片数据手册研读" class="headerlink" title="TDA4VM芯片数据手册研读"></a>TDA4VM芯片数据手册研读</h1><p><a href="https://www.ti.com.cn/cn/lit/ds/symlink/tda4vm.pdf">TDA4VM数据手册</a><br>适用于 ADAS 和自动驾驶汽车的TDA4VM Jacinto™ 处理器,具有深度学习、视觉功能和多媒体加速器的双核 Arm® Cortex®-A72 SoC 和 C7x DSP.<br>Jacinto 7系列架构芯片含两款汽车级芯片：TDA4VM 处理器和 DRA829V 处理器，前者应用于 ADAS，后者应用于网关系统，以及加速数据密集型任务的专用加速器，如计算机视觉和深度学习。二者都基于J721E平台开发。</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg" />  
 
-<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL1.png" width = "80%" />
+<h2 id="处理器内核"><a href="#处理器内核" class="headerlink" title="处理器内核"></a>处理器内核</h2><ul>
+<li><strong>C7x 浮点矢量 DSP，性能高达 1.0GHz、 80GFLOPS、256GOPS</strong>：C7x是TI的一款高性能数字信号处理器，其中的浮点矢量 DSP 可以进行高效的信号处理、滤波和计算，大幅提高神经网络模型的计算效率。<br><em>GHz-每秒钟执行10亿次计算，GFLOPS-每秒10亿次浮点运算，GOPS-每秒10亿次通用操作。</em></li>
+<li><strong>深度学习矩阵乘法加速器 (MMA)，性能高达8TOPS (8b)（频率为1.0GHz）</strong>：可以高效地执行矩阵乘法和卷积等运算。<br><em>TOPS-每秒万亿次操作，8b-8位精度的运算。</em></li>
+<li>**具有图像信号处理器 (ISP) 和多个视觉辅助加速器的视觉处理加速器 (VPAC)**：可以高效地执行图像处理、计算机视觉和感知任务。</li>
+<li>**深度和运动处理加速器(DMPAC)**：可以高效地执行深度计算和运动估计等任务。</li>
+<li><strong>双核 64 位 Arm® Cortex®-A72 微处理器子系统，性能高达 2.0GHz</strong>：可以高效地执行复杂的应用程序。<ul>
+<li>每个双核 Cortex®-A72 集群具有 1MB L2 共享缓存 </li>
+<li>每个 Cortex®-A72 内核具有 32KB L1 数据缓存 和 48KB L1 指令缓存<br><em>L1缓存（一级缓存）：小而快，缓存CPU频繁使用的数据和指令，以提高内存访问速度；L2：大，帮助CPU更快地访问主内存中的数据。</em></li>
+</ul>
+</li>
+<li><strong>六个 Arm® Cortex®-R5F MCU，性能高达 1.0GHz</strong>：一组小型、低功耗的微控制器单元，用于处理实时任务和控制应用程序<ul>
+<li>16K 指令缓存，16K 数据缓存，64K L2 TCM（Tightly-Coupled Memory）</li>
+<li>隔离 MCU 子系统中有两个 Arm® Cortex®-R5F MCU</li>
+<li>通用计算分区中有四个 Arm® Cortex®-R5F MCU</li>
+</ul>
+</li>
+<li><strong>两个 C66x 浮点 DSP，性能高达 1.35GHz、 40GFLOPS、160GOPS</strong>：另一款高性能数字信号处理器，可以高效地执行信号处理、滤波和计算任务。</li>
+<li><strong>3D GPU PowerVR® Rogue 8XE GE8430，性能高达 750MHz、96GFLOPS、6Gpix&#x2F;s</strong>：专门用于图形处理的硬件单元，可以实现高效的图形渲染和计算。<br><em>Gpix&#x2F;s-每秒可以处理10亿像素数</em></li>
+<li><strong>定制设计的互联结构，支持接近于最高的处理能力</strong>：处理器内部的互连结构，用于连接各种硬件单元，并支持高效的数据传输和协议。</li>
+</ul>
+<h1 id="SDK"><a href="#SDK" class="headerlink" title="SDK"></a>SDK</h1><p>Download：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a>，提供Linux SDK、QNX SDK和RTOS SDK<br>Document：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a>，<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a>（<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/index.html#">Processor SDK Linux for Edge AI</a>，<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-qnx-jacinto7/08_06_00_07/exports/docs/index.html"><del>QNX SDK</del></a>）</p>
+<p><em>To run many of the demos in this SDK, the companion Processor SDK Linux(PSDK_Linux) for J721E also needs to be downloaded separately, together form a multi-processor software development kit for the J721E platform</em></p>
+<h2 id="Processor-SDK-RTOS-PSDK-RTOS"><a href="#Processor-SDK-RTOS-PSDK-RTOS" class="headerlink" title="Processor SDK RTOS (PSDK RTOS)"></a>Processor SDK RTOS (PSDK RTOS)</h2><p><strong>PSDK RTOS Block Diagram</strong><br><img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMSDKedit.png" />  </p>
+<p><strong>Hardware</strong><br>Evaluation Module (EVM):Ti 推出的硬件开发板。用于快速原型设计和新产品开发，可以帮助开发人员在短时间内实现复杂的嵌入式系统功能, <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/evm_setup_j721e.html">EVM Setup for J721E</a><br>JTAG:debug execution, load program via JTAG-<em>No Boot Mode</em><br>uart:prints status of the application via the uart terminal.<br><strong>Software</strong><br>Recommend IDE:Code Composer Studio (CCS), <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/ccs_setup_j721e.html#ccs-setup-j721e">CCS Setup for J721E</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/getting_started_j721e.html#demo-applications"><strong>Demos</strong></a><br>Prebuilt Demos:直装<br>Build Demos from Source: Linux, Windows(很少)</p>
+<h3 id="SDK-Components"><a href="#SDK-Components" class="headerlink" title="SDK Components"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/sdk_components_j721e.html#vxlib">SDK Components</a></h3><p>The following table lists some of the top-level folders in the SDK package and the component it represents.</p>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Component</th>
+<th>User guide</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vision_apps</td>
+<td>Vision Apps</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/vision_apps/docs/user_guide/index.html">Demos</a></td>
+</tr>
+<tr>
+<td>pdk_jacinto_*</td>
+<td>Platform Development Kit</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/pdk_jacinto_08_06_00_31/docs/pdk_introduction.html#Documentation">PDK</a></td>
+</tr>
+<tr>
+<td><del>mcusw</del></td>
+<td>MCU Software</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/mcusw/mcal_drv/docs/drv_docs/index.html">MCU SW</a></td>
+</tr>
+<tr>
+<td>tidl_j7_*</td>
+<td>TI Deep learning Product</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/index.html">TIDL</a></td>
+</tr>
+<tr>
+<td>tiovx</td>
+<td>TI OpenVX</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a></td>
+</tr>
+<tr>
+<td>tiadalg</td>
+<td>TI Autonomous Driving Algorithms</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiadalg/TIAutonomousDrivingAlgorithmLibrary_ReleaseNotes.html#Documentation">TIADALG</a></td>
+</tr>
+</tbody></table>
+<h2 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a>TIDL</h2><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/index.html">TIDL</a>（TI Deep Learning Library）是TI平台基于深度学习算法的<em>软件生态系统</em>，可以将一些常见的深度学习算法模型快速的部署到TI嵌入式平台。</p>
+<figure class="highlight mathematica"><table><tr><td class="code"><pre><span class="line"><span class="variable">Features</span><span class="operator">:</span> <span class="variable">Understand</span> <span class="variable">the</span> <span class="variable">trained</span> <span class="variable">output</span> <span class="variable">of</span> <span class="variable">popular</span> <span class="variable">frameworks</span><span class="operator">,</span> <span class="variable">Layer</span> <span class="variable">types</span><span class="operator">,</span> <span class="variable">Sparse</span> <span class="variable">convolution</span><span class="operator">,</span> <span class="variable">Quantized</span> <span class="variable">inference</span> <span class="variable">and</span> <span class="variable">on</span><span class="operator">-</span><span class="variable">the</span><span class="operator">-</span><span class="variable">fly</span> <span class="variable">quantization</span><span class="operator">,</span> <span class="variable">Host</span> <span class="variable">emulation</span><span class="operator">,</span> <span class="variable">Support</span> <span class="variable">for</span> <span class="variable">a</span> <span class="variable">variety</span> <span class="variable">of</span> <span class="variable">training</span> <span class="variable">frameworks</span><span class="operator">,</span> <span class="variable">Low</span> <span class="variable">power</span> <span class="variable">consumption</span><span class="operator">.</span></span><br><span class="line"><span class="variable">Popular</span> <span class="variable">operators</span> <span class="variable">supported</span><span class="operator">:</span> <span class="variable">Convolution</span>，<span class="variable">Pooling</span>，<span class="built_in">Element</span> <span class="variable">Wise</span>，<span class="built_in">Inner</span><span class="operator">-</span><span class="built_in">Product</span>，<span class="variable">Soft</span><span class="operator">-</span><span class="built_in">Max</span>，<span class="variable">Bias</span> <span class="variable">Add</span>，<span class="variable">Concatenate</span>，<span class="built_in">Scale</span>，<span class="variable">Batch</span> <span class="variable">Normalization</span>，<span class="built_in">Re</span><span class="operator">-</span><span class="variable">size</span> ，<span class="built_in">Arg</span><span class="operator">-</span><span class="variable">max</span>，<span class="variable">Slice</span>，<span class="variable">Crop</span>，<span class="built_in">Flatten</span>，<span class="variable">Shuffle</span> <span class="variable">Channel</span>，<span class="variable">Detection</span> <span class="variable">output</span> ，<span class="variable">Deconvolution</span><span class="operator">/</span><span class="built_in">Transpose</span> <span class="variable">convolution</span> </span><br></pre></td></tr></table></figure>
+<p><sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Embedded low-power deep learning with TIDL](https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf)">[1]</span></a></sup></p>
+<p>TIDL is a fundamental software component of <a href="https://www.ti.com/edgeai">TI’s Edge AI solution</a>.</p>
+<p><strong>TI’s Edge AI Tools</strong>：</p>
+<ul>
+<li><a href="https://dev.ti.com/edgeai/">Edge AI Studio</a>:Integrated development environment for development of AI applications for edge processors.（需授权）</li>
+<li><a href="https://github.com/TexasInstruments/edgeai-modelzoo">Model zoo</a>:A large collection of pre-trained models for data scientists,其中有<a href="https://github.com/TexasInstruments/edgeai-modelzoo/tree/master/models/vision/detection">YOLO例程</a></li>
+<li><a href="https://github.com/TexasInstruments/edgeai">Training and quantization tools</a>:make DNNs more suitable for TI devices.</li>
+<li><a href="https://github.com/TexasInstruments/edgeai-benchmark">Edge AI Benchmark</a>:perform accuracy and performance benchmark.</li>
+<li><a href="https://github.com/TexasInstruments/edgeai-tidl-tools#edgeai-tidl-tools">Edge AI TIDL Tools</a>:used for model compilation on X86. Artifacts from compilation process can used for Model inference. Model inference can happen on X86 machine (host emulation mode) or on development board with TI SOC. <img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/dnn-workflow.png"></li>
+</ul>
+<p>TIDL当前支持的训练框架有Tensorflow、Pytorch、Caffe等，用户可以根据需要选择合适的训练框架进行模型训练。TIDL可以将PC端训练好的模型导入编译生成TIDL可以识别的模型格式，同时在导入编译过程中进行层级合并以及量化等操作，方便导入编译后的模型高效的运行在具有高性能定点数据感知能力TDA4硬件加速器上。 TIDL提供了模型导入工具，模型可视化工具等，非常便捷地可以对训练好地模型进行导入。<br><img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMTIDLflow.png" width = "80%"/>  </p>
+<p>RTOS SDK 中集成了众多的Demo展示TIDL在TDA4处理器上对实时的语义分割和 SSD 目标检测的能力。如下图,	Vision Apps User Guide 中 <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/07_02_00_06/exports/docs/vision_apps/docs/user_guide/group_apps_dl_demos_app_tidl_avp3.html">AVP Demo</a> 的展示了使用TIDL对泊车点、车辆的检测。<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Deep Learning with Jacinto™ 7 SoCs: TDA4x](https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf) | [当深度学习遇上TDA4](https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4)">[2]</span></a></sup></p>
+<img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdemo.png" />  
 
-<p>GPU 网络和数据要同时送进GPU</p>
-<h2 id="感受野"><a href="#感受野" class="headerlink" title="感受野"></a>感受野</h2><p>感受野被定义为卷积神经网络特征所能看到输入图像的区域，换句话说特征输出受感受野区域内的像素点的影响。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL2.png" width = "50%" /></p>
-<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
-<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL3.gif" width = "60%" />
-
-<p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL4.png" alt="图 4">  </p>
-<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> ^1^（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> ^2^。</p>
-<blockquote>
+<h3 id="TIDL-RT"><a href="#TIDL-RT" class="headerlink" title="TIDL-RT"></a>TIDL-RT</h3><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_overview.html">TIDL Runtime</a> 是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。 特点：互用性、高精度、高性能、可扩展。</p>
+<p>如图所示是TIDL的软件框架。在TIDL上，深度学习网络应用开发主要分为三个大的步骤（以TI Jacinto7TM TDA4VM处理器为例）: <sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[基于Pytorch训练并在TDA4上部署ONNX模型](https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf)">[3]</span></a></sup></p>
 <ol>
-<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
-<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
+<li>基于Tensorflow、Pytorch、Caffe 等训练框架，训练模型：选择一个训练框，然后定义模型，最后使用相应的数据集训练出满足需求的模型。</li>
+<li>基于TI Jacinto7TM TDA4VM处理器导入模型： 训练好的模型，需要使用TIDL Importer工具导入成可在TIDL上运行的模型。导入的主要目的是对输入的模型进行量化、优化并保存为TIDL能够识别的网络模型和网络参数文件。</li>
+<li>基于TI Jacinto7TM SDK 验证模型，并在应用里面部署模型：<ul>
+<li>PC 上验证并部署<ul>
+<li>在PC上使用TIDL推理引擎进行模型测试。</li>
+<li>在PC上使用OpenVX框架开发程序，在应用上进行验证。</li>
+</ul>
+</li>
+<li>EVM上验证并部署<ul>
+<li>在EVM上使用TIDL推理引擎进行模型测试。</li>
+<li>在EVM上使用OpenVX框架开发程序，在应用上进行验证</li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
-</blockquote>
-<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
-<blockquote>
-<ol>
-<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
-<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
-<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
-</ol>
-</blockquote>
-<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
-<h3 id="基于距离度量的损失函数"><a href="#基于距离度量的损失函数" class="headerlink" title="基于距离度量的损失函数"></a>基于距离度量的损失函数</h3><p>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。<br><strong>L1范数损失函数（MAE）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；<br><strong>L2损失函数（MSE均方误差损失函数）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
-<h3 id="基于概率分布度量的损失函数"><a href="#基于概率分布度量的损失函数" class="headerlink" title="基于概率分布度量的损失函数"></a>基于概率分布度量的损失函数</h3><p>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。<br><strong>KL散度（ Kullback-Leibler divergence）</strong><br>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。</p>
-<p>交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数</p>
-<p>在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。</p>
-<p>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 </p>
-<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
-<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
-<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL5.png" width = "50%" /></p>
-<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
-<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL6.png" alt="图 6">  </p>
-<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
-<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
-<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL7.png" alt="图 7"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
-<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL8.png" width = "70%" />
+<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/3step.png" />  
 
-<p>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
-<blockquote>
-<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
-</blockquote>
-<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#97;&#x70;&#64;&#48;&#46;&#x35;">&#109;&#97;&#x70;&#64;&#48;&#46;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
-<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "50%" /></p>
-<p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
-<blockquote>
-<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
-</blockquote>
-<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
-<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
-<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
-<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
-<p><strong>换算计算量</strong>,一般一个参数是值一个float，也就是４个字节,1kb&#x3D;1024字节</p>
-<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL13.png" alt="图 13"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL14.png" alt="图 14"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL15.png" alt="图 15">  </p>
+<h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><code>Vx_context</code>：一个context就是一个运行环境，包含多种不同的功能，在不同场景下被调度。一般很少有使用到多context的场景；<br><code>Vx_graph</code>：一个graph就是一个功能，是由多个步骤连接在一起的完整功能；<br><code>Vx_node</code>：一个node就是一个最小的调度单元，可以是图像预处理算法，可以是边缘检测算法。<br>每个进程内可以有多个context（上下文），每个context内可以有多个graph（图，或连接关系），每个graph内可以有多个node（节点）。</p>
+<img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/openvxflow.png" />  
+
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Example Program</span></span><br><span class="line">vx_context context = vx<span class="constructor">CreateContext()</span>; <span class="comment">//创建 OpenVX 上下文,即整个应用程序的运行环境</span></span><br><span class="line">vx_graph graph = vx<span class="constructor">CreateGraph( <span class="params">context</span> )</span>; <span class="comment">//在上下文中创建一个图，表示图像处理的流程</span></span><br><span class="line">vx_image input = vx<span class="constructor">CreateImage( <span class="params">context</span>, 640, 480, VX_DF_IMAGE_U8 )</span>;</span><br><span class="line">vx_image output = vx<span class="constructor">CreateImage( <span class="params">context</span>, 640, 480, VX_DF_IMAGE_U8 )</span>; <span class="comment">//创建输入和输出图像，分别用于存储输入和处理后的图像。</span></span><br><span class="line">vx_image intermediate = vx<span class="constructor">CreateVirtualImage( <span class="params">graph</span>, 640, 480, VX_DF_IMAGE_U8 )</span>; <span class="comment">//创建虚拟图像，用于存储第一次处理后的结果，供下一步处理使用</span></span><br><span class="line">vx_node F1 = vx<span class="constructor">F1Node( <span class="params">graph</span>, <span class="params">input</span>, <span class="params">intermediate</span> )</span>;</span><br><span class="line">vx_node F2 = vx<span class="constructor">F2Node( <span class="params">graph</span>, <span class="params">intermediate</span>, <span class="params">output</span> )</span>; <span class="comment">//创建两个节点，分别表示两个不同的图像处理操作，并将它们添加到图中</span></span><br><span class="line">vx<span class="constructor">VerifyGraph( <span class="params">graph</span> )</span>; <span class="comment">//验证图的正确性</span></span><br><span class="line">vx<span class="constructor">ProcessGraph( <span class="params">graph</span> )</span>; <span class="comment">//执行图像处理</span></span><br></pre></td></tr></table></figure>
+<img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/openvxexample.png" />  
+
+<p><sup id="fnref:4"><a href="#fn:4" rel="footnote">&lt;span class&#x3D;”hint–top hint–error hint–medium hint–rounded hint–bounce” aria-label&#x3D;”<a href="https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf">TIOVX – TI’s OpenVX Implementation</a></p>
+<h3 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h3><p><code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code><br>OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。</p>
+<h3 id="TIOVX"><a href="#TIOVX" class="headerlink" title="TIOVX"></a>TIOVX</h3><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a> 是TI公司对OpenVX的实现。<br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png">“&gt;[4]</span></a></sup></p>
+<p>TIOVX Platform提供了特定硬件(如TDAx, AM65x)的操作系统(如TI-RTOS, Linux)调用API。TIOVX Framework包含了官方OpenVX的标准API和TI扩展的API，其中包括</p>
+<figure class="highlight mathematica"><table><tr><td class="code"><pre><span class="line"><span class="variable">public</span><span class="operator">:</span> <span class="built_in">Context</span><span class="operator">,</span> <span class="built_in">Parameter</span><span class="operator">,</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Node</span><span class="operator">,</span> <span class="built_in">Graph</span> <span class="built_in">Array</span><span class="operator">,</span> <span class="built_in">Image</span><span class="operator">,</span> <span class="variable">Scalar</span><span class="operator">,</span> <span class="built_in">Pyramid</span><span class="operator">,</span> <span class="variable">ObjectArray</span> ；</span><br><span class="line"><span class="variable">TI</span><span class="operator">:</span> <span class="variable">Target</span><span class="operator">,</span> <span class="variable">Target</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Obj</span> <span class="variable">Desc</span>。</span><br></pre></td></tr></table></figure>
+
+<p><strong>优势</strong></p>
+<ul>
+<li>TI官方提供OpenVX的支持，提供标准算法的硬件加速实现，提供各个功能的Demo，能够简化开发调试工作。</li>
+<li>简化多核异构的开发，可以在X86模拟运行，所有的板级开发和调试都位于A72 Linux端，减少了对RTOS调试的工作量。</li>
+<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832) | [TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[5]</span></a></sup></li>
+</ul>
+<img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/tiovx.png" />  
+
+<p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/PYTIOVX.html">PyTIOVX</a>: Automated OpenVX “C” Code Generation</p>
+<h1 id="算法部署"><a href="#算法部署" class="headerlink" title="算法部署"></a>算法部署</h1><ul>
+<li><p>Network selection：</p>
+</li>
+<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积<sup id="fnref:6"><a href="#fn:6" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[适用于嵌入式应用的深度学习推理参考设计](https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf)">[6]</span></a></sup></p>
+</li>
+<li><p>Deployment：</p>
+<img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" /></li>
+</ul>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf">Embedded low-power deep learning with TIDL</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf">Deep Learning with Jacinto™ 7 SoCs: TDA4x</a> | <a href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf">基于Pytorch训练并在TDA4上部署ONNX模型</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf">TIOVX – TI’s OpenVX Implementation</a>
+### 基本数据结构
+<code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code>
+OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。
+### TIOVX
+<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a> 是TI公司对OpenVX的实现。
+<img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png"><a href="#fnref:4" rev="footnote"> ↩</a></span></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a> | <a href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:5" rev="footnote"> ↩</a></span></li><li id="fn:6"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">6.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a><a href="#fnref:6" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Network：神经网络代码</title>
+    <url>/2022/11/25/Network/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="TORCH-NN"><a href="#TORCH-NN" class="headerlink" title="TORCH.NN"></a>TORCH.NN</h2><p><strong>Module 所有神经网络模块的基类</strong></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Model</span>(nn.Module): <span class="comment"># 继承Module模板（父类），在该模板基础上进行修改</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>): <span class="comment">#初始化</span></span><br><span class="line">        <span class="built_in">super</span>(Model, self).__init__() 	<span class="comment">#父类初始化</span></span><br><span class="line">        self.conv1 = Conv2d(in_channels=<span class="number">3</span>, out_channels=<span class="number">6</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>) <span class="comment">#2维卷积</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):<span class="comment">#前向传播 x即input</span></span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        <span class="keyword">return</span> x </span><br><span class="line">model=Model() 		<span class="comment">#创建神经网络</span></span><br><span class="line">output=model(x)</span><br><span class="line"><span class="built_in">print</span>(output)</span><br></pre></td></tr></table></figure>
+<p><strong>maxpool 下采样</strong><br><code>self.maxpool1 = MaxPool2d(kernel_size=3, ceil_mode=False) #ceil_mode=True为向上取整</code><br><strong>Non-linear Activations</strong><br><code>m = nn.ReLU() # inplace=True为直接替换input</code><br><strong>批标准化</strong><br><code>m = nn.BatchNorm2d(100)</code><br><strong>线性层</strong></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">dataset = torchvision.datasets.CIFAR10(<span class="string">&quot;../data&quot;</span>, train=<span class="literal">False</span>，</span><br><span class="line">			transform=torchvision.transforms.ToTensor(),download=<span class="literal">True</span>)</span><br><span class="line">dataloader = DataLoader(dataset, batch_size=<span class="number">64</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Tudui</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(Tudui, self).__init__()</span><br><span class="line">        self.linear1 = Linear(<span class="number">196608</span>, <span class="number">10</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span></span>):</span><br><span class="line">        output = self.linear1(<span class="built_in">input</span>)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"> </span><br><span class="line">tudui = Tudui()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> data <span class="keyword">in</span> dataloader:</span><br><span class="line">    imgs, targets = data</span><br><span class="line">    <span class="built_in">print</span>(imgs.shape)</span><br><span class="line">    output = torch.flatten(imgs) <span class="comment">#数据摊平</span></span><br><span class="line">    <span class="built_in">print</span>(output.shape)</span><br><span class="line">    output = tudui(output)</span><br><span class="line">    <span class="built_in">print</span>(output.shape)</span><br></pre></td></tr></table></figure>
+<h2 id="CIFAR-10-model结构"><a href="#CIFAR-10-model结构" class="headerlink" title="CIFAR 10 model结构"></a>CIFAR 10 model结构</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Network1.png" alt="图 1">  </p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> Conv2d, MaxPool2d, Flatten, Linear</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">WYJ</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(WYJ,self).__init__()</span><br><span class="line">        self.conv1=Conv2d(<span class="number">3</span>,<span class="number">32</span>,<span class="number">5</span>,padding=<span class="number">2</span>)</span><br><span class="line">        self.maxpool1=MaxPool2d(<span class="number">2</span>)</span><br><span class="line">        self.conv2 = Conv2d(<span class="number">32</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line">        self.maxpool2 = MaxPool2d(<span class="number">2</span>)</span><br><span class="line">        self.conv3 = Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line">        self.maxpool3 = MaxPool2d(<span class="number">2</span>)</span><br><span class="line">        self.flatten=Flatten()</span><br><span class="line">        self.linear1=Linear(<span class="number">1024</span>,<span class="number">64</span>)</span><br><span class="line">   self.linear2 = Linear(<span class="number">64</span>,<span class="number">10</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self,x</span>):</span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.maxpool1(x)</span><br><span class="line">        x = self.conv2(x)</span><br><span class="line">        x = self.maxpool2(x)</span><br><span class="line">        x = self.conv3(x)</span><br><span class="line">        x = self.maxpool3(x)</span><br><span class="line">        x = self.flatten(x)</span><br><span class="line">        x = self.linear1(x)</span><br><span class="line">        x = self.linear2(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"> </span><br><span class="line">wyj = WYJ()</span><br><span class="line"><span class="built_in">print</span>(wyj)</span><br><span class="line"><span class="built_in">input</span> = torch.ones((<span class="number">64</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">output = wyj(<span class="built_in">input</span>)</span><br><span class="line"><span class="built_in">print</span>(output.shape)</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> Conv2d, MaxPool2d, Flatten, Linear, Sequential</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"> <span class="comment"># Sequential 的妙用</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Tudui</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(Tudui, self).__init__()</span><br><span class="line">        self.model1 = Sequential(</span><br><span class="line">            Conv2d(<span class="number">3</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">32</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">5</span>, padding=<span class="number">2</span>),</span><br><span class="line">            MaxPool2d(<span class="number">2</span>),</span><br><span class="line">            Flatten(),</span><br><span class="line">            Linear(<span class="number">1024</span>, <span class="number">64</span>),</span><br><span class="line">            Linear(<span class="number">64</span>, <span class="number">10</span>)</span><br><span class="line">        )</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = self.model1(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"> </span><br><span class="line">tudui = Tudui()</span><br><span class="line"><span class="built_in">print</span>(tudui)</span><br><span class="line"><span class="built_in">input</span> = torch.ones((<span class="number">64</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">output = tudui(<span class="built_in">input</span>)</span><br><span class="line"><span class="built_in">print</span>(output.shape)</span><br><span class="line"> </span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;../logs_seq&quot;</span>)</span><br><span class="line">writer.add_graph(tudui, <span class="built_in">input</span>)</span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">0.1</span>, <span class="number">0.2</span>, <span class="number">0.3</span>])</span><br><span class="line">y = torch.tensor([<span class="number">1</span>])</span><br><span class="line">x = torch.reshape(x, (<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line">loss_cross = nn.CrossEntropyLoss()    <span class="comment">#注意输入输出形状</span></span><br><span class="line">result_cross = loss_cross(x, y)</span><br></pre></td></tr></table></figure>
+<p><strong>反向传播</strong><br><code>result_loss.backward()</code></p>
+<h2 id="优化器-梯度下降"><a href="#优化器-梯度下降" class="headerlink" title="优化器(梯度下降)"></a>优化器(梯度下降)</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">input</span>, target <span class="keyword">in</span> dataset:</span><br><span class="line">    optimizer.zero_grad()              <span class="comment">#梯度清零</span></span><br><span class="line">    output = model(<span class="built_in">input</span>)</span><br><span class="line">    loss = loss_fn(ou tput, target)</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure>
+<h2 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h2><p>添加<br><code>vgg16_true.classifier.add_module(&#39;add_linear&#39;, nn.Linear(1000, 10)) #在vgg16网络中的classifier 模块中加入一个linear层</code><br>修改<br><code>vgg16_false.classifier[6] = nn.Linear(4096, 10) #修改vgg16网络中的classifier 第6层</code></p>
+<p>保存</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">vgg16 = torchvision.models.vgg16(pretrained=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存方式1,模型结构+模型参数</span></span><br><span class="line">torch.save(vgg16, <span class="string">&quot;vgg16_method1.pth&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 保存方式2，模型参数（官方推荐）</span></span><br><span class="line">torch.save(vgg16.state_dict(), <span class="string">&quot;vgg16_method2.pth&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>加载</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方式1</span></span><br><span class="line">model = torch.load(<span class="string">&quot;vgg16_method1.pth&quot;</span>)</span><br><span class="line"> <span class="comment">#若为自定义网络模型，加载时需要引入定义：</span></span><br><span class="line"><span class="keyword">from</span> model_save <span class="keyword">import</span> *  </span><br><span class="line"><span class="comment">#一定要在同一个文件夹下</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 方式2，加载模型</span></span><br><span class="line">vgg16 = torchvision.models.vgg16(pretrained=<span class="literal">False</span>)</span><br><span class="line">vgg16.load_state_dict(torch.load(<span class="string">&quot;vgg16_method2.pth&quot;</span>)) <span class="comment">#读取字典中的参数</span></span><br></pre></td></tr></table></figure>
+<h2 id="CPU训练"><a href="#CPU训练" class="headerlink" title="CPU训练"></a>CPU训练</h2> <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> …</span><br><span class="line"><span class="keyword">from</span> model <span class="keyword">import</span> * <span class="comment">#引入CIFAR 10 model网络定义</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">#准备数据集 </span></span><br><span class="line">train_data = torchvision.datasets.CIFAR10(root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">True</span>, transform=torchvision.transforms.ToTensor(),download=<span class="literal">True</span>)</span><br><span class="line">test_data = torchvision.datasets.CIFAR10(root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">False</span>, transform=torchvision.transforms.ToTensor(),download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">#length 数据集长度</span></span><br><span class="line">train_data_size = <span class="built_in">len</span>(train_data)</span><br><span class="line">test_data_size = <span class="built_in">len</span>(test_data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;训练数据集的长度为：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(train_data_size))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;测试数据集的长度为：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(test_data_size))</span><br><span class="line"> </span><br><span class="line"> <span class="comment">#利用 DataLoader 来加载数据集</span></span><br><span class="line">train_dataloader = DataLoader(train_data, batch_size=<span class="number">64</span>)</span><br><span class="line">test_dataloader = DataLoader(test_data, batch_size=<span class="number">64</span>)</span><br><span class="line"> </span><br><span class="line"> <span class="comment">#创建网络模型</span></span><br><span class="line">tudui = Tudui()</span><br><span class="line"> <span class="comment">#损失函数</span></span><br><span class="line">loss_fn = nn.CrossEntropyLoss()</span><br><span class="line"> <span class="comment">#优化器</span></span><br><span class="line">learning_rate = <span class="number">1e-2</span></span><br><span class="line">optimizer = torch.optim.SGD(tudui.parameters(), lr=learning_rate)</span><br><span class="line"> </span><br><span class="line"> <span class="comment">#设置训练网络的一些参数</span></span><br><span class="line"> <span class="comment">#记录训练的次数</span></span><br><span class="line">total_train_step = <span class="number">0</span></span><br><span class="line"> <span class="comment">#记录测试的次数</span></span><br><span class="line">total_test_step = <span class="number">0</span></span><br><span class="line"> <span class="comment">#训练的轮数</span></span><br><span class="line">epoch = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">#添加tensorboard</span></span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;../logs_train&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(epoch):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;------第 &#123;&#125; 轮训练开始------&quot;</span>.<span class="built_in">format</span>(i+<span class="number">1</span>))</span><br><span class="line">    <span class="comment">#训练步骤开始</span></span><br><span class="line">    tudui.train() <span class="comment">#网络设为训练模式</span></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> train_dataloader:</span><br><span class="line">        imgs, targets = data</span><br><span class="line">        outputs = tudui(imgs)</span><br><span class="line">        loss = loss_fn(outputs, targets)</span><br><span class="line"> </span><br><span class="line">        <span class="comment"># 优化器优化模型</span></span><br><span class="line">        optimizer.zero_grad() <span class="comment">#梯度清零</span></span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line"> </span><br><span class="line">        total_train_step = total_train_step + <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> total_train_step % <span class="number">100</span> == <span class="number">0</span>: <span class="comment">#逢百进一</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;训练次数：&#123;&#125;, Loss: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(total_train_step, loss.item()))</span><br><span class="line">            writer.add_scalar(<span class="string">&quot;train_loss&quot;</span>, loss.item(), total_train_step)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 验证步骤开始</span></span><br><span class="line">    tudui.<span class="built_in">eval</span>() <span class="comment">#网络设为验证模式</span></span><br><span class="line">    total_test_loss = <span class="number">0</span></span><br><span class="line">    total_accuracy = <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad(): <span class="comment">#避免验证过程加入梯度，以节约内存</span></span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> test_dataloader:</span><br><span class="line">            imgs, targets = data</span><br><span class="line">            outputs = tudui(imgs)</span><br><span class="line">            loss = loss_fn(outputs, targets)</span><br><span class="line">            total_test_loss = total_test_loss + loss.item()</span><br><span class="line">            accuracy = (outputs.argmax(<span class="number">1</span>) == targets).<span class="built_in">sum</span>() <span class="comment">#argmax(1)：横轴取最大值并输出序号[0,1,0,0,…]</span></span><br><span class="line">            total_accuracy = total_accuracy + accuracy</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;整体测试集上的Loss: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(total_test_loss))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;整体测试集上的正确率: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(total_accuracy/test_data_size))</span><br><span class="line">    writer.add_scalar(<span class="string">&quot;test_loss&quot;</span>, total_test_loss, total_test_step)</span><br><span class="line">    writer.add_scalar(<span class="string">&quot;test_accuracy&quot;</span>, total_accuracy/test_data_size, total_test_step)</span><br><span class="line">    total_test_step = total_test_step + <span class="number">1</span></span><br><span class="line">    <span class="comment">#每epoch保存一个</span></span><br><span class="line">    torch.save(tudui, <span class="string">&quot;tudui_&#123;&#125;.pth&quot;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;模型已保存&quot;</span>) </span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+<h2 id="GPU训练"><a href="#GPU训练" class="headerlink" title="GPU训练"></a>GPU训练</h2><p>改cuda：网络、损失函数、data<br>① .cuda()</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">    tudui = tudui.cuda()</span><br></pre></td></tr></table></figure>
+<p>② .to(device)</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">device = torch.device(<span class="string">&quot;cuda&quot;</span>) <span class="comment">#只需修改此处在CPU,GPU之间切换	“cpu”</span></span><br><span class="line">tudui = tudui.to(device)</span><br><span class="line"></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> “cpu”)</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">model = torch.load(<span class="string">&quot;tudui_29_gpu.pth&quot;</span>, map_location=torch.device(<span class="string">&#x27;cpu&#x27;</span>)) </span><br><span class="line"><span class="built_in">print</span>(model) 	<span class="comment">#训练好的权重代入模型</span></span><br><span class="line">image = torch.reshape(image, (<span class="number">1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    output = model(image)</span><br><span class="line"><span class="built_in">print</span>(output)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -945,153 +1095,8 @@ writer.close()
 </blockquote>
 ]]></content>
       <tags>
+        <tag>深度学习</tag>
         <tag>python</tag>
-        <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TDA4VM, TIDL, OpenVX</title>
-    <url>/2023/05/10/TDA4VM/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.ti.com.cn/product/zh-cn/TDA4VM">TDA4VM官网</a>， <a href="https://e2e.ti.com/support/processors-group/processors/f/processors-forum">TI e2e论坛</a></p>
-<h1 id="TDA4VM芯片数据手册研读"><a href="#TDA4VM芯片数据手册研读" class="headerlink" title="TDA4VM芯片数据手册研读"></a>TDA4VM芯片数据手册研读</h1><p><a href="https://www.ti.com.cn/cn/lit/ds/symlink/tda4vm.pdf">TDA4VM数据手册</a><br>适用于 ADAS 和自动驾驶汽车的TDA4VM Jacinto™ 处理器,具有深度学习、视觉功能和多媒体加速器的双核 Arm® Cortex®-A72 SoC 和 C7x DSP.<br>Jacinto 7系列架构芯片含两款汽车级芯片：TDA4VM 处理器和 DRA829V 处理器，前者应用于 ADAS，后者应用于网关系统，以及加速数据密集型任务的专用加速器，如计算机视觉和深度学习。二者都基于J721E平台开发。</p>
-<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg" />  
-
-<h2 id="处理器内核"><a href="#处理器内核" class="headerlink" title="处理器内核"></a>处理器内核</h2><ul>
-<li><p><strong>C7x 浮点矢量 DSP，性能高达 1.0GHz、 80GFLOPS、256GOPS</strong>：C7x是TI的一款高性能数字信号处理器，其中的浮点矢量 DSP 可以进行高效的信号处理、滤波和计算，大幅提高神经网络模型的计算效率。<br><em>GHz-每秒钟执行10亿次计算，GFLOPS-每秒10亿次浮点运算，GOPS-每秒10亿次通用操作。</em></p>
-</li>
-<li><p><strong>深度学习矩阵乘法加速器 (MMA)，性能高达8TOPS (8b)（频率为1.0GHz）</strong>：可以高效地执行矩阵乘法和卷积等运算。<br><em>TOPS-每秒万亿次操作，8b-8位精度的运算。</em></p>
-</li>
-<li><p>**具有图像信号处理器 (ISP) 和多个视觉辅助加速器的视觉处理加速器 (VPAC)**：可以高效地执行图像处理、计算机视觉和感知任务。</p>
-</li>
-<li><p>**深度和运动处理加速器(DMPAC)**：可以高效地执行深度计算和运动估计等任务。</p>
-</li>
-<li><p><strong>双核 64 位 Arm® Cortex®-A72 微处理器子系统，性能高达 2.0GHz</strong>：可以高效地执行复杂的应用程序。</p>
-<ul>
-<li>每个双核 Cortex®-A72 集群具有 1MB L2 共享缓存 </li>
-<li>每个 Cortex®-A72 内核具有 32KB L1 数据缓存 和 48KB L1 指令缓存<br><em>L1缓存（一级缓存）：小而快，缓存CPU频繁使用的数据和指令，以提高内存访问速度；L2：大，帮助CPU更快地访问主内存中的数据。</em></li>
-</ul>
-</li>
-<li><p><strong>六个 Arm® Cortex®-R5F MCU，性能高达 1.0GHz</strong>：一组小型、低功耗的微控制器单元，用于处理实时任务和控制应用程序</p>
-<ul>
-<li>16K 指令缓存，16K 数据缓存，64K L2 TCM（Tightly-Coupled Memory）</li>
-<li>隔离 MCU 子系统中有两个 Arm® Cortex®-R5F MCU</li>
-<li>通用计算分区中有四个 Arm® Cortex®-R5F MCU</li>
-</ul>
-</li>
-<li><p><strong>两个 C66x 浮点 DSP，性能高达 1.35GHz、 40GFLOPS、160GOPS</strong>：另一款高性能数字信号处理器，可以高效地执行信号处理、滤波和计算任务。</p>
-</li>
-<li><p><strong>3D GPU PowerVR® Rogue 8XE GE8430，性能高达 750MHz、96GFLOPS、6Gpix&#x2F;s</strong>：专门用于图形处理的硬件单元，可以实现高效的图形渲染和计算。<br><em>Gpix&#x2F;s-每秒可以处理10亿像素数</em></p>
-</li>
-<li><p><strong>定制设计的互联结构，支持接近于最高的处理能力</strong>：处理器内部的互连结构，用于连接各种硬件单元，并支持高效的数据传输和协议。</p>
-</li>
-</ul>
-<h1 id="SDK"><a href="#SDK" class="headerlink" title="SDK"></a>SDK</h1><p>Download：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a>，提供Linux SDK、QNX SDK和RTOS SDK<br>Document：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a>，<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a>（<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/index.html#">Processor SDK Linux for Edge AI</a>，<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-qnx-jacinto7/08_06_00_07/exports/docs/index.html"><del>QNX SDK</del></a>）</p>
-<p><em>To run many of the demos in this SDK, the companion Processor SDK Linux(PSDK_Linux) for J721E also needs to be downloaded separately, together form a multi-processor software development kit for the J721E platform</em></p>
-<h2 id="Processor-SDK-RTOS-PSDK-RTOS"><a href="#Processor-SDK-RTOS-PSDK-RTOS" class="headerlink" title="Processor SDK RTOS (PSDK RTOS)"></a>Processor SDK RTOS (PSDK RTOS)</h2><p><strong>PSDK RTOS Block Diagram</strong><br><img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMSDKedit.png" />  </p>
-<p><strong>Hardware</strong><br>Evaluation Module (EVM):Ti 推出的硬件开发板。用于快速原型设计和新产品开发，可以帮助开发人员在短时间内实现复杂的嵌入式系统功能, <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/evm_setup_j721e.html">EVM Setup for J721E</a><br>JTAG:debug execution, load program via JTAG-<em>No Boot Mode</em><br>uart:prints status of the application via the uart terminal.<br><strong>Software</strong><br>Recommend IDE:Code Composer Studio (CCS), <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/ccs_setup_j721e.html#ccs-setup-j721e">CCS Setup for J721E</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/getting_started_j721e.html#demo-applications"><strong>Demos</strong></a><br>Prebuilt Demos:直装<br>Build Demos from Source: Linux, Windows(很少)</p>
-<h3 id="SDK-Components"><a href="#SDK-Components" class="headerlink" title="SDK Components"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/sdk_components_j721e.html#vxlib">SDK Components</a></h3><p>The following table lists some of the top-level folders in the SDK package and the component it represents.</p>
-<table>
-<thead>
-<tr>
-<th>Folder</th>
-<th>Component</th>
-<th>User guide</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>vision_apps</td>
-<td>Vision Apps</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/vision_apps/docs/user_guide/index.html">Demos</a></td>
-</tr>
-<tr>
-<td>pdk_jacinto_*</td>
-<td>Platform Development Kit</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/pdk_jacinto_08_06_00_31/docs/pdk_introduction.html#Documentation">PDK</a></td>
-</tr>
-<tr>
-<td><del>mcusw</del></td>
-<td>MCU Software</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/mcusw/mcal_drv/docs/drv_docs/index.html">MCU SW</a></td>
-</tr>
-<tr>
-<td>tidl_j7_*</td>
-<td>TI Deep learning Product</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/index.html">TIDL</a></td>
-</tr>
-<tr>
-<td>tiovx</td>
-<td>TI OpenVX</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a></td>
-</tr>
-<tr>
-<td>tiadalg</td>
-<td>TI Autonomous Driving Algorithms</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiadalg/TIAutonomousDrivingAlgorithmLibrary_ReleaseNotes.html#Documentation">TIADALG</a></td>
-</tr>
-</tbody></table>
-<h2 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a>TIDL</h2><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/index.html">TI Deep Learning Product User Guide</a></p>
-<p>TIDL（TI Deep Learning Library） 是TI平台基于深度学习算法的<em>软件生态系统</em>，可以将一些常见的深度学习算法模型快速的部署到TI嵌入式平台。<br>Features: Understand the trained output of popular frameworks, Layer types, Sparse convolution, Quantized inference and on-the-fly quantization, Host emulation, Support for a variety of training frameworks, Low power consumption.[^TIDL]<br>[^TIDL]:<a href="https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf">Embedded low-power deep learning with TIDL</a></p>
-<p>Popular operators supported include: Convolution，Pooling，Element Wise，Inner-Product，Soft-Max，Bias Add，Concatenate，Scale，Batch Normalization，Re-size ，Arg-max，Slice，Crop，Flatten，Shuffle Channel，Detection output ，Deconvolution&#x2F;Transpose convolution</p>
-<p>TIDL is a fundamental software component of <a href="https://www.ti.com/edgeai">TI’s Edge AI solution</a>.<strong>TI’s Edge AI Tools</strong>：</p>
-<ul>
-<li><a href="https://dev.ti.com/edgeai/">Edge AI Studio</a>:Integrated development environment for development of AI applications for edge processors.（需授权）</li>
-<li><a href="https://github.com/TexasInstruments/edgeai-modelzoo">Model zoo</a>:A large collection of pre-trained models for data scientists,其中有<a href="https://github.com/TexasInstruments/edgeai-modelzoo/tree/master/models/vision/detection">YOLO例程</a></li>
-<li><a href="https://github.com/TexasInstruments/edgeai">Training and quantization tools</a>:make DNNs more suitable for TI devices.</li>
-<li><a href="https://github.com/TexasInstruments/edgeai-benchmark">Edge AI Benchmark</a>:perform accuracy and performance benchmark.</li>
-<li><a href="https://github.com/TexasInstruments/edgeai-tidl-tools#edgeai-tidl-tools">Edge AI TIDL Tools</a>:used for model compilation on X86. Artifacts from compilation process can used for Model inference. Model inference can happen on X86 machine (host emulation mode) or on development board with TI SOC. <img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/dnn-workflow.png"></li>
-</ul>
-<p>TIDL当前支持的训练框架有Tensorflow、Pytorch、Caffe等，用户可以根据需要选择合适的训练框架进行模型训练。TIDL可以将PC端训练好的模型导入编译生成TIDL可以识别的模型格式，同时在导入编译过程中进行层级合并以及量化等操作，方便导入编译后的模型高效的运行在具有高性能定点数据感知能力TDA4硬件加速器上。 TIDL提供了模型导入工具，模型可视化工具等，非常便捷地可以对训练好地模型进行导入。<br><img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMTIDLflow.png" width = "80%"/>  </p>
-<p>RTOS SDK 中集成了众多的Demo展示TIDL在TDA4处理器上对实时的语义分割和 SSD 目标检测的能力。如下图,	Vision Apps User Guide 中 <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/07_02_00_06/exports/docs/vision_apps/docs/user_guide/group_apps_dl_demos_app_tidl_avp3.html">AVP Demo</a> 的展示了使用TIDL对泊车点、车辆的检测。<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Deep Learning with Jacinto™ 7 SoCs: TDA4x](https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf) | [当深度学习遇上TDA4](https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4)">[2]</span></a></sup></p>
-<img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdemo.png" />  
-
-<h3 id="TIDL-RT"><a href="#TIDL-RT" class="headerlink" title="TIDL-RT"></a>TIDL-RT</h3><p>TIDL Runtime 是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。<br>特点：互用性、高精度、高性能、可扩展。</p>
-<p>如图所示是TIDL的软件框架。在TIDL上，深度学习网络应用开发主要分为三个大的步骤（以TI Jacinto7TM TDA4VM处理器为例）: <sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[基于Pytorch训练并在TDA4上部署ONNX模型](https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf)">[3]</span></a></sup></p>
-<ol>
-<li>基于Tensorflow、Pytorch、Caffe 等训练框架，训练模型：选择一个训练框，然后定义模型，最后使用相应的数据集训练出满足需求的模型。</li>
-<li>基于TI Jacinto7TM TDA4VM处理器导入模型： 训练好的模型，需要使用TIDL Importer工具导入成可在TIDL上运行的模型。导入的主要目的是对输入的模型进行量化、优化并保存为TIDL能够识别的网络模型和网络参数文件。</li>
-<li>基于TI Jacinto7TM SDK 验证模型，并在应用里面部署模型：<ul>
-<li>PC 上验证并部署<ul>
-<li>在PC上使用TIDL推理引擎进行模型测试。</li>
-<li>在PC上使用OpenVX框架开发程序，在应用上进行验证。</li>
-</ul>
-</li>
-<li>EVM上验证并部署<ul>
-<li>在EVM上使用TIDL推理引擎进行模型测试。</li>
-<li>在EVM上使用OpenVX框架开发程序，在应用上进行验证</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/3step.png" />  
-
-<h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX User Guide</a><br><a href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
-<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><code>Vx_context</code>：一个context就是一个运行环境，包含多种不同的功能，在不同场景下被调度。一般很少有使用到多context的场景；<br><code>Vx_graph</code>：一个graph就是一个功能，是由多个步骤连接在一起的完整功能；<br><code>Vx_node</code>：一个node就是一个最小的调度单元，可以是图像预处理算法，可以是边缘检测算法。<br>每个进程内可以有多个context（上下文），每个context内可以有多个graph（图，或连接关系），每个graph内可以有多个node（节点）。</p>
-<h3 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h3><p><code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code><br>OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。</p>
-<h3 id="OpenVX与TDA4VM"><a href="#OpenVX与TDA4VM" class="headerlink" title="OpenVX与TDA4VM"></a>OpenVX与TDA4VM</h3><p>TIOVX是TI公司对OpenVX的实现,TIOVX Framework包含了官方OpenVX的标准API和TI扩展的API，其中包括</p>
-<ul>
-<li>public: Context, Parameter, Kernel, Node, Graph Array, Image, Scalar, Pyramid, ObjectArray ；</li>
-<li>TI: Target, Target Kernel, Obj Desc。TIOVX Platform提供了特定硬件(如TDAx, AM65x)的操作系统(如TI-RTOS, Linux)调用API。</li>
-</ul>
-<p><strong>优势</strong></p>
-<ul>
-<li>TI官方提供OpenVX的支持，提供标准算法的硬件加速实现，提供各个功能的Demo，能够简化开发调试工作。</li>
-<li>简化多核异构的开发，可以在X86模拟运行，所有的板级开发和调试都位于A72 Linux端，减少了对RTOS调试的工作量。</li>
-<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响。<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832) | [TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[4]</span></a></sup></li>
-</ul>
-<h1 id="算法部署"><a href="#算法部署" class="headerlink" title="算法部署"></a>算法部署</h1><ul>
-<li><p>Network selection：</p>
-</li>
-<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积[^deploy]<br>[^deploy]:<a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a>
-</p>
-</li>
-<li><p>Deployment：</p>
-<img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" /></li>
-</ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf">Deep Learning with Jacinto™ 7 SoCs: TDA4x</a> | <a href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf">基于Pytorch训练并在TDA4上部署ONNX模型</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a> | <a href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>深度学习</tag>
       </tags>
   </entry>
 </search>
