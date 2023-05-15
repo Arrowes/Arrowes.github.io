@@ -57,7 +57,7 @@ A-->E[C.定义]</pre>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#x61;&#x70;&#x40;&#48;&#46;&#53;">&#109;&#x61;&#x70;&#x40;&#48;&#46;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#97;&#112;&#x40;&#x30;&#46;&#x35;">&#109;&#97;&#112;&#x40;&#x30;&#46;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "50%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -249,22 +249,6 @@ A-->E[C.定义]</pre>
       </tags>
   </entry>
   <entry>
-    <title>Linux：Ubuntu，Docker</title>
-    <url>/2022/11/28/Linux/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><p>Virtual Box+Ubuntu 20.04<br>64bit:Bios enable intel virsualization<br>Host 键:右ctrl<br>换源：华为云，更新索引</p>
-<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><p><code>Ctrl+alt+T</code>	Terminal<br><code>Ctrl+h</code>	显示隐藏文件</p>
-<p><code>sudo nautilu</code>	执行文件操作<br><code>ls</code>	检索<br><code>chmod u+x …</code>		添加可执行文件<br><code>sudo apt update</code>	更新索引<br><code>sudo passwd root；su</code>	权限</p>
-<h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><p>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code><br>共享文件夹ubuntu中不显示&gt;重新安装VMware tools
- </p>
-<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" alt="图 2">  </p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
-<h3 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello Blog! 从零开始搭建自己的博客网站</title>
     <url>/2022/11/22/Hello-blog/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
@@ -342,6 +326,22 @@ A-->E[C.定义]</pre>
       </tags>
   </entry>
   <entry>
+    <title>Linux：Ubuntu，Docker</title>
+    <url>/2022/11/28/Linux/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><p>Virtual Box+Ubuntu 20.04<br>64bit:Bios enable intel virsualization<br>Host 键:右ctrl<br>换源：华为云，更新索引</p>
+<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><p><code>Ctrl+alt+T</code>	Terminal<br><code>Ctrl+h</code>	显示隐藏文件</p>
+<p><code>sudo nautilu</code>	执行文件操作<br><code>ls</code>	检索<br><code>chmod u+x …</code>		添加可执行文件<br><code>sudo apt update</code>	更新索引<br><code>sudo passwd root；su</code>	权限</p>
+<h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><p>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code><br>共享文件夹ubuntu中不显示&gt;重新安装VMware tools
+ </p>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" alt="图 2">  </p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
+<h3 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Network：神经网络代码</title>
     <url>/2022/11/25/Network/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="TORCH-NN"><a href="#TORCH-NN" class="headerlink" title="TORCH.NN"></a>TORCH.NN</h2><p><strong>Module 所有神经网络模块的基类</strong></p>
@@ -368,6 +368,128 @@ A-->E[C.定义]</pre>
       <tags>
         <tag>深度学习</tag>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Paper：科研方法总结</title>
+    <url>/2023/03/15/Paper/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="论文工具"><a href="#论文工具" class="headerlink" title="论文工具"></a>论文工具</h1><h2 id="1-找论文"><a href="#1-找论文" class="headerlink" title="1.找论文"></a>1.找论文</h2><p>参考目标期刊相似论文的架构，搭框架，填内容<br>订阅论文：<a href="https://www.storkapp.me/?ref=1003">文献鸟</a>，设置关键字订阅相关论文<br>下载论文：<a href="https://tool.yovisun.com/scihub/">SCI-Hub论文下载</a>, <a href="https://www.drugfuture.com/cnpat/cn_patent.asp">中国专利下载</a><br>查期刊：<a href="https://www.letpub.com.cn/index.php?page=journalapp">LetPub</a>，有期刊的介绍及投稿人的讨论<br>下载书籍：<a href="https://lib-xg7r2un3uz6rivi4ibrvtfls.resist.tel/">Z-library</a><br>快速总结论文：Newbing，<a href="https://chatpaper.org/">ChatPaper</a></p>
+<h2 id="2-中译英"><a href="#2-中译英" class="headerlink" title="2.中译英"></a>2.中译英</h2><p><a href="https://www.deepl.com/translator">DeepL翻译器</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper1.png" alt="图 1">  </p>
+<h2 id="3-润色"><a href="#3-润色" class="headerlink" title="3.润色"></a>3.润色</h2><p><a href="https://chat.openai.com/chat">ChatGPT</a>，按照期刊风格润色，<a href="https://ai.newzone.top/">ChatGPT提示词参考</a></p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">I want you <span class="keyword">to</span> act <span class="keyword">as</span> an academic journal editor. </span><br><span class="line">Please [proofreading] <span class="keyword">the</span> [<span class="built_in">paragraph</span>] <span class="keyword">from</span> an academic angle based <span class="keyword">on</span> <span class="keyword">the</span> writing style <span class="keyword">of</span> <span class="keyword">the</span> [CVPR]: </span><br><span class="line">[<span class="built_in">text</span>]</span><br></pre></td></tr></table></figure>
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper2.png" width = "90%" />
+
+<h2 id="4-语法"><a href="#4-语法" class="headerlink" title="4.语法"></a>4.语法</h2><p><a href="https://www.grammarly.com/office-addin">Grammarly</a>，安装Word插件修正语法<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper3.png" alt="图 3">  </p>
+<h1 id="文献管理神器：Zotero"><a href="#文献管理神器：Zotero" class="headerlink" title="文献管理神器：Zotero"></a>文献管理神器：Zotero</h1><p>Zotero能管理个人文献库、插入引文、论文阅读和记笔记、pdf下载和翻译、查看论文分区、影响因子等信息</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://www.zotero.org/">Zotero官网</a>，安装软件后再装浏览器插件，可以很方便的在浏览器随时导入文献；<br>顺便在官网注册一个账号，用于同步,且可登陆官网在线查看自己的论文库；<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper4.png" width = "100%" /></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h3><p><code>编辑 &gt; 首选项 &gt; 同步 &gt; 登陆</code><br><code>编辑 &gt; 首选项 &gt; 高级 &gt; 文件和文件夹 &gt; 更改数据储存路径  #自选合适的位置存储本地文件</code></p>
+<h3 id="SCI-Hub抓取pdf"><a href="#SCI-Hub抓取pdf" class="headerlink" title="SCI-Hub抓取pdf"></a>SCI-Hub抓取pdf</h3><ol>
+<li>打开Zotero 首选项-&gt;高级-&gt;设置编辑器</li>
+<li>搜索 <code>extensions.zotero.findPDFs.resolvers</code> ，搜到之后双击打开，在对话框中填入：<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;Sci-Hub&quot;</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>:<span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="string">&quot;url&quot;</span>:<span class="string">&quot;https://sci-hub.ren/&#123;doi&#125;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;mode&quot;</span>:<span class="string">&quot;html&quot;</span>,</span><br><span class="line">    <span class="string">&quot;selector&quot;</span>:<span class="string">&quot;<span class="subst">#pdf</span>&quot;</span>,</span><br><span class="line">    <span class="string">&quot;attribute&quot;</span>:<span class="string">&quot;src&quot;</span>,</span><br><span class="line">    <span class="string">&quot;automatic&quot;</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>实现抓取任意文献pdf（知网和部分新文献不行）</li>
+</ol>
+<h3 id="配置搜索引擎"><a href="#配置搜索引擎" class="headerlink" title="配置搜索引擎"></a>配置搜索引擎</h3><ol>
+<li><a href="https://www.123pan.com/s/goS7Vv-kIKbd.html">下载 engines.json 文件</a></li>
+<li>打开数据储存路径,替换同名文件 <code>...\Zotero\locate\engines.json</code></li>
+<li>重启Zotero后，实现多搜索引擎，很方便</li>
+</ol>
+<h3 id="安装Word插件"><a href="#安装Word插件" class="headerlink" title="安装Word插件"></a>安装Word插件</h3><p>安装word插件，实现高效插入引文，并且可以根据期刊选择参考文献样式<br><code>编辑 &gt; 首选项 &gt; 引用 &gt; 文字处理软件 &gt; 安装word插件</code><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper5.png" width = "80%" /></p>
+<h3 id="插件，让Zotero真正好用"><a href="#插件，让Zotero真正好用" class="headerlink" title="插件，让Zotero真正好用"></a>插件，让Zotero真正好用</h3><p><a href="https://www.zotero.org/support/plugins">官方插件下载地址</a><br>安装方法：下载.xpi 文件到你的电脑。然后，在 Zotero，点击“工具→插件（附加组件）”，然后拖动插件的 .xpi 文件到插件窗口打开，或者选择从文件中安装。安装完成后重新启动软件即可。</p>
+<p><strong>下面是强烈推荐的5个必备插件，嫌麻烦可以直接安装我上传的，都是2023年最新的，5个全部拖进去即可，地址：<a href="https://www.123pan.com/s/goS7Vv-mIKbd.html">推荐插件下载</a></strong></p>
+<p><strong>Zotero PDF Translate</strong><br><a href="https://github.com/windingwind/zotero-pdf-translate/releases">zotero-pdf-translate 下载</a>，实现划词翻译，但是需要在插件设置里配置翻译引擎（免费,推荐腾讯云），<a href="https://doc.tern.1c7.me/zh/folder/setting/#%E8%85%BE%E8%AE%AF%E4%BA%91">配置方法文档</a> </p>
+<p><strong>Jasminum - 茉莉花</strong><br><a href="https://github.com/l0o0/jasminum/releases">Jasminum 下载</a>，一个简单的 Zotero 中文插件, 优化知网中文论文管理体验</p>
+<p><strong>Zotero DOI Manager</strong><br><a href="https://github.com/bwiernik/zotero-shortdoi/releases">Zotero DOI Manager 下载</a>，更新抓取文献的DOI号，提高SCI-Hub抓取pdf成功率</p>
+<p><strong>Zotero IF</strong><br><a href="https://pan.baidu.com/s/1-nIHvhRj_wK_t6LMsNF6rg#list/path=%2Fsharelink3626522904-21879764921069%2FZotero%20IF&parentPath=%2Fsharelink3626522904-21879764921069">Zotero IF百度云地址，提取码: apeh</a>,为所抓取的文献更新影响因子</p>
+<p><strong>Zotero Citation Counts Manager</strong><br><a href="https://github.com/eschnett/zotero-citationcounts/releases">Zotero Citation Counts Manager 下载</a>，抓取引用数，一般选Semantic Scholar citation count</p>
+<details>
+  <summary>清空其它信息:工具-->开发者-->Run Javascript-->运行以下代码</summary>
+
+<pre><code>var fieldName = &quot;extra&quot;;
+var newValue = &quot;&quot;;
+
+var fieldID = Zotero.ItemFields.getID(fieldName);
+var s = new Zotero.Search();
+s.libraryID = ZoteroPane.getSelectedLibraryID();
+var ids = await s.search();
+if (!ids.length) &#123;
+return &quot;No items found&quot;;
+&#125;
+await Zotero.DB.executeTransaction(async function () &#123;
+for (let id of ids) &#123;
+let item = await Zotero.Items.getAsync(id);
+let mappedFieldID = Zotero.ItemFields.getFieldIDFromTypeAndBase(item.itemTypeID, fieldName);
+item.setField(mappedFieldID ? mappedFieldID : fieldID, newValue);
+await item.save();
+&#125;
+&#125;);
+return ids.length + &quot; item(s) updated&quot;;
+</code></pre>
+</details>
+
+<h1 id="LaTex"><a href="#LaTex" class="headerlink" title="LaTex"></a>LaTex</h1><p>在线编辑器：<a href="https://www.overleaf.com/">Overleaf</a>，可以多人在线共同编辑、批注；<br>将期刊提供的LaTex模板导入编辑器，直接在模板里写；<br>查询文档：<a href="https://github.com/sailist/LaTeXdoc">LaTeXdoc</a>, <a href="https://zhuanlan.zhihu.com/p/508559139">Latex简明速查手册(8页)</a></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><h3 id="单篇论文的参考文献引用"><a href="#单篇论文的参考文献引用" class="headerlink" title="单篇论文的参考文献引用"></a>单篇论文的参考文献引用</h3><ol>
+<li>使用<code>\begin&#123;thebibliography&#125;</code>开始参考文献的引用；使用<code>\end&#123;thebibliography&#125;</code>结束；</li>
+<li>使用<code>\bibitem&#123;&#125;</code>添加文献，在文章中只用使用<code>\cite&#123;&#125;</code>引用，需要自己改，比较麻烦；</li>
+</ol>
+<h3 id="overleaf-zotero多篇论文-bib文件引用"><a href="#overleaf-zotero多篇论文-bib文件引用" class="headerlink" title="overleaf+zotero多篇论文.bib文件引用"></a>overleaf+zotero多篇论文.bib文件引用</h3><ol>
+<li>使用zotero，将文章所需参考文献导入至一个新文件夹中，选择导出分类，选择文件夹导出<code>ref.bib</code>格式的文件；</li>
+<li>打开overleaf，将刚刚的<code>ref.bib</code>文件导入</li>
+<li>接下来就是在文章中导入参考文献:</li>
+</ol>
+<p>（1）首先导入如下命令，注意是在文章最后，<code>\end&#123;document&#125;</code>之前：</p>
+<figure class="highlight fsharp"><table><tr><td class="code"><pre><span class="line">\<span class="keyword">bibliographystyle</span>&#123;ieicetr&#125; <span class="operator">%</span>引文期刊格式</span><br><span class="line">\<span class="keyword">bibliography</span>&#123;<span class="built_in">ref</span>&#125; <span class="operator">%.</span>bib文件名</span><br></pre></td></tr></table></figure>
+<p>(2)编译后还不能显示你的参考文献列表，只有在文章中添加了<code>\cite&#123;&#125;</code>之后才可以正常显示<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper6.png" alt="图 6"><br><code>\cite&#123;liu_ceam-yolov7_2022&#125;</code></p>
+<h2 id="公式图表"><a href="#公式图表" class="headerlink" title="公式图表"></a>公式图表</h2><h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">\<span class="keyword">begin</span>&#123;equation&#125;</span><br><span class="line">  <span class="keyword">x</span>+y</span><br><span class="line">\<span class="keyword">end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">%h: 表示浮动体尽可能地放在当前位置。t: 表示浮动体放在页面顶部。b: 表示浮动体放在页面底部。p: 表示浮动体放在一个单独的页面上。</span><br><span class="line">\begin&#123;<span class="selector-tag">figure</span>&#125;<span class="selector-attr">[htb]</span></span><br><span class="line">\begin&#123;center&#125;</span><br><span class="line">\includegraphics<span class="selector-attr">[width=1\columnwidth]</span>&#123;FEY-YOLOv7/<span class="selector-tag">figure</span>/fig.<span class="number">1</span><span class="selector-class">.png</span>&#125;</span><br><span class="line">\end&#123;center&#125;</span><br><span class="line">\<span class="selector-tag">caption</span>&#123;RGB-infrared Datasets.&#125;</span><br><span class="line">\<span class="selector-tag">label</span>&#123;fig:<span class="number">1</span>&#125;</span><br><span class="line">\end&#123;<span class="selector-tag">figure</span>&#125;</span><br><span class="line">%跨栏显示：&#123;<span class="selector-tag">figure</span>*&#125;</span><br><span class="line">%若编译不显示图片：菜单&gt;选择用XELATEX编译</span><br><span class="line">%引用：shown in Fig.\ref&#123;fig:<span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\begin&#123;table&#125;[htb]</span></span><br><span class="line"><span class="string">\caption&#123;Effect</span> <span class="keyword">of</span> different datasets <span class="literal">on</span> the YOLOv7.&#125;</span><br><span class="line"><span class="string">\label&#123;table:4&#125;</span></span><br><span class="line"><span class="string">\begin&#123;center&#125;</span></span><br><span class="line"><span class="string">\begin&#123;tabular&#125;&#123;ll&#125;</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line">    <span class="string">\textbf&#123;Dataset&#125;</span> &amp; <span class="string">\textit&#123;mAP&#125;\\</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line">    IR dataset &amp; <span class="number">0.85</span> <span class="string">\\</span></span><br><span class="line">    RGB dataset &amp; <span class="number">0.758</span> <span class="string">\\</span></span><br><span class="line">    RGB-infrared dataset &amp; <span class="number">0.962</span> <span class="string">\\</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line"><span class="string">\end&#123;tabular&#125;%</span></span><br><span class="line"><span class="string">\end&#123;center&#125;</span></span><br><span class="line"><span class="string">\end&#123;table&#125;</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p>IEICE期刊论文投稿的LaTeX模板中提供了EUC、SJIS和UTF三种不同的模板。这些模板的区别在于它们所使用的字符编码方式，其中UTF-8是其中最为常用的一种编码方式。<br><code>Ctrl + S 编译</code></p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">%分点</span><br><span class="line"><span class="string">\begin&#123;itemize&#125;</span></span><br><span class="line">  <span class="string">\item</span> [<span class="number">1.</span>]</span><br><span class="line">  <span class="string">\item</span> </span><br><span class="line">  <span class="string">\item</span> </span><br><span class="line"><span class="string">\end&#123;itemize&#125;</span></span><br><span class="line"></span><br><span class="line">空行：<span class="string">\\</span>  下划线：<span class="string">\_&#123;&#125;</span>  百分号:<span class="string">\%</span>  加粗：<span class="string">\textbf&#123;&#125;</span></span><br><span class="line">斜体：<span class="string">\textit&#123;&#125;</span> 或 $x$  或公式斜体：<span class="string">\mathit&#123;&#125;</span>  </span><br><span class="line"></span><br><span class="line">%文章结构</span><br><span class="line">章：<span class="string">\section&#123;&#125;</span>   节：<span class="string">\subsection&#123;&#125;</span>   条：<span class="string">\subsubsection&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="论文规范"><a href="#论文规范" class="headerlink" title="论文规范"></a>论文规范</h1><h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><ol>
+<li><p>一个词或词组在文中出现三次或以上才可以用缩写，否则需要写出全称。也就是说如果只出现一次或两次，每次都要写出全称，而缩略语就不需要给出了。<br>出现的次数是在摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果一个词在摘要中出现一次，正文中出现多次，图注中又出现一次，那么摘要中只要用全称，不要用缩写；正文中第一次出现时用全称，后面用缩写； 图注中用全称，不用缩写。<br>一些期刊只允许对正文中出现3次以上的术语使用缩写。<br>一些期刊禁止在标题和摘要中使用任何缩写词。<br>从写作风格上讲，大多数期刊都建议作者不要在句首使用缩写词。在这种情况下，作者要详细说明术语的含义，或者改用别的措辞重写句子。<br>在论文中，将摘要看做是独立的部分。因此，如果您需要在摘要和论文中同时使用一个缩写词时，您需要两次介绍这个缩写词：首次在摘要中使用时介绍一次；首次 在论文中使用时介绍一次。然而 ，如果您发现在摘要中介绍的一个缩写词仅仅出现了一两次，没必要缩写——可以考虑避免缩写，每次都用全拼代替（除非您认为读者更了解缩写词）</p>
+</li>
+<li><p>缩略语在文中第一次出现时需要定义。这里所谓第一次，也是摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果摘要和正文都符合上面所说使用缩写的规则，那么摘要中需要定义一次，正文中还需要定义一次。定义就是写出全称并在括号中给出缩写。<br>The patient was diagnosed with pulmonary arterial hypertension (PAH).<br>如果图例或表格中为了节省空间出现了缩写，那么在图注或表注中要解释缩写。<br>PH: pulmonary hypertension, PAH: pulmonary arterial hypertension.<br>写全称时一般是全部用小写，除非是人名、地名等专有名词，而缩写一般是全大写，除非是约定俗成的写法，比如用ChIP 代表chromatin immunoprecipitation。<br>应该考虑到也许有其他领域或者新进入这门领域的读者会阅读这篇论文，所以期刊都规定缩略语要先定义再使用。有些期刊会列出该期刊中不需要定义就可以直接使用的缩略语，比如Journal of Clinical Investigation 就给出<a href="http://www.jci.org/kiosk/publish/abbreviations">标准缩略语列表</a>并指出这些缩略语可以直接使用。如果期刊没有特别规定，应该每个缩略语使用时都要先定义。定义之后记得要一直使用缩略语，不要再使用全称。</p>
+</li>
+<li><p>尽量避免使用缩略语。一篇文章完全不使用缩略语不见得可行，但是尽量少用为好，而且只使用比较常见的缩略语。使用缩略语的目的是为了便于读者对文章的阅读理解，比较长的词组如果反复出现，不便于读者的快速阅读，所以用缩写更合适。有些词可能多数读者对缩写更熟悉，这些词用缩写也便于读者理解。如果很多比较短的词也用缩写，而且不是普遍使用的缩写，读者就经常要停下来去查找缩写代表的词意，思路就会被打断，所以会影响对文章的理解。</p>
+</li>
+<li><p>一个缩略语代表一个词或词组。在一篇文章中，一个缩略语只能代表一个词（组），而且一个词（组）也只能用一个缩略语代表。</p>
+</li>
+<li><p>缩写相关的复数和冠词的用法。多数情况下，我们会用缩略语来代替一个名词，所以如果是可数名词也是有复数的。一般来说，缩略语代表的是名词的单数形式，我们在后面加s（或者加es如果缩略语的最后一个字母是s）来表示复数。定义缩写的时候通常就可以看出来，比如 endothelial cells (ECs)。<br>如果缩略语名词前面需要加不定冠词，要根据缩写的读音来决定是用a还是an。例如human immunodeficiency virus缩写成HIV时我们是念这三个字母，第一个字母H虽然是个辅音字母，念这个字母时却是元音开头，所以HIV这个词的第一个音是元音，前面要用an，例如 an HIV-positive test result。</p>
+</li>
+<li><p>在技术写作中最常见的关于首字母缩写和缩略词的错误，就是大部分人以为缩写中出现的大写字母在缩写前的词组中也需要大写，实际上并不是这样的。例如，作为商业管理哲学的「total quality management」缩写为「TQM」，但它的全称却常常被错误地写成「Total Quality Management」，这有可能是因为部分作者忘记了这个词本身并不是专有名词，甚至是更糟糕的情况──作者根本从一开始就没有完全了解这个词的含意！请记住，在文章中缩写术语之前，首先了解该术语的含意和来源是很重要的，因为作者在论文中处理首字母缩写和缩略词的态度与方法常常反映了他们自己对于运用术语的了解程度。<br>掌握了上面这几个原则，我们就可以通过恰当地使用缩略语来增加文章的可读性。</p>
+</li>
+</ol>
+<h2 id="字母"><a href="#字母" class="headerlink" title="字母"></a>字母</h2><ol>
+<li><p>什么时候用斜体(italic)？</p>
+<blockquote>
+<p>1)变量(variables)应该用斜体表示：例如<em>T</em>表示温度(temperature)，<em>r</em>表示速率(rate)，<em>x</em>代表摩尔分数(molar fraction).<br>2)坐标轴(axes)：the <em>y</em> axis.<br>3)平面(planes)：plane <em>P</em>.<br>4)行列式(determinants)和矩阵(matrices)中的元素：<em>gn</em>.<br>5)常数(constants)符号: <em>g</em>, 重力加速度<br>6)描述变量的函数:<em>f(x)</em>.</p>
+</blockquote>
+</li>
+<li><p>什么时候不用斜体，而采用罗马字体(Roman)?<br>这里的Roman字体指非特殊性字体，与每个期刊的正文字体一致</p>
+<blockquote>
+<p>1)数字；<br>2)标点符号和括号；<br>3)大多数运算符；<br>4)量度单位和时间单位：毫克, mg; 帕斯卡, Pa; 毫米汞柱, mmHg.<br>5)非数学符号和数量：s, 原子轨道(atomic orbital);<br>6)变量的多字符缩写<br>7)数学常量(mathematical constants):自然对数,e;复数的虚部,i;圆周率,π.<br>8)矩阵的转置(transposes), <strong>A</strong>T(T是矩阵<strong>A</strong>的转置)<br>9)点(point)和线(line): point A, line AB.<br>10)行列式(determinants)： A是矩阵<strong>A</strong>的行列式<br>11)三角函数和其他数学函数:正弦函数sin;最大值max,极限lim;对数log等.</p>
+</blockquote>
+</li>
+<li><p>什么时候用粗体(Boldface)？</p>
+<blockquote>
+<p>1）向量(vectors)；<br>2）张量(tensors)；<br>3）矩阵(matrics);<br>4）多维物理量：磁场强度，<strong>H</strong>.</p>
+</blockquote>
+</li>
+<li><p>什么时候使用希腊字母(Greek letters)?</p>
+<blockquote>
+<p>任何拉丁字母可以使用的地方都可以，包括变量，常量，向量等。</p>
+</blockquote>
+</li>
+<li><p>当上下标本身就是代表物理量或数字的符号时，用斜体(italic),如果上下标是缩写或者不是符号时，不用斜体，采用罗马字体(Roman).</p>
+<blockquote>
+<p>举例：<em>Cp</em> for heat capacity at constant pressure常压比热（<em>p</em>是压力的符号，采用斜体）<br><em>C</em>B for heat capacity of substance B 物质B的比热（B不是符号，不用斜体）<br><em>C</em>g where g is gas 气体比热 (g是gas的缩写，不用斜体)<br><em>Ei</em> for energy of the <em>i</em>th level, where <em>i</em> is a number(<em>i</em>是代表数字的符号)<br><em>g</em>n where n is normal(n是气体normal的缩写，不用斜体)</p>
+</blockquote>
+</li>
+</ol>
+<p><a href="https://journal.cricaas.com.cn/attached/file/20210517/20210517161953_566.pdf">[GB 3102.11-93] 物理科学和技术中使用的数学符号</a></p>
+]]></content>
+      <tags>
+        <tag>总结</tag>
       </tags>
   </entry>
   <entry>
@@ -581,124 +703,50 @@ B-->C</pre>
       </tags>
   </entry>
   <entry>
-    <title>Paper：科研方法总结</title>
-    <url>/2023/03/15/Paper/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="论文工具"><a href="#论文工具" class="headerlink" title="论文工具"></a>论文工具</h1><h2 id="1-找论文"><a href="#1-找论文" class="headerlink" title="1.找论文"></a>1.找论文</h2><p>参考目标期刊相似论文的架构，搭框架，填内容<br>订阅论文：<a href="https://www.storkapp.me/?ref=1003">文献鸟</a>，设置关键字订阅相关论文<br>下载论文：<a href="https://tool.yovisun.com/scihub/">SCI-Hub论文下载</a>, <a href="https://www.drugfuture.com/cnpat/cn_patent.asp">中国专利下载</a><br>查期刊：<a href="https://www.letpub.com.cn/index.php?page=journalapp">LetPub</a>，有期刊的介绍及投稿人的讨论<br>下载书籍：<a href="https://lib-xg7r2un3uz6rivi4ibrvtfls.resist.tel/">Z-library</a><br>快速总结论文：Newbing，<a href="https://chatpaper.org/">ChatPaper</a></p>
-<h2 id="2-中译英"><a href="#2-中译英" class="headerlink" title="2.中译英"></a>2.中译英</h2><p><a href="https://www.deepl.com/translator">DeepL翻译器</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper1.png" alt="图 1">  </p>
-<h2 id="3-润色"><a href="#3-润色" class="headerlink" title="3.润色"></a>3.润色</h2><p><a href="https://chat.openai.com/chat">ChatGPT</a>，按照期刊风格润色，<a href="https://ai.newzone.top/">ChatGPT提示词参考</a></p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">I want you <span class="keyword">to</span> act <span class="keyword">as</span> an academic journal editor. </span><br><span class="line">Please [proofreading] <span class="keyword">the</span> [<span class="built_in">paragraph</span>] <span class="keyword">from</span> an academic angle based <span class="keyword">on</span> <span class="keyword">the</span> writing style <span class="keyword">of</span> <span class="keyword">the</span> [CVPR]: </span><br><span class="line">[<span class="built_in">text</span>]</span><br></pre></td></tr></table></figure>
-<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper2.png" width = "90%" />
-
-<h2 id="4-语法"><a href="#4-语法" class="headerlink" title="4.语法"></a>4.语法</h2><p><a href="https://www.grammarly.com/office-addin">Grammarly</a>，安装Word插件修正语法<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper3.png" alt="图 3">  </p>
-<h1 id="文献管理神器：Zotero"><a href="#文献管理神器：Zotero" class="headerlink" title="文献管理神器：Zotero"></a>文献管理神器：Zotero</h1><p>Zotero能管理个人文献库、插入引文、论文阅读和记笔记、pdf下载和翻译、查看论文分区、影响因子等信息</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a href="https://www.zotero.org/">Zotero官网</a>，安装软件后再装浏览器插件，可以很方便的在浏览器随时导入文献；<br>顺便在官网注册一个账号，用于同步,且可登陆官网在线查看自己的论文库；<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper4.png" width = "100%" /></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h3><p><code>编辑 &gt; 首选项 &gt; 同步 &gt; 登陆</code><br><code>编辑 &gt; 首选项 &gt; 高级 &gt; 文件和文件夹 &gt; 更改数据储存路径  #自选合适的位置存储本地文件</code></p>
-<h3 id="SCI-Hub抓取pdf"><a href="#SCI-Hub抓取pdf" class="headerlink" title="SCI-Hub抓取pdf"></a>SCI-Hub抓取pdf</h3><ol>
-<li>打开Zotero 首选项-&gt;高级-&gt;设置编辑器</li>
-<li>搜索 <code>extensions.zotero.findPDFs.resolvers</code> ，搜到之后双击打开，在对话框中填入：<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;Sci-Hub&quot;</span>,</span><br><span class="line">    <span class="string">&quot;method&quot;</span>:<span class="string">&quot;GET&quot;</span>,</span><br><span class="line">    <span class="string">&quot;url&quot;</span>:<span class="string">&quot;https://sci-hub.ren/&#123;doi&#125;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;mode&quot;</span>:<span class="string">&quot;html&quot;</span>,</span><br><span class="line">    <span class="string">&quot;selector&quot;</span>:<span class="string">&quot;<span class="subst">#pdf</span>&quot;</span>,</span><br><span class="line">    <span class="string">&quot;attribute&quot;</span>:<span class="string">&quot;src&quot;</span>,</span><br><span class="line">    <span class="string">&quot;automatic&quot;</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>实现抓取任意文献pdf（知网和部分新文献不行）</li>
-</ol>
-<h3 id="配置搜索引擎"><a href="#配置搜索引擎" class="headerlink" title="配置搜索引擎"></a>配置搜索引擎</h3><ol>
-<li><a href="https://www.123pan.com/s/goS7Vv-kIKbd.html">下载 engines.json 文件</a></li>
-<li>打开数据储存路径,替换同名文件 <code>...\Zotero\locate\engines.json</code></li>
-<li>重启Zotero后，实现多搜索引擎，很方便</li>
-</ol>
-<h3 id="安装Word插件"><a href="#安装Word插件" class="headerlink" title="安装Word插件"></a>安装Word插件</h3><p>安装word插件，实现高效插入引文，并且可以根据期刊选择参考文献样式<br><code>编辑 &gt; 首选项 &gt; 引用 &gt; 文字处理软件 &gt; 安装word插件</code><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper5.png" width = "80%" /></p>
-<h3 id="插件，让Zotero真正好用"><a href="#插件，让Zotero真正好用" class="headerlink" title="插件，让Zotero真正好用"></a>插件，让Zotero真正好用</h3><p><a href="https://www.zotero.org/support/plugins">官方插件下载地址</a><br>安装方法：下载.xpi 文件到你的电脑。然后，在 Zotero，点击“工具→插件（附加组件）”，然后拖动插件的 .xpi 文件到插件窗口打开，或者选择从文件中安装。安装完成后重新启动软件即可。</p>
-<p><strong>下面是强烈推荐的5个必备插件，嫌麻烦可以直接安装我上传的，都是2023年最新的，5个全部拖进去即可，地址：<a href="https://www.123pan.com/s/goS7Vv-mIKbd.html">推荐插件下载</a></strong></p>
-<p><strong>Zotero PDF Translate</strong><br><a href="https://github.com/windingwind/zotero-pdf-translate/releases">zotero-pdf-translate 下载</a>，实现划词翻译，但是需要在插件设置里配置翻译引擎（免费,推荐腾讯云），<a href="https://doc.tern.1c7.me/zh/folder/setting/#%E8%85%BE%E8%AE%AF%E4%BA%91">配置方法文档</a> </p>
-<p><strong>Jasminum - 茉莉花</strong><br><a href="https://github.com/l0o0/jasminum/releases">Jasminum 下载</a>，一个简单的 Zotero 中文插件, 优化知网中文论文管理体验</p>
-<p><strong>Zotero DOI Manager</strong><br><a href="https://github.com/bwiernik/zotero-shortdoi/releases">Zotero DOI Manager 下载</a>，更新抓取文献的DOI号，提高SCI-Hub抓取pdf成功率</p>
-<p><strong>Zotero IF</strong><br><a href="https://pan.baidu.com/s/1-nIHvhRj_wK_t6LMsNF6rg#list/path=%2Fsharelink3626522904-21879764921069%2FZotero%20IF&parentPath=%2Fsharelink3626522904-21879764921069">Zotero IF百度云地址，提取码: apeh</a>,为所抓取的文献更新影响因子</p>
-<p><strong>Zotero Citation Counts Manager</strong><br><a href="https://github.com/eschnett/zotero-citationcounts/releases">Zotero Citation Counts Manager 下载</a>，抓取引用数，一般选Semantic Scholar citation count</p>
-<details>
-  <summary>清空其它信息:工具-->开发者-->Run Javascript-->运行以下代码</summary>
-
-<pre><code>var fieldName = &quot;extra&quot;;
-var newValue = &quot;&quot;;
-
-var fieldID = Zotero.ItemFields.getID(fieldName);
-var s = new Zotero.Search();
-s.libraryID = ZoteroPane.getSelectedLibraryID();
-var ids = await s.search();
-if (!ids.length) &#123;
-return &quot;No items found&quot;;
-&#125;
-await Zotero.DB.executeTransaction(async function () &#123;
-for (let id of ids) &#123;
-let item = await Zotero.Items.getAsync(id);
-let mappedFieldID = Zotero.ItemFields.getFieldIDFromTypeAndBase(item.itemTypeID, fieldName);
-item.setField(mappedFieldID ? mappedFieldID : fieldID, newValue);
-await item.save();
-&#125;
-&#125;);
-return ids.length + &quot; item(s) updated&quot;;
-</code></pre>
-</details>
-
-<h1 id="LaTex"><a href="#LaTex" class="headerlink" title="LaTex"></a>LaTex</h1><p>在线编辑器：<a href="https://www.overleaf.com/">Overleaf</a>，可以多人在线共同编辑、批注；<br>将期刊提供的LaTex模板导入编辑器，直接在模板里写；<br>查询文档：<a href="https://github.com/sailist/LaTeXdoc">LaTeXdoc</a>, <a href="https://zhuanlan.zhihu.com/p/508559139">Latex简明速查手册(8页)</a></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><h3 id="单篇论文的参考文献引用"><a href="#单篇论文的参考文献引用" class="headerlink" title="单篇论文的参考文献引用"></a>单篇论文的参考文献引用</h3><ol>
-<li>使用<code>\begin&#123;thebibliography&#125;</code>开始参考文献的引用；使用<code>\end&#123;thebibliography&#125;</code>结束；</li>
-<li>使用<code>\bibitem&#123;&#125;</code>添加文献，在文章中只用使用<code>\cite&#123;&#125;</code>引用，需要自己改，比较麻烦；</li>
-</ol>
-<h3 id="overleaf-zotero多篇论文-bib文件引用"><a href="#overleaf-zotero多篇论文-bib文件引用" class="headerlink" title="overleaf+zotero多篇论文.bib文件引用"></a>overleaf+zotero多篇论文.bib文件引用</h3><ol>
-<li>使用zotero，将文章所需参考文献导入至一个新文件夹中，选择导出分类，选择文件夹导出<code>ref.bib</code>格式的文件；</li>
-<li>打开overleaf，将刚刚的<code>ref.bib</code>文件导入</li>
-<li>接下来就是在文章中导入参考文献:</li>
-</ol>
-<p>（1）首先导入如下命令，注意是在文章最后，<code>\end&#123;document&#125;</code>之前：</p>
-<figure class="highlight fsharp"><table><tr><td class="code"><pre><span class="line">\<span class="keyword">bibliographystyle</span>&#123;ieicetr&#125; <span class="operator">%</span>引文期刊格式</span><br><span class="line">\<span class="keyword">bibliography</span>&#123;<span class="built_in">ref</span>&#125; <span class="operator">%.</span>bib文件名</span><br></pre></td></tr></table></figure>
-<p>(2)编译后还不能显示你的参考文献列表，只有在文章中添加了<code>\cite&#123;&#125;</code>之后才可以正常显示<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Paper6.png" alt="图 6"><br><code>\cite&#123;liu_ceam-yolov7_2022&#125;</code></p>
-<h2 id="公式图表"><a href="#公式图表" class="headerlink" title="公式图表"></a>公式图表</h2><h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">\<span class="keyword">begin</span>&#123;equation&#125;</span><br><span class="line">  <span class="keyword">x</span>+y</span><br><span class="line">\<span class="keyword">end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">%h: 表示浮动体尽可能地放在当前位置。t: 表示浮动体放在页面顶部。b: 表示浮动体放在页面底部。p: 表示浮动体放在一个单独的页面上。</span><br><span class="line">\begin&#123;<span class="selector-tag">figure</span>&#125;<span class="selector-attr">[htb]</span></span><br><span class="line">\begin&#123;center&#125;</span><br><span class="line">\includegraphics<span class="selector-attr">[width=1\columnwidth]</span>&#123;FEY-YOLOv7/<span class="selector-tag">figure</span>/fig.<span class="number">1</span><span class="selector-class">.png</span>&#125;</span><br><span class="line">\end&#123;center&#125;</span><br><span class="line">\<span class="selector-tag">caption</span>&#123;RGB-infrared Datasets.&#125;</span><br><span class="line">\<span class="selector-tag">label</span>&#123;fig:<span class="number">1</span>&#125;</span><br><span class="line">\end&#123;<span class="selector-tag">figure</span>&#125;</span><br><span class="line">%跨栏显示：&#123;<span class="selector-tag">figure</span>*&#125;</span><br><span class="line">%若编译不显示图片：菜单&gt;选择用XELATEX编译</span><br><span class="line">%引用：shown in Fig.\ref&#123;fig:<span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="string">\begin&#123;table&#125;[htb]</span></span><br><span class="line"><span class="string">\caption&#123;Effect</span> <span class="keyword">of</span> different datasets <span class="literal">on</span> the YOLOv7.&#125;</span><br><span class="line"><span class="string">\label&#123;table:4&#125;</span></span><br><span class="line"><span class="string">\begin&#123;center&#125;</span></span><br><span class="line"><span class="string">\begin&#123;tabular&#125;&#123;ll&#125;</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line">    <span class="string">\textbf&#123;Dataset&#125;</span> &amp; <span class="string">\textit&#123;mAP&#125;\\</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line">    IR dataset &amp; <span class="number">0.85</span> <span class="string">\\</span></span><br><span class="line">    RGB dataset &amp; <span class="number">0.758</span> <span class="string">\\</span></span><br><span class="line">    RGB-infrared dataset &amp; <span class="number">0.962</span> <span class="string">\\</span></span><br><span class="line">    <span class="string">\hline</span></span><br><span class="line"><span class="string">\end&#123;tabular&#125;%</span></span><br><span class="line"><span class="string">\end&#123;center&#125;</span></span><br><span class="line"><span class="string">\end&#123;table&#125;</span> </span><br></pre></td></tr></table></figure>
-
-<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p>IEICE期刊论文投稿的LaTeX模板中提供了EUC、SJIS和UTF三种不同的模板。这些模板的区别在于它们所使用的字符编码方式，其中UTF-8是其中最为常用的一种编码方式。<br><code>Ctrl + S 编译</code></p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">%分点</span><br><span class="line"><span class="string">\begin&#123;itemize&#125;</span></span><br><span class="line">  <span class="string">\item</span> [<span class="number">1.</span>]</span><br><span class="line">  <span class="string">\item</span> </span><br><span class="line">  <span class="string">\item</span> </span><br><span class="line"><span class="string">\end&#123;itemize&#125;</span></span><br><span class="line"></span><br><span class="line">空行：<span class="string">\\</span>  下划线：<span class="string">\_&#123;&#125;</span>  百分号:<span class="string">\%</span>  加粗：<span class="string">\textbf&#123;&#125;</span></span><br><span class="line">斜体：<span class="string">\textit&#123;&#125;</span> 或 $x$  或公式斜体：<span class="string">\mathit&#123;&#125;</span>  </span><br><span class="line"></span><br><span class="line">%文章结构</span><br><span class="line">章：<span class="string">\section&#123;&#125;</span>   节：<span class="string">\subsection&#123;&#125;</span>   条：<span class="string">\subsubsection&#123;&#125;</span></span><br></pre></td></tr></table></figure>
-<h1 id="论文规范"><a href="#论文规范" class="headerlink" title="论文规范"></a>论文规范</h1><h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><ol>
-<li><p>一个词或词组在文中出现三次或以上才可以用缩写，否则需要写出全称。也就是说如果只出现一次或两次，每次都要写出全称，而缩略语就不需要给出了。<br>出现的次数是在摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果一个词在摘要中出现一次，正文中出现多次，图注中又出现一次，那么摘要中只要用全称，不要用缩写；正文中第一次出现时用全称，后面用缩写； 图注中用全称，不用缩写。<br>一些期刊只允许对正文中出现3次以上的术语使用缩写。<br>一些期刊禁止在标题和摘要中使用任何缩写词。<br>从写作风格上讲，大多数期刊都建议作者不要在句首使用缩写词。在这种情况下，作者要详细说明术语的含义，或者改用别的措辞重写句子。<br>在论文中，将摘要看做是独立的部分。因此，如果您需要在摘要和论文中同时使用一个缩写词时，您需要两次介绍这个缩写词：首次在摘要中使用时介绍一次；首次 在论文中使用时介绍一次。然而 ，如果您发现在摘要中介绍的一个缩写词仅仅出现了一两次，没必要缩写——可以考虑避免缩写，每次都用全拼代替（除非您认为读者更了解缩写词）</p>
-</li>
-<li><p>缩略语在文中第一次出现时需要定义。这里所谓第一次，也是摘要、正文(从前言到讨论)、每个图注以及每个表注中分别计算的。如果摘要和正文都符合上面所说使用缩写的规则，那么摘要中需要定义一次，正文中还需要定义一次。定义就是写出全称并在括号中给出缩写。<br>The patient was diagnosed with pulmonary arterial hypertension (PAH).<br>如果图例或表格中为了节省空间出现了缩写，那么在图注或表注中要解释缩写。<br>PH: pulmonary hypertension, PAH: pulmonary arterial hypertension.<br>写全称时一般是全部用小写，除非是人名、地名等专有名词，而缩写一般是全大写，除非是约定俗成的写法，比如用ChIP 代表chromatin immunoprecipitation。<br>应该考虑到也许有其他领域或者新进入这门领域的读者会阅读这篇论文，所以期刊都规定缩略语要先定义再使用。有些期刊会列出该期刊中不需要定义就可以直接使用的缩略语，比如Journal of Clinical Investigation 就给出<a href="http://www.jci.org/kiosk/publish/abbreviations">标准缩略语列表</a>并指出这些缩略语可以直接使用。如果期刊没有特别规定，应该每个缩略语使用时都要先定义。定义之后记得要一直使用缩略语，不要再使用全称。</p>
-</li>
-<li><p>尽量避免使用缩略语。一篇文章完全不使用缩略语不见得可行，但是尽量少用为好，而且只使用比较常见的缩略语。使用缩略语的目的是为了便于读者对文章的阅读理解，比较长的词组如果反复出现，不便于读者的快速阅读，所以用缩写更合适。有些词可能多数读者对缩写更熟悉，这些词用缩写也便于读者理解。如果很多比较短的词也用缩写，而且不是普遍使用的缩写，读者就经常要停下来去查找缩写代表的词意，思路就会被打断，所以会影响对文章的理解。</p>
-</li>
-<li><p>一个缩略语代表一个词或词组。在一篇文章中，一个缩略语只能代表一个词（组），而且一个词（组）也只能用一个缩略语代表。</p>
-</li>
-<li><p>缩写相关的复数和冠词的用法。多数情况下，我们会用缩略语来代替一个名词，所以如果是可数名词也是有复数的。一般来说，缩略语代表的是名词的单数形式，我们在后面加s（或者加es如果缩略语的最后一个字母是s）来表示复数。定义缩写的时候通常就可以看出来，比如 endothelial cells (ECs)。<br>如果缩略语名词前面需要加不定冠词，要根据缩写的读音来决定是用a还是an。例如human immunodeficiency virus缩写成HIV时我们是念这三个字母，第一个字母H虽然是个辅音字母，念这个字母时却是元音开头，所以HIV这个词的第一个音是元音，前面要用an，例如 an HIV-positive test result。</p>
-</li>
-<li><p>在技术写作中最常见的关于首字母缩写和缩略词的错误，就是大部分人以为缩写中出现的大写字母在缩写前的词组中也需要大写，实际上并不是这样的。例如，作为商业管理哲学的「total quality management」缩写为「TQM」，但它的全称却常常被错误地写成「Total Quality Management」，这有可能是因为部分作者忘记了这个词本身并不是专有名词，甚至是更糟糕的情况──作者根本从一开始就没有完全了解这个词的含意！请记住，在文章中缩写术语之前，首先了解该术语的含意和来源是很重要的，因为作者在论文中处理首字母缩写和缩略词的态度与方法常常反映了他们自己对于运用术语的了解程度。<br>掌握了上面这几个原则，我们就可以通过恰当地使用缩略语来增加文章的可读性。</p>
-</li>
-</ol>
-<h2 id="字母"><a href="#字母" class="headerlink" title="字母"></a>字母</h2><ol>
-<li><p>什么时候用斜体(italic)？</p>
+    <title>Project：多个项目汇总</title>
+    <url>/2023/02/15/Project/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
+<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
+<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
+<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
+<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
+<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
+<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
+<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
+<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
+<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
+<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
+<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
+<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
+<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
+<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
+<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
+<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
+<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
+<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
+<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
+<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
+<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
+<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
+<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
+<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
+<p>技术创新：</p>
 <blockquote>
-<p>1)变量(variables)应该用斜体表示：例如<em>T</em>表示温度(temperature)，<em>r</em>表示速率(rate)，<em>x</em>代表摩尔分数(molar fraction).<br>2)坐标轴(axes)：the <em>y</em> axis.<br>3)平面(planes)：plane <em>P</em>.<br>4)行列式(determinants)和矩阵(matrices)中的元素：<em>gn</em>.<br>5)常数(constants)符号: <em>g</em>, 重力加速度<br>6)描述变量的函数:<em>f(x)</em>.</p>
+<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
 </blockquote>
-</li>
-<li><p>什么时候不用斜体，而采用罗马字体(Roman)?<br>这里的Roman字体指非特殊性字体，与每个期刊的正文字体一致</p>
-<blockquote>
-<p>1)数字；<br>2)标点符号和括号；<br>3)大多数运算符；<br>4)量度单位和时间单位：毫克, mg; 帕斯卡, Pa; 毫米汞柱, mmHg.<br>5)非数学符号和数量：s, 原子轨道(atomic orbital);<br>6)变量的多字符缩写<br>7)数学常量(mathematical constants):自然对数,e;复数的虚部,i;圆周率,π.<br>8)矩阵的转置(transposes), <strong>A</strong>T(T是矩阵<strong>A</strong>的转置)<br>9)点(point)和线(line): point A, line AB.<br>10)行列式(determinants)： A是矩阵<strong>A</strong>的行列式<br>11)三角函数和其他数学函数:正弦函数sin;最大值max,极限lim;对数log等.</p>
-</blockquote>
-</li>
-<li><p>什么时候用粗体(Boldface)？</p>
-<blockquote>
-<p>1）向量(vectors)；<br>2）张量(tensors)；<br>3）矩阵(matrics);<br>4）多维物理量：磁场强度，<strong>H</strong>.</p>
-</blockquote>
-</li>
-<li><p>什么时候使用希腊字母(Greek letters)?</p>
-<blockquote>
-<p>任何拉丁字母可以使用的地方都可以，包括变量，常量，向量等。</p>
-</blockquote>
-</li>
-<li><p>当上下标本身就是代表物理量或数字的符号时，用斜体(italic),如果上下标是缩写或者不是符号时，不用斜体，采用罗马字体(Roman).</p>
-<blockquote>
-<p>举例：<em>Cp</em> for heat capacity at constant pressure常压比热（<em>p</em>是压力的符号，采用斜体）<br><em>C</em>B for heat capacity of substance B 物质B的比热（B不是符号，不用斜体）<br><em>C</em>g where g is gas 气体比热 (g是gas的缩写，不用斜体)<br><em>Ei</em> for energy of the <em>i</em>th level, where <em>i</em> is a number(<em>i</em>是代表数字的符号)<br><em>g</em>n where n is normal(n是气体normal的缩写，不用斜体)</p>
-</blockquote>
-</li>
-</ol>
-<p><a href="https://journal.cricaas.com.cn/attached/file/20210517/20210517161953_566.pdf">[GB 3102.11-93] 物理科学和技术中使用的数学符号</a></p>
+<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
+<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
+<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
+<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
+<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
 ]]></content>
       <tags>
+        <tag>技术</tag>
         <tag>总结</tag>
       </tags>
   </entry>
@@ -831,54 +879,6 @@ writer.close()
 ]]></content>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Project：多个项目汇总</title>
-    <url>/2023/02/15/Project/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
-<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
-<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
-<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
-<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
-<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
-<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
-<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
-<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
-<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
-<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
-<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
-<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
-<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
-<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
-<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
-<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
-<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
-<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
-<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
-<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
-<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
-<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
-<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
-<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
-<p>技术创新：</p>
-<blockquote>
-<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
-</blockquote>
-<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
-<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
-<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
-<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
-<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
-]]></content>
-      <tags>
-        <tag>技术</tag>
-        <tag>总结</tag>
       </tags>
   </entry>
   <entry>
