@@ -21,25 +21,28 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
-<meta property="og:title" content="Git：github工作流">
-<meta property="og:url" content="http://example.com/2022/11/29/Git/index.html">
+<meta property="og:title" content="DL算法的嵌入式部署">
+<meta property="og:url" content="http://example.com/2023/05/18/DLdeploy/index.html">
 <meta property="og:site_name" content="Arrow的笔记本">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-29T07:00:30.000Z">
-<meta property="article:modified_time" content="2023-05-06T09:49:22.697Z">
+<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png">
+<meta property="article:published_time" content="2023-05-18T08:28:00.000Z">
+<meta property="article:modified_time" content="2023-05-23T11:16:16.977Z">
 <meta property="article:author" content="王宇杰">
-<meta property="article:tag" content="技术">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png">
 
 
-<link rel="canonical" href="http://example.com/2022/11/29/Git/">
+<link rel="canonical" href="http://example.com/2023/05/18/DLdeploy/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/11/29/Git/","path":"2022/11/29/Git/","title":"Git：github工作流"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/05/18/DLdeploy/","path":"2023/05/18/DLdeploy/","title":"DL算法的嵌入式部署"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Git：github工作流 | Arrow的笔记本</title>
+<title>DL算法的嵌入式部署 | Arrow的笔记本</title>
   
 
 
@@ -143,7 +146,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">主要指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E7%8A%B6%E6%80%81%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">详细状态过程</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E9%83%A8%E7%BD%B2"><span class="nav-number">1.</span> <span class="nav-text">算法部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ONNX-Open-Neural-Network-Exchange"><span class="nav-number">2.</span> <span class="nav-text">ONNX (Open Neural Network Exchange)</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -222,7 +225,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/29/Git/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/18/DLdeploy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -235,12 +238,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Git：github工作流 | Arrow的笔记本">
+      <meta itemprop="name" content="DL算法的嵌入式部署 | Arrow的笔记本">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Git：github工作流
+          DL算法的嵌入式部署
         </h1>
 
         <div class="post-meta-container">
@@ -251,14 +254,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-11-29 15:00:30" itemprop="dateCreated datePublished" datetime="2022-11-29T15:00:30+08:00">2022-11-29</time>
+      <time title="创建时间：2023-05-18 16:28:00" itemprop="dateCreated datePublished" datetime="2023-05-18T16:28:00+08:00">2023-05-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-05-06 17:49:22" itemprop="dateModified" datetime="2023-05-06T17:49:22+08:00">2023-05-06</time>
+      <time title="修改时间：2023-05-23 19:16:16" itemprop="dateModified" datetime="2023-05-23T19:16:16+08:00">2023-05-23</time>
     </span>
 
   
@@ -268,14 +271,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>101</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -286,66 +289,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19e4y1q7JJ/?spm_id_from=333.1007.tianma.1-2-2.click&vd_source=b530b63b4657d68926b54a618d047d04">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
-<h2 id="主要指令"><a href="#主要指令" class="headerlink" title="主要指令"></a>主要指令</h2><p>1.<code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地<br>2.<code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上<br>3.修改或者添加本地代码（部署在硬盘的源文件上）<br>4.<code>git diff</code> 查看自己对代码做出的改变<br>5.<code>git add</code> 上传更新后的代码至暂存区<br>6.<code>git commit</code> 可以将暂存区里更新后的代码更新到本地git<br>7.<code>git push origin xxx</code> 将本地的xxxgit分支上传至github上的git</p>
-<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变<br>1.<code>git checkout main</code> 切换回main分支<br>2.<code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地<br>3.<code>git checkout xxx</code> 回到xxx分支<br>4.<code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict –&gt; 手动选择保留哪段代码）<br>5.<code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上<br>（-f –&gt; 强行）<br>6.原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</p>
-<p>远端完成更新后<br>1.<code>git branch -d xxx</code> 删除本地的git分支<br>2.<code>git pull origin master</code> 再把远端的最新代码拉至本地</p>
-<h2 id="详细状态过程"><a href="#详细状态过程" class="headerlink" title="详细状态过程"></a>详细状态过程</h2><p><code>git clone &lt;https://github.com/example/example.git&gt; </code></p>
-<blockquote>
-<p>状态<br>•	Remote git repo 的状态: main(master) init<br>•	本地 git repo 的状态: main(master) init<br>•	本地磁盘存储文件的状态: main(master) init</p>
-</blockquote>
-<p>准备在本地修改代码, 先建立一个新的 branch<br><code>git checkout -b my-feature</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master) init<br>•	local:<br>    main(master) init<br>    my-feature init<br>•	Disk:<br>    my-feature init</p>
-</blockquote>
-<p>对本地代码做出修改, <code>git diff</code> 显示变动<br>当我们确认好修改的文件, 准备把文件告知 local git 的时候 <code>git add &lt;changed_file&gt;</code>, 此时 local git 会把这些文件放到暂存区<br>使用 <code>git commit</code> 把所有的修改真正的提交到 local git </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
-</blockquote>
-<p>我们需要把 local git 的变化告知 remote git<br><code>git push origin my-feature </code><br>这个命令结束之后, remote git 会多出来一个 branch </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
-</blockquote>
-<p>紧接着我们会遇到非常常见的情况: 在我们修改本地代码的时候, remote git 也发生了更新, 此时当然是要测试我们刚在做的 feature 在新的 update 下能不能正常运行 </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
-</blockquote>
-<p>首先要 local git 切换回 main<br><code>git checkout main</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    main(master): Init</p>
-</blockquote>
-<p><code>git pull origin master</code> 把 remote git 的变化同步到 local git 以及 disk </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    main(master): Init –&gt; update</p>
-</blockquote>
-<p>回到 my-feature 分支 <code>git checkout my-feature</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; f-commit</p>
-</blockquote>
-<p><code>git rebase main</code> 把 my-feature 的修改先放在一边, 然后把 main 的修改同步到 my-feature, 如果有冲突, 需要先手动去解决冲突 </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; update –&gt; f-commit</p>
-</blockquote>
-<p>更新完 my-feature 之后, 需要把 local git 的 my-feature 分支同步到 remote git 的 my-feature 分支<br><code>git push -f origin my-feature</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; update –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; update –&gt; f-commit</p>
-</blockquote>
-<p>此时需要把我们更新的代码合并到 main branch 上, 这个过程就是 pull request, 在 main 分支的维护者, 审查完 my-feature 的代码后, 进行一个 Squash and merge 操作.<br>•	Squash and merge 把一个分支上面的所有改变, 合并成一个改变, 然后把这个 commit 放到 main branch</p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update –&gt; update2<br>    my-feature: Init –&gt; update –&gt; f-commit<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>    my-feature: Init –&gt; update –&gt; f-commit</p>
-</blockquote>
-<p>一般情况下, main branch 的维护者会在 merge 完这个分支之后, 把这个分支删除掉 delete branch 此时在本地, <code>git checkout main</code></p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update –&gt; update2<br>•	local:<br>    main(master): Init –&gt; update<br>    my-feature: Init –&gt; update –&gt; f-commit<br>•	Disk:<br>    main(master): Init –&gt; update</p>
-</blockquote>
-<p>然后使用, <code>git branch -D my-feature</code> 删除 local git 的 my-feature </p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update –&gt; update2<br>•	local:<br>    main(master): Init –&gt; update<br>•	Disk:<br>    main(master): Init –&gt; update</p>
-</blockquote>
-<p>最后, git pull origin master</p>
-<blockquote>
-<p>状态<br>•	remote:<br>    main(master): Init –&gt; update –&gt; update2<br>•	local:<br>    main(master): Init –&gt; update –&gt; update2<br>•	Disk:<br>    main(master): Init –&gt; update –&gt; update2</p>
-</blockquote>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="算法部署"><a href="#算法部署" class="headerlink" title="算法部署"></a>算法部署</h1><ul>
+<li><p>Network selection：</p>
+</li>
+<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积<sup id="fnref:6"><a href="#fn:6" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[适用于嵌入式应用的深度学习推理参考设计](https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf)">[6]</span></a></sup></p>
+</li>
+<li><p>Deployment：</p>
+<img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
+</ul>
+<h1 id="ONNX-Open-Neural-Network-Exchange"><a href="#ONNX-Open-Neural-Network-Exchange" class="headerlink" title="ONNX (Open Neural Network Exchange)"></a><a target="_blank" rel="noopener" href="https://onnx.ai/">ONNX</a> (Open Neural Network Exchange)</h1><p>开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx">Github</a></p>
+<p><a target="_blank" rel="noopener" href="https://onnx.coderai.cn/">ONNX Runtime Web</a><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:6"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">6.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a><a href="#fnref:6" rev="footnote"> ↩</a></span></li></ol></div></div></p>
 
     </div>
 
@@ -355,21 +308,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
+              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/11/28/Linux/" rel="prev" title="Linux：Ubuntu，Docker">
-                  <i class="fa fa-chevron-left"></i> Linux：Ubuntu，Docker
+                <a href="/2023/05/16/C,C++/" rel="prev" title="C, C++, Cmake">
+                  <i class="fa fa-chevron-left"></i> C, C++, Cmake
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/12/01/Photograph/" rel="next" title="Photograph：个人摄影笔记">
-                  Photograph：个人摄影笔记 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -406,7 +357,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <span class="post-count">全站共 35.1k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
+  <span class="post-count">全站共 34.7k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
 </div>
     </div>
   </footer>
