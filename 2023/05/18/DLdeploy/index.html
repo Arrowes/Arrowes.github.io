@@ -21,13 +21,13 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
-<meta property="og:title" content="DL算法的嵌入式部署">
+<meta property="og:title" content="DeepLeaning算法部署">
 <meta property="og:url" content="http://example.com/2023/05/18/DLdeploy/index.html">
 <meta property="og:site_name" content="Arrow的笔记本">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png">
 <meta property="article:published_time" content="2023-05-18T08:28:00.000Z">
-<meta property="article:modified_time" content="2023-05-24T11:03:32.104Z">
+<meta property="article:modified_time" content="2023-05-25T11:11:23.577Z">
 <meta property="article:author" content="王宇杰">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
@@ -39,10 +39,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/05/18/DLdeploy/","path":"2023/05/18/DLdeploy/","title":"DL算法的嵌入式部署"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/05/18/DLdeploy/","path":"2023/05/18/DLdeploy/","title":"DeepLeaning算法部署"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>DL算法的嵌入式部署 | Arrow的笔记本</title>
+<title>DeepLeaning算法部署 | Arrow的笔记本</title>
   
 
 
@@ -146,7 +146,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TIDL"><span class="nav-number">1.</span> <span class="nav-text">TIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDK%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">SDK环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-SDK"><span class="nav-number">1.1.1.</span> <span class="nav-text">Linux SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTOS-SDK"><span class="nav-number">1.1.2.</span> <span class="nav-text">RTOS SDK</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">算法部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ONNX-Open-Neural-Network-Exchange"><span class="nav-number">3.</span> <span class="nav-text">ONNX (Open Neural Network Exchange)</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E9%83%A8%E7%BD%B2"><span class="nav-number">1.</span> <span class="nav-text">算法部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ONNX-Open-Neural-Network-Exchange"><span class="nav-number">1.1.</span> <span class="nav-text">ONNX (Open Neural Network Exchange)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8ETDA4VM%E7%9A%84%E5%B5%8C%E5%85%A5%E5%BC%8F%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">基于TDA4VM的嵌入式部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDK%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="nav-number">2.1.</span> <span class="nav-text">SDK环境搭建与调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-SDK"><span class="nav-number">2.1.1.</span> <span class="nav-text">Linux SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTOS-SDK"><span class="nav-number">2.1.2.</span> <span class="nav-text">RTOS SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vision-Apps-Demo"><span class="nav-number">2.1.3.</span> <span class="nav-text">Vision Apps Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIDL"><span class="nav-number">2.1.4.</span> <span class="nav-text">TIDL</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -238,12 +238,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="DL算法的嵌入式部署 | Arrow的笔记本">
+      <meta itemprop="name" content="DeepLeaning算法部署 | Arrow的笔记本">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          DL算法的嵌入式部署
+          DeepLeaning算法部署
         </h1>
 
         <div class="post-meta-container">
@@ -261,7 +261,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-05-24 19:03:32" itemprop="dateModified" datetime="2023-05-24T19:03:32+08:00">2023-05-24</time>
+      <time title="修改时间：2023-05-25 19:11:23" itemprop="dateModified" datetime="2023-05-25T19:11:23+08:00">2023-05-25</time>
     </span>
 
   
@@ -271,14 +271,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>526</span>
+      <span>873</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -289,30 +289,31 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a>TIDL</h1><h2 id="SDK环境搭建"><a href="#SDK环境搭建" class="headerlink" title="SDK环境搭建"></a>SDK环境搭建</h2><p><a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
-<h3 id="Linux-SDK"><a href="#Linux-SDK" class="headerlink" title="Linux SDK"></a>Linux SDK</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，vi setup.sh屏蔽需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh </span><br></pre></td></tr></table></figure>
-<p>1.1.3章节说明了如何格式化SD卡。在TDA4VM的开发过程中，都是使用TF卡进行开发的。在单片机开发平台下，通常是直接用电脑使用USB方式将固件烧写到板卡的eMMC或FLASH中去。在TI平台下，首选的调试方法是使用TF卡：TF卡会被划分为两个分区，一个是BOOT分区（FAT32），用于存放bootloader如uboot等，另一个是rootfs分区（ext4），用于存放Linux需要的文件系统。每次Ubuntu编译完成的固件都需要手工拷贝到TF卡中，然后将TF卡插入EVM上电启动。</p>
-<p>1.1.4章节介绍了顶层的Makefile。通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
-<h3 id="RTOS-SDK"><a href="#RTOS-SDK" class="headerlink" title="RTOS SDK"></a>RTOS SDK</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a></p>
-<blockquote>
-<p>ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03-prebuilt.tar</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -xf ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz  <span class="comment">#解压</span></span><br><span class="line"><span class="built_in">cp</span> ../ti-processor-sdk-rtos-j721e-evm-08_06_01_03-prebuilt/tisdk-edgeai-image-j7-evm.tar.xz ./</span><br><span class="line"><span class="built_in">cp</span> ../ti-processor-sdk-rtos-j721e-evm-08_06_01_03-prebuilt/boot-j7-evm.tar.gz ./    <span class="comment">#导入prebuilt包（或from LinuxSDK）</span></span><br><span class="line">./psdk_rtos/scripts/setup_psdk_rtos.sh  <span class="comment">#安装依赖库和下载编译器，若安装报错则需换源，有包没安上会影响之后的make</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="算法部署"><a href="#算法部署" class="headerlink" title="算法部署"></a>算法部署</h1><ul>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="算法部署"><a href="#算法部署" class="headerlink" title="算法部署"></a>算法部署</h1><ul>
 <li><p>Network selection：</p>
 </li>
-<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积<sup id="fnref:6"><a href="#fn:6" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[适用于嵌入式应用的深度学习推理参考设计](https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf)">[6]</span></a></sup></p>
+<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积<sup id="fnref:0"><a href="#fn:0" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[适用于嵌入式应用的深度学习推理参考设计](https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf)">[0]</span></a></sup></p>
 </li>
 <li><p>Deployment：</p>
 <img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
 </ul>
-<h1 id="ONNX-Open-Neural-Network-Exchange"><a href="#ONNX-Open-Neural-Network-Exchange" class="headerlink" title="ONNX (Open Neural Network Exchange)"></a><a target="_blank" rel="noopener" href="https://onnx.ai/">ONNX</a> (Open Neural Network Exchange)</h1><p>开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx">Github</a></p>
-<p><a target="_blank" rel="noopener" href="https://onnx.coderai.cn/">ONNX Runtime Web</a><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:6"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">6.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a><a href="#fnref:6" rev="footnote"> ↩</a></span></li></ol></div></div></p>
-
+<h2 id="ONNX-Open-Neural-Network-Exchange"><a href="#ONNX-Open-Neural-Network-Exchange" class="headerlink" title="ONNX (Open Neural Network Exchange)"></a><a target="_blank" rel="noopener" href="https://onnx.ai/">ONNX</a> (Open Neural Network Exchange)</h2><p>开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx">Github</a>，<a target="_blank" rel="noopener" href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
+<h1 id="基于TDA4VM的嵌入式部署"><a href="#基于TDA4VM的嵌入式部署" class="headerlink" title="基于TDA4VM的嵌入式部署"></a>基于TDA4VM的嵌入式部署</h1><p>相关知识介绍见笔记：<a target="_blank" rel="noopener" href="https://wangyujie.site/2023/05/10/TDA4VM/">[TDA4VM, TIDL, OpenVX]</a></p>
+<h2 id="SDK环境搭建与调试"><a href="#SDK环境搭建与调试" class="headerlink" title="SDK环境搭建与调试"></a>SDK环境搭建与调试</h2><p><a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
+<h3 id="Linux-SDK"><a href="#Linux-SDK" class="headerlink" title="Linux SDK"></a>Linux SDK</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
+<p>1.1.3章节说明了如何格式化SD卡。在TDA4VM的开发过程中，都是使用TF卡进行开发的。在单片机开发平台下，通常是直接用电脑使用USB方式将固件烧写到板卡的eMMC或FLASH中去。在TI平台下，首选的调试方法是使用TF卡：TF卡会被划分为两个分区，一个是BOOT分区（FAT32），用于存放bootloader如uboot等，另一个是rootfs分区（ext4），用于存放Linux需要的文件系统。每次Ubuntu编译完成的固件都需要手工拷贝到TF卡中，然后将TF卡插入EVM上电启动。</p>
+<p>1.1.4章节介绍了顶层的Makefile。通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
+<h3 id="RTOS-SDK"><a href="#RTOS-SDK" class="headerlink" title="RTOS SDK"></a>RTOS SDK</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a></p>
+<blockquote>
+<p>ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03-prebuilt.tar</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tar -xf ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz  <span class="comment">#解压</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置RTOS和Linux的安装环境变量</span></span><br><span class="line"><span class="built_in">export</span> PSDKL_PATH=/home/wyj/SDK/ti-processor-sdk-linux-j7-evm-08_06_01_02</span><br><span class="line"><span class="built_in">export</span> PSDKR_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03</span><br><span class="line"></span><br><span class="line"><span class="comment">#拷贝linux系统文件和linux启动文件到psdk rtos文件夹（或从rtos-prebuilt.tar）</span></span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/board-support/prebuilt-images/boot-j7-evm.tar.gz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/filesystem/tisdk-default-image-j7-evm.tar.xz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装依赖库和下载编译器，若安装报错则需换源，有包没安上会影响之后的make</span></span><br><span class="line">./psdk_rtos/scripts/setup_psdk_rtos.sh  <span class="comment">#若卡在git clone则进.sh把git://换成https://</span></span><br><span class="line"><span class="comment">#Packages installed successfully</span></span><br></pre></td></tr></table></figure>
+<h3 id="Vision-Apps-Demo"><a href="#Vision-Apps-Demo" class="headerlink" title="Vision Apps Demo"></a>Vision Apps Demo</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改文件 tiovx/build_flags.mak（没修改过则是默认）</span></span><br><span class="line">BUILD_EMULATION_MODE=no <span class="comment">#非模拟器模式</span></span><br><span class="line">BUILD_TARGET_MODE=<span class="built_in">yes</span></span><br><span class="line">BUILD_LINUX_A72=<span class="built_in">yes</span></span><br><span class="line">PROFILE=release</span><br><span class="line"></span><br><span class="line"><span class="comment">#开始编译vision apps</span></span><br><span class="line"><span class="built_in">cd</span> vision_apps</span><br><span class="line">make vision_apps -j4    <span class="comment">#若缺少core-secdev-k3包，手动导入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#编译成功可以看到对应目录下有产出文件，RTOS SDK主要使用了一个开源编译框架concerto，这个框架基于Makefile，他能够自动搜索当前目录内的所有concerto.mak文件，并且分析依赖，一次将各个核心的固件全部编译出来。编译生成的文件位于</span></span><br><span class="line">vision_apps/out/J7/A72/LINUX/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/R5F/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C66/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C71/SYSBIOS/<span class="variable">$PROFILE</span></span><br></pre></td></tr></table></figure>
+<h3 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a>TIDL</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_dependency_info.html">TIDL-RT</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/ywang85/SDK/RTOSSDK/tidl_j721e_08_06_00_10   <span class="comment">#设置环境变量</span></span><br><span class="line"><span class="comment">#../../inc/itidl_ti.h:91:21: fatal error: ivision.h: No such file or directory</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh   <span class="comment">#有些包可能要手动安装，并注释掉</span></span><br><span class="line"></span><br><span class="line">Docker Based X86_PC Setup</span><br></pre></td></tr></table></figure><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:0"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">0.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a><a href="#fnref:0" rev="footnote"> ↩</a></span></li></ol></div></div>
     </div>
 
     
@@ -370,7 +371,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <span class="post-count">全站共 35k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
+  <span class="post-count">全站共 35.4k 字</span> | 访问量 <span id="busuanzi_value_site_pv"></span> 次
 </div>
     </div>
   </footer>
