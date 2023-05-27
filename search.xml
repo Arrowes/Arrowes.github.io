@@ -128,7 +128,7 @@ A-->E[C.定义]</pre>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#x61;&#112;&#64;&#x30;&#46;&#53;">&#x6d;&#x61;&#112;&#64;&#x30;&#46;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#x61;&#x70;&#x40;&#x30;&#x2e;&#53;">&#x6d;&#x61;&#x70;&#x40;&#x30;&#x2e;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -215,6 +215,83 @@ A-->E[C.定义]</pre>
       <tags>
         <tag>深度学习</tag>
         <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
+    <url>/2022/11/22/Hello-blog/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
+[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
+[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
+[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
+[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
+[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>。</p>
+<span id="more"></span>
+<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Hello-blogBlogPhoto.jpg" width = "50%"/>  
+
+<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
+<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
+<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
+<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
+<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
+<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
+<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
+<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
+<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>统计人数、阅读次数：<br>&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>统计字数、阅读时间：</p>
+<ol>
+<li>npm install hexo-word-counter</li>
+<li>&#x2F;next&#x2F;_config:设置item_text_total为true</li>
+</ol>
+<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><ol>
+<li>在项目根目录下运行 <code>npm install hexo-generator-searchdb --save</code></li>
+<li>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable改为true</li>
+</ol>
+<h4 id="首页展示文章数"><a href="#首页展示文章数" class="headerlink" title="首页展示文章数"></a>首页展示文章数</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#Hexo-config</span>文件修改</span><br><span class="line">index_generator:</span><br><span class="line">  path: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">0</span> #不分页</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
+<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
+</li>
+<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
+ <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">1</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在主题配置文件&#x2F;next&#x2F;_config中 excerpt_description 改为false</p>
+</li>
+</ol>
+<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
+<li>配置 主题配置文件中删掉tags的注释</li>
+<li>文件 新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
+<li>文章 <code>tags: - XXX</code></li>
+</ol>
+<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>主题配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">every_page:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mathjax:  enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
+<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
+<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
+<li>引用时直接 &#x2F;resume&#x2F;</li>
+</ol>
+<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
+<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
+<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
+<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.sevencdn.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.sevencdn.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
+<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
+<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
+<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，多试几次</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<em>Download ZIP</em>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
+<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
+<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
+<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
+<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
+<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+      <tags>
+        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
@@ -345,83 +422,6 @@ A-->E[C.定义]</pre>
 <h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
-    <url>/2022/11/22/Hello-blog/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
-[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
-[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
-[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
-[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
-[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>。</p>
-<span id="more"></span>
-<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Hello-blogBlogPhoto.jpg" width = "50%"/>  
-
-<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
-<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
-<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
-<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
-<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
-<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
-<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
-<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
-<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
-<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>统计人数、阅读次数：<br>&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>统计字数、阅读时间：</p>
-<ol>
-<li>npm install hexo-word-counter</li>
-<li>&#x2F;next&#x2F;_config:设置item_text_total为true</li>
-</ol>
-<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><ol>
-<li>在项目根目录下运行 <code>npm install hexo-generator-searchdb --save</code></li>
-<li>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable改为true</li>
-</ol>
-<h4 id="首页展示文章数"><a href="#首页展示文章数" class="headerlink" title="首页展示文章数"></a>首页展示文章数</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#Hexo-config</span>文件修改</span><br><span class="line">index_generator:</span><br><span class="line">  path: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">0</span> #不分页</span><br></pre></td></tr></table></figure>
-
-<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
-<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
-</li>
-<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">1</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在主题配置文件&#x2F;next&#x2F;_config中 excerpt_description 改为false</p>
-</li>
-</ol>
-<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
-<li>配置 主题配置文件中删掉tags的注释</li>
-<li>文件 新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
-<li>文章 <code>tags: - XXX</code></li>
-</ol>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>主题配置文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">every_page:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mathjax:  enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
-<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
-<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
-<li>引用时直接 &#x2F;resume&#x2F;</li>
-</ol>
-<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
-<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
-<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
-<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.sevencdn.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.sevencdn.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
-<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
-<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
-<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，多试几次</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<em>Download ZIP</em>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
-<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
-<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
-<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
-<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
-<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
-      <tags>
-        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
@@ -834,6 +834,138 @@ B-->C</pre>
       </tags>
   </entry>
   <entry>
+    <title>Python工具：Anaconda，Pycharm，Jupyter，Pytorch</title>
+    <url>/2022/11/24/Pytorch/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>视频：<a href="https://www.bilibili.com/video/BV1hE411t7RN/">PyTorch深度学习快速入门教程</a></p>
+<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h1><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">conda create -n pytorch python=<span class="number">3.6</span>  <span class="comment">#Anaconda创建环境</span></span><br><span class="line">conda update python, pip install --upgrade pip <span class="comment">#更新</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br><span class="line">conda deactivate  <span class="comment">#退出虚拟环境</span></span><br><span class="line">conda remove pytorch --all  <span class="comment">#删除环境</span></span><br><span class="line">pip install XXX==<span class="number">2.0</span>, pip uninstall XXX <span class="comment">#安装特定版本/卸载</span></span><br><span class="line">pip config set global.index-url https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple  <span class="comment">#pip换源</span></span><br><span class="line">pip config list -v  <span class="comment">#查源</span></span><br><span class="line">pip install opencv-python -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span>  <span class="comment">#pip换源安装</span></span><br></pre></td></tr></table></figure>
+<details>
+  <summary>其他国内镜像源</summary>
+  
+<pre><code>清华大学：https://pypi.tuna.tsinghua.edu.cn/simple
+阿里云：http://mirrors.aliyun.com/pypi/simple
+豆瓣：http://pypi.douban.com/simple
+</code></pre>
+</details>
+
+<details>
+  <summary>其他常用命令</summary>
+
+<pre><code>conda list：查看环境中的所有包
+conda install XXX：安装 XXX 包
+conda remove XXX：删除 XXX 包
+conda env list：列出所有环境
+conda create -n XXX：创建名为 XXX 的环境
+conda create -n env_name jupyter notebook ：创建虚拟环境
+activate noti（或 source activate noti）：启用/激活环境
+conda env remove -n noti：删除指定环境
+deactivate（或 source deactivate）：退出环境
+jupyter notebook ：打开Jupyter Notebook
+conda config --remove-key channels ：换回默认源
+</code></pre>
+</details>
+
+<p><strong>修改环境创建路径</strong></p>
+<ol>
+<li>找到用户目录下的.condarc文件（C:\Users\username）。</li>
+<li>打开.condarc文件之后，添加或修改.condarc 中的 env_dirs 设置环境路径<figure class="highlight nestedtext"><table><tr><td class="code"><pre><span class="line"><span class="attribute">envs_dirs</span><span class="punctuation">:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">D:\Anaconda3\envs</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings &gt; Project &gt; interpreter</code><br>环境路径配置： <code>interpreter &gt; 齿轮 &gt; Add &gt; System Interpreter &gt; 手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File &gt; Settings &gt; Tools &gt; Terminal &gt; Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
+<p><strong>Pycharm使用</strong></p>
+<blockquote>
+<p>新建.py文件(用作工程) &gt; 右上角配置py解释器 &gt; 运行&#x2F;直接右键运行<br>控制台(用作调试，查参数) &gt; Shift+enter：输入多行 &gt; “↑”重新编辑<br>Ctrl + D 快速复制至下一行<br>Ctrl + R 批量修改<br>Ctrl + &#x2F; 批量注释<br>调试：打断点 &gt; debug &gt; 使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
+</blockquote>
+<p>调试时使用Console的python调试台，print指令<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch2.png" alt="图 2">  </p>
+<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后 <code>conda install nb_conda</code><br>打开 jupyter notebook<br><code>New &gt; 选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
+<details>
+  <summary>打包下载：点击查看代码块</summary>
+
+<pre><code>import os
+import tarfile
+def recursive_files(dir_name=&#39;.&#39;, ignore=None):
+    for dir_name,subdirs,files in os.walk(dir_name):
+        if ignore and os.path.basename(dir_name) in ignore: 
+            continue
+
+        for file_name in files:
+            if ignore and file_name in ignore:
+                continue
+
+            yield os.path.join(dir_name, file_name)
+
+def make_tar_file(dir_name=&#39;.&#39;, tar_file_name=&#39;tarfile.tar&#39;, ignore=None):
+    tar = tarfile.open(tar_file_name, &#39;w&#39;)
+
+    for file_name in recursive_files(dir_name, ignore):
+        tar.add(file_name)
+
+    tar.close()
+
+dir_name = &#39;.&#39;
+tar_file_name = &#39;archive.tar&#39;
+ignore = &#123;&#39;.ipynb_checkpoints&#39;, &#39;__pycache__&#39;, tar_file_name&#125;
+make_tar_file(dir_name, tar_file_name, ignore)
+</code></pre>
+</details>
+
+<h1 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h1><p>要调用GPU进行训练的话，需要安装显卡驱动对应的CUDA</p>
+<ol>
+<li><code>nvidia-smi</code> 查询支持CUDA版本<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch3.png" alt="图 3">  </li>
+<li>到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch4.png" alt="图 4"></li>
+</ol>
+<p><strong>查GPU</strong></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –version <span class="comment">#查python版本</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><h3 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h3><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
+<p>文件</p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
+<p>计时		</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
+<p>组 </p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"> <span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h3><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
+<p>打开</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
+<p>地址	localhost:6006</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
+<h3 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h3><p>transforms.py图像处理工具箱</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
+<h3 id="ToTensor"><a href="#ToTensor" class="headerlink" title="ToTensor"></a>ToTensor</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#（桥梁，很多输入都要求tensor类型）</span></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
+<h2 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h2><p>torchvision.datasets 数据集处理</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<details>
+  <summary>例</summary>
+
+<pre><code>writer = SummaryWriter(&quot;dataloader&quot;)
+for epoch in range(2):
+    step = 0
+    for data in test_loader: #读数据
+        imgs, targets = data
+        writer.add_images(&quot;Epoch: &#123;&#125;&quot;.format(epoch), imgs, step)
+        step = step + 1
+writer.close()
+</code></pre>
+</details>
+
+<h2 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a><a href="https://colab.research.google.com/">Google Colab</a></h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置并查看GPU 修改&gt;笔记本设置&gt;GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.test.gpu_device_name()</span><br><span class="line"></span><br><span class="line">!/opt/<span class="built_in">bin</span>/nvidia-smi <span class="comment">#详情</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">!unzip /content/XX.<span class="built_in">zip</span> -d /content/XX   <span class="comment">#解压</span></span><br><span class="line">%cd /content/XX     <span class="comment">#进入</span></span><br><span class="line">!pip install -r requirements.txt    <span class="comment">#安装requirements</span></span><br><span class="line">!python XX.py --rect <span class="comment">#运行</span></span><br><span class="line">!rm -rf /content/XX/mydata <span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">%load_ext tensorboard   <span class="comment">#加载tensorboard</span></span><br><span class="line">%tensorboard --logdir=runs/train    <span class="comment">#执行tensorboard</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先装载谷歌云盘，在云盘里运行以防数据丢失</span></span><br><span class="line"> <span class="comment">#指定Google Drive云端硬盘的根目录，名为drive</span></span><br><span class="line">!mkdir -p drive</span><br><span class="line">!google-drive-ocamlfuse drive</span><br><span class="line"></span><br><span class="line"><span class="comment">#connect to self drive</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"><span class="comment">#云训练时还是要将盘里的文件拿出来再开始，否则容易直接断连!</span></span><br></pre></td></tr></table></figure>
+<p>续航插件：<a href="https://chrome.google.com/webstore/detail/colab-alive/eookkckfbbgnhdgcbfbicoahejkdoele?hl=zh-CN">Colab Alive</a>, 防止训练时掉线</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TDA4VM, TIDL, OpenVX</title>
     <url>/2023/05/10/TDA4VM/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.ti.com.cn/product/zh-cn/TDA4VM">TDA4VM官网</a>， <a href="https://e2e.ti.com/support/processors-group/processors/f/processors-forum">TI e2e论坛</a></p>
@@ -1042,138 +1174,6 @@ B-->C</pre>
       <tags>
         <tag>深度学习</tag>
         <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python工具：Anaconda，Pycharm，Jupyter，Pytorch</title>
-    <url>/2022/11/24/Pytorch/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>视频：<a href="https://www.bilibili.com/video/BV1hE411t7RN/">PyTorch深度学习快速入门教程</a></p>
-<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h1><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">conda create -n pytorch python=<span class="number">3.6</span>  <span class="comment">#Anaconda创建环境</span></span><br><span class="line">conda update python, pip install --upgrade pip <span class="comment">#更新</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br><span class="line">conda deactivate  <span class="comment">#退出虚拟环境</span></span><br><span class="line">conda remove pytorch --all  <span class="comment">#删除环境</span></span><br><span class="line">pip install XXX==<span class="number">2.0</span>, pip uninstall XXX <span class="comment">#安装特定版本/卸载</span></span><br><span class="line">pip config set global.index-url https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple  <span class="comment">#pip换源</span></span><br><span class="line">pip config list -v  <span class="comment">#查源</span></span><br><span class="line">pip install opencv-python -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span>  <span class="comment">#pip换源安装</span></span><br></pre></td></tr></table></figure>
-<details>
-  <summary>其他国内镜像源</summary>
-  
-<pre><code>清华大学：https://pypi.tuna.tsinghua.edu.cn/simple
-阿里云：http://mirrors.aliyun.com/pypi/simple
-豆瓣：http://pypi.douban.com/simple
-</code></pre>
-</details>
-
-<details>
-  <summary>其他常用命令</summary>
-
-<pre><code>conda list：查看环境中的所有包
-conda install XXX：安装 XXX 包
-conda remove XXX：删除 XXX 包
-conda env list：列出所有环境
-conda create -n XXX：创建名为 XXX 的环境
-conda create -n env_name jupyter notebook ：创建虚拟环境
-activate noti（或 source activate noti）：启用/激活环境
-conda env remove -n noti：删除指定环境
-deactivate（或 source deactivate）：退出环境
-jupyter notebook ：打开Jupyter Notebook
-conda config --remove-key channels ：换回默认源
-</code></pre>
-</details>
-
-<p><strong>修改环境创建路径</strong></p>
-<ol>
-<li>找到用户目录下的.condarc文件（C:\Users\username）。</li>
-<li>打开.condarc文件之后，添加或修改.condarc 中的 env_dirs 设置环境路径<figure class="highlight nestedtext"><table><tr><td class="code"><pre><span class="line"><span class="attribute">envs_dirs</span><span class="punctuation">:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">D:\Anaconda3\envs</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings &gt; Project &gt; interpreter</code><br>环境路径配置： <code>interpreter &gt; 齿轮 &gt; Add &gt; System Interpreter &gt; 手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File &gt; Settings &gt; Tools &gt; Terminal &gt; Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
-<p><strong>Pycharm使用</strong></p>
-<blockquote>
-<p>新建.py文件(用作工程) &gt; 右上角配置py解释器 &gt; 运行&#x2F;直接右键运行<br>控制台(用作调试，查参数) &gt; Shift+enter：输入多行 &gt; “↑”重新编辑<br>Ctrl + D 快速复制至下一行<br>Ctrl + R 批量修改<br>Ctrl + &#x2F; 批量注释<br>调试：打断点 &gt; debug &gt; 使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
-</blockquote>
-<p>调试时使用Console的python调试台，print指令<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch2.png" alt="图 2">  </p>
-<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后 <code>conda install nb_conda</code><br>打开 jupyter notebook<br><code>New &gt; 选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
-<details>
-  <summary>打包下载：点击查看代码块</summary>
-
-<pre><code>import os
-import tarfile
-def recursive_files(dir_name=&#39;.&#39;, ignore=None):
-    for dir_name,subdirs,files in os.walk(dir_name):
-        if ignore and os.path.basename(dir_name) in ignore: 
-            continue
-
-        for file_name in files:
-            if ignore and file_name in ignore:
-                continue
-
-            yield os.path.join(dir_name, file_name)
-
-def make_tar_file(dir_name=&#39;.&#39;, tar_file_name=&#39;tarfile.tar&#39;, ignore=None):
-    tar = tarfile.open(tar_file_name, &#39;w&#39;)
-
-    for file_name in recursive_files(dir_name, ignore):
-        tar.add(file_name)
-
-    tar.close()
-
-dir_name = &#39;.&#39;
-tar_file_name = &#39;archive.tar&#39;
-ignore = &#123;&#39;.ipynb_checkpoints&#39;, &#39;__pycache__&#39;, tar_file_name&#125;
-make_tar_file(dir_name, tar_file_name, ignore)
-</code></pre>
-</details>
-
-<h1 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h1><p>要调用GPU进行训练的话，需要安装显卡驱动对应的CUDA</p>
-<ol>
-<li><code>nvidia-smi</code> 查询支持CUDA版本<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch3.png" alt="图 3">  </li>
-<li>到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch4.png" alt="图 4"></li>
-</ol>
-<p><strong>查GPU</strong></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –version <span class="comment">#查python版本</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><h3 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h3><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
-<p>文件</p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
-<p>计时		</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
-<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
-<p>组 </p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"> <span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h3><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
-<p>打开</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
-<p>地址	localhost:6006</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
-<h3 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h3><p>transforms.py图像处理工具箱</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
-<h3 id="ToTensor"><a href="#ToTensor" class="headerlink" title="ToTensor"></a>ToTensor</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#（桥梁，很多输入都要求tensor类型）</span></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
-<h2 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h2><p>torchvision.datasets 数据集处理</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-<details>
-  <summary>例</summary>
-
-<pre><code>writer = SummaryWriter(&quot;dataloader&quot;)
-for epoch in range(2):
-    step = 0
-    for data in test_loader: #读数据
-        imgs, targets = data
-        writer.add_images(&quot;Epoch: &#123;&#125;&quot;.format(epoch), imgs, step)
-        step = step + 1
-writer.close()
-</code></pre>
-</details>
-
-<h2 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a><a href="https://colab.research.google.com/">Google Colab</a></h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置并查看GPU 修改&gt;笔记本设置&gt;GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.test.gpu_device_name()</span><br><span class="line"></span><br><span class="line">!/opt/<span class="built_in">bin</span>/nvidia-smi <span class="comment">#详情</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">!unzip /content/XX.<span class="built_in">zip</span> -d /content/XX   <span class="comment">#解压</span></span><br><span class="line">%cd /content/XX     <span class="comment">#进入</span></span><br><span class="line">!pip install -r requirements.txt    <span class="comment">#安装requirements</span></span><br><span class="line">!python XX.py --rect <span class="comment">#运行</span></span><br><span class="line">!rm -rf /content/XX/mydata <span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">%load_ext tensorboard   <span class="comment">#加载tensorboard</span></span><br><span class="line">%tensorboard --logdir=runs/train    <span class="comment">#执行tensorboard</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先装载谷歌云盘，在云盘里运行以防数据丢失</span></span><br><span class="line"> <span class="comment">#指定Google Drive云端硬盘的根目录，名为drive</span></span><br><span class="line">!mkdir -p drive</span><br><span class="line">!google-drive-ocamlfuse drive</span><br><span class="line"></span><br><span class="line"><span class="comment">#connect to self drive</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"><span class="comment">#云训练时还是要将盘里的文件拿出来再开始，否则容易直接断连!</span></span><br></pre></td></tr></table></figure>
-<p>续航插件：<a href="https://chrome.google.com/webstore/detail/colab-alive/eookkckfbbgnhdgcbfbicoahejkdoele?hl=zh-CN">Colab Alive</a>, 防止训练时掉线</p>
-]]></content>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
