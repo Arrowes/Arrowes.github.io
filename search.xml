@@ -1,27 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>DL模型转换及部署</title>
-    <url>/2023/06/09/DLdeploy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
+    <title>C, C++, Cmake</title>
+    <url>/2023/05/16/C/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h2 id="基于VScode用cmake搭建C-编译调试环境"><a href="#基于VScode用cmake搭建C-编译调试环境" class="headerlink" title="基于VScode用cmake搭建C++编译调试环境"></a>基于VScode用cmake搭建C++编译调试环境</h2><ol>
+<li>安装VScode插件：C&#x2F;C++，cmake，cmake tools</li>
+<li>按F1，选择cmake:Quick Start,创建一个cmake工程</li>
+<li>点击左侧栏的CMake工具按钮,右键可执行文件，选择Debug,进入调试界面</li>
+</ol>
+<h1 id="Cmake"><a href="#Cmake" class="headerlink" title="Cmake"></a>Cmake</h1><p><a href="www.cmake.org">CMake</a> 是一个跨平台的开源构建管理系统，用于自动化应用程序的构建、测试和打包过程。它使用类似于Makefile的文本文件来描述构建过程中所需的所有组件和依赖项，并将其转换为适合各种不同编译器和操作系统的本地构建系统的配置文件。总之，CMake就是一个将多个cpp,hpp文件组合构建为一个大工程的语言。<br><a href="https://cmake.org/download/">CMake下载</a> (Linux无需下载)<br><a href="https://github.com/gavinliu6/CMake-Practice-zh-CN">Cmake 实践</a> 在实践中上手的教程<br><a href="https://github.com/SFUMECJF/cmake-examples-Chinese">cmake-examples-Chinese</a> 例程</p>
+<h2 id="Cmake-实践"><a href="#Cmake-实践" class="headerlink" title="Cmake 实践"></a><a href="https://gavinliu6.github.io/CMake-Practice-zh-CN/#/">Cmake 实践</a></h2><h3 id="t1-创建Hello-world"><a href="#t1-创建Hello-world" class="headerlink" title="t1 创建Hello world"></a>t1 <a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/hello-world.md">创建Hello world</a></h3><p>建立main.c与CMakeLists.txt并编译（需要为每一个子目录建立一个CMakeLists.txt）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PROJECT (HELLO)     <span class="comment">#PROJECT(projectname [CXX] [C] [Java])</span></span><br><span class="line">SET(SRC_LIST main.c)    <span class="comment">#提供要编译的源代码文件列表，可定义多个源文件main.c 1.c</span></span><br><span class="line">MESSAGE([SEND_ERROR|STATUS|FATAL_ERROR] <span class="string">&quot;message to display&quot;</span>)</span><br><span class="line">ADD_EXECUTABLE(hello <span class="variable">$&#123;SRC_LIST&#125;</span>)   <span class="comment">#创建名为hello的可执行文件，IF不用$&#123;&#125;引用变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#内部编译(在文件夹中产生文件太多)</span></span><br><span class="line">cmake . <span class="comment">#构建工程，生成makefile</span></span><br><span class="line">make    <span class="comment">#构建目标文件hello二进制</span></span><br><span class="line">./hello <span class="comment">#运行目标文件</span></span><br><span class="line"><span class="comment">#外部编译(out of source build,推荐)</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build <span class="comment">#新建并进入build文件夹</span></span><br><span class="line">cmake ..    <span class="comment">#在父目录找到cmakelists构建工程</span></span><br><span class="line">make    <span class="comment">#在build编译目录中获得目标文件，不影响原有工程</span></span><br></pre></td></tr></table></figure>
+<p>目标文件:在linux下，是ELF格式（Executable Linkable Format，可执行可链接格式），而在windows下是PE（Portable Executable，可移植可执行）。通常有三种形式：</p>
 <ul>
-<li><p>Network selection：</p>
-</li>
-<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[适用于嵌入式应用的深度学习推理参考设计](https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf)">[1]</span></a></sup></p>
-</li>
-<li><p>Deployment：</p>
-<img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
+<li>可执行目标文件。即我们通常所认识的，可直接运行的二进制文件。</li>
+<li>可重定位目标文件。包含了二进制的代码和数据，可以与其他可重定位目标文件合并，并创建一个可执行目标文件。</li>
+<li>共享目标文件。它是一种在加载或者运行时进行链接的特殊可重定位目标文件。</li>
 </ul>
-<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a><a href="https://onnx.ai/">ONNX</a></h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁 <a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a>，</p>
-<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
-<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PyTorch 转 ONNX 详解](https://zhuanlan.zhihu.com/p/498425043)">[2]</span></a></sup>：</p>
-<blockquote>
-<p>算子在 PyTorch 中有实现<br>有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>ONNX 有相应的算子</p>
-</blockquote>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/498425043">PyTorch 转 ONNX 详解</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+<h3 id="t2-完善项目并安装"><a href="#t2-完善项目并安装" class="headerlink" title="t2 完善项目并安装"></a>t2 <a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/better-hello-world.md">完善项目并安装</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在CMakeLists中加入</span></span><br><span class="line">ADD_SUBDIRECTORY(src bin) <span class="comment">#把src子目录加入工程，编译输出路径为bin</span></span><br><span class="line">INSTALL(FILES COPYRIGHT README DESTINATION doc)</span><br><span class="line">INSTALL(PROGRAMS runhello.sh DESTINATION bin)</span><br><span class="line">INSTALL(DIRECTORY doc/ DESTINATION doc) <span class="comment">#不同的安装类型</span></span><br><span class="line"><span class="comment">#在 src的 CMakeLists.txt中添加，以安装hello到bin中</span></span><br><span class="line">INSTALL(TARGETS hello RUNTIME DESTINATION bin) </span><br><span class="line"></span><br><span class="line"><span class="comment">#Install</span></span><br><span class="line">cmake -DCMAKE_INSTALL_PREFIX=tmp ..</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="t3-lib静态库和动态库构建"><a href="#t3-lib静态库和动态库构建" class="headerlink" title="t3 lib静态库和动态库构建"></a>t3 <a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/static-and-dynamic.md">lib静态库和动态库构建</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SET(LIBHELLO_SRC hello.c)</span><br><span class="line">ADD_LIBRARY(hello SHARED <span class="variable">$&#123;LIBHELLO_SRC&#125;</span>)   <span class="comment">#SHARED动态库（.so）</span></span><br><span class="line">ADD_LIBRARY(hello_static STATIC <span class="variable">$&#123;LIBHELLO_SRC&#125;</span>)    <span class="comment">#STATIC静态库(.a) </span></span><br><span class="line">SET_TARGET_PROPERTIES(hello_static PROPERTIES OUTPUT_NAME <span class="string">&quot;hello&quot;</span>)  <span class="comment">#设置静态库名称，以得到名字相同的.so .a</span></span><br><span class="line">SET_TARGET_PROPERTIES(hello PROPERTIES VERSION 1.2 SOVERSION 1) <span class="comment">#动态库版本号 </span></span><br><span class="line">INSTALL(TARGETS hello hello_static LIBRARY DESTINATION lib ARCHIVE DESTINATION lib) <span class="comment">#关键字ARCHIVE 特指静态库，LIBRARY 特指动态库，RUNTIME 特指可执行目标二进制</span></span><br><span class="line">INSTALL(FILES hello.h DESTINATION include/hello)</span><br></pre></td></tr></table></figure>
+<p>静态库.a（Static Library），所有函数和数据都在编译时被静态链接到可执行文件中。文件较大，但不容易受到环境变量和库版本变化的影响，能够提供更好的性能和稳定性。<br>动态库.so（Dynamic Library）（共享库），在程序运行时才被加载到内存中，而不是在程序编译时被静态链接到可执行文件中，每个动态库只需要一个副本，可以供多个程序使用，因此可以减小可执行文件的大小，减少内存占用，并且如果库文件更新，则只需要替换动态库文件即可，但由于需要在运行时加载库文件，因此可能会稍微降低程序的启动和运行速度。</p>
+<h3 id="t4-使用外部共享库和头文件"><a href="#t4-使用外部共享库和头文件" class="headerlink" title="t4 使用外部共享库和头文件"></a>t4 <a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/the-use-of-lib-and-header-file.md">使用外部共享库和头文件</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在src/CMakeLists.txt中添加头文件.h搜索路径</span></span><br><span class="line">INCLUDE_DIRECTORIES(XXX/include/hello)</span><br><span class="line">TARGET_LINK_LIBRARIES(main XXX/lib/libhello.so) <span class="comment">#添加共享库链接</span></span><br><span class="line"><span class="comment">#若要链接静态库：TARGET_LINK_LIBRARIES(main XXX/lib/libhello.a)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#运行ldd查看链接情况</span></span><br><span class="line">ldd src/main</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改环境变量，在bash中运行：</span></span><br><span class="line"><span class="built_in">export</span> CMAKE_INCLUDE_PATH=XXX/include/hello <span class="comment">#然后利用FIND_PATH相关指令替换INCLUDE_DIRECTORIES</span></span><br></pre></td></tr></table></figure>
+<h3 id="常用变量与环境变量"><a href="#常用变量与环境变量" class="headerlink" title="常用变量与环境变量"></a><a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/common-var.md">常用变量与环境变量</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常用变量</span></span><br><span class="line">CMAKE_BINARY_DIR    <span class="comment">#如果是 in source 编译，指工程顶层目录，如果是 out-of-source 编译，指工程编译发生的目录,还有PROJECT_BINARY_DIR，&lt;projectname&gt;_BINARY_DIR</span></span><br><span class="line">CMAKE_SOURCE_DIR    <span class="comment">#工程顶层目录，PROJECT_SOURCE_DIR，&lt;projectname&gt;_SOURCE_DIR</span></span><br><span class="line">CMAKE_CURRENT_SOURCE_DIR    <span class="comment">#当前处理的 CMakeLists.txt 所在的路径</span></span><br><span class="line">CMAKE_CURRRENT_BINARY_DIR   <span class="comment">#若是 in-source 编译，同上一致，对out-ofsource 编译，他指的是 target 编译目录。</span></span><br><span class="line">CMAKE_CURRENT_LIST_FILE <span class="comment">#输出调用这个变量的 CMakeLists.txt 的完整路径</span></span><br><span class="line">CMAKE_CURRENT_LIST_LINE <span class="comment">#输出这个变量所在的行</span></span><br><span class="line">CMAKE_MODULE_PATH   <span class="comment">#定义自己的 cmake 模块所在的路径</span></span><br><span class="line">EXECUTABLE_OUTPUT_PATH，LIBRARY_OUTPUT_PATH <span class="comment">#分别用来重新定义最终结果的存放目录，如SET(EXECUTABLE_OUTPUT_PATH $&#123;PROJECT_BINARY_DIR&#125;/bin)</span></span><br><span class="line">PROJECT_NAME    <span class="comment">#返回通过 PROJECT 指令定义的项目名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#环境变量，使用$ENV&#123;NAME&#125; 调用系统环境变量</span></span><br><span class="line">SET(ENV&#123;变量名&#125; 值) <span class="comment">#设置环境变量</span></span><br><span class="line">    CMAKE_INCLUDE_CURRENT_DIR</span><br><span class="line">    CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE</span><br><span class="line">    CMAKE_INCLUDE_PATH，CMAKE_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
+
+<h3 id="cmake常用指令"><a href="#cmake常用指令" class="headerlink" title="cmake常用指令"></a><a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/common-directives.md">cmake常用指令</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">make VERBOSE=1  <span class="comment">#查看make过程</span></span><br><span class="line">make clean  <span class="comment">#清理工程</span></span><br></pre></td></tr></table></figure>
+<h3 id="t5-t6-模块"><a href="#t5-t6-模块" class="headerlink" title="t5,t6 模块"></a><a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/module.md">t5,t6 模块</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统预定义的模块</span></span><br><span class="line">FIND_PACKAGE(CURL)  <span class="comment">#FindCURL模块</span></span><br><span class="line">IF(CURL_FOUND)  <span class="comment">#判断模块是否被找到</span></span><br><span class="line">   INCLUDE_DIRECTORIES(<span class="variable">$&#123;CURL_INCLUDE_DIR&#125;</span>)</span><br><span class="line">   TARGET_LINK_LIBRARIES(curltest <span class="variable">$&#123;CURL_LIBRARY&#125;</span>)</span><br><span class="line">ELSE(CURL_FOUND)</span><br><span class="line">     MESSAGE(FATAL_ERROR ”CURL library not found”)</span><br><span class="line">ENDIF(CURL_FOUND)</span><br><span class="line"></span><br><span class="line"><span class="comment">#自定义FindHELLO模块</span></span><br><span class="line">FIND_PATH(HELLO_INCLUDE_DIR hello.h /usr/include/hello /usr/local/include/hello)    <span class="comment"># 在指定目录中搜索hello.h文件</span></span><br><span class="line">FIND_LIBRARY(HELLO_LIBRARY NAMES hello PATH /usr/lib /usr/local/lib)    <span class="comment"># 在指定目录中搜索名为hello的库文件</span></span><br><span class="line">IF(HELLO_INCLUDE_DIR AND HELLO_LIBRARY) <span class="comment"># 如果找到了头文件和库，则标记为HELLO_FOUND</span></span><br><span class="line">   SET(HELLO_FOUND TRUE)</span><br><span class="line">ENDIF(HELLO_INCLUDE_DIR AND HELLO_LIBRARY)</span><br><span class="line">IF(HELLO_FOUND) <span class="comment"># 如果找到了头文件和库，则输出一个消息</span></span><br><span class="line">   IF(NOT HELLO_FIND_QUIETLY)   <span class="comment">#如果没有被标记为“安静模式”，则输出</span></span><br><span class="line">       MESSAGE(STATUS <span class="string">&quot;Found Hello: <span class="variable">$&#123;HELLO_LIBRARY&#125;</span>&quot;</span>)</span><br><span class="line">   ENDIF(NOT HELLO_FIND_QUIETLY)</span><br><span class="line">ELSE(HELLO_FOUND)   <span class="comment"># 如果没有找到，并且被标记为必需，则输出错误信息</span></span><br><span class="line">   IF(HELLO_FIND_REQUIRED)  <span class="comment">#如果被标记为“必需”，则输出致命错误消息</span></span><br><span class="line">      MESSAGE(FATAL_ERROR <span class="string">&quot;Could not find hello library&quot;</span>)</span><br><span class="line">   ENDIF(HELLO_FIND_REQUIRED)</span><br><span class="line">ENDIF(HELLO_FOUND)</span><br></pre></td></tr></table></figure>
+<h2 id="Cmake-Opencv-Demo"><a href="#Cmake-Opencv-Demo" class="headerlink" title="Cmake Opencv Demo"></a>Cmake Opencv Demo</h2><p><strong>1.安装OpenCV</strong></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/opencv/</span>opencv.git</span><br><span class="line">cd opencv</span><br><span class="line"><span class="comment">#cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..   #cmake把opencv的一些库和可执行文件安装到系统目录下 需要权限</span></span><br><span class="line">cmake -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/opencv .. <span class="comment">#本地安装无需权限</span></span><br><span class="line">make -j8 <span class="comment">#使用8个线程进行编译,否则很久</span></span><br><span class="line">make install   <span class="comment">#安装库文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置OpenCV环境变量</span></span><br><span class="line">export LD_LIBRARY_PATH=<span class="regexp">/home/y</span>wang85<span class="regexp">/opencv/</span>lib:<span class="variable">$LD_LIBRARY_PATH</span>  <span class="comment">#链接库文件</span></span><br><span class="line">export PKG_CONFIG_PATH=<span class="regexp">/home/y</span>wang85<span class="regexp">/opencv/</span>lib<span class="regexp">/cmake/</span>opencv4/:<span class="variable">$PKG_CONFIG_PATH</span>  <span class="comment">#链接配置文件</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.写主程序</strong></p>
+<details>
+  <summary>边缘提取程序</summary>
+
+<pre><code>  #include &lt;opencv2/core/core.hpp&gt;
+  #include &lt;opencv2/imgproc/imgproc.hpp&gt;
+  #include &lt;opencv2/highgui/highgui.hpp&gt;
+  #include &lt;math.h&gt;
+  #include &lt;iostream&gt;
+  using namespace cv;
+  using namespace std;
+  
+  int threshold_value = 100, threshold_max = 255;
+  int threshold_type = 0, threshold_type_max = 4;
+  string outwindow = &quot;threshold img&quot;;
+  Mat src, dst;
+  int main()&#123;
+     Mat src1;
+     src1 = imread(&quot;1.jpg&quot;);
+     resize(src1, src, Size(src1.cols, src1.rows)); 
+     //resize(src1, src, Size(src1.cols/2, src1.rows/2)); //缩小一半
+     if (!src.data)&#123;
+        printf(&quot;cannot load image ...&quot;);
+        return -1;
+     &#125;
+     Mat src_gray;
+     cvtColor(src, src_gray, COLOR_BGR2GRAY);
+     Canny(src_gray, dst, 100, 200);//canny边缘检测算子
+     imwrite(&quot;canny.jpg&quot;, dst);
+     imwrite(&quot;canny2.jpg&quot;, ~dst); //dst按照像素值取反
+     return 0;
+  &#125;
+</code></pre>
+</details>
+使用OpenCV的canny算子检测边缘
+
+<p><strong>3.写CMake</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION <span class="number">2.8</span>)</span><br><span class="line">project(EDGE)</span><br><span class="line"><span class="built_in">set</span>(OpenCV_DIR <span class="string">&quot;$&#123;CMAKE_SOURCE_DIR&#125;/opencv/lib/cmake/opencv4/&quot;</span>) #设置 OpenCV 的 CMake 路径</span><br><span class="line">find_package(OpenCV REQUIRED)</span><br><span class="line">add_executable(EDGE main.cpp)</span><br><span class="line">target_include_directories(EDGE PUBLIC $&#123;OpenCV_INCLUDE_DIRS&#125;)  #头文件路径添加到编译器的include路径中</span><br><span class="line">target_link_libraries(EDGE PUBLIC $&#123;OpenCV_LIBS&#125;)   #链接OpenCV库</span><br><span class="line">#需要注意opencv库的链接</span><br></pre></td></tr></table></figure>
+<p><strong>4.编译运行</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">mkdir build &amp;&amp; cd build</span><br><span class="line">cmake ..</span><br><span class="line">make  #生成可执行文件</span><br><span class="line">./EDGE   #运行边缘提取执行文件</span><br></pre></td></tr></table></figure>
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Cedge.png" width="50%">
+
+<h2 id="gcc-x2F-g-MinGW-x2F-MSVC与make-x2F-CMake-x2F-qmake"><a href="#gcc-x2F-g-MinGW-x2F-MSVC与make-x2F-CMake-x2F-qmake" class="headerlink" title="gcc&#x2F;g++,MinGW&#x2F;MSVC与make&#x2F;CMake&#x2F;qmake"></a>gcc&#x2F;g++,MinGW&#x2F;MSVC与make&#x2F;CMake&#x2F;qmake</h2><p><strong>GNU</strong>&#x2F;Linux：简称Linux，包括Ubuntu，Debian，CentOS，自带gcc；<br><strong>gcc&#x2F;g++</strong> ：GNU编译器套件（GNU Compiler Collection）,在<em>Linux</em>或MacOS上使用，gcc主要用于C语言,g++支持更多的C++特性。</p>
+<p><strong>MinGW</strong>(Minimalist GNUfor Windows)，是<em>Windows</em>下运行的GNU环境，包含gcc和一系列工具，让开发者在Windows下可以写GNU的c&#x2F;c++代码, 编译的结果是windows的可执行文件exe；<br><strong>MSVC</strong>:微软开发的C&#x2F;C++编译器，在<em>Windows</em>下编译C&#x2F;C++程序。它被集成在Visual Studio IDE中。</p>
+<p><strong>Makefile</strong>包含了描述如何编译和链接程序的规则和指令,指定哪些文件需要先编译，后编译以及重新编译，甚至更复杂的功能操作,通常被用于自动化构建C&#x2F;C++项目;<br><strong>Make</strong>是一个自动化构建工具，执行Make命令时，它会读取Makefile中的规则，并根据依赖项关系来判断哪些规则需要被执行，来实现编译、链接等操作。<br><strong>CMake</strong>是一个跨平台的自动化构建工具，与Make类似，但是它不直接构建项目，而是生成适合不同构建系统的配置文件，如Makefile或Visual Studio的.sln文件，并调用相应的构建系统来进行项目构建。<br><strong>qmake</strong>是Qt框架提供的自动化构建工具，用于构建Qt项目。</p>
+]]></content>
       <tags>
-        <tag>嵌入式</tag>
-        <tag>深度学习</tag>
+        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -81,7 +134,7 @@ A-->E[C.定义]</pre>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#x61;&#112;&#64;&#x30;&#x2e;&#x35;">&#109;&#x61;&#112;&#64;&#x30;&#x2e;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#x61;&#x70;&#64;&#48;&#46;&#53;">&#x6d;&#x61;&#x70;&#64;&#48;&#46;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -100,56 +153,27 @@ A-->E[C.定义]</pre>
       </tags>
   </entry>
   <entry>
-    <title>Linux：Ubuntu，Git，Docker</title>
-    <url>/2022/11/28/Linux/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br></pre></td></tr></table></figure>
-<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> + <a href="http://releases.ubuntu.com/20.04/">Ubuntu 20.04</a>, 或<a href="https://releases.ubuntu.com/bionic/">18.04</a>（速度慢则换<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/20.04/">镜像源</a>）</p>
-<blockquote>
-<p>新建 &gt; 导入.iso镜像 &gt; 配置（分4G内存,100G硬盘）<br>设置 &gt; 共享文件夹 &gt; 添加（自动挂载，固定分配）<br>设置 &gt; 共享粘贴板、拖放 &gt; 双向<br>挂载U盘：USB &gt; USB设置 &gt; 添加一个USB &gt; 在ubuntu设备中勾选</p>
-</blockquote>
-<p>Host 键:右ctrl，方向键上：获取上次的命令，Tab：自动补全<br><code>Ctrl + alt + T</code>	Terminal<br><code>Ctrl + H</code>	显示隐藏文件   </p>
-<h2 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a>VScode</h2><p>vscode远程访问：1.安装remote插件 2.连接服务器<code>ssh ywang85@she1-w50502</code> 3.connect，打开terminal</p>
-<p>上传文件：vscode直接拖拽到目录<br>下载文件：右键download</p>
-<p>vscode插件离线安装：如装python插件，直接进<a href="https://marketplace.visualstudio.com/vscode"> marketplace </a>下好拖到扩展位置</p>
-<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
-<li>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code></li>
-<li>共享文件夹ubuntu中不显示 &gt; 重新安装VMware tools</li>
-<li><code>sudo apt-get install</code> failed &gt; 换源</li>
-<li>若打不开终端：系统设置修改语言后重新登陆</li>
+    <title>DL模型转换及部署</title>
+    <url>/2023/06/09/DLdeploy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
+<ul>
+<li><p>Network selection：</p>
+</li>
+<li><p>Optimization：分组卷积、深度可分离卷积、稀疏卷积<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[适用于嵌入式应用的深度学习推理参考设计](https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf)">[1]</span></a></sup></p>
+</li>
+<li><p>Deployment：</p>
+<img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
 </ul>
-<p> </p>
-<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><p>下载 <a href="https://git-scm.com/downloads">Git</a>，与 <a href="https://tortoisegit.org/download/">TortoiseGit</a> 小乌龟配合使用可以少记很多指令，在目标文件夹右键可执行push、clone、commit等操作</p>
-<h2 id="主要指令"><a href="#主要指令" class="headerlink" title="主要指令"></a>主要指令</h2><ol>
-<li><code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地</li>
-<li><code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上</li>
-<li>修改或者添加本地代码（部署在硬盘的源文件上）</li>
-<li><code>git diff</code> 查看自己对代码做出的改变</li>
-<li><code>git add</code> 上传更新后的代码至暂存区</li>
-<li><code>git commit</code> 可以将暂存区里更新后的代码更新到本地git</li>
-<li><code>git push origin xxx</code> 将本地的xxxgit分支上传至github上的git</li>
-</ol>
-<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变</p>
-<ol>
-<li><code>git checkout main</code> 切换回main分支</li>
-<li><code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地</li>
-<li><code>git checkout xxx</code> 回到xxx分支</li>
-<li><code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict –&gt; 手动选择保留哪段代码）</li>
-<li><code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上<br>（-f –&gt; 强行）</li>
-<li>原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</li>
-</ol>
-<p>远端完成更新后</p>
-<ol>
-<li><code>git branch -d xxx</code> 删除本地的git分支</li>
-<li><code>git pull origin master</code> 再把远端的最新代码拉至本地</li>
-</ol>
-<p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
-<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
-<p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
-<h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
+<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a><a href="https://onnx.ai/">ONNX</a></h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁 <a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a>，</p>
+<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
+<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PyTorch 转 ONNX 详解](https://zhuanlan.zhihu.com/p/498425043)">[2]</span></a></sup>：</p>
+<blockquote>
+<p>算子在 PyTorch 中有实现<br>有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>ONNX 有相应的算子</p>
+</blockquote>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/498425043">PyTorch 转 ONNX 详解</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
       <tags>
-        <tag>Linux</tag>
+        <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -227,77 +251,6 @@ A-->E[C.定义]</pre>
 <a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
       <tags>
         <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C, C++, Cmake</title>
-    <url>/2023/05/16/C,C++/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h2 id="基于VScode用cmake搭建C-编译调试环境"><a href="#基于VScode用cmake搭建C-编译调试环境" class="headerlink" title="基于VScode用cmake搭建C++编译调试环境"></a>基于VScode用cmake搭建C++编译调试环境</h2><ol>
-<li>安装VScode插件：C&#x2F;C++，cmake，cmake tools</li>
-<li>按F1，选择cmake:Quick Start,创建一个cmake工程</li>
-<li>点击左侧栏的CMake工具按钮,右键可执行文件，选择Debug,进入调试界面</li>
-</ol>
-<h1 id="Cmake"><a href="#Cmake" class="headerlink" title="Cmake"></a>Cmake</h1><p><a href="www.cmake.org">CMake</a> 是一个跨平台的开源构建管理系统，用于自动化应用程序的构建、测试和打包过程。它使用类似于Makefile的文本文件来描述构建过程中所需的所有组件和依赖项，并将其转换为适合各种不同编译器和操作系统的本地构建系统的配置文件。总之，CMake就是一个将多个cpp,hpp文件组合构建为一个大工程的语言。<br><a href="https://cmake.org/download/">CMake下载</a> (Linux无需下载)<br><a href="https://github.com/gavinliu6/CMake-Practice-zh-CN">Cmake 实践</a> 在实践中上手的教程<br><a href="https://github.com/SFUMECJF/cmake-examples-Chinese">cmake-examples-Chinese</a> 例程</p>
-<h2 id="Cmake-实践"><a href="#Cmake-实践" class="headerlink" title="Cmake 实践"></a><a href="https://gavinliu6.github.io/CMake-Practice-zh-CN/#/">Cmake 实践</a></h2><h3 id="t1-创建Hello-world"><a href="#t1-创建Hello-world" class="headerlink" title="t1 创建Hello world"></a>t1 <a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/hello-world.md">创建Hello world</a></h3><p>建立main.c与CMakeLists.txt并编译（需要为每一个子目录建立一个CMakeLists.txt）</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PROJECT (HELLO)     <span class="comment">#PROJECT(projectname [CXX] [C] [Java])</span></span><br><span class="line">SET(SRC_LIST main.c)    <span class="comment">#提供要编译的源代码文件列表，可定义多个源文件main.c 1.c</span></span><br><span class="line">MESSAGE([SEND_ERROR|STATUS|FATAL_ERROR] <span class="string">&quot;message to display&quot;</span>)</span><br><span class="line">ADD_EXECUTABLE(hello <span class="variable">$&#123;SRC_LIST&#125;</span>)   <span class="comment">#创建名为hello的可执行文件，IF不用$&#123;&#125;引用变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#内部编译(在文件夹中产生文件太多)</span></span><br><span class="line">cmake . <span class="comment">#构建工程，生成makefile</span></span><br><span class="line">make    <span class="comment">#构建目标文件hello二进制</span></span><br><span class="line">./hello <span class="comment">#运行目标文件</span></span><br><span class="line"><span class="comment">#外部编译(out of source build,推荐)</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build <span class="comment">#新建并进入build文件夹</span></span><br><span class="line">cmake ..    <span class="comment">#在父目录找到cmakelists构建工程</span></span><br><span class="line">make    <span class="comment">#在build编译目录中获得目标文件，不影响原有工程</span></span><br></pre></td></tr></table></figure>
-<p>目标文件:在linux下，是ELF格式（Executable Linkable Format，可执行可链接格式），而在windows下是PE（Portable Executable，可移植可执行）。通常有三种形式：</p>
-<ul>
-<li>可执行目标文件。即我们通常所认识的，可直接运行的二进制文件。</li>
-<li>可重定位目标文件。包含了二进制的代码和数据，可以与其他可重定位目标文件合并，并创建一个可执行目标文件。</li>
-<li>共享目标文件。它是一种在加载或者运行时进行链接的特殊可重定位目标文件。</li>
-</ul>
-<h3 id="t2-完善项目并安装"><a href="#t2-完善项目并安装" class="headerlink" title="t2 完善项目并安装"></a>t2 <a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/better-hello-world.md">完善项目并安装</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在CMakeLists中加入</span></span><br><span class="line">ADD_SUBDIRECTORY(src bin) <span class="comment">#把src子目录加入工程，编译输出路径为bin</span></span><br><span class="line">INSTALL(FILES COPYRIGHT README DESTINATION doc)</span><br><span class="line">INSTALL(PROGRAMS runhello.sh DESTINATION bin)</span><br><span class="line">INSTALL(DIRECTORY doc/ DESTINATION doc) <span class="comment">#不同的安装类型</span></span><br><span class="line"><span class="comment">#在 src的 CMakeLists.txt中添加，以安装hello到bin中</span></span><br><span class="line">INSTALL(TARGETS hello RUNTIME DESTINATION bin) </span><br><span class="line"></span><br><span class="line"><span class="comment">#Install</span></span><br><span class="line">cmake -DCMAKE_INSTALL_PREFIX=tmp ..</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<h3 id="t3-lib静态库和动态库构建"><a href="#t3-lib静态库和动态库构建" class="headerlink" title="t3 lib静态库和动态库构建"></a>t3 <a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/static-and-dynamic.md">lib静态库和动态库构建</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SET(LIBHELLO_SRC hello.c)</span><br><span class="line">ADD_LIBRARY(hello SHARED <span class="variable">$&#123;LIBHELLO_SRC&#125;</span>)   <span class="comment">#SHARED动态库（.so）</span></span><br><span class="line">ADD_LIBRARY(hello_static STATIC <span class="variable">$&#123;LIBHELLO_SRC&#125;</span>)    <span class="comment">#STATIC静态库(.a) </span></span><br><span class="line">SET_TARGET_PROPERTIES(hello_static PROPERTIES OUTPUT_NAME <span class="string">&quot;hello&quot;</span>)  <span class="comment">#设置静态库名称，以得到名字相同的.so .a</span></span><br><span class="line">SET_TARGET_PROPERTIES(hello PROPERTIES VERSION 1.2 SOVERSION 1) <span class="comment">#动态库版本号 </span></span><br><span class="line">INSTALL(TARGETS hello hello_static LIBRARY DESTINATION lib ARCHIVE DESTINATION lib) <span class="comment">#关键字ARCHIVE 特指静态库，LIBRARY 特指动态库，RUNTIME 特指可执行目标二进制</span></span><br><span class="line">INSTALL(FILES hello.h DESTINATION include/hello)</span><br></pre></td></tr></table></figure>
-<p>静态库.a（Static Library），所有函数和数据都在编译时被静态链接到可执行文件中。文件较大，但不容易受到环境变量和库版本变化的影响，能够提供更好的性能和稳定性。<br>动态库.so（Dynamic Library）（共享库），在程序运行时才被加载到内存中，而不是在程序编译时被静态链接到可执行文件中，每个动态库只需要一个副本，可以供多个程序使用，因此可以减小可执行文件的大小，减少内存占用，并且如果库文件更新，则只需要替换动态库文件即可，但由于需要在运行时加载库文件，因此可能会稍微降低程序的启动和运行速度。</p>
-<h3 id="t4-使用外部共享库和头文件"><a href="#t4-使用外部共享库和头文件" class="headerlink" title="t4 使用外部共享库和头文件"></a>t4 <a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/the-use-of-lib-and-header-file.md">使用外部共享库和头文件</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在src/CMakeLists.txt中添加头文件.h搜索路径</span></span><br><span class="line">INCLUDE_DIRECTORIES(XXX/include/hello)</span><br><span class="line">TARGET_LINK_LIBRARIES(main XXX/lib/libhello.so) <span class="comment">#添加共享库链接</span></span><br><span class="line"><span class="comment">#若要链接静态库：TARGET_LINK_LIBRARIES(main XXX/lib/libhello.a)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#运行ldd查看链接情况</span></span><br><span class="line">ldd src/main</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改环境变量，在bash中运行：</span></span><br><span class="line"><span class="built_in">export</span> CMAKE_INCLUDE_PATH=XXX/include/hello <span class="comment">#然后利用FIND_PATH相关指令替换INCLUDE_DIRECTORIES</span></span><br></pre></td></tr></table></figure>
-<h3 id="常用变量与环境变量"><a href="#常用变量与环境变量" class="headerlink" title="常用变量与环境变量"></a><a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/common-var.md">常用变量与环境变量</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常用变量</span></span><br><span class="line">CMAKE_BINARY_DIR    <span class="comment">#如果是 in source 编译，指工程顶层目录，如果是 out-of-source 编译，指工程编译发生的目录,还有PROJECT_BINARY_DIR，&lt;projectname&gt;_BINARY_DIR</span></span><br><span class="line">CMAKE_SOURCE_DIR    <span class="comment">#工程顶层目录，PROJECT_SOURCE_DIR，&lt;projectname&gt;_SOURCE_DIR</span></span><br><span class="line">CMAKE_CURRENT_SOURCE_DIR    <span class="comment">#当前处理的 CMakeLists.txt 所在的路径</span></span><br><span class="line">CMAKE_CURRRENT_BINARY_DIR   <span class="comment">#若是 in-source 编译，同上一致，对out-ofsource 编译，他指的是 target 编译目录。</span></span><br><span class="line">CMAKE_CURRENT_LIST_FILE <span class="comment">#输出调用这个变量的 CMakeLists.txt 的完整路径</span></span><br><span class="line">CMAKE_CURRENT_LIST_LINE <span class="comment">#输出这个变量所在的行</span></span><br><span class="line">CMAKE_MODULE_PATH   <span class="comment">#定义自己的 cmake 模块所在的路径</span></span><br><span class="line">EXECUTABLE_OUTPUT_PATH，LIBRARY_OUTPUT_PATH <span class="comment">#分别用来重新定义最终结果的存放目录，如SET(EXECUTABLE_OUTPUT_PATH $&#123;PROJECT_BINARY_DIR&#125;/bin)</span></span><br><span class="line">PROJECT_NAME    <span class="comment">#返回通过 PROJECT 指令定义的项目名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#环境变量，使用$ENV&#123;NAME&#125; 调用系统环境变量</span></span><br><span class="line">SET(ENV&#123;变量名&#125; 值) <span class="comment">#设置环境变量</span></span><br><span class="line">    CMAKE_INCLUDE_CURRENT_DIR</span><br><span class="line">    CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE</span><br><span class="line">    CMAKE_INCLUDE_PATH，CMAKE_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
-
-<h3 id="cmake常用指令"><a href="#cmake常用指令" class="headerlink" title="cmake常用指令"></a><a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/common-directives.md">cmake常用指令</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">make VERBOSE=1  <span class="comment">#查看make过程</span></span><br><span class="line">make clean  <span class="comment">#清理工程</span></span><br></pre></td></tr></table></figure>
-<h3 id="t5-t6-模块"><a href="#t5-t6-模块" class="headerlink" title="t5,t6 模块"></a><a href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/module.md">t5,t6 模块</a></h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统预定义的模块</span></span><br><span class="line">FIND_PACKAGE(CURL)  <span class="comment">#FindCURL模块</span></span><br><span class="line">IF(CURL_FOUND)  <span class="comment">#判断模块是否被找到</span></span><br><span class="line">   INCLUDE_DIRECTORIES(<span class="variable">$&#123;CURL_INCLUDE_DIR&#125;</span>)</span><br><span class="line">   TARGET_LINK_LIBRARIES(curltest <span class="variable">$&#123;CURL_LIBRARY&#125;</span>)</span><br><span class="line">ELSE(CURL_FOUND)</span><br><span class="line">     MESSAGE(FATAL_ERROR ”CURL library not found”)</span><br><span class="line">ENDIF(CURL_FOUND)</span><br><span class="line"></span><br><span class="line"><span class="comment">#自定义FindHELLO模块</span></span><br><span class="line">FIND_PATH(HELLO_INCLUDE_DIR hello.h /usr/include/hello /usr/local/include/hello)    <span class="comment"># 在指定目录中搜索hello.h文件</span></span><br><span class="line">FIND_LIBRARY(HELLO_LIBRARY NAMES hello PATH /usr/lib /usr/local/lib)    <span class="comment"># 在指定目录中搜索名为hello的库文件</span></span><br><span class="line">IF(HELLO_INCLUDE_DIR AND HELLO_LIBRARY) <span class="comment"># 如果找到了头文件和库，则标记为HELLO_FOUND</span></span><br><span class="line">   SET(HELLO_FOUND TRUE)</span><br><span class="line">ENDIF(HELLO_INCLUDE_DIR AND HELLO_LIBRARY)</span><br><span class="line">IF(HELLO_FOUND) <span class="comment"># 如果找到了头文件和库，则输出一个消息</span></span><br><span class="line">   IF(NOT HELLO_FIND_QUIETLY)   <span class="comment">#如果没有被标记为“安静模式”，则输出</span></span><br><span class="line">       MESSAGE(STATUS <span class="string">&quot;Found Hello: <span class="variable">$&#123;HELLO_LIBRARY&#125;</span>&quot;</span>)</span><br><span class="line">   ENDIF(NOT HELLO_FIND_QUIETLY)</span><br><span class="line">ELSE(HELLO_FOUND)   <span class="comment"># 如果没有找到，并且被标记为必需，则输出错误信息</span></span><br><span class="line">   IF(HELLO_FIND_REQUIRED)  <span class="comment">#如果被标记为“必需”，则输出致命错误消息</span></span><br><span class="line">      MESSAGE(FATAL_ERROR <span class="string">&quot;Could not find hello library&quot;</span>)</span><br><span class="line">   ENDIF(HELLO_FIND_REQUIRED)</span><br><span class="line">ENDIF(HELLO_FOUND)</span><br></pre></td></tr></table></figure>
-<h2 id="Cmake-Opencv-Demo"><a href="#Cmake-Opencv-Demo" class="headerlink" title="Cmake Opencv Demo"></a>Cmake Opencv Demo</h2><h3 id="安装OpenCV"><a href="#安装OpenCV" class="headerlink" title="安装OpenCV"></a>安装OpenCV</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/opencv/</span>opencv.git</span><br><span class="line">cd opencv</span><br><span class="line"><span class="comment">#cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..   #cmake把opencv的一些库和可执行文件安装到系统目录下 需要权限</span></span><br><span class="line">cmake -DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/opencv .. <span class="comment">#本地安装无需权限</span></span><br><span class="line">make -j8 <span class="comment">#使用8个线程进行编译,否则很久</span></span><br><span class="line">make install   <span class="comment">#安装库文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置OpenCV环境变量</span></span><br><span class="line">export LD_LIBRARY_PATH=<span class="regexp">/home/y</span>wang85<span class="regexp">/opencv/</span>lib:<span class="variable">$LD_LIBRARY_PATH</span>  <span class="comment">#链接库文件</span></span><br><span class="line">export PKG_CONFIG_PATH=<span class="regexp">/home/y</span>wang85<span class="regexp">/opencv/</span>lib<span class="regexp">/cmake/</span>opencv4/:<span class="variable">$PKG_CONFIG_PATH</span>  <span class="comment">#链接配置文件</span></span><br></pre></td></tr></table></figure>
-<h3 id="写主程序"><a href="#写主程序" class="headerlink" title="写主程序"></a>写主程序</h3><details>
-  <summary>边缘提取程序</summary>
-
-<pre><code>  #include &lt;opencv2/core/core.hpp&gt;
-  #include &lt;opencv2/imgproc/imgproc.hpp&gt;
-  #include &lt;opencv2/highgui/highgui.hpp&gt;
-  #include &lt;math.h&gt;
-  #include &lt;iostream&gt;
-  using namespace cv;
-  using namespace std;
-  
-  int threshold_value = 100, threshold_max = 255;
-  int threshold_type = 0, threshold_type_max = 4;
-  string outwindow = &quot;threshold img&quot;;
-  Mat src, dst;
-  int main()&#123;
-     Mat src1;
-     src1 = imread(&quot;1.jpg&quot;);
-     resize(src1, src, Size(src1.cols, src1.rows)); 
-     //resize(src1, src, Size(src1.cols/2, src1.rows/2)); //缩小一半
-     if (!src.data)&#123;
-        printf(&quot;cannot load image ...&quot;);
-        return -1;
-     &#125;
-     Mat src_gray;
-     cvtColor(src, src_gray, COLOR_BGR2GRAY);
-     Canny(src_gray, dst, 100, 200);//canny边缘检测算子
-     imwrite(&quot;canny.jpg&quot;, dst);
-     imwrite(&quot;canny2.jpg&quot;, ~dst); //dst按照像素值取反
-     return 0;
-  &#125;
-</code></pre>
-</details>
-使用OpenCV的canny算子检测边缘
-
-<h3 id="写CMake"><a href="#写CMake" class="headerlink" title="写CMake"></a>写CMake</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">cmake_minimum_required</span><span class="params">(VERSION <span class="number">2.8</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">project</span><span class="params">(EDGE)</span></span></span><br><span class="line"><span class="function"><span class="title">set</span><span class="params">(OpenCV_DIR <span class="string">&quot;$&#123;CMAKE_SOURCE_DIR&#125;/opencv/lib/cmake/opencv4/&quot;</span>)</span></span> #设置 OpenCV 的 CMake 路径</span><br><span class="line"><span class="function"><span class="title">find_package</span><span class="params">(OpenCV REQUIRED)</span></span></span><br><span class="line"><span class="function"><span class="title">add_executable</span><span class="params">(EDGE main.cpp)</span></span></span><br><span class="line"><span class="function"><span class="title">target_include_directories</span><span class="params">(EDGE PUBLIC $&#123;OpenCV_INCLUDE_DIRS&#125;)</span></span>  #头文件路径添加到编译器的include路径中</span><br><span class="line"><span class="function"><span class="title">target_link_libraries</span><span class="params">(EDGE PUBLIC $&#123;OpenCV_LIBS&#125;)</span></span>   #链接OpenCV库</span><br></pre></td></tr></table></figure>
-
-<h2 id="gcc-x2F-g-MinGW-x2F-MSVC与make-x2F-CMake-x2F-qmake"><a href="#gcc-x2F-g-MinGW-x2F-MSVC与make-x2F-CMake-x2F-qmake" class="headerlink" title="gcc&#x2F;g++,MinGW&#x2F;MSVC与make&#x2F;CMake&#x2F;qmake"></a>gcc&#x2F;g++,MinGW&#x2F;MSVC与make&#x2F;CMake&#x2F;qmake</h2><p><strong>GNU</strong>&#x2F;Linux：简称Linux，包括Ubuntu，Debian，CentOS，自带gcc；<br><strong>gcc&#x2F;g++</strong> ：GNU编译器套件（GNU Compiler Collection）,在<em>Linux</em>或MacOS上使用，gcc主要用于C语言,g++支持更多的C++特性。</p>
-<p><strong>MinGW</strong>(Minimalist GNUfor Windows)，是<em>Windows</em>下运行的GNU环境，包含gcc和一系列工具，让开发者在Windows下可以写GNU的c&#x2F;c++代码, 编译的结果是windows的可执行文件exe；<br><strong>MSVC</strong>:微软开发的C&#x2F;C++编译器，在<em>Windows</em>下编译C&#x2F;C++程序。它被集成在Visual Studio IDE中。</p>
-<p><strong>Makefile</strong>包含了描述如何编译和链接程序的规则和指令,指定哪些文件需要先编译，后编译以及重新编译，甚至更复杂的功能操作,通常被用于自动化构建C&#x2F;C++项目;<br><strong>Make</strong>是一个自动化构建工具，执行Make命令时，它会读取Makefile中的规则，并根据依赖项关系来判断哪些规则需要被执行，来实现编译、链接等操作。<br><strong>CMake</strong>是一个跨平台的自动化构建工具，与Make类似，但是它不直接构建项目，而是生成适合不同构建系统的配置文件，如Makefile或Visual Studio的.sln文件，并调用相应的构建系统来进行项目构建。<br><strong>qmake</strong>是Qt框架提供的自动化构建工具，用于构建Qt项目。</p>
-]]></content>
-      <tags>
-        <tag>C/C++</tag>
       </tags>
   </entry>
   <entry>
@@ -406,51 +359,56 @@ A-->E[C.定义]</pre>
       </tags>
   </entry>
   <entry>
-    <title>Project：多个项目汇总</title>
-    <url>/2023/02/15/Project/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
-<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
-<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
-<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
-<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
-<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
-<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
-<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
-<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
-<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
-<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
-<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
-<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
-<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
-<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
-<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
-<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
-<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
-<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
-<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
-<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
-<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
-<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
-<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
-<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
-<p>技术创新：</p>
+    <title>Linux：Ubuntu，Git，Docker</title>
+    <url>/2022/11/28/Linux/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br></pre></td></tr></table></figure>
+<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> + <a href="http://releases.ubuntu.com/20.04/">Ubuntu 20.04</a>, 或<a href="https://releases.ubuntu.com/bionic/">18.04</a>（速度慢则换<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/20.04/">镜像源</a>）</p>
 <blockquote>
-<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+<p>新建 &gt; 导入.iso镜像 &gt; 配置（分4G内存,100G硬盘）<br>设置 &gt; 共享文件夹 &gt; 添加（自动挂载，固定分配）<br>设置 &gt; 共享粘贴板、拖放 &gt; 双向<br>挂载U盘：USB &gt; USB设置 &gt; 添加一个USB &gt; 在ubuntu设备中勾选</p>
 </blockquote>
-<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
-<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
-<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
-<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
-<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
-]]></content>
+<p>Host 键:右ctrl，方向键上：获取上次的命令，Tab：自动补全<br><code>Ctrl + alt + T</code>	Terminal<br><code>Ctrl + H</code>	显示隐藏文件   </p>
+<h2 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a>VScode</h2><p>vscode远程访问：1.安装remote插件 2.连接服务器<code>ssh ywang85@she1-w50502</code> 3.connect，打开terminal</p>
+<p>上传文件：vscode直接拖拽到目录<br>下载文件：右键download</p>
+<p>vscode插件离线安装：如装python插件，直接进<a href="https://marketplace.visualstudio.com/vscode"> marketplace </a>下好拖到扩展位置</p>
+<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
+<li>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code></li>
+<li>共享文件夹ubuntu中不显示 &gt; 重新安装VMware tools</li>
+<li><code>sudo apt-get install</code> failed &gt; 换源</li>
+<li>若打不开终端：系统设置修改语言后重新登陆</li>
+</ul>
+<p> </p>
+<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><p>下载 <a href="https://git-scm.com/downloads">Git</a>，与 <a href="https://tortoisegit.org/download/">TortoiseGit</a> 小乌龟配合使用可以少记很多指令，在目标文件夹右键可执行push、clone、commit等操作</p>
+<h2 id="主要指令"><a href="#主要指令" class="headerlink" title="主要指令"></a>主要指令</h2><ol>
+<li><code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地</li>
+<li><code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上</li>
+<li>修改或者添加本地代码（部署在硬盘的源文件上）</li>
+<li><code>git diff</code> 查看自己对代码做出的改变</li>
+<li><code>git add</code> 上传更新后的代码至暂存区</li>
+<li><code>git commit</code> 可以将暂存区里更新后的代码更新到本地git</li>
+<li><code>git push origin xxx</code> 将本地的xxxgit分支上传至github上的git</li>
+</ol>
+<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变</p>
+<ol>
+<li><code>git checkout main</code> 切换回main分支</li>
+<li><code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地</li>
+<li><code>git checkout xxx</code> 回到xxx分支</li>
+<li><code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict –&gt; 手动选择保留哪段代码）</li>
+<li><code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上<br>（-f –&gt; 强行）</li>
+<li>原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</li>
+</ol>
+<p>远端完成更新后</p>
+<ol>
+<li><code>git branch -d xxx</code> 删除本地的git分支</li>
+<li><code>git pull origin master</code> 再把远端的最新代码拉至本地</li>
+</ol>
+<p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
+<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
+<p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
+<h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>技术</tag>
-        <tag>总结</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -815,6 +773,186 @@ return ids.length + &quot; item(s) updated&quot;;
       </tags>
   </entry>
   <entry>
+    <title>Project：多个项目汇总</title>
+    <url>/2023/02/15/Project/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
+<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
+<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
+<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
+<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
+<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
+<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
+<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
+<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
+<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
+<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
+<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
+<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
+<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
+<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
+<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
+<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
+<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
+<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
+<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
+<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
+<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
+<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
+<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
+<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
+<p>技术创新：</p>
+<blockquote>
+<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+</blockquote>
+<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
+<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
+<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
+<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
+<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
+]]></content>
+      <tags>
+        <tag>技术</tag>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python：Anaconda，Pycharm，Pytorch</title>
+    <url>/2022/11/24/Pytorch/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>视频：<a href="https://www.bilibili.com/video/BV1hE411t7RN/">PyTorch深度学习快速入门教程</a></p>
+<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h1><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">conda create -n pytorch python=<span class="number">3.8</span>  <span class="comment">#Anaconda创建环境</span></span><br><span class="line">conda update python, pip install --upgrade pip <span class="comment">#更新</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br><span class="line">conda deactivate  <span class="comment">#退出虚拟环境</span></span><br><span class="line">conda remove pytorch --all  <span class="comment">#删除环境</span></span><br><span class="line">pip install XXX==<span class="number">2.0</span>, pip uninstall XXX <span class="comment">#安装特定版本/卸载</span></span><br><span class="line">pip config set global.index-url https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple  <span class="comment">#pip换源</span></span><br><span class="line">pip config list -v  <span class="comment">#查源</span></span><br><span class="line">pip install opencv-python -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span>  <span class="comment">#pip换源安装</span></span><br></pre></td></tr></table></figure>
+<details>
+  <summary>其他国内镜像源</summary>
+  
+<pre><code>清华大学：https://pypi.tuna.tsinghua.edu.cn/simple
+阿里云：http://mirrors.aliyun.com/pypi/simple
+豆瓣：http://pypi.douban.com/simple
+</code></pre>
+</details>
+
+<details>
+  <summary>其他常用命令</summary>
+
+<pre><code>conda list：查看环境中的所有包
+conda install XXX：安装 XXX 包
+conda remove XXX：删除 XXX 包
+conda env list：列出所有环境
+conda create -n XXX：创建名为 XXX 的环境
+conda create -n env_name jupyter notebook ：创建虚拟环境
+activate noti（或 source activate noti）：启用/激活环境
+conda env remove -n noti：删除指定环境
+deactivate（或 source deactivate）：退出环境
+jupyter notebook ：打开Jupyter Notebook
+conda config --remove-key channels ：换回默认源
+</code></pre>
+</details>
+
+<p><strong>修改环境创建路径</strong></p>
+<ol>
+<li>找到用户目录下的.condarc文件（C:\Users\username）。</li>
+<li>打开.condarc文件之后，添加或修改.condarc 中的 env_dirs 设置环境路径<figure class="highlight nestedtext"><table><tr><td class="code"><pre><span class="line"><span class="attribute">envs_dirs</span><span class="punctuation">:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">D:\Anaconda3\envs</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings &gt; Project &gt; interpreter</code><br>环境路径配置： <code>interpreter &gt; 齿轮 &gt; Add &gt; System Interpreter &gt; 手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File &gt; Settings &gt; Tools &gt; Terminal &gt; Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
+<p><strong>Pycharm使用</strong></p>
+<blockquote>
+<p>新建.py文件(用作工程) &gt; 右上角配置py解释器 &gt; 运行&#x2F;直接右键运行<br>控制台(用作调试，查参数) &gt; Shift+enter：输入多行 &gt; “↑”重新编辑<br>Ctrl + D 快速复制至下一行<br>Ctrl + R 批量修改<br>Ctrl + &#x2F; 批量注释<br>调试：打断点 &gt; debug &gt; 使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
+</blockquote>
+<p>调试时使用Console的python调试台，print指令<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch2.png" alt="图 2">  </p>
+<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后 <code>conda install nb_conda</code><br>打开 jupyter notebook<br><code>New &gt; 选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
+<details>
+  <summary>打包下载：点击查看代码块</summary>
+
+<pre><code>import os
+import tarfile
+def recursive_files(dir_name=&#39;.&#39;, ignore=None):
+    for dir_name,subdirs,files in os.walk(dir_name):
+        if ignore and os.path.basename(dir_name) in ignore: 
+            continue
+
+        for file_name in files:
+            if ignore and file_name in ignore:
+                continue
+
+            yield os.path.join(dir_name, file_name)
+
+def make_tar_file(dir_name=&#39;.&#39;, tar_file_name=&#39;tarfile.tar&#39;, ignore=None):
+    tar = tarfile.open(tar_file_name, &#39;w&#39;)
+
+    for file_name in recursive_files(dir_name, ignore):
+        tar.add(file_name)
+
+    tar.close()
+
+dir_name = &#39;.&#39;
+tar_file_name = &#39;archive.tar&#39;
+ignore = &#123;&#39;.ipynb_checkpoints&#39;, &#39;__pycache__&#39;, tar_file_name&#125;
+make_tar_file(dir_name, tar_file_name, ignore)
+</code></pre>
+</details>
+
+
+<h2 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a><a href="https://colab.research.google.com/">Google Colab</a></h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置并查看GPU 修改&gt;笔记本设置&gt;GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.test.gpu_device_name()</span><br><span class="line"></span><br><span class="line">!/opt/<span class="built_in">bin</span>/nvidia-smi <span class="comment">#详情</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">!unzip /content/XX.<span class="built_in">zip</span> -d /content/XX   <span class="comment">#解压</span></span><br><span class="line">%cd /content/XX     <span class="comment">#进入</span></span><br><span class="line">!pip install -r requirements.txt    <span class="comment">#安装requirements</span></span><br><span class="line">!python XX.py --rect <span class="comment">#运行</span></span><br><span class="line">!rm -rf /content/XX/mydata <span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line">%load_ext tensorboard   <span class="comment">#加载tensorboard</span></span><br><span class="line">%tensorboard --logdir=runs/train    <span class="comment">#执行tensorboard</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先装载谷歌云盘，在云盘里运行以防数据丢失，指定Google Drive云端硬盘的根目录，名为drive</span></span><br><span class="line">!mkdir -p drive</span><br><span class="line">!google-drive-ocamlfuse drive</span><br><span class="line"></span><br><span class="line"><span class="comment">#connect to self drive</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"><span class="comment">#云训练时还是要将盘里的文件拿出来再开始，否则容易直接断连!</span></span><br></pre></td></tr></table></figure>
+<p>续航插件：<a href="https://chrome.google.com/webstore/detail/colab-alive/eookkckfbbgnhdgcbfbicoahejkdoele?hl=zh-CN">Colab Alive</a>, 防止训练时掉线</p>
+<h1 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h1><p>要调用GPU进行训练的话，需要安装显卡驱动对应的CUDA</p>
+<ol>
+<li><code>nvidia-smi</code> 查询支持CUDA版本<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch3.png" alt="图 3">  </li>
+<li>到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch4.png" alt="图 4"></li>
+</ol>
+<p><strong>查GPU</strong></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –version <span class="comment">#查python版本</span></span><br><span class="line">conda install python=<span class="number">3.8</span>  <span class="comment">#升级(覆盖安装)python</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><h3 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h3><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
+<p>文件</p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
+<p>计时		</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
+<p>组 </p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h3><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
+<p>打开</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
+<p>地址	localhost:6006</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
+<h3 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h3><p>transforms.py图像处理工具箱</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
+<h3 id="ToTensor"><a href="#ToTensor" class="headerlink" title="ToTensor"></a>ToTensor</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#（桥梁，很多输入都要求tensor类型）</span></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
+<h2 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h2><p>torchvision.datasets 数据集处理</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<details>
+  <summary>例</summary>
+
+<pre><code>writer = SummaryWriter(&quot;dataloader&quot;)
+for epoch in range(2):
+    step = 0
+    for data in test_loader: #读数据
+        imgs, targets = data
+        writer.add_images(&quot;Epoch: &#123;&#125;&quot;.format(epoch), imgs, step)
+        step = step + 1
+writer.close()
+</code></pre>
+</details>
+]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TDA4：SDK, TIDL, OpenVX</title>
     <url>/2023/05/10/TDA4VM/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.ti.com.cn/product/zh-cn/TDA4VM">TDA4VM官网</a>， <a href="https://e2e.ti.com/support/processors-group/processors/f/processors-forum">TI e2e论坛</a><br>下一篇：<a href="https://wangyujie.site/2023/05/18/TDA4VM2/">TDA4：环境搭建、模型转换及Demo</a></p>
@@ -1024,7 +1162,7 @@ return ids.length + &quot; item(s) updated&quot;;
 </li>
 <li><p><a href="https://dev.ti.com/edgeai/">Edge AI Studio</a>:Integrated development environment for development of AI applications for edge processors.（需授权）</p>
 </li>
-<li><p><a href="https://github.com/TexasInstruments/edgeai-modelmaker">EdgeAI-ModelMaker</a>: Command line Integrated environment for training &amp; compilation.</p>
+<li><p><a href="https://github.com/TexasInstruments/edgeai-modelmaker">EdgeAI-ModelMaker</a>: Command line Integrated environment for training &amp; compilation，集成了edgeai-modelzoo, edgeai-torchvision, edgeai-mmdetection, edgeai-benchmark, edgeai-modelmaker</p>
 <img alt="图 9" src="https://raw.sevencdn.com/TexasInstruments/edgeai/blob/master/assets/workblocks_tools_software.png?raw=true" width="90%"></li>
 </ul>
 <h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
@@ -1049,14 +1187,14 @@ return ids.length + &quot; item(s) updated&quot;;
 <p>下一篇：<a href="https://wangyujie.site/2023/05/18/TDA4VM2/">TDA4：环境搭建、模型转换及Demo</a><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:0"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">0.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/zh-cn/video/6301563648001">视频：深度学习算法在ADAS处理器TDA4VM的应用与部署</a><a href="#fnref:0" rev="footnote"> ↩</a></span></li><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf?raw=true">Deep Learning with Jacinto™ 7 SoCs: TDA4x</a> | <a href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf?raw=true">Embedded low-power deep learning with TIDL</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf?raw=true">基于Pytorch训练并在TDA4上部署ONNX模型</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf">TIOVX – TI’s OpenVX Implementation</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a> | <a href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:5" rev="footnote"> ↩</a></span></li></ol></div></div></p>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
     <title>TDA4：环境搭建、模型转换及Demo</title>
     <url>/2023/05/18/TDA4VM2/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见笔记：<a href="https://wangyujie.site/2023/05/10/TDA4VM/">[TDA4VM, TIDL, OpenVX]</a><br>环境搭建需要下载：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见笔记：<a href="https://wangyujie.site/2023/05/10/TDA4VM/">[TDA4：SDK, TIDL, OpenVX]</a><br>环境搭建需要下载：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
 <h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
 <p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#ti-processor-sdk-linux-j7-evm*/board-support/</span></span><br><span class="line">Make linux        <span class="comment">#编译Linux kernel代码和dtb，主要用于内核驱动的修改和裁剪。安装命令可以将内核和驱动模块自动拷贝到TF卡中。</span></span><br><span class="line">Make linux_install  <span class="comment">#生成built-images</span></span><br><span class="line">Make u-boot       <span class="comment">#编译u-boot代码，主要分为两部分：运行在MCU上的r5f部分和运行在A72上的a53部分。此处A72兼容A53指令集。</span></span><br><span class="line">Make sysfw-image  <span class="comment">#生成sysfw固件，主要在修改MSMC大小的时候会用到。</span></span><br></pre></td></tr></table></figure>
@@ -1102,7 +1240,7 @@ return ids.length + &quot; item(s) updated&quot;;
 <h1 id="TDA4VM-SK-配置"><a href="#TDA4VM-SK-配置" class="headerlink" title="TDA4VM-SK 配置"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">TDA4VM-SK</a> 配置</h1><p>通过USB挂载SD卡到Ubuntu<br>下载<a href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-SK-TDA4VM">SDK包</a><br>使用<a href="https://github.com/balena-io/etcher/releases/tag/v1.7.0">Balena etcher tool 1.7.0</a>把 SD card .wic image flash到SD卡上<br>然后插入SD卡到SK板，SK板连接显示器，上电，进入界面。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装SDK Linux-SK</span></span><br><span class="line"><span class="built_in">chmod</span> +x ./xxx.bin</span><br><span class="line">./xxx.bin</span><br></pre></td></tr></table></figure>
 <p>挂载USB串口，使用<a href="https://help.ubuntu.com/community/Minicom">minicom</a>串口通讯：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk，若连接了USB摄像头此时会显示相关信息</span></span><br></pre></td></tr></table></figure>
 <p>插入USB摄像头，配置：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查摄像头参数</span></span><br><span class="line"><span class="built_in">cd</span> </span><br><span class="line">./.profile  <span class="comment">#/dev/video2</span></span><br></pre></td></tr></table></figure>
 <p>可以鼠标点击试运行开箱即用的 GUI 应用程序<br>也使用 Python 和C++参考示例开发边缘 AI 应用程序：</p>
@@ -1155,15 +1293,39 @@ return ids.length + &quot; item(s) updated&quot;;
 
 
 
-<h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>要求：OS——Ubuntu 18.04，Python Version——3.6</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh   <span class="comment">#有些包可能要手动安装，并注释掉</span></span><br><span class="line"></span><br><span class="line">Docker Based X86_PC Setup</span><br><span class="line"><span class="comment">#sudo docker build失败：Get &quot;https://registry-1.docker.io/v2/&quot;: x509: certificate signed by unknown authority</span></span><br></pre></td></tr></table></figure>
+<h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>要求：OS——Ubuntu 18.04，Python Version——3.6<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png" width="70%"/>  </p>
+<ol>
+<li>OSRT(Open Source Runtimes:TFLite,ONNX,TVM) 作为用户应用程序的顶级推理 API</li>
+<li>将子图卸载到 C7x&#x2F;MMA 以使用TIDL进行加速执行</li>
+<li>在 ARM 核心上运行优化代码，以支持 TIDL 不支持的层</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh   <span class="comment">#仔细查看setup.sh文件，有些包可能要手动安装，并注释掉</span></span><br><span class="line"><span class="comment">#gcc-arm的包解压到项目文件夹，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Docker Based X86_PC Setup 跳过，不用docker装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#make过程中各种依赖库报错 SSLError</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="EdgeAI-ModelMaker"><a href="#EdgeAI-ModelMaker" class="headerlink" title="EdgeAI-ModelMaker"></a><a href="https://github.com/TexasInstruments/edgeai-modelmaker">EdgeAI-ModelMaker</a></h2><p>An end-to-end model development tool that contains dataset handling, model training and compilation，集成了edgeai-modelzoo, edgeai-torchvision, edgeai-mmdetection, edgeai-benchmark, edgeai-modelmaker</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Git <span class="built_in">clone</span> 项目，按照文档在bash下配置环境，curl -L ... 运行失败改为-L -k忽略SSL检查</span><br><span class="line">.setup_all.sh 安装失败：torch1.10.0, dlr, tvm, onnuruntime-tidl, tflite-runtime</span><br><span class="line">SSLError</span><br></pre></td></tr></table></figure>
 
 
-
+<h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a><a href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a></h2><p>TI官方提供的云端环境，无需本地搭环境，使用需要申请，基于jupyter notebook<br>提供两个工具：</p>
+<ul>
+<li><a href="https://dev.ti.com/edgeaisession/">Model Analyzer</a>：远程连接到真实的评估硬件，在 TI 嵌入式处理器上部署和测试 AI 模型性能，进行多个模型的Benchmark。前身叫做 TI edge AI cloud。</li>
+<li><a href="https://dev.ti.com/modelcomposer/">Model Composer</a>： 为 TI 嵌入式处理器训练、优化和编译 AI 模型。支持数据采集，标注，模型训练，以及上板编译。比如，用自己的数据重新训练TI Model Zoo的模型和更多性能优化操作。</li>
+</ul>
+<h3 id="Model-Analyzer"><a href="#Model-Analyzer" class="headerlink" title="Model Analyzer"></a>Model Analyzer</h3><p>选TDA4VM设备，能使用3h，进入后分三个板块：Compare model performance、Model performance、Custom models<br>先试用Model performance的OD task, 选ONNX runtime，一步步运行即可输出结果，文件在顶端My Workspace</p>
+<p><strong>Custom models</strong>（onnxRT）</p>
+<ul>
+<li>编译模型（在异构模型编译期间，支持的层将被装载到<code>TI-DSP</code>，生成推理所需工件（artifacts））</li>
+<li>使用生成的工件进行推理</li>
+<li><em>执行输入预处理和输出后处理</em></li>
+<li>启用调试日志</li>
+<li>使用deny-layer编译选项来隔离可能有问题的层并创建额外的模型子图</li>
+<li>使用生成的子图工件进行推理</li>
+<li><em>执行输入预处理和输出后处理</em></li>
+</ul>
+<h3 id="Model-Composer"><a href="#Model-Composer" class="headerlink" title="Model Composer"></a>Model Composer</h3><p>可以使用自定义数据集进行标注、模型选择、训练、编译、预览、部署</p>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -1239,138 +1401,6 @@ return ids.length + &quot; item(s) updated&quot;;
 ]]></content>
       <tags>
         <tag>深度学习</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python：Anaconda，Pycharm，Pytorch</title>
-    <url>/2022/11/24/Pytorch/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>视频：<a href="https://www.bilibili.com/video/BV1hE411t7RN/">PyTorch深度学习快速入门教程</a></p>
-<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h1><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">conda create -n pytorch python=<span class="number">3.8</span>  <span class="comment">#Anaconda创建环境</span></span><br><span class="line">conda update python, pip install --upgrade pip <span class="comment">#更新</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br><span class="line">conda deactivate  <span class="comment">#退出虚拟环境</span></span><br><span class="line">conda remove pytorch --all  <span class="comment">#删除环境</span></span><br><span class="line">pip install XXX==<span class="number">2.0</span>, pip uninstall XXX <span class="comment">#安装特定版本/卸载</span></span><br><span class="line">pip config set global.index-url https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple  <span class="comment">#pip换源</span></span><br><span class="line">pip config list -v  <span class="comment">#查源</span></span><br><span class="line">pip install opencv-python -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span>  <span class="comment">#pip换源安装</span></span><br></pre></td></tr></table></figure>
-<details>
-  <summary>其他国内镜像源</summary>
-  
-<pre><code>清华大学：https://pypi.tuna.tsinghua.edu.cn/simple
-阿里云：http://mirrors.aliyun.com/pypi/simple
-豆瓣：http://pypi.douban.com/simple
-</code></pre>
-</details>
-
-<details>
-  <summary>其他常用命令</summary>
-
-<pre><code>conda list：查看环境中的所有包
-conda install XXX：安装 XXX 包
-conda remove XXX：删除 XXX 包
-conda env list：列出所有环境
-conda create -n XXX：创建名为 XXX 的环境
-conda create -n env_name jupyter notebook ：创建虚拟环境
-activate noti（或 source activate noti）：启用/激活环境
-conda env remove -n noti：删除指定环境
-deactivate（或 source deactivate）：退出环境
-jupyter notebook ：打开Jupyter Notebook
-conda config --remove-key channels ：换回默认源
-</code></pre>
-</details>
-
-<p><strong>修改环境创建路径</strong></p>
-<ol>
-<li>找到用户目录下的.condarc文件（C:\Users\username）。</li>
-<li>打开.condarc文件之后，添加或修改.condarc 中的 env_dirs 设置环境路径<figure class="highlight nestedtext"><table><tr><td class="code"><pre><span class="line"><span class="attribute">envs_dirs</span><span class="punctuation">:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">D:\Anaconda3\envs</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings &gt; Project &gt; interpreter</code><br>环境路径配置： <code>interpreter &gt; 齿轮 &gt; Add &gt; System Interpreter &gt; 手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File &gt; Settings &gt; Tools &gt; Terminal &gt; Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
-<p><strong>Pycharm使用</strong></p>
-<blockquote>
-<p>新建.py文件(用作工程) &gt; 右上角配置py解释器 &gt; 运行&#x2F;直接右键运行<br>控制台(用作调试，查参数) &gt; Shift+enter：输入多行 &gt; “↑”重新编辑<br>Ctrl + D 快速复制至下一行<br>Ctrl + R 批量修改<br>Ctrl + &#x2F; 批量注释<br>调试：打断点 &gt; debug &gt; 使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
-</blockquote>
-<p>调试时使用Console的python调试台，print指令<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch2.png" alt="图 2">  </p>
-<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后 <code>conda install nb_conda</code><br>打开 jupyter notebook<br><code>New &gt; 选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
-<details>
-  <summary>打包下载：点击查看代码块</summary>
-
-<pre><code>import os
-import tarfile
-def recursive_files(dir_name=&#39;.&#39;, ignore=None):
-    for dir_name,subdirs,files in os.walk(dir_name):
-        if ignore and os.path.basename(dir_name) in ignore: 
-            continue
-
-        for file_name in files:
-            if ignore and file_name in ignore:
-                continue
-
-            yield os.path.join(dir_name, file_name)
-
-def make_tar_file(dir_name=&#39;.&#39;, tar_file_name=&#39;tarfile.tar&#39;, ignore=None):
-    tar = tarfile.open(tar_file_name, &#39;w&#39;)
-
-    for file_name in recursive_files(dir_name, ignore):
-        tar.add(file_name)
-
-    tar.close()
-
-dir_name = &#39;.&#39;
-tar_file_name = &#39;archive.tar&#39;
-ignore = &#123;&#39;.ipynb_checkpoints&#39;, &#39;__pycache__&#39;, tar_file_name&#125;
-make_tar_file(dir_name, tar_file_name, ignore)
-</code></pre>
-</details>
-
-
-<h2 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a><a href="https://colab.research.google.com/">Google Colab</a></h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置并查看GPU 修改&gt;笔记本设置&gt;GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.test.gpu_device_name()</span><br><span class="line"></span><br><span class="line">!/opt/<span class="built_in">bin</span>/nvidia-smi <span class="comment">#详情</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">!unzip /content/XX.<span class="built_in">zip</span> -d /content/XX   <span class="comment">#解压</span></span><br><span class="line">%cd /content/XX     <span class="comment">#进入</span></span><br><span class="line">!pip install -r requirements.txt    <span class="comment">#安装requirements</span></span><br><span class="line">!python XX.py --rect <span class="comment">#运行</span></span><br><span class="line">!rm -rf /content/XX/mydata <span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line">%load_ext tensorboard   <span class="comment">#加载tensorboard</span></span><br><span class="line">%tensorboard --logdir=runs/train    <span class="comment">#执行tensorboard</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先装载谷歌云盘，在云盘里运行以防数据丢失，指定Google Drive云端硬盘的根目录，名为drive</span></span><br><span class="line">!mkdir -p drive</span><br><span class="line">!google-drive-ocamlfuse drive</span><br><span class="line"></span><br><span class="line"><span class="comment">#connect to self drive</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"><span class="comment">#云训练时还是要将盘里的文件拿出来再开始，否则容易直接断连!</span></span><br></pre></td></tr></table></figure>
-<p>续航插件：<a href="https://chrome.google.com/webstore/detail/colab-alive/eookkckfbbgnhdgcbfbicoahejkdoele?hl=zh-CN">Colab Alive</a>, 防止训练时掉线</p>
-<h1 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h1><p>要调用GPU进行训练的话，需要安装显卡驱动对应的CUDA</p>
-<ol>
-<li><code>nvidia-smi</code> 查询支持CUDA版本<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch3.png" alt="图 3">  </li>
-<li>到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch4.png" alt="图 4"></li>
-</ol>
-<p><strong>查GPU</strong></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –version <span class="comment">#查python版本</span></span><br><span class="line">conda install python=<span class="number">3.8</span>  <span class="comment">#升级(覆盖安装)python</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><h3 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h3><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
-<p>文件</p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
-<p>计时		</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
-<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
-<p>组 </p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h3><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
-<p>打开</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
-<p>地址	localhost:6006</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
-<h3 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h3><p>transforms.py图像处理工具箱</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
-<h3 id="ToTensor"><a href="#ToTensor" class="headerlink" title="ToTensor"></a>ToTensor</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#（桥梁，很多输入都要求tensor类型）</span></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
-<h2 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h2><p>torchvision.datasets 数据集处理</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-<details>
-  <summary>例</summary>
-
-<pre><code>writer = SummaryWriter(&quot;dataloader&quot;)
-for epoch in range(2):
-    step = 0
-    for data in test_loader: #读数据
-        imgs, targets = data
-        writer.add_images(&quot;Epoch: &#123;&#125;&quot;.format(epoch), imgs, step)
-        step = step + 1
-writer.close()
-</code></pre>
-</details>
-]]></content>
-      <tags>
         <tag>python</tag>
       </tags>
   </entry>

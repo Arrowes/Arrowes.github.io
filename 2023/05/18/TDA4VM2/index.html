@@ -29,11 +29,12 @@
 <meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_import_process.png">
 <meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/out_ti_lindau_000020.png">
 <meta property="og:image" content="https://github.com/TexasInstruments/edgeai-yolox/raw/main/yolox/utils/figures/Focus.png">
+<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png">
 <meta property="article:published_time" content="2023-05-18T08:28:00.000Z">
-<meta property="article:modified_time" content="2023-06-12T13:40:47.632Z">
+<meta property="article:modified_time" content="2023-06-14T10:54:18.528Z">
 <meta property="article:author" content="Arrow">
-<meta property="article:tag" content="嵌入式">
 <meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="嵌入式">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai_video_source_optiflow.jpg">
 
@@ -149,7 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-SDK-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">Linux SDK 环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RTOS-SDK-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">RTOS SDK 环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vision-Apps-Demo-%E7%BC%96%E8%AF%91"><span class="nav-number">3.</span> <span class="nav-text">Vision Apps Demo 编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TDA4VM-SK-%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">TDA4VM-SK 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIDL"><span class="nav-number">5.</span> <span class="nav-text">TIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo"><span class="nav-number">5.1.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YOLOX%E9%83%A8%E7%BD%B2TDA4VM-SK%E6%B5%81%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">YOLOX部署TDA4VM-SK流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E8%BD%ACONNX"><span class="nav-number">5.2.1.</span> <span class="nav-text">1. 模型文件转ONNX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ONNX%E5%AF%BC%E5%85%A5TIDL"><span class="nav-number">5.2.2.</span> <span class="nav-text">2. ONNX导入TIDL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TIDL%E8%BF%90%E8%A1%8C"><span class="nav-number">5.2.3.</span> <span class="nav-text">3. TIDL运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%BF%E7%AB%AF%E8%BF%90%E8%A1%8C-TDA4VM-SK"><span class="nav-number">5.2.4.</span> <span class="nav-text">4. 板端运行(TDA4VM-SK)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIDL-RT"><span class="nav-number">5.3.</span> <span class="nav-text">TIDL-RT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EdgeAI-TIDL-Tools"><span class="nav-number">5.4.</span> <span class="nav-text">EdgeAI TIDL Tools</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-SDK-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">Linux SDK 环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RTOS-SDK-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">RTOS SDK 环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vision-Apps-Demo-%E7%BC%96%E8%AF%91"><span class="nav-number">3.</span> <span class="nav-text">Vision Apps Demo 编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TDA4VM-SK-%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">TDA4VM-SK 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIDL"><span class="nav-number">5.</span> <span class="nav-text">TIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo"><span class="nav-number">5.1.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YOLOX%E9%83%A8%E7%BD%B2TDA4VM-SK%E6%B5%81%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">YOLOX部署TDA4VM-SK流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E8%BD%ACONNX"><span class="nav-number">5.2.1.</span> <span class="nav-text">1. 模型文件转ONNX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ONNX%E5%AF%BC%E5%85%A5TIDL"><span class="nav-number">5.2.2.</span> <span class="nav-text">2. ONNX导入TIDL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TIDL%E8%BF%90%E8%A1%8C"><span class="nav-number">5.2.3.</span> <span class="nav-text">3. TIDL运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%BF%E7%AB%AF%E8%BF%90%E8%A1%8C-TDA4VM-SK"><span class="nav-number">5.2.4.</span> <span class="nav-text">4. 板端运行(TDA4VM-SK)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIDL-RT"><span class="nav-number">5.3.</span> <span class="nav-text">TIDL-RT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EdgeAI-TIDL-Tools"><span class="nav-number">5.4.</span> <span class="nav-text">EdgeAI TIDL Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EdgeAI-ModelMaker"><span class="nav-number">5.5.</span> <span class="nav-text">EdgeAI-ModelMaker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Edge-AI-Studio"><span class="nav-number">5.6.</span> <span class="nav-text">Edge AI Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Analyzer"><span class="nav-number">5.6.1.</span> <span class="nav-text">Model Analyzer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Composer"><span class="nav-number">5.6.2.</span> <span class="nav-text">Model Composer</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -264,7 +265,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-12 21:40:47" itemprop="dateModified" datetime="2023-06-12T21:40:47+08:00">2023-06-12</time>
+      <time title="修改时间：2023-06-14 18:54:18" itemprop="dateModified" datetime="2023-06-14T18:54:18+08:00">2023-06-14</time>
     </span>
 
   
@@ -281,14 +282,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.1k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>11 分钟</span>
+      <span>13 分钟</span>
     </span>
 </div>
 
@@ -299,7 +300,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见笔记：<a target="_blank" rel="noopener" href="https://wangyujie.site/2023/05/10/TDA4VM/">[TDA4VM, TIDL, OpenVX]</a><br>环境搭建需要下载：<a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见笔记：<a target="_blank" rel="noopener" href="https://wangyujie.site/2023/05/10/TDA4VM/">[TDA4：SDK, TIDL, OpenVX]</a><br>环境搭建需要下载：<a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
 <h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
 <p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ti-processor-sdk-linux-j7-evm*/board-support/</span></span><br><span class="line">Make linux        <span class="comment">#编译Linux kernel代码和dtb，主要用于内核驱动的修改和裁剪。安装命令可以将内核和驱动模块自动拷贝到TF卡中。</span></span><br><span class="line">Make linux_install  <span class="comment">#生成built-images</span></span><br><span class="line">Make u-boot       <span class="comment">#编译u-boot代码，主要分为两部分：运行在MCU上的r5f部分和运行在A72上的a53部分。此处A72兼容A53指令集。</span></span><br><span class="line">Make sysfw-image  <span class="comment">#生成sysfw固件，主要在修改MSMC大小的时候会用到。</span></span><br></pre></td></tr></table></figure>
@@ -345,7 +346,7 @@
 <h1 id="TDA4VM-SK-配置"><a href="#TDA4VM-SK-配置" class="headerlink" title="TDA4VM-SK 配置"></a><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">TDA4VM-SK</a> 配置</h1><p>通过USB挂载SD卡到Ubuntu<br>下载<a target="_blank" rel="noopener" href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-SK-TDA4VM">SDK包</a><br>使用<a target="_blank" rel="noopener" href="https://github.com/balena-io/etcher/releases/tag/v1.7.0">Balena etcher tool 1.7.0</a>把 SD card .wic image flash到SD卡上<br>然后插入SD卡到SK板，SK板连接显示器，上电，进入界面。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装SDK Linux-SK</span></span><br><span class="line"><span class="built_in">chmod</span> +x ./xxx.bin</span><br><span class="line">./xxx.bin</span><br></pre></td></tr></table></figure>
 <p>挂载USB串口，使用<a target="_blank" rel="noopener" href="https://help.ubuntu.com/community/Minicom">minicom</a>串口通讯：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk，若连接了USB摄像头此时会显示相关信息</span></span><br></pre></td></tr></table></figure>
 <p>插入USB摄像头，配置：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查摄像头参数</span></span><br><span class="line"><span class="built_in">cd</span> </span><br><span class="line">./.profile  <span class="comment">#/dev/video2</span></span><br></pre></td></tr></table></figure>
 <p>可以鼠标点击试运行开箱即用的 GUI 应用程序<br>也使用 Python 和C++参考示例开发边缘 AI 应用程序：</p>
@@ -398,11 +399,35 @@
 
 
 
-<h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>要求：OS——Ubuntu 18.04，Python Version——3.6</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh   <span class="comment">#有些包可能要手动安装，并注释掉</span></span><br><span class="line"></span><br><span class="line">Docker Based X86_PC Setup</span><br><span class="line"><span class="comment">#sudo docker build失败：Get &quot;https://registry-1.docker.io/v2/&quot;: x509: certificate signed by unknown authority</span></span><br></pre></td></tr></table></figure>
+<h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>要求：OS——Ubuntu 18.04，Python Version——3.6<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png" width="70%"/>  </p>
+<ol>
+<li>OSRT(Open Source Runtimes:TFLite,ONNX,TVM) 作为用户应用程序的顶级推理 API</li>
+<li>将子图卸载到 C7x&#x2F;MMA 以使用TIDL进行加速执行</li>
+<li>在 ARM 核心上运行优化代码，以支持 TIDL 不支持的层</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh   <span class="comment">#仔细查看setup.sh文件，有些包可能要手动安装，并注释掉</span></span><br><span class="line"><span class="comment">#gcc-arm的包解压到项目文件夹，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Docker Based X86_PC Setup 跳过，不用docker装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#make过程中各种依赖库报错 SSLError</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="EdgeAI-ModelMaker"><a href="#EdgeAI-ModelMaker" class="headerlink" title="EdgeAI-ModelMaker"></a><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-modelmaker">EdgeAI-ModelMaker</a></h2><p>An end-to-end model development tool that contains dataset handling, model training and compilation，集成了edgeai-modelzoo, edgeai-torchvision, edgeai-mmdetection, edgeai-benchmark, edgeai-modelmaker</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Git <span class="built_in">clone</span> 项目，按照文档在bash下配置环境，curl -L ... 运行失败改为-L -k忽略SSL检查</span><br><span class="line">.setup_all.sh 安装失败：torch1.10.0, dlr, tvm, onnuruntime-tidl, tflite-runtime</span><br><span class="line">SSLError</span><br></pre></td></tr></table></figure>
 
 
-
+<h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a><a target="_blank" rel="noopener" href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a></h2><p>TI官方提供的云端环境，无需本地搭环境，使用需要申请，基于jupyter notebook<br>提供两个工具：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://dev.ti.com/edgeaisession/">Model Analyzer</a>：远程连接到真实的评估硬件，在 TI 嵌入式处理器上部署和测试 AI 模型性能，进行多个模型的Benchmark。前身叫做 TI edge AI cloud。</li>
+<li><a target="_blank" rel="noopener" href="https://dev.ti.com/modelcomposer/">Model Composer</a>： 为 TI 嵌入式处理器训练、优化和编译 AI 模型。支持数据采集，标注，模型训练，以及上板编译。比如，用自己的数据重新训练TI Model Zoo的模型和更多性能优化操作。</li>
+</ul>
+<h3 id="Model-Analyzer"><a href="#Model-Analyzer" class="headerlink" title="Model Analyzer"></a>Model Analyzer</h3><p>选TDA4VM设备，能使用3h，进入后分三个板块：Compare model performance、Model performance、Custom models<br>先试用Model performance的OD task, 选ONNX runtime，一步步运行即可输出结果，文件在顶端My Workspace</p>
+<p><strong>Custom models</strong>（onnxRT）</p>
+<ul>
+<li>编译模型（在异构模型编译期间，支持的层将被装载到<code>TI-DSP</code>，生成推理所需工件（artifacts））</li>
+<li>使用生成的工件进行推理</li>
+<li><em>执行输入预处理和输出后处理</em></li>
+<li>启用调试日志</li>
+<li>使用deny-layer编译选项来隔离可能有问题的层并创建额外的模型子图</li>
+<li>使用生成的子图工件进行推理</li>
+<li><em>执行输入预处理和输出后处理</em></li>
+</ul>
+<h3 id="Model-Composer"><a href="#Model-Composer" class="headerlink" title="Model Composer"></a>Model Composer</h3><p>可以使用自定义数据集进行标注、模型选择、训练、编译、预览、部署</p>
 
     </div>
 
@@ -412,15 +437,15 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
               <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/05/16/C,C++/" rel="prev" title="C, C++, Cmake">
+                <a href="/2023/05/16/C/" rel="prev" title="C, C++, Cmake">
                   <i class="fa fa-chevron-left"></i> C, C++, Cmake
                 </a>
             </div>
@@ -461,14 +486,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">39k</span>
+    <span title="站点总字数">40k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:22</span>
+    <span title="站点阅读时长">2:24</span>
   </span>
 </div>
 <div class="busuanzi-count">
