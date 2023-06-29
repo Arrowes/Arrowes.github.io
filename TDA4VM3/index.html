@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3yoloxs.png">
 <meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/_images/perf_plots.png">
 <meta property="article:published_time" content="2023-06-15T01:40:00.000Z">
-<meta property="article:modified_time" content="2023-06-29T12:49:04.418Z">
+<meta property="article:modified_time" content="2023-06-29T13:07:18.307Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLOX%E9%83%A8%E7%BD%B2TDA4VM-SK%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">YOLOX部署TDA4VM-SK流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E8%BD%ACONNX"><span class="nav-number">1.1.</span> <span class="nav-text">1. 模型文件转ONNX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8TIDL%E7%BC%96%E8%AF%91ONNX%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.</span> <span class="nav-text">2. 使用TIDL编译ONNX并运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E4%BD%BF%E7%94%A8TIDL-Importer-by-RTOS-SDK"><span class="nav-number">1.2.1.</span> <span class="nav-text">a. 使用TIDL Importer (by RTOS SDK)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E4%BD%BF%E7%94%A8TIDL-Tools%EF%BC%88by-Edge-AI-Studio%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">b. 使用TIDL Tools（by Edge AI Studio）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9D%BF%E7%AB%AF%E8%BF%90%E8%A1%8C-TDA4VM-SK"><span class="nav-number">1.3.</span> <span class="nav-text">4. 板端运行(TDA4VM-SK)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="nav-number">1.4.</span> <span class="nav-text">5. 性能评估</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance-Logs"><span class="nav-number">2.</span> <span class="nav-text">Performance Logs</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLOX%E9%83%A8%E7%BD%B2TDA4VM-SK%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">YOLOX部署TDA4VM-SK流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E8%BD%ACONNX"><span class="nav-number">1.1.</span> <span class="nav-text">1. 模型文件转ONNX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8TIDL%E7%BC%96%E8%AF%91ONNX%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.</span> <span class="nav-text">2. 使用TIDL编译ONNX并运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E4%BD%BF%E7%94%A8TIDL-Importer-by-RTOS-SDK"><span class="nav-number">1.2.1.</span> <span class="nav-text">a. 使用TIDL Importer (by RTOS SDK)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E4%BD%BF%E7%94%A8TIDL-Tools%EF%BC%88by-Edge-AI-Studio%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">b. 使用TIDL Tools（by Edge AI Studio）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9D%BF%E7%AB%AF%E8%BF%90%E8%A1%8C-TDA4VM-SK"><span class="nav-number">1.3.</span> <span class="nav-text">4. 板端运行(TDA4VM-SK)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="nav-number">1.4.</span> <span class="nav-text">5. 性能评估</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance-Logs"><span class="nav-number">2.</span> <span class="nav-text">Performance Logs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-of-CPU-load"><span class="nav-number">2.1.</span> <span class="nav-text">Summary of CPU load</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HWA-performance-statistics"><span class="nav-number">2.2.</span> <span class="nav-text">HWA performance statistics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DDR-performance-statistics"><span class="nav-number">2.3.</span> <span class="nav-text">DDR performance statistics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detailed-CPU-performance-x2F-memory-statistics"><span class="nav-number">2.4.</span> <span class="nav-text">Detailed CPU performance&#x2F;memory statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-mcu2-0"><span class="nav-number">2.4.1.</span> <span class="nav-text">CPU: mcu2_0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-mcu2-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">CPU: mcu2_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-1"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c6x-1"><span class="nav-number">2.4.3.</span> <span class="nav-text">CPU: c6x_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-2"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c6x-2"><span class="nav-number">2.4.4.</span> <span class="nav-text">CPU: c6x_2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-3"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c7x-1"><span class="nav-number">2.4.5.</span> <span class="nav-text">CPU: c7x_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-4"><span class="nav-number">2.4.5.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-point-statistics"><span class="nav-number">2.5.</span> <span class="nav-text">Performance point statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance"><span class="nav-number">2.5.1.</span> <span class="nav-text">Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FPS"><span class="nav-number">2.5.2.</span> <span class="nav-text">FPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Temperature-statistics"><span class="nav-number">2.6.</span> <span class="nav-text">Temperature statistics</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -266,7 +266,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-29 20:49:04" itemprop="dateModified" datetime="2023-06-29T20:49:04+08:00">2023-06-29</time>
+      <time title="修改时间：2023-06-29 21:07:18" itemprop="dateModified" datetime="2023-06-29T21:07:18+08:00">2023-06-29</time>
     </span>
 
   
@@ -348,7 +348,7 @@
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Subgraphs visualization</span></span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> Markdown <span class="keyword">as</span> md</span><br><span class="line"></span><br><span class="line">subgraph_link =get_svg_path(output_dir) </span><br><span class="line"><span class="keyword">for</span> sg <span class="keyword">in</span> subgraph_link:</span><br><span class="line">    hl_text = os.path.join(*Path(sg).parts[<span class="number">4</span>:])</span><br><span class="line">    sg_rel = os.path.join(<span class="string">&#x27;../&#x27;</span>, sg)</span><br><span class="line">    display(md(<span class="string">&quot;[&#123;&#125;](&#123;&#125;)&quot;</span>.<span class="built_in">format</span>(hl_text,sg_rel)))</span><br></pre></td></tr></table></figure>
 <p>生成两个.svg网络可视化图的链接</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#模型推理</span></span><br><span class="line">EP_list = [<span class="string">&#x27;TIDLExecutionProvider&#x27;</span>,<span class="string">&#x27;CPUExecutionProvider&#x27;</span>]</span><br><span class="line">sess = rt.InferenceSession(onnx_model_path ,providers=EP_list, provider_options=[compile_options, &#123;&#125;], sess_options=so)</span><br><span class="line"></span><br><span class="line">input_details = sess.get_inputs()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):<span class="comment">#Running inference several times to get an stable performance output</span></span><br><span class="line">    output = <span class="built_in">list</span>(sess.run(<span class="literal">None</span>, &#123;input_details[<span class="number">0</span>].name : preprocess(<span class="string">&#x27;WYJ/dog.jpg&#x27;</span>)&#125;))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scripts.utils <span class="keyword">import</span> plot_TI_performance_data, plot_TI_DDRBW_data, get_benchmark_output</span><br><span class="line">stats = sess.get_TI_benchmark_data()</span><br><span class="line">fig, ax = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">1</span>, figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">plot_TI_performance_data(stats, axis=ax)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">tt, st, rb, wb = get_benchmark_output(stats)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;Statistics : \n Inferences Per Second   : <span class="subst">&#123;<span class="number">1000.0</span>/tt :<span class="number">7.2</span>f&#125;</span> fps&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27; Inference Time Per Image : <span class="subst">&#123;tt :<span class="number">7.2</span>f&#125;</span> ms  \n DDR BW Per Image        : <span class="subst">&#123;rb+ wb : <span class="number">7.2</span>f&#125;</span> MB&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>推理，注意<code>TIDLCompilationProvider</code>和<code>TIDLExecutionProvider</code>的区别<br><img alt="图 2" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3yoloxs.png" width="80%"/>  </p>
+<p>推理，注意<code>TIDLCompilationProvider</code>和<code>TIDLExecutionProvider</code>的区别<br><img alt="图 2" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3yoloxs.png" width="90%"/>  </p>
 <blockquote>
 <p>Statistics :<br>  Inferences Per Second   :  104.44 fps<br>  Inference Time Per Image :    9.57 ms<br>  DDR BW Per Image        :   16.22 MB</p>
 </blockquote>
@@ -372,8 +372,623 @@
 <h2 id="5-性能评估"><a href="#5-性能评估" class="headerlink" title="5. 性能评估"></a>5. 性能评估</h2><p>Docs: <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/performance_visualizer.html#">Performance Visualization Tool</a><br>运行实例时，会在运行文件的上一级<code>../perf_Logs/</code>中生成 <code>.md</code> 格式的<strong>Performance Logs</strong>，最多15个，运行时会不断覆写</p>
 <p>也可以使用Perfstats tool, 把运行状态在terminal print:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#构建工具</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/scripts/perf_stats</span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake .. &amp;&amp; make</span><br><span class="line"><span class="comment">#运行评估</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/scripts/perf_stats/build</span><br><span class="line">../bin/Release/perf_stats -l</span><br></pre></td></tr></table></figure>
-<p>此外，使用官方提供的可视化工具Visualization tool是最佳选择，但是要装Docker<br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/_images/perf_plots.png" width=85%></p>
-<h1 id="Performance-Logs"><a href="#Performance-Logs" class="headerlink" title="Performance Logs"></a>Performance Logs</h1>
+<p>此外，使用官方提供的可视化工具Visualization tool是最佳选择，但是要装Docker<br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/_images/perf_plots.png" width=90%></p>
+<h1 id="Performance-Logs"><a href="#Performance-Logs" class="headerlink" title="Performance Logs"></a>Performance Logs</h1><h2 id="Summary-of-CPU-load"><a href="#Summary-of-CPU-load" class="headerlink" title="Summary of CPU load"></a>Summary of CPU load</h2><table>
+<thead>
+<tr>
+<th>CPU</th>
+<th>TOTAL LOAD %</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mpu1_0</td>
+<td>40.83</td>
+</tr>
+<tr>
+<td>mcu2_0</td>
+<td>7. 0</td>
+</tr>
+<tr>
+<td>mcu2_1</td>
+<td>1. 0</td>
+</tr>
+<tr>
+<td>c6x_1</td>
+<td>0. 0</td>
+</tr>
+<tr>
+<td>c6x_2</td>
+<td>1. 0</td>
+</tr>
+<tr>
+<td>c7x_1</td>
+<td>32. 0</td>
+</tr>
+</tbody></table>
+<h2 id="HWA-performance-statistics"><a href="#HWA-performance-statistics" class="headerlink" title="HWA performance statistics"></a>HWA performance statistics</h2><table>
+<thead>
+<tr>
+<th>HWA（Hardware Accelerator）</th>
+<th>LOAD（Million Operations per second）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MSC0（Multiply and Accumulate）</td>
+<td>6.94 % ( 42 MP&#x2F;s )</td>
+</tr>
+<tr>
+<td>MSC1</td>
+<td>6.74 % ( 55 MP&#x2F;s )</td>
+</tr>
+</tbody></table>
+<h2 id="DDR-performance-statistics"><a href="#DDR-performance-statistics" class="headerlink" title="DDR performance statistics"></a>DDR performance statistics</h2><table>
+<thead>
+<tr>
+<th>DDR BW</th>
+<th>AVG</th>
+<th>PEAK</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>READ BW</td>
+<td>1509 MB&#x2F;s</td>
+<td>5713 MB&#x2F;s</td>
+</tr>
+<tr>
+<td>WRITE BW</td>
+<td>721 MB&#x2F;s</td>
+<td>3643 MB&#x2F;s</td>
+</tr>
+<tr>
+<td>TOTAL BW</td>
+<td>2230 MB&#x2F;s</td>
+<td>9356 MB&#x2F;s</td>
+</tr>
+</tbody></table>
+<h2 id="Detailed-CPU-performance-x2F-memory-statistics"><a href="#Detailed-CPU-performance-x2F-memory-statistics" class="headerlink" title="Detailed CPU performance&#x2F;memory statistics"></a>Detailed CPU performance&#x2F;memory statistics</h2><h3 id="CPU-mcu2-0"><a href="#CPU-mcu2-0" class="headerlink" title="CPU: mcu2_0"></a>CPU: mcu2_0</h3><table>
+<thead>
+<tr>
+<th>TASK</th>
+<th>TASK LOAD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IPC_RX</td>
+<td>0.34 %</td>
+</tr>
+<tr>
+<td>REMOTE_SRV</td>
+<td>0.30 %</td>
+</tr>
+<tr>
+<td>LOAD_TEST</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CPU_0</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_V1NF</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_V1LDC1</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_V1SC1</td>
+<td>3. 9 %</td>
+</tr>
+<tr>
+<td>TIVX_V1MSC2</td>
+<td>3.24 %</td>
+</tr>
+<tr>
+<td>TIVXVVISS1</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CAPT1</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CAPT2</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_DISP1</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_DISP2</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CSITX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CAPT3</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CAPT4</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CAPT5</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CAPT6</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CAPT7</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CAPT8</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_DPM2M1</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_DPM2M2</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_DPM2M3</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_DPM2M4</td>
+<td>0. 0 %</td>
+</tr>
+</tbody></table>
+<h4 id="CPU-Heap-Table"><a href="#CPU-Heap-Table" class="headerlink" title="CPU Heap Table"></a>CPU Heap Table</h4><table>
+<thead>
+<tr>
+<th>HEAP</th>
+<th>Size</th>
+<th>Free</th>
+<th>Unused</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DDR_LOCAL_MEM</td>
+<td>16777216 B</td>
+<td>16768256 B</td>
+<td>99 %</td>
+</tr>
+<tr>
+<td>L3_MEM</td>
+<td>262144 B</td>
+<td>261888 B</td>
+<td>99 %</td>
+</tr>
+</tbody></table>
+<details>
+<summary>CPU: mcu2_1</summary>
+
+<h3 id="CPU-mcu2-1"><a href="#CPU-mcu2-1" class="headerlink" title="CPU: mcu2_1"></a>CPU: mcu2_1</h3><table>
+<thead>
+<tr>
+<th>TASK</th>
+<th>TASK LOAD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IPC_RX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>REMOTE_SRV</td>
+<td>0.18 %</td>
+</tr>
+<tr>
+<td>LOAD_TEST</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CPU_1</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_SDE</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_DOF</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_RX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+</tbody></table>
+<h4 id="CPU-Heap-Table-1"><a href="#CPU-Heap-Table-1" class="headerlink" title="CPU Heap Table"></a>CPU Heap Table</h4><table>
+<thead>
+<tr>
+<th>HEAP</th>
+<th>Size</th>
+<th>Free</th>
+<th>Unused</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DDR_LOCAL_MEM</td>
+<td>16777216 B</td>
+<td>16773376 B</td>
+<td>99 %</td>
+</tr>
+<tr>
+<td>L3_MEM</td>
+<td>262144 B</td>
+<td>262144 B</td>
+<td>100 %</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>CPU: c6x_1</summary>
+
+<h3 id="CPU-c6x-1"><a href="#CPU-c6x-1" class="headerlink" title="CPU: c6x_1"></a>CPU: c6x_1</h3><table>
+<thead>
+<tr>
+<th>TASK</th>
+<th>TASK LOAD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IPC_RX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>REMOTE_SRV</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>LOAD_TEST</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CPU</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_RX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+</tbody></table>
+<h4 id="CPU-Heap-Table-2"><a href="#CPU-Heap-Table-2" class="headerlink" title="CPU Heap Table"></a>CPU Heap Table</h4><table>
+<thead>
+<tr>
+<th>HEAP</th>
+<th>Size</th>
+<th>Free</th>
+<th>Unused</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DDR_LOCAL_MEM</td>
+<td>16777216 B</td>
+<td>16773376 B</td>
+<td>99 %</td>
+</tr>
+<tr>
+<td>L2_MEM</td>
+<td>229376 B</td>
+<td>229376 B</td>
+<td>100 %</td>
+</tr>
+<tr>
+<td>DDR_SCRATCH_MEM</td>
+<td>50331648 B</td>
+<td>50331648 B</td>
+<td>100 %</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>CPU: c6x_2</summary>
+
+<h3 id="CPU-c6x-2"><a href="#CPU-c6x-2" class="headerlink" title="CPU: c6x_2"></a>CPU: c6x_2</h3><table>
+<thead>
+<tr>
+<th>TASK</th>
+<th>TASK LOAD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IPC_RX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>REMOTE_SRV</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>LOAD_TEST</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_CPU</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_RX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+</tbody></table>
+<h4 id="CPU-Heap-Table-3"><a href="#CPU-Heap-Table-3" class="headerlink" title="CPU Heap Table"></a>CPU Heap Table</h4><table>
+<thead>
+<tr>
+<th>HEAP</th>
+<th>Size</th>
+<th>Free</th>
+<th>Unused</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DDR_LOCAL_MEM</td>
+<td>16777216 B</td>
+<td>16773376 B</td>
+<td>99 %</td>
+</tr>
+<tr>
+<td>L2_MEM</td>
+<td>229376 B</td>
+<td>229376 B</td>
+<td>100 %</td>
+</tr>
+<tr>
+<td>DDR_SCRATCH_MEM</td>
+<td>50331648 B</td>
+<td>50331648 B</td>
+<td>100 %</td>
+</tr>
+</tbody></table>
+</details>
+
+<h3 id="CPU-c7x-1"><a href="#CPU-c7x-1" class="headerlink" title="CPU: c7x_1"></a>CPU: c7x_1</h3><table>
+<thead>
+<tr>
+<th>TASK</th>
+<th>TASK LOAD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IPC_RX</td>
+<td>0. 5 %</td>
+</tr>
+<tr>
+<td>REMOTE_SRV</td>
+<td>0. 1 %</td>
+</tr>
+<tr>
+<td>LOAD_TEST</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_C71_P1</td>
+<td>31.38 %</td>
+</tr>
+<tr>
+<td>TIVX_C71_P2</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_C71_P3</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_C71_P4</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_C71_P5</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_C71_P6</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_C71_P7</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>TIVX_C71_P8</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_RX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+<tr>
+<td>IPC_TEST_TX</td>
+<td>0. 0 %</td>
+</tr>
+</tbody></table>
+<h4 id="CPU-Heap-Table-4"><a href="#CPU-Heap-Table-4" class="headerlink" title="CPU Heap Table"></a>CPU Heap Table</h4><table>
+<thead>
+<tr>
+<th>HEAP</th>
+<th>Size</th>
+<th>Free</th>
+<th>Unused</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DDR_LOCAL_MEM</td>
+<td>268435456 B</td>
+<td>232984320 B</td>
+<td>86 %</td>
+</tr>
+<tr>
+<td>L3_MEM</td>
+<td>8159232 B</td>
+<td>0 B</td>
+<td>0 %</td>
+</tr>
+<tr>
+<td>L2_MEM</td>
+<td>458752 B</td>
+<td>458752 B</td>
+<td>100 %</td>
+</tr>
+<tr>
+<td>L1_MEM</td>
+<td>16384 B</td>
+<td>0 B</td>
+<td>0 %</td>
+</tr>
+<tr>
+<td>DDR_SCRATCH_MEM</td>
+<td>385875968 B</td>
+<td>367400145 B</td>
+<td>95 %</td>
+</tr>
+</tbody></table>
+<h2 id="Performance-point-statistics"><a href="#Performance-point-statistics" class="headerlink" title="Performance point statistics"></a>Performance point statistics</h2><h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><table>
+<thead>
+<tr>
+<th>PERF</th>
+<th>avg (usecs)</th>
+<th>min&#x2F;max (usecs)</th>
+<th>number of executions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>33352</td>
+<td>0 &#x2F; 412578</td>
+<td>9556</td>
+</tr>
+</tbody></table>
+<h3 id="FPS"><a href="#FPS" class="headerlink" title="FPS"></a>FPS</h3><table>
+<thead>
+<tr>
+<th>PERF</th>
+<th>Frames per sec (FPS)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>29.98</td>
+</tr>
+</tbody></table>
+<h2 id="Temperature-statistics"><a href="#Temperature-statistics" class="headerlink" title="Temperature statistics"></a>Temperature statistics</h2><table>
+<thead>
+<tr>
+<th>ZONE</th>
+<th>TEMPERATURE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU</td>
+<td>50.93 Celsius</td>
+</tr>
+<tr>
+<td>WKUP</td>
+<td>49.52 Celsius</td>
+</tr>
+<tr>
+<td>C7X</td>
+<td>51.86 Celsius</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>51.63 Celsius</td>
+</tr>
+<tr>
+<td>R5F</td>
+<td>50.93 Celsius</td>
+</tr>
+</tbody></table>
+
     </div>
 
     
