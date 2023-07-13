@@ -135,7 +135,7 @@ A-->E[C.定义]</pre>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#x61;&#x70;&#64;&#x30;&#46;&#x35;">&#109;&#x61;&#x70;&#64;&#x30;&#46;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#97;&#x70;&#x40;&#x30;&#x2e;&#53;">&#109;&#97;&#x70;&#x40;&#x30;&#x2e;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -537,6 +537,54 @@ return ids.length + &quot; item(s) updated&quot;;
       </tags>
   </entry>
   <entry>
+    <title>Project：多个项目汇总</title>
+    <url>/Project/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
+<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
+<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
+<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
+<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
+<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
+<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
+<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
+<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
+<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
+<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
+<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
+<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
+<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
+<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
+<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
+<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
+<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
+<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
+<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
+<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
+<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
+<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
+<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
+<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
+<p>技术创新：</p>
+<blockquote>
+<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+</blockquote>
+<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
+<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
+<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
+<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
+<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
+]]></content>
+      <tags>
+        <tag>总结</tag>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello Blog! 从零开始搭建自己的博客网站</title>
     <url>/Hello-blog/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
@@ -615,265 +663,6 @@ return ids.length + &quot; item(s) updated&quot;;
       </tags>
   </entry>
   <entry>
-    <title>Photograph：个人摄影笔记</title>
-    <url>/Photograph/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="摄影笔记"><a href="#摄影笔记" class="headerlink" title="摄影笔记"></a>摄影笔记</h1><p>四要素：<code>取景，曝光，虚实，构图</code></p>
-<h2 id="取景"><a href="#取景" class="headerlink" title="取景"></a>取景</h2><p>互动：选取合适的前景与背景相互配合，有好的背景,就等合适的主体，注意人和景色的互动<br>云：镜头正对方向与云运动方向平行时，会呈放射状；大面积的卷云会在日落后形成火烧云<br>色温：日出日落时色温低，画面暖，之后一会儿就色温高画面冷<br>时间：阴天，多云，或日出后1h，日落前1h拍摄</p>
-<p><strong>光线：</strong></p>
-<blockquote>
-<p>不要在强光下拍风光片(建筑例外),必要则顺光拍；<br>早晚、阴天：顺逆光皆可；<br>侧逆光能更好地表现食物的立体感（柔光板辅助）；<br>上午朝西，下午朝东，顺光、色彩较好。</p>
-</blockquote>
-<h2 id="曝光"><a href="#曝光" class="headerlink" title="曝光"></a>曝光</h2><p>白天一般不增减曝光补偿,夜晚减一点让画面更干净<br>室外晴天的感光度通常在300以内，在室内可能达到500-800，甚至1000+；<br>在拍摄高速运动的对象时需要1&#x2F;1000以上的快门速度，否则无法捕捉到瞬间画面；<br>逆光&#x2F;大光比：前期包围曝光，后期多张混合（灰度蒙版，手动笔刷）<br>曝光时间——500法则：$$快门速度（s）&#x3D;\frac{500}{镜头等效焦距（mm）}$$</p>
-<h2 id="虚实"><a href="#虚实" class="headerlink" title="虚实"></a>虚实</h2><p>不能一味追求大光圈和虚化，要清晰<br>慢门创造虚：1.光圈优先，记下数据；2.切手动，设记下的光圈，ISO，快门延长1000倍（超过30s用B门）<br>水：快门优先,水面雾化,映照色彩<br>后期混合景深<br>两只眼睛都要实<br>先对焦、再构图</p>
-<p><strong>摇摄</strong>：将相机调为S档，根据实际情况选择1&#x2F;15~1&#x2F;30秒之间的快门速度，选择AF-C连续对焦、广域对焦区域及高速连拍即可开始拍摄。<br>拍摄时，将对焦点选择在人物身上，然后随着人物运动的方向以与人物相同的角速度转动镜头并同时按下快门连拍，即可获得人物主体清晰、背景模糊的效果。摇摄在拍摄快速移动的物体时除了能够虚化掉杂乱的背景，还能极大地增强画面动感。</p>
-<h2 id="构图"><a href="#构图" class="headerlink" title="构图"></a>构图</h2><ol>
-<li>身体 4321 160</li>
-<li>三分法 99%的时候都有效</li>
-<li>层次 前中后景</li>
-<li>留白 前景 线条</li>
-</ol>
-<p><strong>三分法</strong>：人们的目光总是自然落在画面三分之二处的位置上，尽量使主要的被摄体位于画面三等分线的焦点上，效果会比位于中心位置更好。<br>大主体可以居中,否则放在三分焦点；<br>表达广阔场景时,将重要线条往三分线下压；<br>对称主体可居中,独立主体放左&#x2F;右三分线</p>
-<p>善用框景<br>“如果你拍的不够好,是因为你站得不够近”<br>注意纵深感，立体感<br>引入线条：利用慢门的轨迹创造线条。<br>美食&#x2F;美颜：45°角，留白<br>参考当地明信片的名景点的拍摄位置和构图</p>
-<p><strong>人像</strong>：</p>
-<blockquote>
-<p>人头不放正中间，要偏上一点,否则显矮；10°俯拍<br>人脸朝左,人物置右;人脸朝右,人物置左;面朝前时,将一只眼睛置竖直中线<br>手脚、关节不能裁切<br>让人物身体和面部与镜头呈45,立体、显瘦<br>头顶、脚下预留空间<br>只考虑人物：竖构图; 交代环境：横构图</p>
-</blockquote>
-<h2 id="修图"><a href="#修图" class="headerlink" title="修图"></a>修图</h2><p>修图流程：lr定调（不加颗粒）、 液化、 修瑕疵、 磨皮、 其它、 锐化<br>液化：压力8-16<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph2.png" alt="图 2">  </p>
-<p><strong>直方图</strong><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph3.jpeg" width=70%></p>
-<p>以12位图像为例，12位图像记录的单个通道色彩深度是4096，但是4096并不是平均分布在直方图上，而是从亮部到暗部倍减。<br>所以在不过曝的前提下，尽量把图像信息向直方图的右边推进，直方图越向右，记录的色调信息就越多；进光量越充分，画质越好。</p>
-<h2 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h2><blockquote>
-<p>摄影是人类对静止最深刻的表达方式之一。摄影使我们把时间握在手中，与时间融合，这是任何其他形式都不具备的。<br>相片本身会传达出作者注入其中的情感。<br> “为什么这样做”高于“如何实现”，我认为这应当是一切艺术的目标。<br> 我们的世界有许多美的事物。尽管摄影天生是一项孤独的活动，但我们可以通过照片感受到彼此之间的联系，从而让我们获得慰籍。<br> ——丹.温特斯《观看之路》</p>
-</blockquote>
-<p> 如果你带着相机四下转悠，那就有义务保持警醒。  ——胡里奥·科塔萨尔《放大》</p>
-<p> 我曾以为照片能留住那刻的画面，然而拍照的时候我已经失去了那片刻的时光。<br> 我常想，如果我拍了足够的照片，我就不会再失去任何人。事实上，我的照片让我看到了我失去了多少。<br> 摄影不是一项业余爱好，而是一种生活方式。<br> 摄影不只是拍照，更是一种生活哲学。</p>
-<blockquote>
-<p>高光亮而不溢；暗部黑而不死；过度锐而不硬；画质润而不腻。焦内如刀割般犀利，焦外如奶油般化开。作品给人以美的感受，色彩清新脱俗，构图别出心裁，雅俗共赏。欣赏学习好友佳作，欢迎回访指导。</p>
-<p>主体清晰通透，动态多样，抓拍到位，表情自然，活泼靓丽。深邃的思想，惊世的影调，高超的构图，无与伦比的后期。充满了人文的气息，接地气的大片，期待您的佳作。毒，德味，大片，学习了!</p>
-</blockquote>
-<h1 id="专题拍摄"><a href="#专题拍摄" class="headerlink" title="专题拍摄"></a>专题拍摄</h1><p>主题拍摄：一直拍一种，最后放在一起</p>
-<h2 id="人像写真"><a href="#人像写真" class="headerlink" title="人像写真"></a>人像写真</h2><p>人像摄影三要素：情绪，姿态，故事性<br>主题性的拍摄：</p>
-<ol>
-<li><strong>风格</strong><br>清新、复古、古风、私房…<br>重点：依据主题去确立服饰，妆容，场景的匹配</li>
-<li><strong>场景</strong><br>海边：百搭场景，安静，放松，舒服<br>大自然，草坪：场景开阔，构图简单，有利于引导模特姿态<br>室内环境：容易做到出彩的背景色，强烈的主题风格<br>校园场景：制服，便服，清新活泼</li>
-<li><strong>服装搭配</strong><pre class="mermaid">graph LR
-A(依据主题风格选择服装搭配) -->B(依据搭配选场景)
-C(依据模特确定主题) -->|简单大方清新自然不造作| A
-B-->C</pre>
-各要素相辅相成</li>
-<li><strong>模特</strong><br>各有特点，契合气质定主题</li>
-<li><strong>与模特的沟通</strong><br>确定主题，表达想法；<br>建立模特对你拍摄技术的信心，给看样片；<br>放松自然（放音乐），不停和模特进行沟通，不冷场，多夸夸；<br>引导与<code>场景，服装，道具</code>的互动；<br>摆拍结合抓拍，引导自然的情绪流露。</li>
-</ol>
-<h2 id="星空摄影"><a href="#星空摄影" class="headerlink" title="星空摄影"></a>星空摄影</h2><p>使用光污染地图：<a href="www.lightpollutionmap.info">light pollution map</a>，<a href="https://www.darkmap.cn/">天文通-全球光污染地图</a><br>对焦：手动对焦最亮的星星（无穷远），直到最小、最实</p>
-<ul>
-<li>银河：春夏秋，银河核心会出现在夜空中用，最大光圈</li>
-<li>月亮：农历的月初月末无月，月中满月，0点沉入地平线</li>
-<li>流星：找辐射点，用最大光圈（拍星轨稍小），短曝光时间</li>
-</ul>
-<h2 id="夜景烟火人像"><a href="#夜景烟火人像" class="headerlink" title="夜景烟火人像"></a>夜景烟火人像</h2><ol>
-<li>手动设置M档，大光圈，1&#x2F;80s快门，1000左右ISO，钨丝灯白平衡，连拍模式</li>
-<li>不要将仙女棒拿着脸一侧，容易出现“阴阳脸”，2-3根的亮度较合适</li>
-<li>尽量使用RAW格式</li>
-</ol>
-<p>焰火：不长不短的曝光时间，拍1张焰火+1张背景，后期混合模式：变亮</p>
-<h1 id="摄影名词解释"><a href="#摄影名词解释" class="headerlink" title="摄影名词解释"></a>摄影名词解释</h1><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph4.png" width="75%">
-
-<p><a href="http://iphoto.blog.163.com/blog/static/174404124200832982358951/?utm_source=qq&utm_medium=social">几个必要的摄影名词解释</a></p>
-<h2 id="感光度-ISO"><a href="#感光度-ISO" class="headerlink" title="感光度 ISO"></a>感光度 ISO</h2><p>International Standards Organization，曾是制订胶卷的生产标准，现为CCD&#x2F;CMOS（或胶卷）对光线的敏感程度。</p>
-<blockquote>
-<p>设 ISO100，$T_{正确曝光} &#x3D; 2s$<br>则 ISO200，$T_{正确曝光} &#x3D; 1s$</p>
-</blockquote>
-<p>高ISO：速度快，噪点大——弱光场合<br>低ISO：速度慢，画面精细——风光摄影</p>
-<h2 id="快门-Shutter"><a href="#快门-Shutter" class="headerlink" title="快门 Shutter"></a>快门 Shutter</h2><p>相机里控制曝光时间的装置。<br>手持相机拍摄的安全速度原则：安全速度是焦距的倒数，如果使用35mm镜头，快门速度不得低于1&#x2F;35秒，使用200mm镜头时速度不得低于1&#x2F;200秒，否则图片就可能糊了。</p>
-<h2 id="光圈-Aperture"><a href="#光圈-Aperture" class="headerlink" title="光圈 Aperture"></a>光圈 Aperture</h2><p>镜头里调节进光孔大小的装置。<br>所有相机都基于小孔成像原理：排列组合的几块凹凸镜头+大孔&#x3D;相机镜头<br>常见的光圈值如下： </p>
-<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">F1</span>， <span class="built_in">F1</span>.<span class="number">4</span>， <span class="built_in">F2</span>， <span class="built_in">F2</span>.<span class="number">8</span>， <span class="built_in">F4</span>， <span class="built_in">F5</span>.<span class="number">6</span>， F8， F11， F16， F22， F32， F44， F64。</span><br></pre></td></tr></table></figure>
-<p>每两挡相邻光圈值之间进光量相差一倍。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph5.gif" width="50%"></p>
-<p>最佳光圈：镜头在<strong>中等光圈</strong>的时候成像最好（图片最清晰）。<br>光圈大一级则镜片大很多，加工难度高，重量大，价格贵，适合弱光且无三脚架的情况。</p>
-<p>光圈有三个作用：</p>
-<blockquote>
-<ol>
-<li>控制进光量，这直接影响到图片是否能正确曝光，是拍摄成功与否的关键；</li>
-<li>控制景深，光圈越小，景深越大。虽然焦距和拍摄远近都影响景深，但焦距和被摄物远近的改变同时也会影响构图，如果构图确定，我们能控制景深的武器就只剩下光圈了；</li>
-<li>光圈影响图片的清晰度，任何一个镜头都是在中等光圈的时候成像最好（图片最清晰），在最大光圈和最小光圈的时候解像度差。</li>
-</ol>
-</blockquote>
-<p><strong>光圈优先</strong> Aperture Priority: 手动定义光圈的大小，相机会根据这个光圈值确定能正确曝光的快门速度。<br><strong>小光圈</strong>的景深效果在于叙事，在实践中可将其称为叙事性光圈，主要用于需要传达较多照片信息的题材中。<br>为了使夜景画面星光璀璨，可以通过缩小光圈，得到呈星芒效果的灯光。这是因为光圈收缩到一定的程度时，光线就会通过光圈细小的孔洞产生衍射，从而使灯光出现四射的星芒效果，且光圈越小，光线越强烈，星芒效果越明显。</p>
-<h2 id="曝光-Exposure"><a href="#曝光-Exposure" class="headerlink" title="曝光 Exposure"></a>曝光 Exposure</h2><p>光圈和快门的组合。<br>曝光量：让多少光进入<br>一张正确曝光的图片可以有N种不同的光圈和快门速度组合，若光圈F4快门速度1秒为正确曝光值，那F5.6和2秒以及F8和4秒也同样能得到准确曝光的图片。</p>
-<p><strong>总结以上几个名词解释</strong>：有三个因素能影响一张图片是否正确曝光：光圈，快门速度，ISO。其中光圈和速度联合决定进光量，ISO决定CCD&#x2F;CMOS的感光速度。如果进光量不够，我们可以开大光圈或者降低快门速度，还是不够的话就提高ISO。大光圈的缺点是解像度不如中等光圈，快门速度降低则图片可能会糊，提高ISO后图片质量也会下降 。没有完美的方案，如何取舍要灵活决定。</p>
-<h2 id="测光与测光模式-Metering"><a href="#测光与测光模式-Metering" class="headerlink" title="测光与测光模式 Metering"></a>测光与测光模式 Metering</h2><p>测定光照强度，相机内的电脑根据电阻值的变化确定光线强度，进而确定曝光值（光圈，快门）。</p>
-<p>测光模式主要有点测光，中央重点测光，区域（平均）测光三种。</p>
-<blockquote>
-<p><strong>点测光</strong>: 只测取景框内一个小点的光线强度（此小点大约为取景框面积的10%到1%，看不同机型）。<br><strong>区域（平均）测光</strong>: 把取景框分为5到63块（看机型不同），分别对每块测光然后再加权平均得到光照强度。<br><strong>中央重点测光</strong>: 简化的区域（平均）测光，只把取景框分为中央圆圈和四周两块，分别测光，然后加权平均（中央圆圈的权重为70%左右）。</p>
-</blockquote>
-<p>大多数情况下用区域测光即可。在光线明暗反差很大时应该采用点测光。用区域（平均）测光或中央重点也可以，可根据自己的艺术创意进行曝光补偿。</p>
-<h2 id="曝光补偿-Exposure-compansation"><a href="#曝光补偿-Exposure-compansation" class="headerlink" title="曝光补偿 Exposure compansation"></a>曝光补偿 Exposure compansation</h2><p>修正（增减）曝光值。<br>照片要能真实反映拍摄时的环境亮度，相机自动测光就是取平均数，最后给出一个让图片达到<strong>中间灰</strong>（柯达灰）的曝光值，相机自动确定的曝光值90%以上是正确的，但纯白和纯黑等场景会测不准，因此需要曝光补偿。</p>
-<p>曝光补偿的原则：<strong>白加黑减</strong>。</p>
-<blockquote>
-<p>如果构图中有大片白色物体或特别明亮的物体，就要相应增加曝光量（增大光圈or&#x2F;and减低快门速度）；<br>如果取景框中有大片黑色的物体，则要减少曝光量。</p>
-</blockquote>
-<p>如果图片以RAW格式存储的话，其抗过曝&#x2F;欠曝能力是很强的，只要没有曝成完全没层次的一片纯白，过曝&#x2F;欠曝一个EV之内的照片都能在后期电脑处理时调正，而且基本不漏痕迹。但过曝&#x2F;欠曝太多还是不行，如果相差2EV以上，调正后的图片也会很难看。所以掌握曝光补偿白加黑减的原则依然重要。</p>
-<h2 id="焦距-Focus"><a href="#焦距-Focus" class="headerlink" title="焦距 Focus"></a>焦距 Focus</h2><p>从镜片（或镜片组）的中心到焦点的距离（mm）。</p>
-<ul>
-<li>焦距50mm的镜头称为“标准镜头”，简称标头，拍出来的照片类似肉眼平视的感觉（视角为45°左右）；</li>
-<li>广角镜头（焦距小于35mm）能够让照相机“看得更宽阔”，因为它视角大；</li>
-<li>长焦镜头（焦距大于70mm）能让照相机“看得更远”，但视角窄。</li>
-</ul>
-<p>光学变焦Optical Zoom：依靠镜片的位移来实现焦距的改变。光学变焦倍数越大，里面的镜片就越多，镜头体积相应较大，画质相对较低，光圈相对较小。$$变焦倍数＝\frac{最大焦距值}{最小焦距值}$$<br>数码变焦只是电子放大，用来骗人的。</p>
-<table>
-<thead>
-<tr>
-<th>焦距</th>
-<th>镜头类型</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>14-24mm</td>
-<td>超广角</td>
-<td>视角很大，形变夸张，多用于拍摄建筑与风光</td>
-</tr>
-<tr>
-<td>24-35mm</td>
-<td>广角</td>
-<td>多用于拍摄建筑与风光以及街头人文抓拍</td>
-</tr>
-<tr>
-<td>35-70mm</td>
-<td>中焦</td>
-<td>视角接近人眼，多用于人文纪实抓拍</td>
-</tr>
-<tr>
-<td>70-135mm</td>
-<td>中长焦</td>
-<td>视角比人眼窄，很多人像摄影师喜欢用这个焦段拍半身和头像的特写</td>
-</tr>
-<tr>
-<td>135-300mm</td>
-<td>长焦</td>
-<td>适合拍摄远距离物体。例如体育摄影、风光特写等等。</td>
-</tr>
-<tr>
-<td>大于300mm</td>
-<td>超长焦&#x2F;望远</td>
-<td>适合拍摄超远距离物体比如野生动物</td>
-</tr>
-</tbody></table>
-<p><strong>焦距转换系数</strong>:<br>镜头的视角是由镜头焦距和胶卷（或CCD&#x2F;CMOS）尺寸两者联合决定的。尺寸变小相当于焦距变大。大部分数码相机CCD&#x2F;CMOS面积都比原胶片小。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph6.gif" alt="图 6"><br>假如焦距不变，CCD&#x2F;CMOS越小，镜头视角越小，镜头转换系数只影响视角 。<br>$$镜头转换系数&#x3D;\frac{135胶片对角线长度}{非全幅的CCD&#x2F;CMOS对角线长度}$$<br>佳能：1.6，<br>尼康，Sony：1.5</p>
-<p>在其他条件相同的情况下，拍摄时使用的焦距越长，则画面的景深越浅，即可以得到更明显的虚化背景效果；反之，焦距越短视角越广，则画面的景深越大，越容易呈现大景深的画面效果。</p>
-<h2 id="景深-Depth-of-field-DOF"><a href="#景深-Depth-of-field-DOF" class="headerlink" title="景深 Depth of field, DOF"></a>景深 Depth of field, DOF</h2><p>照片焦点前后延伸出来的“可接受清晰区域”。</p>
-<blockquote>
-<p>小（浅）景深 → 背景模糊 → 人像摄影<br>大景深 → 前后都清晰 → 风光摄影</p>
-</blockquote>
-<p>由三个因素决定：1. 光圈大小；2. 焦距长短；3. 被摄物体的远近。</p>
-<ul>
-<li>估计景深：<blockquote>
-<ol>
-<li>光圈越大，景深越小；</li>
-<li>焦距越长，景深越小；</li>
-<li>离被摄物体越近，景深越小。</li>
-</ol>
-</blockquote>
-</li>
-</ul>
-<p>需要注意的是，后景深的范围大于前景深的范围。</p>
-<h2 id="白平衡-White-Balance"><a href="#白平衡-White-Balance" class="headerlink" title="白平衡 White Balance"></a>白平衡 White Balance</h2><p>照相机对白色的还原准确性。<br>色温color temperature:以开尔文温度表示光线的色彩，单位K。</p>
-<table>
-<thead>
-<tr>
-<th>光源</th>
-<th>色温（Ｋ）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>蜡烛</td>
-<td>2000</td>
-</tr>
-<tr>
-<td>钨丝灯</td>
-<td>2500-3200</td>
-</tr>
-<tr>
-<td>荧光灯</td>
-<td>4500-6500</td>
-</tr>
-<tr>
-<td>日光（平均）</td>
-<td>5400</td>
-</tr>
-<tr>
-<td>有云天气下的日光</td>
-<td>6500-7000</td>
-</tr>
-</tbody></table>
-<p>白平衡漂移：根据不同情况，在设置白平衡时设置不同的色调偏好能够得到不同的画面效果。比如在日光下拍摄樱花时，我们可以将日光白平衡中的色调加一些红，这样拍摄出的樱花会更粉嫩。<br>雪景容易偏色<br>物体在不同色温的光源照射下会呈现不同的色调，在日光灯下整体偏白，在普通钨丝白炽灯下整体偏黄。<br>在电脑上可以给RAW图片任意配置色温，彻底解决白平衡问题。</p>
-<h2 id="RAW"><a href="#RAW" class="headerlink" title="RAW"></a>RAW</h2><ul>
-<li>TIFF：不压缩的格式，单张超过25MB</li>
-<li>JPEG：有损压缩格式，占内存小，但有细节损失<blockquote>
-<p>CCD&#x2F;CMOS经曝光产生电子图片信号，相机内的小电脑把这些电子信号进行加工处理，再传输给存储卡。这些加工处理包括白平衡配置，颜色饱和度的增减，图片锐度和对比度增减，降低图片噪点等等，最后压缩转换为JPEG格式进行存储。</p>
-</blockquote>
-</li>
-<li>RAW：无损压缩格式，文件较大，后期空间大<blockquote>
-<p>CCD&#x2F;CMOS经过曝光产生的图片电子信号直接传给存储卡，文件没有经过相机内部电路的任何图片参数和质量处理。所以RAW文件又被称为数码底片Digital Negatives,几乎所有的参数都可以后期在电脑上调。</p>
-</blockquote>
-</li>
-</ul>
-<p>重要图片的拍摄一律存储JPEG+RAW，一般的图片存JPEG。</p>
-<h2 id="色彩空间：sRGB-AdobeRGB"><a href="#色彩空间：sRGB-AdobeRGB" class="headerlink" title="色彩空间：sRGB,AdobeRGB"></a>色彩空间：sRGB,AdobeRGB</h2><ul>
-<li>AdobeRGB:有更广泛的色彩范围，比sRGB多出35%，照片呈现的色彩更丰富，适合打印，且可转sRGB，但在网络上色彩范围无法完全显示，表现较差；</li>
-<li>sRGB：范围较小，但在网络上有不错的表现。</li>
-</ul>
-<h1 id="相机知识"><a href="#相机知识" class="headerlink" title="相机知识"></a>相机知识</h1><p><a href="http://iphoto.blog.163.com/blog/static/1744041242011721920436">摄影初学者挑选相机的常见问题</a></p>
-<h2 id="镜头组合"><a href="#镜头组合" class="headerlink" title="镜头组合"></a>镜头组合</h2><p>来自相机笔记的『几个镜头组合方案』</p>
-<ul>
-<li>日常家用：16-50&#x2F;18-55 + 55-210（优先覆盖焦距）</li>
-<li>旅游拍摄：腾龙18-200（大变焦，相对便携）</li>
-<li>人像拍摄：添置35&#x2F;1.8或50&#x2F;1.8</li>
-<li>风景拍摄：10-18 + 55-210（可考虑三阳8mm鱼眼）</li>
-<li>扫街纪实：适马19&#x2F;2.8</li>
-<li>真爱且APS-C不换粉：10-18 + 16-70ZA + FE70-200G（焦距密不透风，且均为F4恒定），再加蔡司Touit三只，原厂24&#x2F;1.8 ZA和55&#x2F;1.8 ZA。</li>
-</ul>
-<p>如果你对摄影的确是有很浓厚的兴趣，而且预算又有余，那么可以在第一支 标准变焦镜头的基础上，再购买一支定焦镜头，它是：50&#x2F; F1.8。 不管对哪个品牌来说，50 &#x2F; F1.8都是一支经典镜头，极低廉的价格，却享有不 逊牛头的出色画质，1.8的大光圈可以让你更好的体会光圈的影响和作用，是 一支学习摄影的经典镜头 </p>
-<h2 id="相机清洁"><a href="#相机清洁" class="headerlink" title="相机清洁"></a>相机清洁</h2><ul>
-<li><p>灰尘：</p>
-<blockquote>
-<p>气吹：先空吹几下<br>  棉签：确保无硬质灰尘，若有，用棉签定点清除<br>  擦镜布：顺一个方向，不要反复擦，由内向外螺旋擦拭</p>
-</blockquote>
-</li>
-<li><p>指纹油脂：</p>
-<blockquote>
-<p>将镜头清洁液滴一滴在擦镜布上<br>  先挥发一下，再开始擦拭，手法同上</p>
-</blockquote>
-</li>
-<li><p>雨水&#x2F;海水：</p>
-<blockquote>
-<p>气吹猛吹<br>  大量清洁液滴在布上，不等挥发直接快速擦<br>  用布较干的地方擦干净，再用毛巾&#x2F;软布擦干机身<br>  海水需要多擦几遍</p>
-</blockquote>
-</li>
-<li><p>其他工具：</p>
-<blockquote>
-<p>毛刷：刷机身灰尘<br>  棉签：死角、取景器（加液）、镜头卡口<br>  节电导通剂：清洁镜头触点</p>
-</blockquote>
-</li>
-<li><p>传感器：</p>
-<blockquote>
-<p>1.找灰尘：用小光圈（F16+）试拍白纸，手动对焦无穷远，灰尘位置上下左右颠倒（或有手动清洁模式）<br>  2.气吹<br>  3.传感器清洁棒：从左到右反复，柔和均匀<br>  4.传感器清洁液：等挥发</p>
-</blockquote>
-</li>
-</ul>
-<p>最后记得清洁镜头盖；<br>换镜头时要找背风处，动作要快。</p>
-<h2 id="拥有相机后快速入门"><a href="#拥有相机后快速入门" class="headerlink" title="拥有相机后快速入门"></a>拥有相机后快速入门</h2><ol>
-<li>读一本好书《美国纽约摄影学院摄影教材（上）》《美国摄影用光教程》</li>
-<li>阅读相机说明书熟悉常用设置和操作</li>
-<li>大量拍摄和学习</li>
-<li>关注几个严肃摄影媒体建立正确的价值观和审美情趣</li>
-<li>提高艺术文化修养，你的照片反映了你是什么样的人</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>技术</tag>
-        <tag>摄影</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Network：神经网络代码</title>
     <url>/Network/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="TORCH-NN"><a href="#TORCH-NN" class="headerlink" title="TORCH.NN"></a>TORCH.NN</h2><p><strong>Module 所有神经网络模块的基类</strong></p>
@@ -903,128 +692,267 @@ B-->C</pre>
       </tags>
   </entry>
   <entry>
-    <title>Python：Anaconda，Pycharm，Pytorch</title>
-    <url>/Pytorch/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>视频：<a href="https://www.bilibili.com/video/BV1hE411t7RN/">PyTorch深度学习快速入门教程</a></p>
-<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h1><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">conda create -n pytorch python=<span class="number">3.8</span>  <span class="comment">#Anaconda创建环境</span></span><br><span class="line">conda update python, pip install --upgrade pip <span class="comment">#更新</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br><span class="line">conda deactivate  <span class="comment">#退出虚拟环境</span></span><br><span class="line">conda remove pytorch --all  <span class="comment">#删除环境</span></span><br><span class="line">pip install XXX==<span class="number">2.0</span>, pip uninstall XXX <span class="comment">#安装特定版本/卸载</span></span><br><span class="line">pip config set global.index-url https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple  <span class="comment">#pip换源</span></span><br><span class="line">pip config list -v  <span class="comment">#查源</span></span><br><span class="line">pip install opencv-python -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span>  <span class="comment">#pip换源安装</span></span><br></pre></td></tr></table></figure>
+    <title>TDA4①：SDK, TIDL, OpenVX</title>
+    <url>/TDA4VM/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.ti.com.cn/product/zh-cn/TDA4VM">TDA4VM官网</a>， <a href="https://e2e.ti.com/support/processors-group/processors/f/processors-forum">TI e2e论坛</a><br>下一篇：<a href="https://wangyujie.site/TDA4VM2/">TDA4：环境搭建、模型转换及Demo</a></p>
+<h1 id="TDA4VM芯片数据手册研读"><a href="#TDA4VM芯片数据手册研读" class="headerlink" title="TDA4VM芯片数据手册研读"></a>TDA4VM芯片数据手册研读</h1><p><a href="https://www.ti.com.cn/cn/lit/ds/symlink/tda4vm.pdf">TDA4VM数据手册</a><br>适用于 ADAS 和自动驾驶汽车的TDA4VM Jacinto™ 处理器,具有深度学习、视觉功能和多媒体加速器的双核 Arm® Cortex®-A72 SoC 和 C7x DSP.<br>Jacinto 7系列架构芯片含两款汽车级芯片：TDA4VM 处理器和 DRA829V 处理器，前者应用于 ADAS，后者应用于网关系统，以及加速数据密集型任务的专用加速器，如计算机视觉和深度学习。二者都基于J721E平台开发。</p>
+<h2 id="多核异构"><a href="#多核异构" class="headerlink" title="多核异构"></a>多核异构</h2><img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg"/>  
 
-<p>修改环境创建路径(win):<br>1.找到用户目录下的.condarc文件（C:\Users\username）。<br>2.打开.condarc文件之后，添加或修改.condarc 中的 env_dirs 设置环境路径:<code>envs_dirs:  - D:\Anaconda3\envs</code></p>
-<details>
-  <summary>其他国内镜像源</summary>
-  
-<pre><code>清华大学：https://pypi.tuna.tsinghua.edu.cn/simple
-阿里云：http://mirrors.aliyun.com/pypi/simple
-豆瓣：http://pypi.douban.com/simple
-</code></pre>
-</details>
-
-<details>
-  <summary>其他常用命令</summary>
-
-<pre><code>conda list：查看环境中的所有包
-conda install XXX：安装 XXX 包
-conda remove XXX：删除 XXX 包
-conda env list：列出所有环境
-conda create -n XXX：创建名为 XXX 的环境
-conda create -n env_name jupyter notebook ：创建虚拟环境
-activate noti（或 source activate noti）：启用/激活环境
-conda env remove -n noti：删除指定环境
-deactivate（或 source deactivate）：退出环境
-jupyter notebook ：打开Jupyter Notebook
-conda config --remove-key channels ：换回默认源
-</code></pre>
-</details>
-
-<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings &gt; Project &gt; interpreter</code><br>环境路径配置： <code>interpreter &gt; 齿轮 &gt; Add &gt; System Interpreter &gt; 手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File &gt; Settings &gt; Tools &gt; Terminal &gt; Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
-<p><strong>Pycharm使用</strong></p>
-<blockquote>
-<p>新建.py文件(用作工程) &gt; 右上角配置py解释器 &gt; 运行&#x2F;直接右键运行<br>控制台(用作调试，查参数) &gt; Shift+enter：输入多行 &gt; “↑”重新编辑<br>Ctrl + D 快速复制至下一行<br>Ctrl + R 批量修改<br>Ctrl + &#x2F; 批量注释<br>调试：打断点 &gt; debug &gt; 使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
-</blockquote>
-<p>调试时使用Console的python调试台，print指令<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch1.png" alt="图 1"> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch2.png" alt="图 2">  </p>
-<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后: <code>conda install nb_conda</code><br>打开 jupyter notebook: <code>New &gt; 选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
-<details>
-  <summary>打包下载：点击查看代码块</summary>
-
-<pre><code>import os
-import tarfile
-def recursive_files(dir_name=&#39;.&#39;, ignore=None):
-    for dir_name,subdirs,files in os.walk(dir_name):
-        if ignore and os.path.basename(dir_name) in ignore: 
-            continue
-
-        for file_name in files:
-            if ignore and file_name in ignore:
-                continue
-
-            yield os.path.join(dir_name, file_name)
-
-def make_tar_file(dir_name=&#39;.&#39;, tar_file_name=&#39;tarfile.tar&#39;, ignore=None):
-    tar = tarfile.open(tar_file_name, &#39;w&#39;)
-
-    for file_name in recursive_files(dir_name, ignore):
-        tar.add(file_name)
-
-    tar.close()
-
-dir_name = &#39;.&#39;
-tar_file_name = &#39;archive.tar&#39;
-ignore = &#123;&#39;.ipynb_checkpoints&#39;, &#39;__pycache__&#39;, tar_file_name&#125;
-make_tar_file(dir_name, tar_file_name, ignore)
-</code></pre>
-</details>
-
-
-<h2 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a><a href="https://colab.research.google.com/">Google Colab</a></h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置并查看GPU 修改&gt;笔记本设置&gt;GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.test.gpu_device_name()</span><br><span class="line"></span><br><span class="line">!/opt/<span class="built_in">bin</span>/nvidia-smi <span class="comment">#详情</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">!unzip /content/XX.<span class="built_in">zip</span> -d /content/XX   <span class="comment">#解压</span></span><br><span class="line">%cd /content/XX     <span class="comment">#进入</span></span><br><span class="line">!pip install -r requirements.txt    <span class="comment">#安装requirements</span></span><br><span class="line">!python XX.py --rect <span class="comment">#运行</span></span><br><span class="line">!rm -rf /content/XX/mydata <span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line">%load_ext tensorboard   <span class="comment">#加载tensorboard</span></span><br><span class="line">%tensorboard --logdir=runs/train    <span class="comment">#执行tensorboard</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先装载谷歌云盘，在云盘里运行以防数据丢失，指定Google Drive云端硬盘的根目录，名为drive</span></span><br><span class="line">!mkdir -p drive</span><br><span class="line">!google-drive-ocamlfuse drive</span><br><span class="line"></span><br><span class="line"><span class="comment">#connect to self drive</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"><span class="comment">#云训练时还是要将盘里的文件拿出来再开始，否则容易直接断连!</span></span><br></pre></td></tr></table></figure>
-<p>续航插件：<a href="https://chrome.google.com/webstore/detail/colab-alive/eookkckfbbgnhdgcbfbicoahejkdoele?hl=zh-CN">Colab Alive</a>, 防止训练时掉线</p>
-<h1 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h1><p>要调用GPU进行训练的话，需要安装显卡驱动对应的CUDA</p>
+<h2 id="处理器内核"><a href="#处理器内核" class="headerlink" title="处理器内核"></a>处理器内核</h2><ul>
+<li><strong>C7x 浮点矢量 DSP，性能高达 1.0GHz、 80GFLOPS、256GOPS</strong>：C7x是TI的一款高性能数字信号处理器，其中的浮点矢量 DSP 可以进行高效的信号处理、滤波和计算，大幅提高神经网络模型的计算效率。<br><em>GHz-每秒钟执行10亿次计算，GFLOPS-每秒10亿次浮点运算，GOPS-每秒10亿次通用操作。</em></li>
+<li><strong>深度学习矩阵乘法加速器 (MMA)，性能高达8TOPS (8b)（频率为1.0GHz）</strong>：可以高效地执行矩阵乘法和卷积等运算。<br><em>TOPS-每秒万亿次操作，8b-8位精度的运算。</em></li>
+<li><strong>具有图像信号处理器(ISP)和多个视觉辅助加速器的视觉处理加速器（VPAC）</strong>：可以高效地执行图像处理、计算机视觉和感知任务。</li>
+<li><strong>深度和运动处理加速器（DMPAC）</strong>：可以高效地执行深度计算和运动估计等任务。</li>
+<li><strong>双核 64 位 Arm® Cortex®-A72 微处理器子系统，性能高达 2.0GHz</strong>：可以高效地执行复杂的应用程序。<ul>
+<li>每个双核 Cortex®-A72 集群具有 1MB L2 共享缓存 </li>
+<li>每个 Cortex®-A72 内核具有 32KB L1 数据缓存 和 48KB L1 指令缓存<br><em>L1缓存（一级缓存）：小而快，缓存CPU频繁使用的数据和指令，以提高内存访问速度；L2：大，帮助CPU更快地访问主内存中的数据。</em></li>
+</ul>
+</li>
+<li><strong>六个 Arm® Cortex®-R5F MCU，性能高达 1.0GHz</strong>：一组小型、低功耗的微控制器单元，用于处理实时任务和控制应用程序<ul>
+<li>16K 指令缓存，16K 数据缓存，64K L2 TCM（Tightly-Coupled Memory）</li>
+<li>隔离 MCU 子系统中有两个 Arm® Cortex®-R5F MCU</li>
+<li>通用计算分区中有四个 Arm® Cortex®-R5F MCU</li>
+</ul>
+</li>
+<li><strong>两个 C66x 浮点 DSP，性能高达 1.35GHz、 40GFLOPS、160GOPS</strong>：另一款高性能数字信号处理器，可以高效地执行信号处理、滤波和计算任务。</li>
+<li><strong>3D GPU PowerVR® Rogue 8XE GE8430，性能高达 750MHz、96GFLOPS、6Gpix&#x2F;s</strong>：专门用于图形处理的硬件单元，可以实现高效的图形渲染和计算。<br><em>Gpix&#x2F;s-每秒可以处理10亿像素数</em></li>
+<li><strong>定制设计的互联结构，支持接近于最高的处理能力</strong>：处理器内部的互连结构，用于连接各种硬件单元，并支持高效的数据传输和协议。</li>
+</ul>
+<h1 id="SDK"><a href="#SDK" class="headerlink" title="SDK"></a>SDK</h1><p>Download：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a>，提供<strong>两套SDK</strong>（软件架构不同）：</p>
 <ol>
-<li><code>nvidia-smi</code> 查询支持CUDA版本<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch3.png" alt="图 3">  </li>
-<li>到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch4.png" alt="图 4"></li>
+<li>PSDK <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS</a> and <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux</a>，用于J721E-EVM</li>
+<li>PSDK Linux for <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/index.html">Edge AI</a>，用于TDA4VM-SK</li>
 </ol>
-<p><strong>查GPU</strong></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –-version <span class="comment">#查python版本</span></span><br><span class="line">conda install python=<span class="number">3.8</span>  <span class="comment">#升级(覆盖安装)python</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><em>RTOS and Linux SDK work together as a multi-processor software development kit，用于ADAS领域，更多的外设和驱动放在RTOS端，便于实时处理 ，自定义性更强，开发难度更大<br>Edge AI SDK主要基于Linux开发，用于工业领域，工作量少但实时性差，无法发挥芯片全部性能</em> <sup id="fnref:0"><a href="#fn:0" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[视频：深度学习算法在ADAS处理器TDA4VM的应用与部署](https://www.ti.com.cn/zh-cn/video/6301563648001)">[0]</span></a></sup></p>
+</blockquote>
+<h2 id="Processor-SDK-RTOS-PSDK-RTOS"><a href="#Processor-SDK-RTOS-PSDK-RTOS" class="headerlink" title="Processor SDK RTOS (PSDK RTOS)"></a>Processor SDK RTOS (PSDK RTOS)</h2><p><strong>PSDK RTOS Block Diagram</strong><br><img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMSDKedit.png" /><br><strong>Hardware</strong><br>Evaluation Module (EVM):Ti 推出的硬件开发板。用于快速原型设计和新产品开发，可以帮助开发人员在短时间内实现复杂的嵌入式系统功能, <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/evm_setup_j721e.html">EVM Setup for J721E</a><br>JTAG:debug execution, load program via JTAG-<em>No Boot Mode</em><br>uart:prints status of the application via the uart terminal.<br><strong>Software</strong><br>Recommend IDE:Code Composer Studio (CCS), <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/ccs_setup_j721e.html#ccs-setup-j721e">CCS Setup for J721E</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/getting_started_j721e.html#demo-applications"><strong>Demos</strong></a><br>Prebuilt Demos:直装<br>Build Demos from Source: Linux, Windows(很少)</p>
+<p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/sdk_components_j721e.html#vxlib"><strong>SDK Components</strong></a><br>The following table lists <em>part</em> of the top-level folders in the SDK package and the component it represents.</p>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Component</th>
+<th>User guide</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vision_apps</td>
+<td>Vision Apps</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/vision_apps/docs/user_guide/index.html">Demos</a></td>
+</tr>
+<tr>
+<td>pdk_jacinto_*</td>
+<td>Platform Development Kit</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/pdk_jacinto_08_06_00_31/docs/pdk_introduction.html#Documentation">PDK</a></td>
+</tr>
+<tr>
+<td><del>mcusw</del></td>
+<td>MCU Software</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/mcusw/mcal_drv/docs/drv_docs/index.html">MCU SW</a></td>
+</tr>
+<tr>
+<td>tidl_j7_*</td>
+<td>TI Deep learning Product</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/index.html">TIDL Product</a></td>
+</tr>
+<tr>
+<td>tiovx</td>
+<td>TI OpenVX</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a></td>
+</tr>
+<tr>
+<td>tiadalg</td>
+<td>TI Autonomous Driving Algorithms</td>
+<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiadalg/TIAutonomousDrivingAlgorithmLibrary_ReleaseNotes.html#Documentation">TIADALG</a></td>
+</tr>
+</tbody></table>
+<p>RTOS SDK 中集成了众多的Demo展示TIDL在TDA4处理器上对实时的语义分割和 SSD 目标检测的能力。如下图,	Vision Apps User Guide 中 <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/07_02_00_06/exports/docs/vision_apps/docs/user_guide/group_apps_dl_demos_app_tidl_avp3.html">AVP Demo</a> 的展示了使用TIDL对泊车点、车辆的检测。<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Deep Learning with Jacinto™ 7 SoCs: TDA4x](https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf?raw=true) | [当深度学习遇上TDA4](https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4)">[1]</span></a></sup></p>
+<img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMAVP.jpg" />  
 
-<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><h3 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h3><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
-<p>文件</p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
-<p>计时		</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
-<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
-<p>组 </p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="Processor-SDK-Linux"><a href="#Processor-SDK-Linux" class="headerlink" title="Processor SDK Linux"></a>Processor SDK Linux</h2><details>
+  <summary>SDK Components</summary>
 
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Component</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bin</td>
+<td>包含用于配置主机系统的帮助程序脚本和目标设备。这些脚本中的大多数都由setup.sh使用脚本。</td>
+</tr>
+<tr>
+<td>board-support</td>
+<td>主要包含linux内核源码，uboot源码，及其他组件。</td>
+</tr>
+<tr>
+<td>configs</td>
+<td>yocto工具的构建链接（yocto构建大约需要十几个小时，一般情况下不会去编译yocto。）。</td>
+</tr>
+<tr>
+<td>docs</td>
+<td>直接打开index.html，即可阅读整个SDK的官方文档。</td>
+</tr>
+<tr>
+<td>example-applications</td>
+<td>包含一些benchmarks等app demo。</td>
+</tr>
+<tr>
+<td>filesystem</td>
+<td>存放默认、最小的文件系统。</td>
+</tr>
+<tr>
+<td>linux-devkit</td>
+<td>交叉编译工具链和库以加快目标设备的开发速度。</td>
+</tr>
+<tr>
+<td>Makefile</td>
+<td>顶级编译脚本（make）。</td>
+</tr>
+<tr>
+<td>patches</td>
+<td>补丁、预留目录。</td>
+</tr>
+<tr>
+<td>Rules.make</td>
+<td>设置顶级生成文件使用的默认值以及子组件生成文件。</td>
+</tr>
+<tr>
+<td>setup .sh</td>
+<td>配置用户主机系统和目标开发系统。</td>
+</tr>
+<tr>
+<td>yocto-build</td>
+<td>此目录允许重建SDK组件和使用Yocto Bitbake的文件系统。</td>
+</tr>
+</tbody></table>
+</details>
 
-<h3 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h3><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
-<p>打开</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
-<p>地址	localhost:6006</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
-<h3 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h3><p>transforms.py图像处理工具箱</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
-<h3 id="ToTensor"><a href="#ToTensor" class="headerlink" title="ToTensor"></a>ToTensor</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#（桥梁，很多输入都要求tensor类型）</span></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
+<p>Linux SDK最主要是用于A72核心上的启动引导、操作系统、文件系统，一般只有在修改到这部分的时候才会使用到Linux SDK。</p>
+<h2 id="PSDK-Linux-for-Edge-AI"><a href="#PSDK-Linux-for-Edge-AI" class="headerlink" title="PSDK Linux for Edge AI"></a>PSDK Linux for Edge AI</h2><p>对于Edge AI，无需对深度学习算法进行深入了解，使用python或C++即可进行部署，不支持的算法可以放在ARM端计算和实施推理，TI会自动生成推理文件，如下图；<br><img alt="图 sdk" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMsdk.png" />  </p>
+<p>而对于ADAS领域，要把深度学习算法都放在TIDL端，最大化利用算力，需要手写加速算子进行自定义层的设计；</p>
+<p>两套SDK部署深度学习算法的区别如下：<br><img alt="图 compare" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMcompare.png" /><br><img alt="图 compare" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMcompare2.png" /> </p>
+<h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a>TIDL</h1><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/index.html">TIDL</a>（TI Deep Learning Library）是TI平台基于深度学习算法的<em>软件生态系统</em>，其特性和支持<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Embedded low-power deep learning with TIDL](https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf?raw=true)">[2]</span></a></sup>可以将一些常见的深度学习算法模型快速的部署到TI嵌入式平台。</p>
+<figure class="highlight mathematica"><table><tr><td class="code"><pre><span class="line"><span class="variable">Features</span><span class="operator">:</span> <span class="variable">Interoperability</span><span class="operator">,</span> <span class="variable">High</span> <span class="variable">Compute</span><span class="operator">,</span> <span class="variable">High</span> <span class="variable">Memory</span> <span class="variable">Bandwidth</span><span class="operator">,</span> <span class="variable">Scalability</span></span><br><span class="line"><span class="variable">Popular</span> <span class="variable">operators</span> <span class="variable">supported</span><span class="operator">:</span> <span class="variable">Convolution</span><span class="operator">,</span> <span class="variable">Pooling</span><span class="operator">,</span> <span class="built_in">Element</span> <span class="variable">Wise</span><span class="operator">,</span> <span class="built_in">Inner</span><span class="operator">-</span><span class="built_in">Product</span><span class="operator">,</span> <span class="variable">Soft</span><span class="operator">-</span><span class="built_in">Max</span><span class="operator">,</span> <span class="variable">Bias</span> <span class="variable">Add</span><span class="operator">,</span> <span class="variable">Concatenate</span><span class="operator">,</span> <span class="built_in">Scale</span><span class="operator">,</span> <span class="variable">Batch</span> <span class="variable">Normalization</span><span class="operator">,</span> <span class="built_in">Re</span><span class="operator">-</span><span class="variable">size</span><span class="operator">,</span> <span class="built_in">Arg</span><span class="operator">-</span><span class="variable">max</span><span class="operator">,</span> <span class="variable">Slice</span><span class="operator">,</span> <span class="variable">Crop</span><span class="operator">,</span> <span class="built_in">Flatten</span><span class="operator">,</span> <span class="variable">Shuffle</span> <span class="variable">Channel</span><span class="operator">,</span> <span class="variable">Detection</span> <span class="variable">output</span><span class="operator">,</span> <span class="variable">Deconvolution</span><span class="operator">/</span><span class="built_in">Transpose</span> <span class="variable">convolution</span> </span><br></pre></td></tr></table></figure>
+<p>Functions: </p>
+<ul>
+<li><strong>Import</strong> trained network models into <em>.bin</em> files that can be used by TIDL. The following model formats are currently supported:<ul>
+<li>Caffe 模型（使用 .caffemodel 和 .prototxt 文件） - 0.17 (caffe-jacinto in gitHub)</li>
+<li>Tensorflow 模型（使用 .pb 或 .tflite 文件） - 1.12（TFLite - Tensorflow 2.0-Alpha）</li>
+<li><em>ONNX</em> 模型（使用 .onnx 文件 和 .prototxt 文件） - 1.3.0 （官方onnx已经到了1.14）</li>
+</ul>
+</li>
+<li>Run <strong>performance simulation tool</strong> on PC to estimate the expected performace of the network while executing the network for inference on TI Jacinto7 SoC</li>
+<li><strong>Execute the network on PC</strong> using the imported files and validate the results.bin</li>
+<li><strong>Execute the network on TI</strong> Jacinto7 SoC using the imported files and validate the results.bin</li>
+</ul>
+<img alt="图 14" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMTIDLppt.jpg" width="80%"/>  
 
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
-<h3 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h3><p>torchvision.datasets 数据集处理</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>TIDL当前支持的训练框架有Tensorflow、Pytorch、Caffe等，用户可以根据需要选择合适的训练框架进行模型训练。TIDL可以将PC端训练好的模型导入编译生成TIDL可以识别的模型格式，同时在导入编译过程中进行层级合并以及量化等操作，方便导入编译后的模型高效的运行在具有高性能定点数据感知能力TDA4硬件加速器上。</p>
+<h2 id="TIDL-Importer"><a href="#TIDL-Importer" class="headerlink" title="TIDL Importer"></a>TIDL Importer</h2><p>TIDL提供了 <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_model_import.html">TIDL Importer</a> 模型导入工具，模型可视化工具等，非常便捷地可以对训练好的模型进行导入。</p>
+<img alt="图 3" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_blockDiagram.png" />  
+<img alt="图 4" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/tidl_import_design.jpg" />  
 
-<details>
-  <summary>例</summary>
+<p><code>RTOSsdk/tidl_j721e/ti_dl/utils/tidlModelImport</code></p>
+<ol>
+<li>读取导入配置文件；</li>
+<li>转换并<strong>导入</strong>网络层和算子（operators）到TIDL net file，计算层大小和缓冲区大小，并尽可能合并层；</li>
+<li>生成<strong>量化</strong>配置文件，调用量化工具（quant tool）进行范围采集，并更新TIDL net file；</li>
+<li>生成用于网络<strong>编译</strong>器（network compiler）的配置文件，并调用编译器进行性能优化；</li>
+<li><em>[Optional]</em> 调用GraphVisualiser来生成网络图；</li>
+<li>导入工具将在最后结束检查模型；</li>
+<li>最后，如果没有错误，可以用于<strong>部署</strong>。</li>
+</ol>
+<p>总的来说，导入工具将在内部运行quantization, network compilation, performance simulation internally, 并生成文件：</p>
+<blockquote>
+<p>Compiled network and I&#x2F;O files used for inference<br>Performance simulation results for network analysis in .csv</p>
+</blockquote>
+<h2 id="TIDL-Quantization-量化方法"><a href="#TIDL-Quantization-量化方法" class="headerlink" title="TIDL Quantization 量化方法"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_fsg_quantization.html">TIDL Quantization</a> 量化方法</h2><p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/tidl_fsg_quantization.md">Tidl tools quantization</a>，<a href="https://github.com/TexasInstruments/edgeai-torchvision/blob/master/docs/pixel2pixel/Quantization.md">torchvision-Quantization</a><br>把浮点计算（Float）转换成定点（Int）计算，是一种基于计算机存储和计算过程特点，提升（端侧）模型推理速度，并维持稳定精度的模型压缩方法。</p>
+<ul>
+<li>浮点计算在成本和功耗效率方面不高。这些浮点计算可以用定点计算(8 or 16 bit)来代替，同时不会丢失推理精度。</li>
+<li>J7平台的矩阵乘法加速器(MMA)支持深度学习模型的8位、16位和32位推理。</li>
+<li>当进行64x64矩阵乘法时，8位推理支持4096 MACs(<em>Multiply–Accumulate Operations</em>) per cycle的乘法器吞吐量。因此，8位推理适用于J7平台。 (16位和32位推理会显著消耗性能。 16位推理的乘法器吞吐量为每个周期1024个MAC。 所需的内存I&#x2F;O会很高。)</li>
+</ul>
+<p>TIDL中需要量化的层：Convolution Layer、De-convolution Layer、Inner-Product Layer、Batch Normalization (Scale&#x2F;Mul, Bias&#x2F;Add, PReLU)</p>
+<ul>
+<li>Quantization options：<ul>
+<li>Post Training Quantization (PTQ, 训练后量化、离线量化)</li>
+<li>Training for Quantization (QAT，训练时量化，伪量化，在线量化)</li>
+<li>Quantization aware Training<img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_Quant_Options.png" width='70%'></li>
+</ul>
+</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/639245713">从零开始玩转TDA4之模型量化</a></p>
+<h2 id="TI’s-Edge-AI"><a href="#TI’s-Edge-AI" class="headerlink" title="TI’s Edge AI"></a>TI’s Edge AI</h2><p>TIDL is a fundamental software component of <a href="https://www.ti.com/edgeai">TI’s Edge AI solution</a>.在TIDL上，深度学习网络应用开发主要分为三个大的步骤: </p>
+<ol>
+<li>基于Tensorflow、Pytorch、Caffe 等训练框架，训练模型</li>
+<li>基于TDA4VM处理器导入模型： 训练好的模型，需要使用TIDL Importer工具导入成可在TIDL上运行的模型。导入的主要目的是对输入的模型进行量化、优化并保存为TIDL能够识别的网络模型和网络参数文件</li>
+<li>基于TI Jacinto7TM SDK 验证模型，并在应用里面部署模型：<ul>
+<li>PC 上验证并部署<ul>
+<li>在PC上使用TIDL推理引擎进行模型测试。</li>
+<li>在PC上使用OpenVX框架开发程序，在应用上进行验证。</li>
+</ul>
+</li>
+<li>EVM上验证并部署<ul>
+<li>在EVM上使用TIDL推理引擎进行模型测试。</li>
+<li>在EVM上使用OpenVX框架开发程序，在应用上进行验证<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[基于Pytorch训练并在TDA4上部署ONNX模型](https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf?raw=true)">[3]</span></a></sup></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/dnn-workflow.png">
 
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">    writer = SummaryWriter(<span class="string">&quot;dataloader&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">        step = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> test_loader: <span class="comment">#读数据</span></span><br><span class="line">            imgs, targets = data</span><br><span class="line">            writer.add_images(<span class="string">&quot;Epoch: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(epoch), imgs, step)</span><br><span class="line">            step = step + <span class="number">1</span></span><br><span class="line">    writer.close()</span><br><span class="line">&lt;/details&gt;</span><br></pre></td></tr></table></figure>]]></content>
+<p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_overview.html">TIDL Runtime</a>（TIDL-RT）是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMworkflow.png" width="60%"/>  </p>
+<p><a href="https://github.com/TexasInstruments/edgeai"><strong>TI’s EdgeAI Tools</strong></a>:Training and quantization tools,make DNNs more suitable for TI devices.</p>
+<ul>
+<li><p><a href="https://github.com/TexasInstruments/edgeai-modelzoo">Model ZOO</a>:A large collection of pre-trained models for data scientists,其中有<a href="https://github.com/TexasInstruments/edgeai-modelzoo/tree/master/models/vision/detection">YOLO例程</a></p>
+</li>
+<li><p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools#edgeai-tidl-tools">Edge AI TIDL Tools</a>:used for model compilation on X86. Artifacts from compilation process can used for Model inference， which can happen on X86 machine or on development board with TI SOC.</p>
+</li>
+<li><p><a href="https://github.com/TexasInstruments/edgeai-benchmark">Edge AI Benchmark</a>:provides higher level scripts for model compilation,and perform accuracy and performance benchmark.</p>
+</li>
+<li><p><a href="https://dev.ti.com/edgeai/">Edge AI Studio</a>:Integrated development environment for development of AI applications for edge processors.（需授权）</p>
+</li>
+<li><p><a href="https://github.com/TexasInstruments/edgeai-modelmaker">EdgeAI-ModelMaker</a>: Command line Integrated environment for training &amp; compilation，集成了edgeai-modelzoo, edgeai-torchvision, edgeai-mmdetection, edgeai-benchmark, edgeai-modelmaker</p>
+<img alt="图 9" src="https://raw.sevencdn.com/TexasInstruments/edgeai/blob/master/assets/workblocks_tools_software.png?raw=true" width="90%"></li>
+</ul>
+<h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><code>Vx_context</code>：一个context就是一个运行环境，包含多种不同的功能，在不同场景下被调度。一般很少有使用到多context的场景；<br><code>Vx_graph</code>：一个graph就是一个功能，是由多个步骤连接在一起的完整功能；<br><code>Vx_node</code>：一个node就是一个最小的调度单元，可以是图像预处理算法，可以是边缘检测算法。<br>每个进程内可以有多个context（上下文），每个context内可以有多个graph（图，或连接关系），每个graph内可以有多个node（节点）。<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[TIOVX – TI’s OpenVX Implementation](https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf)">[4]</span></a></sup></p>
+<img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMopenvxflow.png" />  
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Example Program</span></span><br><span class="line">vx_context context = vxCreateContext(); <span class="comment">//创建 OpenVX 上下文,即整个应用程序的运行环境</span></span><br><span class="line">vx_graph graph = vxCreateGraph( context ); <span class="comment">//在上下文中创建一个图，表示图像处理的流程</span></span><br><span class="line">vx_image input = vxCreateImage( context, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 );</span><br><span class="line">vx_image output = vxCreateImage( context, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 ); <span class="comment">//创建输入和输出图像，分别用于存储输入和处理后的图像。</span></span><br><span class="line">vx_image intermediate = vxCreateVirtualImage( graph, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 ); <span class="comment">//创建虚拟图像，用于存储第一次处理后的结果，供下一步处理使用</span></span><br><span class="line">vx_node F1 = vxF1Node( graph, input, intermediate );</span><br><span class="line">vx_node F2 = vxF2Node( graph, intermediate, output ); <span class="comment">//创建两个节点，分别表示两个不同的图像处理操作，并将它们添加到图中</span></span><br><span class="line">vxVerifyGraph( graph ); <span class="comment">//验证图的正确性</span></span><br><span class="line">vxProcessGraph( graph ); <span class="comment">//执行图像处理</span></span><br></pre></td></tr></table></figure>
+<img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMopenvxexample.png" width="80%"/>  
+
+<h3 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h3><p><code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code><br>OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。</p>
+<h3 id="TIOVX"><a href="#TIOVX" class="headerlink" title="TIOVX"></a>TIOVX</h3><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a> 是TI公司对OpenVX的实现。<br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png" width="80%"></p>
+<p>TIOVX Platform提供了特定硬件(如TDAx, AM65x)的操作系统(如TI-RTOS, Linux)调用API。TIOVX Framework包含了官方OpenVX的标准API和TI扩展的API，其中包括</p>
+<figure class="highlight mathematica"><table><tr><td class="code"><pre><span class="line"><span class="variable">public</span><span class="operator">:</span> <span class="built_in">Context</span><span class="operator">,</span> <span class="built_in">Parameter</span><span class="operator">,</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Node</span><span class="operator">,</span> <span class="built_in">Graph</span> <span class="built_in">Array</span><span class="operator">,</span> <span class="built_in">Image</span><span class="operator">,</span> <span class="variable">Scalar</span><span class="operator">,</span> <span class="built_in">Pyramid</span><span class="operator">,</span> <span class="variable">ObjectArray</span> ；</span><br><span class="line"><span class="variable">TI</span><span class="operator">:</span> <span class="variable">Target</span><span class="operator">,</span> <span class="variable">Target</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Obj</span> <span class="variable">Desc</span>。</span><br></pre></td></tr></table></figure>
+
+<p><strong>优势</strong></p>
+<ul>
+<li>TI官方提供OpenVX的支持，提供标准算法的硬件加速实现，提供各个功能的Demo，能够简化开发调试工作。</li>
+<li>简化多核异构的开发，可以在X86模拟运行，所有的板级开发和调试都位于A72 Linux端，减少了对RTOS调试的工作量。</li>
+<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832) | [TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[5]</span></a></sup><img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMtiovx.png" width="80%"/></li>
+</ul>
+<p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/PYTIOVX.html">PyTIOVX</a>: Automated OpenVX “C” Code Generation</p>
+<hr>
+<blockquote>
+<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:0"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">0.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/zh-cn/video/6301563648001">视频：深度学习算法在ADAS处理器TDA4VM的应用与部署</a><a href="#fnref:0" rev="footnote"> ↩</a></span></li><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf?raw=true">Deep Learning with Jacinto™ 7 SoCs: TDA4x</a> | <a href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf?raw=true">Embedded low-power deep learning with TIDL</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf?raw=true">基于Pytorch训练并在TDA4上部署ONNX模型</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf">TIOVX – TI’s OpenVX Implementation</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a> | <a href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:5" rev="footnote"> ↩</a></span></li></ol></div></div></p>
+</blockquote>
+]]></content>
       <tags>
-        <tag>python</tag>
+        <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
     <title>TDA4②：环境搭建、模型转换、Demo及Tools</title>
     <url>/TDA4VM2/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见上一篇：<a href="https://wangyujie.site/TDA4VM/">[TDA4：SDK, TIDL, OpenVX]</a><br>环境搭建需要下载：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见上一篇：<a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>环境搭建需要下载：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
 <h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
 <p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#ti-processor-sdk-linux-j7-evm*/board-support/</span></span><br><span class="line">Make linux        <span class="comment">#编译Linux kernel代码和dtb，主要用于内核驱动的修改和裁剪。安装命令可以将内核和驱动模块自动拷贝到TF卡中。</span></span><br><span class="line">Make linux_install  <span class="comment">#生成built-images</span></span><br><span class="line">Make u-boot       <span class="comment">#编译u-boot代码，主要分为两部分：运行在MCU上的r5f部分和运行在A72上的a53部分。此处A72兼容A53指令集。</span></span><br><span class="line">Make sysfw-image  <span class="comment">#生成sysfw固件，主要在修改MSMC大小的时候会用到。</span></span><br></pre></td></tr></table></figure>
@@ -1113,7 +1041,7 @@ make_tar_file(dir_name, tar_file_name, ignore)
 <li>在 ARM 核心上运行优化代码，以支持 TIDL 不支持的层（<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/supported_ops_rts_versions.md">支持情况</a>）</li>
 </ol>
 <p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/tree/08_06_00_05#setup">Setup - TexasInstruments&#x2F;edgeai-tidl-tools at 08_06_00_05</a></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line"><span class="built_in">cd</span> edgeai-tidl-tools</span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh</span><br><span class="line"><span class="comment">#Docker Based X86_PC Setup 跳过，不用docker装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置变量</span></span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">export</span> TIDL_TOOLS_PATH=$(<span class="built_in">pwd</span>)/tidl_tools</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$TIDL_TOOLS_PATH</span></span><br><span class="line"><span class="built_in">export</span> ARM64_GCC_PATH=$(<span class="built_in">pwd</span>)/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu</span><br><span class="line"></span><br><span class="line"><span class="comment">#Compile and Validate on X86_PC</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake ../examples &amp;&amp; make -j &amp;&amp; <span class="built_in">cd</span> ..</span><br><span class="line"><span class="built_in">source</span> ./scripts/run_python_examples.sh <span class="comment">#编译运行</span></span><br><span class="line">python3 ./scripts/gen_test_report.py    <span class="comment">#评估</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line"><span class="built_in">cd</span> edgeai-tidl-tools</span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh</span><br><span class="line"><span class="comment">#Docker Based X86_PC Setup 跳过，不用docker装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置变量</span></span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">export</span> TIDL_TOOLS_PATH=$(<span class="built_in">pwd</span>)/tidl_tools</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$TIDL_TOOLS_PATH</span></span><br><span class="line"><span class="built_in">export</span> ARM64_GCC_PATH=$(<span class="built_in">pwd</span>)/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Compile and Validate on X86_PC</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake ../examples &amp;&amp; make -j &amp;&amp; <span class="built_in">cd</span> ..</span><br><span class="line"><span class="built_in">source</span> ./scripts/run_python_examples.sh <span class="comment">#编译运行</span></span><br><span class="line">python3 ./scripts/gen_test_report.py    <span class="comment">#评估</span></span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -1163,97 +1091,21 @@ make_tar_file(dir_name, tar_file_name, ignore)
 
 <p>Then using Onnx with the libtidl_onnxrt_EP inference library we run the model and collect benchmark data.<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png" width="88%"/>  </p>
 <p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md">edgeai-tidl-tools:Python Examples</a><br><a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TDA4④：部署自定义模型</title>
-    <url>/TDA4VM4/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OD model</p>
-<pre class="mermaid">graph LR
-A(Encoder ) -->B(Feature Fusion)-->c(Detection Heads)-->d(Detection Layer)</pre>
-<p>An important step of compiling an OD model is defining prototxt.<br>Prototxt file contains all relevant information of the detection layer.<br><a href="https://www.ti.com/video/6286792047001">Efficient object detection using Yolov5 and TDA4x processors | Video | TI.com</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/common/inference_models.html">4. Deep learning models &amp;mdash; Processor SDK Linux for SK-TDA4VM Documentation</a></p>
-<p>Each Deep Neural Network has few components:</p>
-<ol>
-<li><strong>model</strong>: This directory contains the DNN being targeted to infer</li>
-<li><strong>artifacts</strong>: This directory contains the artifacts generated after the compilation of DNN for SDK. These artifacts can be generated and validated with simple file based examples provided in Edge AI TIDL Tools</li>
-<li><strong>param.yaml</strong>: A configuration file in yaml format to provide basic information about DNN, and associated pre and post processing parameters</li>
-<li>*<strong>dataset.yaml :</strong> This configuration file in yaml format illustrate the details of dataset used for model training.</li>
-<li>*<strong>run.log :</strong> This is run log of model.</li>
-</ol>
-<p><a href="https://github.com/TexasInstruments/edgeai-benchmark">edgeai-benchmark</a>: Custom model benchmark can also be easily done (please refer to the documentation and example). Uses <a href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a> for model compilation and inference</p>
-<ol>
-<li>首先，使用PyTorch训练模型并导出.onnx和prototxt文件;</li>
-<li>其次，使用edgeai-benchmark来对.onnx和prototxt文件进行基准测试，以获取param.yaml文件。可以使用脚本<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/run_custom_pc.sh">edgeai-benchmark&#x2F;run_custom_pc.sh</a>来调用<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/scripts/benchmark_custom.py">edgeai-benchmark&#x2F;custom.py</a>。如果模型不在该文件列出的类型之中，可以参考<a href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master/configs">edgeai-benchmark&#x2F;configs</a>目录中的示例,<br>这一步将创建一个编译后的模型文件包（tar.gz文件）;</li>
-<li>第三步，通过flash手动将上述.tar.gz文件复制到SD卡中（或者在启动后，可以直接使用scp或其他工具进行复制）;</li>
-<li>最后，运行&#x2F;opt&#x2F;edge_ai_apps&#x2F;apps_python&#x2F;app_edgeai.py。</li>
-</ol>
-<p>除了上述的第二步，也可以使用edgeai-tidl-tools。但是需要手动编辑param.yaml文件，以使其与edgeai-benchmark生成的文件相匹配。 </p>
-<h1 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI-TIDL-Tools"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/custom_model_evaluation.md">EdgeAI-TIDL-Tools</a></h1><p>环境搭建见：<a href="https://wangyujie.site/TDA4VM2/#EdgeAI-TIDL-Tools">TDA4②</a></p>
-<h1 id="EdgeAI-Benchmark"><a href="#EdgeAI-Benchmark" class="headerlink" title="EdgeAI-Benchmark"></a><a href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master">EdgeAI-Benchmark</a></h1><p>EdgeAI-Benchmark提供了一系列针对不同图像识别任务的脚本，包括分类、分割、检测和关键点检测。（使用<a href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a>用于模型编译和推理）</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>文档：<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/docs/setup_instructions.md">setup_instructions</a>，其中<code>pyenv install 3.6</code>可能因为网络原因下载极慢，这时可以先从官网或镜像源下载所需要的包到 ~&#x2F;.pyenv&#x2F;cache 目录下，再执行安装命令<br>此后每次需要激活环境：<code>pyenv activate benchmark</code></p>
-<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</a></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Project：多个项目汇总</title>
-    <url>/Project/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><p><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a><br><a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
-<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
-<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
-<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
-<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
-<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
-<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
-<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
-<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
-<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
-<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
-<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
-<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
-<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
-<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
-<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
-<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
-<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
-<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
-<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
-<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
-<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
-<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
-<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
-<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
-<p>技术创新：</p>
+<hr>
 <blockquote>
-<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
 </blockquote>
-<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
-<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
-<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
-<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
-<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
 ]]></content>
       <tags>
-        <tag>总结</tag>
-        <tag>技术</tag>
+        <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
     <title>TDA4③：YOLOX的模型转换与SK板端运行</title>
     <url>/TDA4VM3/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="YOLOX部署TDA4VM-SK流程"><a href="#YOLOX部署TDA4VM-SK流程" class="headerlink" title="YOLOX部署TDA4VM-SK流程"></a>YOLOX部署TDA4VM-SK流程</h1><p>TI官方在<a href="https://github.com/TexasInstruments/edgeai-modelzoo"> ModelZOO </a>中提供了一系列预训练模型可以直接拿来转换，也提供了<a href="https://github.com/TexasInstruments/edgeai-yolov5"> edgeai-YOLOv5 </a>与<a href="https://github.com/TexasInstruments/edgeai-yolox"> edgeai-YOLOX </a>等优化的开源项目，可以直接下载提供的yolov7_s的<a href="http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-yolox/yolox-s-ti-lite_39p1_57p9.onnx"> onnx文件 </a>和<a href="http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-yolox/yolox_s_ti_lite_metaarch.prototxt"> prototxt文件 </a>，也可以在官方项目上训练自己的模型后再导入。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>接上一篇：<a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a></p>
+<h1 id="YOLOX部署TDA4VM-SK流程"><a href="#YOLOX部署TDA4VM-SK流程" class="headerlink" title="YOLOX部署TDA4VM-SK流程"></a>YOLOX部署TDA4VM-SK流程</h1><p>TI官方在<a href="https://github.com/TexasInstruments/edgeai-modelzoo"> ModelZOO </a>中提供了一系列预训练模型可以直接拿来转换，也提供了<a href="https://github.com/TexasInstruments/edgeai-yolov5"> edgeai-YOLOv5 </a>与<a href="https://github.com/TexasInstruments/edgeai-yolox"> edgeai-YOLOX </a>等优化的开源项目，可以直接下载提供的yolov7_s的<a href="http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-yolox/yolox-s-ti-lite_39p1_57p9.onnx"> onnx文件 </a>和<a href="http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-yolox/yolox_s_ti_lite_metaarch.prototxt"> prototxt文件 </a>，也可以在官方项目上训练自己的模型后再导入。</p>
 <p>这里尝试跑通全流程，在 edgeai-YOLOX 项目中训练，得到 <code>.pth</code> 权重文件，使用 export_onnx.py 文件转换为 <code>.onnx</code> 模型文件和 <code>.prototxt</code> 架构配置文件，并导入TIDL，得到部署用的 <code>.bin</code> 文件。<br>主要参考<a href="https://github.com/TexasInstruments/edgeai-yolox/blob/main/README_2d_od.md"> edgeai-YOLOX文档 </a>以及<a href="https://blog.csdn.net/AIRKernel/article/details/126222505"> YOLOX模型训练结果导入及平台移植应用 </a></p>
 <img alt="picture 1" src="https://github.com/TexasInstruments/edgeai-yolox/raw/main/yolox/utils/figures/Focus.png"/>  
 
@@ -1943,6 +1795,10 @@ A(Encoder ) -->B(Feature Fusion)-->c(Detection Heads)-->d(Detection Layer)</pre>
 <td>50.93 Celsius</td>
 </tr>
 </tbody></table>
+<hr>
+<blockquote>
+<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
+</blockquote>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
@@ -1950,258 +1806,420 @@ A(Encoder ) -->B(Feature Fusion)-->c(Detection Heads)-->d(Detection Layer)</pre>
       </tags>
   </entry>
   <entry>
-    <title>TDA4①：SDK, TIDL, OpenVX</title>
-    <url>/TDA4VM/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a href="https://www.ti.com.cn/product/zh-cn/TDA4VM">TDA4VM官网</a>， <a href="https://e2e.ti.com/support/processors-group/processors/f/processors-forum">TI e2e论坛</a><br>下一篇：<a href="https://wangyujie.site/TDA4VM2/">TDA4：环境搭建、模型转换及Demo</a></p>
-<h1 id="TDA4VM芯片数据手册研读"><a href="#TDA4VM芯片数据手册研读" class="headerlink" title="TDA4VM芯片数据手册研读"></a>TDA4VM芯片数据手册研读</h1><p><a href="https://www.ti.com.cn/cn/lit/ds/symlink/tda4vm.pdf">TDA4VM数据手册</a><br>适用于 ADAS 和自动驾驶汽车的TDA4VM Jacinto™ 处理器,具有深度学习、视觉功能和多媒体加速器的双核 Arm® Cortex®-A72 SoC 和 C7x DSP.<br>Jacinto 7系列架构芯片含两款汽车级芯片：TDA4VM 处理器和 DRA829V 处理器，前者应用于 ADAS，后者应用于网关系统，以及加速数据密集型任务的专用加速器，如计算机视觉和深度学习。二者都基于J721E平台开发。</p>
-<h2 id="多核异构"><a href="#多核异构" class="headerlink" title="多核异构"></a>多核异构</h2><img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg"/>  
-
-<h2 id="处理器内核"><a href="#处理器内核" class="headerlink" title="处理器内核"></a>处理器内核</h2><ul>
-<li><strong>C7x 浮点矢量 DSP，性能高达 1.0GHz、 80GFLOPS、256GOPS</strong>：C7x是TI的一款高性能数字信号处理器，其中的浮点矢量 DSP 可以进行高效的信号处理、滤波和计算，大幅提高神经网络模型的计算效率。<br><em>GHz-每秒钟执行10亿次计算，GFLOPS-每秒10亿次浮点运算，GOPS-每秒10亿次通用操作。</em></li>
-<li><strong>深度学习矩阵乘法加速器 (MMA)，性能高达8TOPS (8b)（频率为1.0GHz）</strong>：可以高效地执行矩阵乘法和卷积等运算。<br><em>TOPS-每秒万亿次操作，8b-8位精度的运算。</em></li>
-<li><strong>具有图像信号处理器(ISP)和多个视觉辅助加速器的视觉处理加速器（VPAC）</strong>：可以高效地执行图像处理、计算机视觉和感知任务。</li>
-<li><strong>深度和运动处理加速器（DMPAC）</strong>：可以高效地执行深度计算和运动估计等任务。</li>
-<li><strong>双核 64 位 Arm® Cortex®-A72 微处理器子系统，性能高达 2.0GHz</strong>：可以高效地执行复杂的应用程序。<ul>
-<li>每个双核 Cortex®-A72 集群具有 1MB L2 共享缓存 </li>
-<li>每个 Cortex®-A72 内核具有 32KB L1 数据缓存 和 48KB L1 指令缓存<br><em>L1缓存（一级缓存）：小而快，缓存CPU频繁使用的数据和指令，以提高内存访问速度；L2：大，帮助CPU更快地访问主内存中的数据。</em></li>
-</ul>
-</li>
-<li><strong>六个 Arm® Cortex®-R5F MCU，性能高达 1.0GHz</strong>：一组小型、低功耗的微控制器单元，用于处理实时任务和控制应用程序<ul>
-<li>16K 指令缓存，16K 数据缓存，64K L2 TCM（Tightly-Coupled Memory）</li>
-<li>隔离 MCU 子系统中有两个 Arm® Cortex®-R5F MCU</li>
-<li>通用计算分区中有四个 Arm® Cortex®-R5F MCU</li>
-</ul>
-</li>
-<li><strong>两个 C66x 浮点 DSP，性能高达 1.35GHz、 40GFLOPS、160GOPS</strong>：另一款高性能数字信号处理器，可以高效地执行信号处理、滤波和计算任务。</li>
-<li><strong>3D GPU PowerVR® Rogue 8XE GE8430，性能高达 750MHz、96GFLOPS、6Gpix&#x2F;s</strong>：专门用于图形处理的硬件单元，可以实现高效的图形渲染和计算。<br><em>Gpix&#x2F;s-每秒可以处理10亿像素数</em></li>
-<li><strong>定制设计的互联结构，支持接近于最高的处理能力</strong>：处理器内部的互连结构，用于连接各种硬件单元，并支持高效的数据传输和协议。</li>
-</ul>
-<h1 id="SDK"><a href="#SDK" class="headerlink" title="SDK"></a>SDK</h1><p>Download：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a>，提供<strong>两套SDK</strong>（软件架构不同）：</p>
+    <title>TDA4④：部署自定义模型</title>
+    <url>/TDA4VM4/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>接上一篇：<a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a></p>
+<p>OD model</p>
+<pre class="mermaid">graph LR
+A(Encoder ) -->B(Feature Fusion)-->c(Detection Heads)-->d(Detection Layer)</pre>
+<p>An important step of compiling an OD model is defining prototxt.<br>Prototxt file contains all relevant information of the detection layer.<br><a href="https://www.ti.com/video/6286792047001">Efficient object detection using Yolov5 and TDA4x processors | Video | TI.com</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/common/inference_models.html">4. Deep learning models &amp;mdash; Processor SDK Linux for SK-TDA4VM Documentation</a></p>
+<p>Each Deep Neural Network has few components:</p>
 <ol>
-<li>PSDK <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS</a> and <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux</a>，用于J721E-EVM</li>
-<li>PSDK Linux for <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/index.html">Edge AI</a>，用于TDA4VM-SK</li>
+<li><strong>model</strong>: This directory contains the DNN being targeted to infer</li>
+<li><strong>artifacts</strong>: This directory contains the artifacts generated after the compilation of DNN for SDK. These artifacts can be generated and validated with simple file based examples provided in Edge AI TIDL Tools</li>
+<li><strong>param.yaml</strong>: A configuration file in yaml format to provide basic information about DNN, and associated pre and post processing parameters</li>
+<li>*<strong>dataset.yaml :</strong> This configuration file in yaml format illustrate the details of dataset used for model training.</li>
+<li>*<strong>run.log :</strong> This is run log of model.</li>
 </ol>
+<p><a href="https://github.com/TexasInstruments/edgeai-benchmark">edgeai-benchmark</a>: Custom model benchmark can also be easily done (please refer to the documentation and example). Uses <a href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a> for model compilation and inference</p>
+<ol>
+<li>首先，使用PyTorch训练模型并导出.onnx和prototxt文件;</li>
+<li>其次，使用edgeai-benchmark来对.onnx和prototxt文件进行基准测试，以获取param.yaml文件。可以使用脚本<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/run_custom_pc.sh">edgeai-benchmark&#x2F;run_custom_pc.sh</a>来调用<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/scripts/benchmark_custom.py">edgeai-benchmark&#x2F;custom.py</a>。如果模型不在该文件列出的类型之中，可以参考<a href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master/configs">edgeai-benchmark&#x2F;configs</a>目录中的示例,<br>这一步将创建一个编译后的模型文件包（tar.gz文件）;</li>
+<li>第三步，通过flash手动将上述.tar.gz文件复制到SD卡中（或者在启动后，可以直接使用scp或其他工具进行复制）;</li>
+<li>最后，运行&#x2F;opt&#x2F;edge_ai_apps&#x2F;apps_python&#x2F;app_edgeai.py。</li>
+</ol>
+<p>除了上述的第二步，也可以使用edgeai-tidl-tools。但是需要手动编辑param.yaml文件，以使其与edgeai-benchmark生成的文件相匹配。</p>
+<h1 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h1><p>使用 <code>torch.onnx.export(model,input, &quot;XXX.onnx&quot;, verbose=False, export_params=True)</code> 得到 <code>.onnx</code><br>注意要确保加载的模型是一个完整的PyTorch模型对象，而不是一个包含模型权重的字典。</p>
+<h1 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI-TIDL-Tools"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/custom_model_evaluation.md">EdgeAI-TIDL-Tools</a></h1><p>环境搭建见：<a href="https://wangyujie.site/TDA4VM2/#EdgeAI-TIDL-Tools">TDA4②</a><br>sh</p>
+<h1 id="EdgeAI-Benchmark"><a href="#EdgeAI-Benchmark" class="headerlink" title="EdgeAI-Benchmark"></a><a href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master">EdgeAI-Benchmark</a></h1><p>EdgeAI-Benchmark提供了一系列针对不同图像识别任务的脚本，包括分类、分割、检测和关键点检测。（使用<a href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a>用于模型编译和推理）</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>文档：<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/docs/setup_instructions.md">setup_instructions</a>，其中<code>pyenv install 3.6</code>可能因为网络原因下载极慢，这时可以先从官网或镜像源下载所需要的包到 ~&#x2F;.pyenv&#x2F;cache 目录下，再执行安装命令<br>此后每次需要激活环境：<code>pyenv activate benchmark</code></p>
+<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</a></p>
+<hr>
 <blockquote>
-<p><em>RTOS and Linux SDK work together as a multi-processor software development kit，用于ADAS领域，更多的外设和驱动放在RTOS端，便于实时处理 ，自定义性更强，开发难度更大<br>Edge AI SDK主要基于Linux开发，用于工业领域，工作量少但实时性差，无法发挥芯片全部性能</em> <sup id="fnref:0"><a href="#fn:0" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[视频：深度学习算法在ADAS处理器TDA4VM的应用与部署](https://www.ti.com.cn/zh-cn/video/6301563648001)">[0]</span></a></sup></p>
+<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
 </blockquote>
-<h2 id="Processor-SDK-RTOS-PSDK-RTOS"><a href="#Processor-SDK-RTOS-PSDK-RTOS" class="headerlink" title="Processor SDK RTOS (PSDK RTOS)"></a>Processor SDK RTOS (PSDK RTOS)</h2><p><strong>PSDK RTOS Block Diagram</strong><br><img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMSDKedit.png" /><br><strong>Hardware</strong><br>Evaluation Module (EVM):Ti 推出的硬件开发板。用于快速原型设计和新产品开发，可以帮助开发人员在短时间内实现复杂的嵌入式系统功能, <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/evm_setup_j721e.html">EVM Setup for J721E</a><br>JTAG:debug execution, load program via JTAG-<em>No Boot Mode</em><br>uart:prints status of the application via the uart terminal.<br><strong>Software</strong><br>Recommend IDE:Code Composer Studio (CCS), <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/ccs_setup_j721e.html#ccs-setup-j721e">CCS Setup for J721E</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/getting_started_j721e.html#demo-applications"><strong>Demos</strong></a><br>Prebuilt Demos:直装<br>Build Demos from Source: Linux, Windows(很少)</p>
-<p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/sdk_components_j721e.html#vxlib"><strong>SDK Components</strong></a><br>The following table lists <em>part</em> of the top-level folders in the SDK package and the component it represents.</p>
-<table>
-<thead>
-<tr>
-<th>Folder</th>
-<th>Component</th>
-<th>User guide</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>vision_apps</td>
-<td>Vision Apps</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/vision_apps/docs/user_guide/index.html">Demos</a></td>
-</tr>
-<tr>
-<td>pdk_jacinto_*</td>
-<td>Platform Development Kit</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/pdk_jacinto_08_06_00_31/docs/pdk_introduction.html#Documentation">PDK</a></td>
-</tr>
-<tr>
-<td><del>mcusw</del></td>
-<td>MCU Software</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/mcusw/mcal_drv/docs/drv_docs/index.html">MCU SW</a></td>
-</tr>
-<tr>
-<td>tidl_j7_*</td>
-<td>TI Deep learning Product</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/index.html">TIDL Product</a></td>
-</tr>
-<tr>
-<td>tiovx</td>
-<td>TI OpenVX</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a></td>
-</tr>
-<tr>
-<td>tiadalg</td>
-<td>TI Autonomous Driving Algorithms</td>
-<td><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiadalg/TIAutonomousDrivingAlgorithmLibrary_ReleaseNotes.html#Documentation">TIADALG</a></td>
-</tr>
-</tbody></table>
-<p>RTOS SDK 中集成了众多的Demo展示TIDL在TDA4处理器上对实时的语义分割和 SSD 目标检测的能力。如下图,	Vision Apps User Guide 中 <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/07_02_00_06/exports/docs/vision_apps/docs/user_guide/group_apps_dl_demos_app_tidl_avp3.html">AVP Demo</a> 的展示了使用TIDL对泊车点、车辆的检测。<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Deep Learning with Jacinto™ 7 SoCs: TDA4x](https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf?raw=true) | [当深度学习遇上TDA4](https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4)">[1]</span></a></sup></p>
-<img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMAVP.jpg" />  
-
-<h2 id="Processor-SDK-Linux"><a href="#Processor-SDK-Linux" class="headerlink" title="Processor SDK Linux"></a>Processor SDK Linux</h2><details>
-  <summary>SDK Components</summary>
-
-<table>
-<thead>
-<tr>
-<th>Folder</th>
-<th>Component</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>bin</td>
-<td>包含用于配置主机系统的帮助程序脚本和目标设备。这些脚本中的大多数都由setup.sh使用脚本。</td>
-</tr>
-<tr>
-<td>board-support</td>
-<td>主要包含linux内核源码，uboot源码，及其他组件。</td>
-</tr>
-<tr>
-<td>configs</td>
-<td>yocto工具的构建链接（yocto构建大约需要十几个小时，一般情况下不会去编译yocto。）。</td>
-</tr>
-<tr>
-<td>docs</td>
-<td>直接打开index.html，即可阅读整个SDK的官方文档。</td>
-</tr>
-<tr>
-<td>example-applications</td>
-<td>包含一些benchmarks等app demo。</td>
-</tr>
-<tr>
-<td>filesystem</td>
-<td>存放默认、最小的文件系统。</td>
-</tr>
-<tr>
-<td>linux-devkit</td>
-<td>交叉编译工具链和库以加快目标设备的开发速度。</td>
-</tr>
-<tr>
-<td>Makefile</td>
-<td>顶级编译脚本（make）。</td>
-</tr>
-<tr>
-<td>patches</td>
-<td>补丁、预留目录。</td>
-</tr>
-<tr>
-<td>Rules.make</td>
-<td>设置顶级生成文件使用的默认值以及子组件生成文件。</td>
-</tr>
-<tr>
-<td>setup .sh</td>
-<td>配置用户主机系统和目标开发系统。</td>
-</tr>
-<tr>
-<td>yocto-build</td>
-<td>此目录允许重建SDK组件和使用Yocto Bitbake的文件系统。</td>
-</tr>
-</tbody></table>
-</details>
-
-<p>Linux SDK最主要是用于A72核心上的启动引导、操作系统、文件系统，一般只有在修改到这部分的时候才会使用到Linux SDK。</p>
-<h2 id="PSDK-Linux-for-Edge-AI"><a href="#PSDK-Linux-for-Edge-AI" class="headerlink" title="PSDK Linux for Edge AI"></a>PSDK Linux for Edge AI</h2><p>对于Edge AI，无需对深度学习算法进行深入了解，使用python或C++即可进行部署，不支持的算法可以放在ARM端计算和实施推理，TI会自动生成推理文件，如下图；<br><img alt="图 sdk" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMsdk.png" />  </p>
-<p>而对于ADAS领域，要把深度学习算法都放在TIDL端，最大化利用算力，需要手写加速算子进行自定义层的设计；</p>
-<p>两套SDK部署深度学习算法的区别如下：<br><img alt="图 compare" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMcompare.png" /><br><img alt="图 compare" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMcompare2.png" /> </p>
-<h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a>TIDL</h1><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/index.html">TIDL</a>（TI Deep Learning Library）是TI平台基于深度学习算法的<em>软件生态系统</em>，其特性和支持<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Embedded low-power deep learning with TIDL](https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf?raw=true)">[2]</span></a></sup>可以将一些常见的深度学习算法模型快速的部署到TI嵌入式平台。</p>
-<figure class="highlight mathematica"><table><tr><td class="code"><pre><span class="line"><span class="variable">Features</span><span class="operator">:</span> <span class="variable">Interoperability</span><span class="operator">,</span> <span class="variable">High</span> <span class="variable">Compute</span><span class="operator">,</span> <span class="variable">High</span> <span class="variable">Memory</span> <span class="variable">Bandwidth</span><span class="operator">,</span> <span class="variable">Scalability</span></span><br><span class="line"><span class="variable">Popular</span> <span class="variable">operators</span> <span class="variable">supported</span><span class="operator">:</span> <span class="variable">Convolution</span><span class="operator">,</span> <span class="variable">Pooling</span><span class="operator">,</span> <span class="built_in">Element</span> <span class="variable">Wise</span><span class="operator">,</span> <span class="built_in">Inner</span><span class="operator">-</span><span class="built_in">Product</span><span class="operator">,</span> <span class="variable">Soft</span><span class="operator">-</span><span class="built_in">Max</span><span class="operator">,</span> <span class="variable">Bias</span> <span class="variable">Add</span><span class="operator">,</span> <span class="variable">Concatenate</span><span class="operator">,</span> <span class="built_in">Scale</span><span class="operator">,</span> <span class="variable">Batch</span> <span class="variable">Normalization</span><span class="operator">,</span> <span class="built_in">Re</span><span class="operator">-</span><span class="variable">size</span><span class="operator">,</span> <span class="built_in">Arg</span><span class="operator">-</span><span class="variable">max</span><span class="operator">,</span> <span class="variable">Slice</span><span class="operator">,</span> <span class="variable">Crop</span><span class="operator">,</span> <span class="built_in">Flatten</span><span class="operator">,</span> <span class="variable">Shuffle</span> <span class="variable">Channel</span><span class="operator">,</span> <span class="variable">Detection</span> <span class="variable">output</span><span class="operator">,</span> <span class="variable">Deconvolution</span><span class="operator">/</span><span class="built_in">Transpose</span> <span class="variable">convolution</span> </span><br></pre></td></tr></table></figure>
-<p>Functions: </p>
-<ul>
-<li><strong>Import</strong> trained network models into <em>.bin</em> files that can be used by TIDL. The following model formats are currently supported:<ul>
-<li>Caffe 模型（使用 .caffemodel 和 .prototxt 文件） - 0.17 (caffe-jacinto in gitHub)</li>
-<li>Tensorflow 模型（使用 .pb 或 .tflite 文件） - 1.12（TFLite - Tensorflow 2.0-Alpha）</li>
-<li><em>ONNX</em> 模型（使用 .onnx 文件 和 .prototxt 文件） - 1.3.0 （官方onnx已经到了1.14）</li>
-</ul>
-</li>
-<li>Run <strong>performance simulation tool</strong> on PC to estimate the expected performace of the network while executing the network for inference on TI Jacinto7 SoC</li>
-<li><strong>Execute the network on PC</strong> using the imported files and validate the results.bin</li>
-<li><strong>Execute the network on TI</strong> Jacinto7 SoC using the imported files and validate the results.bin</li>
-</ul>
-<img alt="图 14" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMTIDLppt.jpg" width="80%"/>  
-
-<p>TIDL当前支持的训练框架有Tensorflow、Pytorch、Caffe等，用户可以根据需要选择合适的训练框架进行模型训练。TIDL可以将PC端训练好的模型导入编译生成TIDL可以识别的模型格式，同时在导入编译过程中进行层级合并以及量化等操作，方便导入编译后的模型高效的运行在具有高性能定点数据感知能力TDA4硬件加速器上。</p>
-<h2 id="TIDL-Importer"><a href="#TIDL-Importer" class="headerlink" title="TIDL Importer"></a>TIDL Importer</h2><p>TIDL提供了 <a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_model_import.html">TIDL Importer</a> 模型导入工具，模型可视化工具等，非常便捷地可以对训练好的模型进行导入。</p>
-<img alt="图 3" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_blockDiagram.png" />  
-<img alt="图 4" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/tidl_import_design.jpg" />  
-
-<p><code>RTOSsdk/tidl_j721e/ti_dl/utils/tidlModelImport</code></p>
-<ol>
-<li>读取导入配置文件；</li>
-<li>转换并<strong>导入</strong>网络层和算子（operators）到TIDL net file，计算层大小和缓冲区大小，并尽可能合并层；</li>
-<li>生成<strong>量化</strong>配置文件，调用量化工具（quant tool）进行范围采集，并更新TIDL net file；</li>
-<li>生成用于网络<strong>编译</strong>器（network compiler）的配置文件，并调用编译器进行性能优化；</li>
-<li><em>[Optional]</em> 调用GraphVisualiser来生成网络图；</li>
-<li>导入工具将在最后结束检查模型；</li>
-<li>最后，如果没有错误，可以用于<strong>部署</strong>。</li>
-</ol>
-<p>总的来说，导入工具将在内部运行quantization, network compilation, performance simulation internally, 并生成文件：</p>
-<blockquote>
-<p>Compiled network and I&#x2F;O files used for inference<br>Performance simulation results for network analysis in .csv</p>
-</blockquote>
-<h2 id="TIDL-Quantization-量化方法"><a href="#TIDL-Quantization-量化方法" class="headerlink" title="TIDL Quantization 量化方法"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_fsg_quantization.html">TIDL Quantization</a> 量化方法</h2><p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/tidl_fsg_quantization.md">Tidl tools quantization</a>，<a href="https://github.com/TexasInstruments/edgeai-torchvision/blob/master/docs/pixel2pixel/Quantization.md">torchvision-Quantization</a><br>把浮点计算（Float）转换成定点（Int）计算，是一种基于计算机存储和计算过程特点，提升（端侧）模型推理速度，并维持稳定精度的模型压缩方法。</p>
-<ul>
-<li>浮点计算在成本和功耗效率方面不高。这些浮点计算可以用定点计算(8 or 16 bit)来代替，同时不会丢失推理精度。</li>
-<li>J7平台的矩阵乘法加速器(MMA)支持深度学习模型的8位、16位和32位推理。</li>
-<li>当进行64x64矩阵乘法时，8位推理支持4096 MACs(<em>Multiply–Accumulate Operations</em>) per cycle的乘法器吞吐量。因此，8位推理适用于J7平台。 (16位和32位推理会显著消耗性能。 16位推理的乘法器吞吐量为每个周期1024个MAC。 所需的内存I&#x2F;O会很高。)</li>
-</ul>
-<p>TIDL中需要量化的层：Convolution Layer、De-convolution Layer、Inner-Product Layer、Batch Normalization (Scale&#x2F;Mul, Bias&#x2F;Add, PReLU)</p>
-<ul>
-<li>Quantization options：<ul>
-<li>Post Training Quantization (PTQ, 训练后量化、离线量化)</li>
-<li>Training for Quantization (QAT，训练时量化，伪量化，在线量化)</li>
-<li>Quantization aware Training<img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_Quant_Options.png" width='70%'></li>
-</ul>
-</li>
-</ul>
-<p><a href="https://zhuanlan.zhihu.com/p/639245713">从零开始玩转TDA4之模型量化</a></p>
-<h2 id="TI’s-Edge-AI"><a href="#TI’s-Edge-AI" class="headerlink" title="TI’s Edge AI"></a>TI’s Edge AI</h2><p>TIDL is a fundamental software component of <a href="https://www.ti.com/edgeai">TI’s Edge AI solution</a>.在TIDL上，深度学习网络应用开发主要分为三个大的步骤: </p>
-<ol>
-<li>基于Tensorflow、Pytorch、Caffe 等训练框架，训练模型</li>
-<li>基于TDA4VM处理器导入模型： 训练好的模型，需要使用TIDL Importer工具导入成可在TIDL上运行的模型。导入的主要目的是对输入的模型进行量化、优化并保存为TIDL能够识别的网络模型和网络参数文件</li>
-<li>基于TI Jacinto7TM SDK 验证模型，并在应用里面部署模型：<ul>
-<li>PC 上验证并部署<ul>
-<li>在PC上使用TIDL推理引擎进行模型测试。</li>
-<li>在PC上使用OpenVX框架开发程序，在应用上进行验证。</li>
-</ul>
-</li>
-<li>EVM上验证并部署<ul>
-<li>在EVM上使用TIDL推理引擎进行模型测试。</li>
-<li>在EVM上使用OpenVX框架开发程序，在应用上进行验证<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[基于Pytorch训练并在TDA4上部署ONNX模型](https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf?raw=true)">[3]</span></a></sup></li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/dnn-workflow.png">
-
-<p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_overview.html">TIDL Runtime</a>（TIDL-RT）是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMworkflow.png" width="60%"/>  </p>
-<p><a href="https://github.com/TexasInstruments/edgeai"><strong>TI’s EdgeAI Tools</strong></a>:Training and quantization tools,make DNNs more suitable for TI devices.</p>
-<ul>
-<li><p><a href="https://github.com/TexasInstruments/edgeai-modelzoo">Model ZOO</a>:A large collection of pre-trained models for data scientists,其中有<a href="https://github.com/TexasInstruments/edgeai-modelzoo/tree/master/models/vision/detection">YOLO例程</a></p>
-</li>
-<li><p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools#edgeai-tidl-tools">Edge AI TIDL Tools</a>:used for model compilation on X86. Artifacts from compilation process can used for Model inference， which can happen on X86 machine or on development board with TI SOC.</p>
-</li>
-<li><p><a href="https://github.com/TexasInstruments/edgeai-benchmark">Edge AI Benchmark</a>:provides higher level scripts for model compilation,and perform accuracy and performance benchmark.</p>
-</li>
-<li><p><a href="https://dev.ti.com/edgeai/">Edge AI Studio</a>:Integrated development environment for development of AI applications for edge processors.（需授权）</p>
-</li>
-<li><p><a href="https://github.com/TexasInstruments/edgeai-modelmaker">EdgeAI-ModelMaker</a>: Command line Integrated environment for training &amp; compilation，集成了edgeai-modelzoo, edgeai-torchvision, edgeai-mmdetection, edgeai-benchmark, edgeai-modelmaker</p>
-<img alt="图 9" src="https://raw.sevencdn.com/TexasInstruments/edgeai/blob/master/assets/workblocks_tools_software.png?raw=true" width="90%"></li>
-</ul>
-<h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
-<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><code>Vx_context</code>：一个context就是一个运行环境，包含多种不同的功能，在不同场景下被调度。一般很少有使用到多context的场景；<br><code>Vx_graph</code>：一个graph就是一个功能，是由多个步骤连接在一起的完整功能；<br><code>Vx_node</code>：一个node就是一个最小的调度单元，可以是图像预处理算法，可以是边缘检测算法。<br>每个进程内可以有多个context（上下文），每个context内可以有多个graph（图，或连接关系），每个graph内可以有多个node（节点）。<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[TIOVX – TI’s OpenVX Implementation](https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf)">[4]</span></a></sup></p>
-<img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMopenvxflow.png" />  
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Example Program</span></span><br><span class="line">vx_context context = vxCreateContext(); <span class="comment">//创建 OpenVX 上下文,即整个应用程序的运行环境</span></span><br><span class="line">vx_graph graph = vxCreateGraph( context ); <span class="comment">//在上下文中创建一个图，表示图像处理的流程</span></span><br><span class="line">vx_image input = vxCreateImage( context, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 );</span><br><span class="line">vx_image output = vxCreateImage( context, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 ); <span class="comment">//创建输入和输出图像，分别用于存储输入和处理后的图像。</span></span><br><span class="line">vx_image intermediate = vxCreateVirtualImage( graph, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 ); <span class="comment">//创建虚拟图像，用于存储第一次处理后的结果，供下一步处理使用</span></span><br><span class="line">vx_node F1 = vxF1Node( graph, input, intermediate );</span><br><span class="line">vx_node F2 = vxF2Node( graph, intermediate, output ); <span class="comment">//创建两个节点，分别表示两个不同的图像处理操作，并将它们添加到图中</span></span><br><span class="line">vxVerifyGraph( graph ); <span class="comment">//验证图的正确性</span></span><br><span class="line">vxProcessGraph( graph ); <span class="comment">//执行图像处理</span></span><br></pre></td></tr></table></figure>
-<img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMopenvxexample.png" width="80%"/>  
-
-<h3 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h3><p><code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code><br>OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。</p>
-<h3 id="TIOVX"><a href="#TIOVX" class="headerlink" title="TIOVX"></a>TIOVX</h3><p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a> 是TI公司对OpenVX的实现。<br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png" width="80%"></p>
-<p>TIOVX Platform提供了特定硬件(如TDAx, AM65x)的操作系统(如TI-RTOS, Linux)调用API。TIOVX Framework包含了官方OpenVX的标准API和TI扩展的API，其中包括</p>
-<figure class="highlight mathematica"><table><tr><td class="code"><pre><span class="line"><span class="variable">public</span><span class="operator">:</span> <span class="built_in">Context</span><span class="operator">,</span> <span class="built_in">Parameter</span><span class="operator">,</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Node</span><span class="operator">,</span> <span class="built_in">Graph</span> <span class="built_in">Array</span><span class="operator">,</span> <span class="built_in">Image</span><span class="operator">,</span> <span class="variable">Scalar</span><span class="operator">,</span> <span class="built_in">Pyramid</span><span class="operator">,</span> <span class="variable">ObjectArray</span> ；</span><br><span class="line"><span class="variable">TI</span><span class="operator">:</span> <span class="variable">Target</span><span class="operator">,</span> <span class="variable">Target</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Obj</span> <span class="variable">Desc</span>。</span><br></pre></td></tr></table></figure>
-
-<p><strong>优势</strong></p>
-<ul>
-<li>TI官方提供OpenVX的支持，提供标准算法的硬件加速实现，提供各个功能的Demo，能够简化开发调试工作。</li>
-<li>简化多核异构的开发，可以在X86模拟运行，所有的板级开发和调试都位于A72 Linux端，减少了对RTOS调试的工作量。</li>
-<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832) | [TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[5]</span></a></sup><img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMtiovx.png" width="80%"/></li>
-</ul>
-<p><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/PYTIOVX.html">PyTIOVX</a>: Automated OpenVX “C” Code Generation</p>
-<p>下一篇：<a href="https://wangyujie.site/TDA4VM2/">TDA4：环境搭建、模型转换及Demo</a><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:0"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">0.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/zh-cn/video/6301563648001">视频：深度学习算法在ADAS处理器TDA4VM的应用与部署</a><a href="#fnref:0" rev="footnote"> ↩</a></span></li><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf?raw=true">Deep Learning with Jacinto™ 7 SoCs: TDA4x</a> | <a href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf?raw=true">Embedded low-power deep learning with TIDL</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf?raw=true">基于Pytorch训练并在TDA4上部署ONNX模型</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf">TIOVX – TI’s OpenVX Implementation</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a> | <a href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:5" rev="footnote"> ↩</a></span></li></ol></div></div></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
         <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Photograph：个人摄影笔记</title>
+    <url>/Photograph/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="摄影笔记"><a href="#摄影笔记" class="headerlink" title="摄影笔记"></a>摄影笔记</h1><p>四要素：<code>取景，曝光，虚实，构图</code></p>
+<h2 id="取景"><a href="#取景" class="headerlink" title="取景"></a>取景</h2><p>互动：选取合适的前景与背景相互配合，有好的背景,就等合适的主体，注意人和景色的互动<br>云：镜头正对方向与云运动方向平行时，会呈放射状；大面积的卷云会在日落后形成火烧云<br>色温：日出日落时色温低，画面暖，之后一会儿就色温高画面冷<br>时间：阴天，多云，或日出后1h，日落前1h拍摄</p>
+<p><strong>光线：</strong></p>
+<blockquote>
+<p>不要在强光下拍风光片(建筑例外),必要则顺光拍；<br>早晚、阴天：顺逆光皆可；<br>侧逆光能更好地表现食物的立体感（柔光板辅助）；<br>上午朝西，下午朝东，顺光、色彩较好。</p>
+</blockquote>
+<h2 id="曝光"><a href="#曝光" class="headerlink" title="曝光"></a>曝光</h2><p>白天一般不增减曝光补偿,夜晚减一点让画面更干净<br>室外晴天的感光度通常在300以内，在室内可能达到500-800，甚至1000+；<br>在拍摄高速运动的对象时需要1&#x2F;1000以上的快门速度，否则无法捕捉到瞬间画面；<br>逆光&#x2F;大光比：前期包围曝光，后期多张混合（灰度蒙版，手动笔刷）<br>曝光时间——500法则：$$快门速度（s）&#x3D;\frac{500}{镜头等效焦距（mm）}$$</p>
+<h2 id="虚实"><a href="#虚实" class="headerlink" title="虚实"></a>虚实</h2><p>不能一味追求大光圈和虚化，要清晰<br>慢门创造虚：1.光圈优先，记下数据；2.切手动，设记下的光圈，ISO，快门延长1000倍（超过30s用B门）<br>水：快门优先,水面雾化,映照色彩<br>后期混合景深<br>两只眼睛都要实<br>先对焦、再构图</p>
+<p><strong>摇摄</strong>：将相机调为S档，根据实际情况选择1&#x2F;15~1&#x2F;30秒之间的快门速度，选择AF-C连续对焦、广域对焦区域及高速连拍即可开始拍摄。<br>拍摄时，将对焦点选择在人物身上，然后随着人物运动的方向以与人物相同的角速度转动镜头并同时按下快门连拍，即可获得人物主体清晰、背景模糊的效果。摇摄在拍摄快速移动的物体时除了能够虚化掉杂乱的背景，还能极大地增强画面动感。</p>
+<h2 id="构图"><a href="#构图" class="headerlink" title="构图"></a>构图</h2><ol>
+<li>身体 4321 160</li>
+<li>三分法 99%的时候都有效</li>
+<li>层次 前中后景</li>
+<li>留白 前景 线条</li>
+</ol>
+<p><strong>三分法</strong>：人们的目光总是自然落在画面三分之二处的位置上，尽量使主要的被摄体位于画面三等分线的焦点上，效果会比位于中心位置更好。<br>大主体可以居中,否则放在三分焦点；<br>表达广阔场景时,将重要线条往三分线下压；<br>对称主体可居中,独立主体放左&#x2F;右三分线</p>
+<p>善用框景<br>“如果你拍的不够好,是因为你站得不够近”<br>注意纵深感，立体感<br>引入线条：利用慢门的轨迹创造线条。<br>美食&#x2F;美颜：45°角，留白<br>参考当地明信片的名景点的拍摄位置和构图</p>
+<p><strong>人像</strong>：</p>
+<blockquote>
+<p>人头不放正中间，要偏上一点,否则显矮；10°俯拍<br>人脸朝左,人物置右;人脸朝右,人物置左;面朝前时,将一只眼睛置竖直中线<br>手脚、关节不能裁切<br>让人物身体和面部与镜头呈45,立体、显瘦<br>头顶、脚下预留空间<br>只考虑人物：竖构图; 交代环境：横构图</p>
+</blockquote>
+<h2 id="修图"><a href="#修图" class="headerlink" title="修图"></a>修图</h2><p>修图流程：lr定调（不加颗粒）、 液化、 修瑕疵、 磨皮、 其它、 锐化<br>液化：压力8-16<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph1.png" alt="图 1"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph2.png" alt="图 2">  </p>
+<p><strong>直方图</strong><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph3.jpeg" width=70%></p>
+<p>以12位图像为例，12位图像记录的单个通道色彩深度是4096，但是4096并不是平均分布在直方图上，而是从亮部到暗部倍减。<br>所以在不过曝的前提下，尽量把图像信息向直方图的右边推进，直方图越向右，记录的色调信息就越多；进光量越充分，画质越好。</p>
+<h2 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h2><blockquote>
+<p>摄影是人类对静止最深刻的表达方式之一。摄影使我们把时间握在手中，与时间融合，这是任何其他形式都不具备的。<br>相片本身会传达出作者注入其中的情感。<br> “为什么这样做”高于“如何实现”，我认为这应当是一切艺术的目标。<br> 我们的世界有许多美的事物。尽管摄影天生是一项孤独的活动，但我们可以通过照片感受到彼此之间的联系，从而让我们获得慰籍。<br> ——丹.温特斯《观看之路》</p>
+</blockquote>
+<p> 如果你带着相机四下转悠，那就有义务保持警醒。  ——胡里奥·科塔萨尔《放大》</p>
+<p> 我曾以为照片能留住那刻的画面，然而拍照的时候我已经失去了那片刻的时光。<br> 我常想，如果我拍了足够的照片，我就不会再失去任何人。事实上，我的照片让我看到了我失去了多少。<br> 摄影不是一项业余爱好，而是一种生活方式。<br> 摄影不只是拍照，更是一种生活哲学。</p>
+<blockquote>
+<p>高光亮而不溢；暗部黑而不死；过度锐而不硬；画质润而不腻。焦内如刀割般犀利，焦外如奶油般化开。作品给人以美的感受，色彩清新脱俗，构图别出心裁，雅俗共赏。欣赏学习好友佳作，欢迎回访指导。</p>
+<p>主体清晰通透，动态多样，抓拍到位，表情自然，活泼靓丽。深邃的思想，惊世的影调，高超的构图，无与伦比的后期。充满了人文的气息，接地气的大片，期待您的佳作。毒，德味，大片，学习了!</p>
+</blockquote>
+<h1 id="专题拍摄"><a href="#专题拍摄" class="headerlink" title="专题拍摄"></a>专题拍摄</h1><p>主题拍摄：一直拍一种，最后放在一起</p>
+<h2 id="人像写真"><a href="#人像写真" class="headerlink" title="人像写真"></a>人像写真</h2><p>人像摄影三要素：情绪，姿态，故事性<br>主题性的拍摄：</p>
+<ol>
+<li><strong>风格</strong><br>清新、复古、古风、私房…<br>重点：依据主题去确立服饰，妆容，场景的匹配</li>
+<li><strong>场景</strong><br>海边：百搭场景，安静，放松，舒服<br>大自然，草坪：场景开阔，构图简单，有利于引导模特姿态<br>室内环境：容易做到出彩的背景色，强烈的主题风格<br>校园场景：制服，便服，清新活泼</li>
+<li><strong>服装搭配</strong><pre class="mermaid">graph LR
+A(依据主题风格选择服装搭配) -->B(依据搭配选场景)
+C(依据模特确定主题) -->|简单大方清新自然不造作| A
+B-->C</pre>
+各要素相辅相成</li>
+<li><strong>模特</strong><br>各有特点，契合气质定主题</li>
+<li><strong>与模特的沟通</strong><br>确定主题，表达想法；<br>建立模特对你拍摄技术的信心，给看样片；<br>放松自然（放音乐），不停和模特进行沟通，不冷场，多夸夸；<br>引导与<code>场景，服装，道具</code>的互动；<br>摆拍结合抓拍，引导自然的情绪流露。</li>
+</ol>
+<h2 id="星空摄影"><a href="#星空摄影" class="headerlink" title="星空摄影"></a>星空摄影</h2><p>使用光污染地图：<a href="www.lightpollutionmap.info">light pollution map</a>，<a href="https://www.darkmap.cn/">天文通-全球光污染地图</a><br>对焦：手动对焦最亮的星星（无穷远），直到最小、最实</p>
+<ul>
+<li>银河：春夏秋，银河核心会出现在夜空中用，最大光圈</li>
+<li>月亮：农历的月初月末无月，月中满月，0点沉入地平线</li>
+<li>流星：找辐射点，用最大光圈（拍星轨稍小），短曝光时间</li>
+</ul>
+<h2 id="夜景烟火人像"><a href="#夜景烟火人像" class="headerlink" title="夜景烟火人像"></a>夜景烟火人像</h2><ol>
+<li>手动设置M档，大光圈，1&#x2F;80s快门，1000左右ISO，钨丝灯白平衡，连拍模式</li>
+<li>不要将仙女棒拿着脸一侧，容易出现“阴阳脸”，2-3根的亮度较合适</li>
+<li>尽量使用RAW格式</li>
+</ol>
+<p>焰火：不长不短的曝光时间，拍1张焰火+1张背景，后期混合模式：变亮</p>
+<h1 id="摄影名词解释"><a href="#摄影名词解释" class="headerlink" title="摄影名词解释"></a>摄影名词解释</h1><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph4.png" width="75%">
+
+<p><a href="http://iphoto.blog.163.com/blog/static/174404124200832982358951/?utm_source=qq&utm_medium=social">几个必要的摄影名词解释</a></p>
+<h2 id="感光度-ISO"><a href="#感光度-ISO" class="headerlink" title="感光度 ISO"></a>感光度 ISO</h2><p>International Standards Organization，曾是制订胶卷的生产标准，现为CCD&#x2F;CMOS（或胶卷）对光线的敏感程度。</p>
+<blockquote>
+<p>设 ISO100，$T_{正确曝光} &#x3D; 2s$<br>则 ISO200，$T_{正确曝光} &#x3D; 1s$</p>
+</blockquote>
+<p>高ISO：速度快，噪点大——弱光场合<br>低ISO：速度慢，画面精细——风光摄影</p>
+<h2 id="快门-Shutter"><a href="#快门-Shutter" class="headerlink" title="快门 Shutter"></a>快门 Shutter</h2><p>相机里控制曝光时间的装置。<br>手持相机拍摄的安全速度原则：安全速度是焦距的倒数，如果使用35mm镜头，快门速度不得低于1&#x2F;35秒，使用200mm镜头时速度不得低于1&#x2F;200秒，否则图片就可能糊了。</p>
+<h2 id="光圈-Aperture"><a href="#光圈-Aperture" class="headerlink" title="光圈 Aperture"></a>光圈 Aperture</h2><p>镜头里调节进光孔大小的装置。<br>所有相机都基于小孔成像原理：排列组合的几块凹凸镜头+大孔&#x3D;相机镜头<br>常见的光圈值如下： </p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">F1</span>， <span class="built_in">F1</span>.<span class="number">4</span>， <span class="built_in">F2</span>， <span class="built_in">F2</span>.<span class="number">8</span>， <span class="built_in">F4</span>， <span class="built_in">F5</span>.<span class="number">6</span>， F8， F11， F16， F22， F32， F44， F64。</span><br></pre></td></tr></table></figure>
+<p>每两挡相邻光圈值之间进光量相差一倍。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph5.gif" width="50%"></p>
+<p>最佳光圈：镜头在<strong>中等光圈</strong>的时候成像最好（图片最清晰）。<br>光圈大一级则镜片大很多，加工难度高，重量大，价格贵，适合弱光且无三脚架的情况。</p>
+<p>光圈有三个作用：</p>
+<blockquote>
+<ol>
+<li>控制进光量，这直接影响到图片是否能正确曝光，是拍摄成功与否的关键；</li>
+<li>控制景深，光圈越小，景深越大。虽然焦距和拍摄远近都影响景深，但焦距和被摄物远近的改变同时也会影响构图，如果构图确定，我们能控制景深的武器就只剩下光圈了；</li>
+<li>光圈影响图片的清晰度，任何一个镜头都是在中等光圈的时候成像最好（图片最清晰），在最大光圈和最小光圈的时候解像度差。</li>
+</ol>
+</blockquote>
+<p><strong>光圈优先</strong> Aperture Priority: 手动定义光圈的大小，相机会根据这个光圈值确定能正确曝光的快门速度。<br><strong>小光圈</strong>的景深效果在于叙事，在实践中可将其称为叙事性光圈，主要用于需要传达较多照片信息的题材中。<br>为了使夜景画面星光璀璨，可以通过缩小光圈，得到呈星芒效果的灯光。这是因为光圈收缩到一定的程度时，光线就会通过光圈细小的孔洞产生衍射，从而使灯光出现四射的星芒效果，且光圈越小，光线越强烈，星芒效果越明显。</p>
+<h2 id="曝光-Exposure"><a href="#曝光-Exposure" class="headerlink" title="曝光 Exposure"></a>曝光 Exposure</h2><p>光圈和快门的组合。<br>曝光量：让多少光进入<br>一张正确曝光的图片可以有N种不同的光圈和快门速度组合，若光圈F4快门速度1秒为正确曝光值，那F5.6和2秒以及F8和4秒也同样能得到准确曝光的图片。</p>
+<p><strong>总结以上几个名词解释</strong>：有三个因素能影响一张图片是否正确曝光：光圈，快门速度，ISO。其中光圈和速度联合决定进光量，ISO决定CCD&#x2F;CMOS的感光速度。如果进光量不够，我们可以开大光圈或者降低快门速度，还是不够的话就提高ISO。大光圈的缺点是解像度不如中等光圈，快门速度降低则图片可能会糊，提高ISO后图片质量也会下降 。没有完美的方案，如何取舍要灵活决定。</p>
+<h2 id="测光与测光模式-Metering"><a href="#测光与测光模式-Metering" class="headerlink" title="测光与测光模式 Metering"></a>测光与测光模式 Metering</h2><p>测定光照强度，相机内的电脑根据电阻值的变化确定光线强度，进而确定曝光值（光圈，快门）。</p>
+<p>测光模式主要有点测光，中央重点测光，区域（平均）测光三种。</p>
+<blockquote>
+<p><strong>点测光</strong>: 只测取景框内一个小点的光线强度（此小点大约为取景框面积的10%到1%，看不同机型）。<br><strong>区域（平均）测光</strong>: 把取景框分为5到63块（看机型不同），分别对每块测光然后再加权平均得到光照强度。<br><strong>中央重点测光</strong>: 简化的区域（平均）测光，只把取景框分为中央圆圈和四周两块，分别测光，然后加权平均（中央圆圈的权重为70%左右）。</p>
+</blockquote>
+<p>大多数情况下用区域测光即可。在光线明暗反差很大时应该采用点测光。用区域（平均）测光或中央重点也可以，可根据自己的艺术创意进行曝光补偿。</p>
+<h2 id="曝光补偿-Exposure-compansation"><a href="#曝光补偿-Exposure-compansation" class="headerlink" title="曝光补偿 Exposure compansation"></a>曝光补偿 Exposure compansation</h2><p>修正（增减）曝光值。<br>照片要能真实反映拍摄时的环境亮度，相机自动测光就是取平均数，最后给出一个让图片达到<strong>中间灰</strong>（柯达灰）的曝光值，相机自动确定的曝光值90%以上是正确的，但纯白和纯黑等场景会测不准，因此需要曝光补偿。</p>
+<p>曝光补偿的原则：<strong>白加黑减</strong>。</p>
+<blockquote>
+<p>如果构图中有大片白色物体或特别明亮的物体，就要相应增加曝光量（增大光圈or&#x2F;and减低快门速度）；<br>如果取景框中有大片黑色的物体，则要减少曝光量。</p>
+</blockquote>
+<p>如果图片以RAW格式存储的话，其抗过曝&#x2F;欠曝能力是很强的，只要没有曝成完全没层次的一片纯白，过曝&#x2F;欠曝一个EV之内的照片都能在后期电脑处理时调正，而且基本不漏痕迹。但过曝&#x2F;欠曝太多还是不行，如果相差2EV以上，调正后的图片也会很难看。所以掌握曝光补偿白加黑减的原则依然重要。</p>
+<h2 id="焦距-Focus"><a href="#焦距-Focus" class="headerlink" title="焦距 Focus"></a>焦距 Focus</h2><p>从镜片（或镜片组）的中心到焦点的距离（mm）。</p>
+<ul>
+<li>焦距50mm的镜头称为“标准镜头”，简称标头，拍出来的照片类似肉眼平视的感觉（视角为45°左右）；</li>
+<li>广角镜头（焦距小于35mm）能够让照相机“看得更宽阔”，因为它视角大；</li>
+<li>长焦镜头（焦距大于70mm）能让照相机“看得更远”，但视角窄。</li>
+</ul>
+<p>光学变焦Optical Zoom：依靠镜片的位移来实现焦距的改变。光学变焦倍数越大，里面的镜片就越多，镜头体积相应较大，画质相对较低，光圈相对较小。$$变焦倍数＝\frac{最大焦距值}{最小焦距值}$$<br>数码变焦只是电子放大，用来骗人的。</p>
+<table>
+<thead>
+<tr>
+<th>焦距</th>
+<th>镜头类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>14-24mm</td>
+<td>超广角</td>
+<td>视角很大，形变夸张，多用于拍摄建筑与风光</td>
+</tr>
+<tr>
+<td>24-35mm</td>
+<td>广角</td>
+<td>多用于拍摄建筑与风光以及街头人文抓拍</td>
+</tr>
+<tr>
+<td>35-70mm</td>
+<td>中焦</td>
+<td>视角接近人眼，多用于人文纪实抓拍</td>
+</tr>
+<tr>
+<td>70-135mm</td>
+<td>中长焦</td>
+<td>视角比人眼窄，很多人像摄影师喜欢用这个焦段拍半身和头像的特写</td>
+</tr>
+<tr>
+<td>135-300mm</td>
+<td>长焦</td>
+<td>适合拍摄远距离物体。例如体育摄影、风光特写等等。</td>
+</tr>
+<tr>
+<td>大于300mm</td>
+<td>超长焦&#x2F;望远</td>
+<td>适合拍摄超远距离物体比如野生动物</td>
+</tr>
+</tbody></table>
+<p><strong>焦距转换系数</strong>:<br>镜头的视角是由镜头焦距和胶卷（或CCD&#x2F;CMOS）尺寸两者联合决定的。尺寸变小相当于焦距变大。大部分数码相机CCD&#x2F;CMOS面积都比原胶片小。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Photograph6.gif" alt="图 6"><br>假如焦距不变，CCD&#x2F;CMOS越小，镜头视角越小，镜头转换系数只影响视角 。<br>$$镜头转换系数&#x3D;\frac{135胶片对角线长度}{非全幅的CCD&#x2F;CMOS对角线长度}$$<br>佳能：1.6，<br>尼康，Sony：1.5</p>
+<p>在其他条件相同的情况下，拍摄时使用的焦距越长，则画面的景深越浅，即可以得到更明显的虚化背景效果；反之，焦距越短视角越广，则画面的景深越大，越容易呈现大景深的画面效果。</p>
+<h2 id="景深-Depth-of-field-DOF"><a href="#景深-Depth-of-field-DOF" class="headerlink" title="景深 Depth of field, DOF"></a>景深 Depth of field, DOF</h2><p>照片焦点前后延伸出来的“可接受清晰区域”。</p>
+<blockquote>
+<p>小（浅）景深 → 背景模糊 → 人像摄影<br>大景深 → 前后都清晰 → 风光摄影</p>
+</blockquote>
+<p>由三个因素决定：1. 光圈大小；2. 焦距长短；3. 被摄物体的远近。</p>
+<ul>
+<li>估计景深：<blockquote>
+<ol>
+<li>光圈越大，景深越小；</li>
+<li>焦距越长，景深越小；</li>
+<li>离被摄物体越近，景深越小。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>需要注意的是，后景深的范围大于前景深的范围。</p>
+<h2 id="白平衡-White-Balance"><a href="#白平衡-White-Balance" class="headerlink" title="白平衡 White Balance"></a>白平衡 White Balance</h2><p>照相机对白色的还原准确性。<br>色温color temperature:以开尔文温度表示光线的色彩，单位K。</p>
+<table>
+<thead>
+<tr>
+<th>光源</th>
+<th>色温（Ｋ）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>蜡烛</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>钨丝灯</td>
+<td>2500-3200</td>
+</tr>
+<tr>
+<td>荧光灯</td>
+<td>4500-6500</td>
+</tr>
+<tr>
+<td>日光（平均）</td>
+<td>5400</td>
+</tr>
+<tr>
+<td>有云天气下的日光</td>
+<td>6500-7000</td>
+</tr>
+</tbody></table>
+<p>白平衡漂移：根据不同情况，在设置白平衡时设置不同的色调偏好能够得到不同的画面效果。比如在日光下拍摄樱花时，我们可以将日光白平衡中的色调加一些红，这样拍摄出的樱花会更粉嫩。<br>雪景容易偏色<br>物体在不同色温的光源照射下会呈现不同的色调，在日光灯下整体偏白，在普通钨丝白炽灯下整体偏黄。<br>在电脑上可以给RAW图片任意配置色温，彻底解决白平衡问题。</p>
+<h2 id="RAW"><a href="#RAW" class="headerlink" title="RAW"></a>RAW</h2><ul>
+<li>TIFF：不压缩的格式，单张超过25MB</li>
+<li>JPEG：有损压缩格式，占内存小，但有细节损失<blockquote>
+<p>CCD&#x2F;CMOS经曝光产生电子图片信号，相机内的小电脑把这些电子信号进行加工处理，再传输给存储卡。这些加工处理包括白平衡配置，颜色饱和度的增减，图片锐度和对比度增减，降低图片噪点等等，最后压缩转换为JPEG格式进行存储。</p>
+</blockquote>
+</li>
+<li>RAW：无损压缩格式，文件较大，后期空间大<blockquote>
+<p>CCD&#x2F;CMOS经过曝光产生的图片电子信号直接传给存储卡，文件没有经过相机内部电路的任何图片参数和质量处理。所以RAW文件又被称为数码底片Digital Negatives,几乎所有的参数都可以后期在电脑上调。</p>
+</blockquote>
+</li>
+</ul>
+<p>重要图片的拍摄一律存储JPEG+RAW，一般的图片存JPEG。</p>
+<h2 id="色彩空间：sRGB-AdobeRGB"><a href="#色彩空间：sRGB-AdobeRGB" class="headerlink" title="色彩空间：sRGB,AdobeRGB"></a>色彩空间：sRGB,AdobeRGB</h2><ul>
+<li>AdobeRGB:有更广泛的色彩范围，比sRGB多出35%，照片呈现的色彩更丰富，适合打印，且可转sRGB，但在网络上色彩范围无法完全显示，表现较差；</li>
+<li>sRGB：范围较小，但在网络上有不错的表现。</li>
+</ul>
+<h1 id="相机知识"><a href="#相机知识" class="headerlink" title="相机知识"></a>相机知识</h1><p><a href="http://iphoto.blog.163.com/blog/static/1744041242011721920436">摄影初学者挑选相机的常见问题</a></p>
+<h2 id="镜头组合"><a href="#镜头组合" class="headerlink" title="镜头组合"></a>镜头组合</h2><p>来自相机笔记的『几个镜头组合方案』</p>
+<ul>
+<li>日常家用：16-50&#x2F;18-55 + 55-210（优先覆盖焦距）</li>
+<li>旅游拍摄：腾龙18-200（大变焦，相对便携）</li>
+<li>人像拍摄：添置35&#x2F;1.8或50&#x2F;1.8</li>
+<li>风景拍摄：10-18 + 55-210（可考虑三阳8mm鱼眼）</li>
+<li>扫街纪实：适马19&#x2F;2.8</li>
+<li>真爱且APS-C不换粉：10-18 + 16-70ZA + FE70-200G（焦距密不透风，且均为F4恒定），再加蔡司Touit三只，原厂24&#x2F;1.8 ZA和55&#x2F;1.8 ZA。</li>
+</ul>
+<p>如果你对摄影的确是有很浓厚的兴趣，而且预算又有余，那么可以在第一支 标准变焦镜头的基础上，再购买一支定焦镜头，它是：50&#x2F; F1.8。 不管对哪个品牌来说，50 &#x2F; F1.8都是一支经典镜头，极低廉的价格，却享有不 逊牛头的出色画质，1.8的大光圈可以让你更好的体会光圈的影响和作用，是 一支学习摄影的经典镜头 </p>
+<h2 id="相机清洁"><a href="#相机清洁" class="headerlink" title="相机清洁"></a>相机清洁</h2><ul>
+<li><p>灰尘：</p>
+<blockquote>
+<p>气吹：先空吹几下<br>  棉签：确保无硬质灰尘，若有，用棉签定点清除<br>  擦镜布：顺一个方向，不要反复擦，由内向外螺旋擦拭</p>
+</blockquote>
+</li>
+<li><p>指纹油脂：</p>
+<blockquote>
+<p>将镜头清洁液滴一滴在擦镜布上<br>  先挥发一下，再开始擦拭，手法同上</p>
+</blockquote>
+</li>
+<li><p>雨水&#x2F;海水：</p>
+<blockquote>
+<p>气吹猛吹<br>  大量清洁液滴在布上，不等挥发直接快速擦<br>  用布较干的地方擦干净，再用毛巾&#x2F;软布擦干机身<br>  海水需要多擦几遍</p>
+</blockquote>
+</li>
+<li><p>其他工具：</p>
+<blockquote>
+<p>毛刷：刷机身灰尘<br>  棉签：死角、取景器（加液）、镜头卡口<br>  节电导通剂：清洁镜头触点</p>
+</blockquote>
+</li>
+<li><p>传感器：</p>
+<blockquote>
+<p>1.找灰尘：用小光圈（F16+）试拍白纸，手动对焦无穷远，灰尘位置上下左右颠倒（或有手动清洁模式）<br>  2.气吹<br>  3.传感器清洁棒：从左到右反复，柔和均匀<br>  4.传感器清洁液：等挥发</p>
+</blockquote>
+</li>
+</ul>
+<p>最后记得清洁镜头盖；<br>换镜头时要找背风处，动作要快。</p>
+<h2 id="拥有相机后快速入门"><a href="#拥有相机后快速入门" class="headerlink" title="拥有相机后快速入门"></a>拥有相机后快速入门</h2><ol>
+<li>读一本好书《美国纽约摄影学院摄影教材（上）》《美国摄影用光教程》</li>
+<li>阅读相机说明书熟悉常用设置和操作</li>
+<li>大量拍摄和学习</li>
+<li>关注几个严肃摄影媒体建立正确的价值观和审美情趣</li>
+<li>提高艺术文化修养，你的照片反映了你是什么样的人</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>技术</tag>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python：Anaconda，Pycharm，Pytorch</title>
+    <url>/Pytorch/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>视频：<a href="https://www.bilibili.com/video/BV1hE411t7RN/">PyTorch深度学习快速入门教程</a></p>
+<h1 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h1><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">conda create -n pytorch python=<span class="number">3.8</span>  <span class="comment">#Anaconda创建环境</span></span><br><span class="line">conda update python, pip install --upgrade pip <span class="comment">#更新</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br><span class="line">conda deactivate  <span class="comment">#退出虚拟环境</span></span><br><span class="line">conda remove pytorch --all  <span class="comment">#删除环境</span></span><br><span class="line">pip install XXX==<span class="number">2.0</span>, pip uninstall XXX <span class="comment">#安装特定版本/卸载</span></span><br><span class="line">pip config set global.index-url https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple  <span class="comment">#pip换源</span></span><br><span class="line">pip config list -v  <span class="comment">#查源</span></span><br><span class="line">pip install opencv-python -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span>  <span class="comment">#pip换源安装</span></span><br></pre></td></tr></table></figure>
+
+<p>修改环境创建路径(win):<br>1.找到用户目录下的.condarc文件（C:\Users\username）。<br>2.打开.condarc文件之后，添加或修改.condarc 中的 env_dirs 设置环境路径:<code>envs_dirs:  - D:\Anaconda3\envs</code></p>
+<details>
+  <summary>其他国内镜像源</summary>
+  
+<pre><code>清华大学：https://pypi.tuna.tsinghua.edu.cn/simple
+阿里云：http://mirrors.aliyun.com/pypi/simple
+豆瓣：http://pypi.douban.com/simple
+</code></pre>
+</details>
+
+<details>
+  <summary>其他常用命令</summary>
+
+<pre><code>conda list：查看环境中的所有包
+conda install XXX：安装 XXX 包
+conda remove XXX：删除 XXX 包
+conda env list：列出所有环境
+conda create -n XXX：创建名为 XXX 的环境
+conda create -n env_name jupyter notebook ：创建虚拟环境
+activate noti（或 source activate noti）：启用/激活环境
+conda env remove -n noti：删除指定环境
+deactivate（或 source deactivate）：退出环境
+jupyter notebook ：打开Jupyter Notebook
+conda config --remove-key channels ：换回默认源
+</code></pre>
+</details>
+
+<h1 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h1><h2 id="Pycharm"><a href="#Pycharm" class="headerlink" title="Pycharm"></a>Pycharm</h2><p>创建新项目	手动导入已存在的anaconda创建的环境<code>D:\Anaconda3\envs\pytorch\python.exe</code><br>更改环境：				<code>Settings &gt; Project &gt; interpreter</code><br>环境路径配置： <code>interpreter &gt; 齿轮 &gt; Add &gt; System Interpreter &gt; 手动添加</code><br>检验 : 				<code>Python Console</code>	<code>同上#查包处</code><br>Terminal：<code>File &gt; Settings &gt; Tools &gt; Terminal &gt; Shell path</code> <code>C:\Windows\System32\cmd.exe</code></p>
+<p><strong>Pycharm使用</strong></p>
+<blockquote>
+<p>新建.py文件(用作工程) &gt; 右上角配置py解释器 &gt; 运行&#x2F;直接右键运行<br>控制台(用作调试，查参数) &gt; Shift+enter：输入多行 &gt; “↑”重新编辑<br>Ctrl + D 快速复制至下一行<br>Ctrl + R 批量修改<br>Ctrl + &#x2F; 批量注释<br>调试：打断点 &gt; debug &gt; 使用工具栏内的“下一步”或“计算器内输入表达式”进行调试</p>
+</blockquote>
+<p>调试时使用Console的python调试台，print指令<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch1.png" alt="图 1"> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch2.png" alt="图 2">  </p>
+<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><p>激活pytorch环境后: <code>conda install nb_conda</code><br>打开 jupyter notebook: <code>New &gt; 选择环境：Python [conda env:pytorch]</code><br>IDLE Ctrl+N 编辑多行代码<br>输入一半按tab可以补全</p>
+<details>
+  <summary>打包下载：点击查看代码块</summary>
+
+<pre><code>import os
+import tarfile
+def recursive_files(dir_name=&#39;.&#39;, ignore=None):
+    for dir_name,subdirs,files in os.walk(dir_name):
+        if ignore and os.path.basename(dir_name) in ignore: 
+            continue
+
+        for file_name in files:
+            if ignore and file_name in ignore:
+                continue
+
+            yield os.path.join(dir_name, file_name)
+
+def make_tar_file(dir_name=&#39;.&#39;, tar_file_name=&#39;tarfile.tar&#39;, ignore=None):
+    tar = tarfile.open(tar_file_name, &#39;w&#39;)
+
+    for file_name in recursive_files(dir_name, ignore):
+        tar.add(file_name)
+
+    tar.close()
+
+dir_name = &#39;.&#39;
+tar_file_name = &#39;archive.tar&#39;
+ignore = &#123;&#39;.ipynb_checkpoints&#39;, &#39;__pycache__&#39;, tar_file_name&#125;
+make_tar_file(dir_name, tar_file_name, ignore)
+</code></pre>
+</details>
+
+
+<h2 id="Google-Colab"><a href="#Google-Colab" class="headerlink" title="Google Colab"></a><a href="https://colab.research.google.com/">Google Colab</a></h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置并查看GPU 修改&gt;笔记本设置&gt;GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.test.gpu_device_name()</span><br><span class="line"></span><br><span class="line">!/opt/<span class="built_in">bin</span>/nvidia-smi <span class="comment">#详情</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">!unzip /content/XX.<span class="built_in">zip</span> -d /content/XX   <span class="comment">#解压</span></span><br><span class="line">%cd /content/XX     <span class="comment">#进入</span></span><br><span class="line">!pip install -r requirements.txt    <span class="comment">#安装requirements</span></span><br><span class="line">!python XX.py --rect <span class="comment">#运行</span></span><br><span class="line">!rm -rf /content/XX/mydata <span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line">%load_ext tensorboard   <span class="comment">#加载tensorboard</span></span><br><span class="line">%tensorboard --logdir=runs/train    <span class="comment">#执行tensorboard</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="云盘"><a href="#云盘" class="headerlink" title="云盘"></a>云盘</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先装载谷歌云盘，在云盘里运行以防数据丢失，指定Google Drive云端硬盘的根目录，名为drive</span></span><br><span class="line">!mkdir -p drive</span><br><span class="line">!google-drive-ocamlfuse drive</span><br><span class="line"></span><br><span class="line"><span class="comment">#connect to self drive</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"><span class="comment">#云训练时还是要将盘里的文件拿出来再开始，否则容易直接断连!</span></span><br></pre></td></tr></table></figure>
+<p>续航插件：<a href="https://chrome.google.com/webstore/detail/colab-alive/eookkckfbbgnhdgcbfbicoahejkdoele?hl=zh-CN">Colab Alive</a>, 防止训练时掉线</p>
+<h1 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h1><p>要调用GPU进行训练的话，需要安装显卡驱动对应的CUDA</p>
+<ol>
+<li><code>nvidia-smi</code> 查询支持CUDA版本<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch3.png" alt="图 3">  </li>
+<li>到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Pytorch4.png" alt="图 4"></li>
+</ol>
+<p><strong>查GPU</strong></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.cuda.is_available() <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch</span></span><br><span class="line"></span><br><span class="line">nvidia-smi <span class="comment">#查GPU CUDA</span></span><br><span class="line">python –-version <span class="comment">#查python版本</span></span><br><span class="line">conda install python=<span class="number">3.8</span>  <span class="comment">#升级(覆盖安装)python</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><h3 id="两大查询函数"><a href="#两大查询函数" class="headerlink" title="两大查询函数"></a>两大查询函数</h3><p>dir（）函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help（）函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查<a href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
+<p>文件</p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:<span class="string">\\desktop”</span> <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:<span class="string">\\desktop”</span> <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure>
+<p>计时		</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">time</span> 	</span><br><span class="line">start=<span class="type">time</span>.time()     end=<span class="type">time</span>.time()     print(<span class="keyword">start</span>-<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>图片通道处理 <code>image=image.convert(‘RGB’)  #PNG是四通道</code><br>全安装 		<code>pip install -r requirements</code></p>
+<p>组 </p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)  <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  </span><br><span class="line"><span class="comment"># 字典 dict</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a>Tensorboard可视化</h3><p>pytorch下安装 <code>pip install tensorboard (conda)</code><br>使用</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer=SummaryWriter(“logs“)</span><br><span class="line">writer.add_image(<span class="string">&quot;name“，parameter，组内步数)</span></span><br><span class="line"><span class="string">writer.close() #关闭读写 </span></span><br></pre></td></tr></table></figure>
+<p>打开</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir=logs(文件夹路径) --port=<span class="number">6006</span>（<span class="number">6007</span>） <span class="comment">#注意路径</span></span><br><span class="line">tensorboard --logdir runs/train  （YOLO）</span><br></pre></td></tr></table></figure>
+<p>地址	localhost:6006</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#debug</span></span><br><span class="line">AttributeError: <span class="built_in">type</span> <span class="built_in">object</span> <span class="string">&#x27;h5py.h5.H5PYConfig&#x27;</span> has no attribute <span class="string">&#x27;__reduce_cython__&#x27;</span></span><br><span class="line">pip uninstall h5py</span><br><span class="line"></span><br><span class="line">AttributeError: module <span class="string">&#x27;distutils&#x27;</span> has no attribute <span class="string">&#x27;version&#x27;</span></span><br><span class="line">pip install setuptools==<span class="number">59.5</span><span class="number">.0</span></span><br><span class="line">pip install brotli</span><br></pre></td></tr></table></figure>
+<h3 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h3><p>transforms.py图像处理工具箱</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1.调用工具<span class="attribute">tool</span>=transforms.XXX()	2.使用 <span class="attribute">result</span>=tool(input)</span><br><span class="line">如	Totensor&gt;转向量	Normalize&gt;归一化		Resize&gt;缩放	</span><br><span class="line">Compose&gt;组合		RandomCrop&gt;随机裁剪</span><br></pre></td></tr></table></figure>
+<h3 id="ToTensor"><a href="#ToTensor" class="headerlink" title="ToTensor"></a>ToTensor</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#（桥梁，很多输入都要求tensor类型）</span></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line">tensor_tool=transforms.ToTensor()</span><br><span class="line">tensor_result=tensor_tool(img)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">	_ _call_ _(self,name)	</span><br><span class="line">可直接调用&gt;person=Person(“wyj<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
+<h3 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h3><p>torchvision.datasets 数据集处理</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line">train_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">True</span>, <span class="comment">#训练集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br><span class="line">test_set = torchvision.datasets.CIFAR10(root=<span class="string">&quot;./dataset&quot;</span>, train=<span class="literal">False</span>, <span class="comment">#测试集</span></span><br><span class="line">transform=dataset_transform, download=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Dataloader"><a href="#Dataloader" class="headerlink" title="Dataloader"></a>Dataloader</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line">test_loader = DataLoader(dataset=test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">0</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<details>
+  <summary>例</summary>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">    writer = SummaryWriter(<span class="string">&quot;dataloader&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">        step = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> test_loader: <span class="comment">#读数据</span></span><br><span class="line">            imgs, targets = data</span><br><span class="line">            writer.add_images(<span class="string">&quot;Epoch: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(epoch), imgs, step)</span><br><span class="line">            step = step + <span class="number">1</span></span><br><span class="line">    writer.close()</span><br><span class="line">&lt;/details&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
