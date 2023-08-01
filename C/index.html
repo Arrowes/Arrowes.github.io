@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Cedge.png">
 <meta property="article:published_time" content="2023-05-16T01:43:00.000Z">
-<meta property="article:modified_time" content="2023-07-29T09:59:20.253Z">
+<meta property="article:modified_time" content="2023-08-01T10:41:19.556Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta name="twitter:card" content="summary">
@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-number">1.</span> <span class="nav-text">C</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-1"><span class="nav-number">2.</span> <span class="nav-text">C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EVScode%E7%94%A8cmake%E6%90%AD%E5%BB%BAC-%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">基于VScode用cmake搭建C++编译调试环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cmake"><span class="nav-number">3.</span> <span class="nav-text">Cmake</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cmake-%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.1.</span> <span class="nav-text">Cmake 实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#t1-%E5%88%9B%E5%BB%BAHello-world"><span class="nav-number">3.1.1.</span> <span class="nav-text">t1 创建Hello world</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t2-%E5%AE%8C%E5%96%84%E9%A1%B9%E7%9B%AE%E5%B9%B6%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.2.</span> <span class="nav-text">t2 完善项目并安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t3-lib%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93%E6%9E%84%E5%BB%BA"><span class="nav-number">3.1.3.</span> <span class="nav-text">t3 lib静态库和动态库构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t4-%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E5%85%B1%E4%BA%AB%E5%BA%93%E5%92%8C%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.4.</span> <span class="nav-text">t4 使用外部共享库和头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%98%E9%87%8F%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.5.</span> <span class="nav-text">常用变量与环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmake%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">3.1.6.</span> <span class="nav-text">cmake常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t5-t6-%E6%A8%A1%E5%9D%97"><span class="nav-number">3.1.7.</span> <span class="nav-text">t5,t6 模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cmake-Opencv-Demo"><span class="nav-number">3.2.</span> <span class="nav-text">Cmake Opencv Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc-x2F-g-MinGW-x2F-MSVC%E4%B8%8Emake-x2F-CMake-x2F-qmake"><span class="nav-number">3.3.</span> <span class="nav-text">gcc&#x2F;g++,MinGW&#x2F;MSVC与make&#x2F;CMake&#x2F;qmake</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-number">1.</span> <span class="nav-text">C</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-1"><span class="nav-number">2.</span> <span class="nav-text">C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BB%AA%E8%AE%BA"><span class="nav-number">2.1.</span> <span class="nav-text">1.绪论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-C-%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="nav-number">2.2.</span> <span class="nav-text">2.C++程序的组成部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F"><span class="nav-number">2.3.</span> <span class="nav-text">3.使用变量和常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">2.3.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">常量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%AE%A1%E7%90%86%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.4.</span> <span class="nav-text">4.管理数组和字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">2.4.1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.4.2.</span> <span class="nav-text">字符串</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cmake"><span class="nav-number">3.</span> <span class="nav-text">Cmake</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cmake-%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.1.</span> <span class="nav-text">Cmake 实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#t1-%E5%88%9B%E5%BB%BAHello-world"><span class="nav-number">3.1.1.</span> <span class="nav-text">t1 创建Hello world</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t2-%E5%AE%8C%E5%96%84%E9%A1%B9%E7%9B%AE%E5%B9%B6%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.2.</span> <span class="nav-text">t2 完善项目并安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t3-lib%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93%E6%9E%84%E5%BB%BA"><span class="nav-number">3.1.3.</span> <span class="nav-text">t3 lib静态库和动态库构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t4-%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E5%85%B1%E4%BA%AB%E5%BA%93%E5%92%8C%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.4.</span> <span class="nav-text">t4 使用外部共享库和头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%98%E9%87%8F%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.5.</span> <span class="nav-text">常用变量与环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmake%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">3.1.6.</span> <span class="nav-text">cmake常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t5-t6-%E6%A8%A1%E5%9D%97"><span class="nav-number">3.1.7.</span> <span class="nav-text">t5,t6 模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cmake-Opencv-Demo"><span class="nav-number">3.2.</span> <span class="nav-text">Cmake Opencv Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EVScode%E7%94%A8cmake%E6%90%AD%E5%BB%BAC-%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="nav-number">3.3.</span> <span class="nav-text">基于VScode用cmake搭建C++编译调试环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc-x2F-g-MinGW-x2F-MSVC%E4%B8%8Emake-x2F-CMake-x2F-qmake"><span class="nav-number">3.4.</span> <span class="nav-text">gcc&#x2F;g++,MinGW&#x2F;MSVC与make&#x2F;CMake&#x2F;qmake</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-29 17:59:20" itemprop="dateModified" datetime="2023-07-29T17:59:20+08:00">2023-07-29</time>
+      <time title="修改时间：2023-08-01 18:41:19" itemprop="dateModified" datetime="2023-08-01T18:41:19+08:00">2023-08-01</time>
     </span>
 
   
@@ -277,14 +277,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
+      <span>3.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>13 分钟</span>
     </span>
 </div>
 
@@ -297,11 +297,110 @@
     <div class="post-body" itemprop="articleBody">
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/Arrowes/C-coding">C-coding</a></p>
 <h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><p><a target="_blank" rel="noopener" href="https://img.anfulai.cn/bbs/94810/C%20Primer%20Plus(%E7%AC%AC%E5%85%AD%E7%89%88)%E4%B8%AD%E6%96%87%E7%89%88.pdf">C Primer Plus(第六版)中文版</a></p>
-<h1 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h1><h2 id="基于VScode用cmake搭建C-编译调试环境"><a href="#基于VScode用cmake搭建C-编译调试环境" class="headerlink" title="基于VScode用cmake搭建C++编译调试环境"></a>基于VScode用cmake搭建C++编译调试环境</h2><ol>
-<li>安装VScode插件：C&#x2F;C++，cmake，cmake tools</li>
-<li>按F1，选择cmake:Quick Start,创建一个cmake工程</li>
-<li>点击左侧栏的CMake工具按钮,右键可执行文件，选择Debug,进入调试界面</li>
-</ol>
+<hr>
+<h1 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h1><p><a target="_blank" rel="noopener" href="https://github.com/Arrowes/C-coding/blob/main/C%2B%2B/21%E5%A4%A9%E5%AD%A6%E9%80%9AC%2B%2B%E7%AC%AC8%E7%89%88%20%E9%AB%98%E6%B8%85%E5%AE%8C%E6%95%B4PDF.pdf">21天学通C++第8版</a></p>
+<h2 id="1-绪论"><a href="#1-绪论" class="headerlink" title="1.绪论"></a>1.绪论</h2><p>C++最初由 Bjarne Stroustroup 于 1979 年在贝尔实验室开发，旨在作为 C 语言的继任者。但不同于C 语言，C++是一种面向对象的语言，实现了继承、抽象、多态和封装等概念。<br>C++是一种中级编程语言，这意味着使用它既可以高级编程方式编写应用程序，又可以低级编程方式编写与硬件紧密协作的库。</p>
+<p>构建可执行文件：编写代码(.cpp) &gt; 编译器(.o &#x2F; .obj) &gt; 链接器(.exe)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>  <span class="comment">//标准头文件，引入std::cout</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello World!!&quot;</span> &lt;&lt; std::endl; <span class="comment">// &lt;&lt;：流插入运算符</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">//cout 是在名称空间 std 中定义的一个流, 用来显示</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>开发环境</strong>：Visual studio code + GCC compiler&#x2F;MinGW, 按F5 Choose <code>C/C++: g++.exe build and debug active file</code>, 将编译、链接并执行应用程序</p>
+<h2 id="2-C-程序的组成部分"><a href="#2-C-程序的组成部分" class="headerlink" title="2.C++程序的组成部分"></a>2.C++程序的组成部分</h2><ul>
+<li>预处理器编译指令 <code>#include</code><br> <code>#include &quot;...relative path to .\FileB&quot;</code>包含自定义头文件，<code>&lt;&gt;</code>用来包含自定义头文件 </li>
+<li>程序主体 <code>main()</code><br>程序的起点，前面的int是一种标准化约定，表示返回类型为整数</li>
+<li>返回值<br>在 C++中，除非明确声明了不返回值，否则函数必须返回一个值，根据约定，程序员在程序运行成功时返回 0，并在出现错误时返回−1</li>
+</ul>
+<p><strong>namespace名称空间</strong>：是给代码指定的名称，有助于降低命名冲突的风险，如<code>std::cout</code>:调用名称空间 std 中独一无二的 cout, 若要省略std::, 先加入<code>using namespace std</code></p>
+<p><strong>注释</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//单行注释</span></span><br><span class="line"><span class="comment">/* 跨行</span></span><br><span class="line"><span class="comment">   注释</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>cin 可用于从用户那里获取文本输入和数字输入<code>std::cin &gt;&gt; Variable1 &gt;&gt; Variable2; </code></p>
+<h2 id="3-使用变量和常量"><a href="#3-使用变量和常量" class="headerlink" title="3.使用变量和常量"></a>3.使用变量和常量</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><code>VariableType VariableName = InitialValue;</code><br>变量类型向编译器指出了变量可存储的数据的性质，编译器将为变量预留必要的空间。变量名由程序员选择，它替代了变量值在内存中的存储地址;<br>函数内部声明的为<em>局部变量</em>，作用域为局部，被限定在声明它的函数内，函数结束后，将销毁所有局部变量，并归还它们占用的内存；在函数外部声明的则为<em>全局变量</em>。</p>
+<p>命名约定：对于变量名，采用<em>骆驼拼写法</em>(firstNumber, 第一个单词的首字母采用小写)，而对于诸如函数名等其他元素，采用 <em>Pascal 拼写法</em>(MultiplyNumbers(), 函数名每个首字母都大写)。</p>
+<p>编译器支持的常见 C++变量类型:</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>值</th>
+<th>概念</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bool</td>
+<td>true&#x2F;false</td>
+<td>布尔变量</td>
+</tr>
+<tr>
+<td>char</td>
+<td>256个字符值</td>
+<td>存储单字符,如’A’</td>
+</tr>
+<tr>
+<td>unsigned short int</td>
+<td>0～65535</td>
+<td>占16位内存&#x3D;$2^{16}$&#x3D;65536</td>
+</tr>
+<tr>
+<td>short int</td>
+<td>–32768～32767</td>
+<td>最高有效位（MSB）做符号位</td>
+</tr>
+<tr>
+<td>unsigned long int</td>
+<td>0～4294967295</td>
+<td>$2^{32}$</td>
+</tr>
+<tr>
+<td>long int</td>
+<td>–2147483648～2147483647</td>
+<td></td>
+</tr>
+<tr>
+<td>int (16位)</td>
+<td>–32768～32767</td>
+<td></td>
+</tr>
+<tr>
+<td>int (32位)</td>
+<td>–2147483648～2147483647</td>
+<td></td>
+</tr>
+<tr>
+<td>unsigned int（16位）</td>
+<td>0～65535</td>
+<td></td>
+</tr>
+<tr>
+<td>unsigned int（32位）</td>
+<td>0～4294967295</td>
+<td></td>
+</tr>
+<tr>
+<td>float</td>
+<td>1.2e–38～3.4e38</td>
+<td>浮点数</td>
+</tr>
+<tr>
+<td>double</td>
+<td>2.2e–308～1.8e308</td>
+<td>双精度浮点数</td>
+</tr>
+</tbody></table>
+<p>sizeof 确定变量长度（字节）：<code>sizeof (int)</code><br>使用列表初始化避免缩窄转换错误：<code>int anotherNum&#123; largeNum &#125;;</code><br>关键字 auto 自动推断类型：<code>auto coinFlippedHeads = true</code><br>typedef 替换变量类型: <code>typedef unsigned int MYINT; </code></p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>在 C++中，常量类似于变量，只是不能修改。</p>
+<ul>
+<li>字面常量：可以是任何类型：布尔型、整型、字符串等</li>
+<li>使用关键字 const 将变量声明为常量(最实用): <code>const double pi = 22.0 / 7;</code></li>
+<li>使用 constexpr 定义常量表达式: <code>constexpr double GetPi() &#123;return 22.0 / 7;&#125; </code></li>
+<li>使用关键字 enum 声明枚举: 指定一组特定的取值，枚举量起始值默认为0</li>
+<li><del>使用#define 定义常量：<code>#define pi 3.14286</code>, 已被摒弃</del></li>
+</ul>
+<p>务必确保变量名阐述了变量的用途。<br>务必对变量进行初始化，确保变量包含非随机的确定值；并使用列表初始化来避免缩窄转换错误。<br>不要将保留的 C++关键字用作变量名，因为这将导致程序无法通过编译。</p>
+<h2 id="4-管理数组和字符串"><a href="#4-管理数组和字符串" class="headerlink" title="4.管理数组和字符串"></a>4.管理数组和字符串</h2><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>在 C++中，数组让您能够按顺序将一系列相同类型的数据存储到内存中。</p>
+<p><strong>静态数组：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> myNumbers [<span class="number">5</span>] = &#123;&#125;; <span class="comment">//声明一个包含 5 个 int 元素的数组，并将每个元素都初始化为零</span></span><br><span class="line"><span class="type">char</span> myCharacters [<span class="number">5</span>];  <span class="comment">//定义一个包含 5 个字符的数组</span></span><br><span class="line">Num = myNumbers [<span class="number">0</span>];    <span class="comment">//取出第一个元素 </span></span><br><span class="line">myNumbers [<span class="number">3</span>] = <span class="number">2023</span>;   <span class="comment">//重新赋值</span></span><br><span class="line"><span class="comment">//Bytes consumed by an array = sizeof(element-type) * Number of Elements </span></span><br><span class="line"><span class="comment">//务必初始化数组，否则其元素将包含未知值。使用数组时，务必确保在其边界内。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在 C++中，可在内存中模拟多维数组(但存储数组的内存是一维的)</span></span><br><span class="line"><span class="type">int</span> <span class="built_in">array</span> [<span class="number">2</span>][<span class="number">3</span>] = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;&#125;;  <span class="comment">//or &#123;0, 1, 2, 3, 4, 5&#125;</span></span><br><span class="line">Num1 = <span class="built_in">array</span> [<span class="number">0</span>][<span class="number">1</span>]  <span class="comment">//取出元素1</span></span><br></pre></td></tr></table></figure>
+<p>**动态数组 <code>std::vector</code>**：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="type">int</span>&gt; <span class="title function_">dynArray</span> <span class="params">(<span class="number">3</span>)</span>; <span class="comment">// dynamic array of int </span></span><br></pre></td></tr></table></figure>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><hr>
 <h1 id="Cmake"><a href="#Cmake" class="headerlink" title="Cmake"></a>Cmake</h1><p><a href="www.cmake.org">CMake</a> 是一个跨平台的开源构建管理系统，用于自动化应用程序的构建、测试和打包过程。它使用类似于Makefile的文本文件来描述构建过程中所需的所有组件和依赖项，并将其转换为适合各种不同编译器和操作系统的本地构建系统的配置文件。总之，CMake就是一个将多个cpp,hpp文件组合构建为一个大工程的语言。<br><a target="_blank" rel="noopener" href="https://cmake.org/download/">CMake下载</a> (Linux无需下载)<br><a target="_blank" rel="noopener" href="https://github.com/gavinliu6/CMake-Practice-zh-CN">Cmake 实践</a> 在实践中上手的教程<br><a target="_blank" rel="noopener" href="https://github.com/SFUMECJF/cmake-examples-Chinese">cmake-examples-Chinese</a> 例程</p>
 <h2 id="Cmake-实践"><a href="#Cmake-实践" class="headerlink" title="Cmake 实践"></a><a target="_blank" rel="noopener" href="https://gavinliu6.github.io/CMake-Practice-zh-CN/#/">Cmake 实践</a></h2><h3 id="t1-创建Hello-world"><a href="#t1-创建Hello-world" class="headerlink" title="t1 创建Hello world"></a>t1 <a target="_blank" rel="noopener" href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/hello-world.md">创建Hello world</a></h3><p>建立main.c与CMakeLists.txt并编译（需要为每一个子目录建立一个CMakeLists.txt）</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">PROJECT (HELLO)     <span class="comment">#PROJECT(projectname [CXX] [C] [Java])</span></span><br><span class="line">SET(SRC_LIST main.c)    <span class="comment">#提供要编译的源代码文件列表，可定义多个源文件main.c 1.c</span></span><br><span class="line">MESSAGE([SEND_ERROR|STATUS|FATAL_ERROR] <span class="string">&quot;message to display&quot;</span>)</span><br><span class="line">ADD_EXECUTABLE(hello <span class="variable">$&#123;SRC_LIST&#125;</span>)   <span class="comment">#创建名为hello的可执行文件，IF不用$&#123;&#125;引用变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#内部编译(在文件夹中产生文件太多)</span></span><br><span class="line">cmake . <span class="comment">#构建工程，生成makefile</span></span><br><span class="line">make    <span class="comment">#构建目标文件hello二进制</span></span><br><span class="line">./hello <span class="comment">#运行目标文件</span></span><br><span class="line"><span class="comment">#外部编译(out of source build,推荐)</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build <span class="comment">#新建并进入build文件夹</span></span><br><span class="line">cmake ..    <span class="comment">#在父目录找到cmakelists构建工程</span></span><br><span class="line">make    <span class="comment">#在build编译目录中获得目标文件，不影响原有工程</span></span><br></pre></td></tr></table></figure>
@@ -363,6 +462,12 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir build &amp;&amp; cd build</span><br><span class="line">cmake ..</span><br><span class="line">make  #生成可执行文件</span><br><span class="line">./EDGE   #运行边缘提取执行文件</span><br></pre></td></tr></table></figure>
 <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Cedge.png" width="50%">
 
+
+<h2 id="基于VScode用cmake搭建C-编译调试环境"><a href="#基于VScode用cmake搭建C-编译调试环境" class="headerlink" title="基于VScode用cmake搭建C++编译调试环境"></a>基于VScode用cmake搭建C++编译调试环境</h2><ol>
+<li>安装VScode插件：C&#x2F;C++，cmake，cmake tools</li>
+<li>按F1，选择cmake:Quick Start,创建一个cmake工程</li>
+<li>点击左侧栏的CMake工具按钮,右键可执行文件，选择Debug,进入调试界面</li>
+</ol>
 <h2 id="gcc-x2F-g-MinGW-x2F-MSVC与make-x2F-CMake-x2F-qmake"><a href="#gcc-x2F-g-MinGW-x2F-MSVC与make-x2F-CMake-x2F-qmake" class="headerlink" title="gcc&#x2F;g++,MinGW&#x2F;MSVC与make&#x2F;CMake&#x2F;qmake"></a>gcc&#x2F;g++,MinGW&#x2F;MSVC与make&#x2F;CMake&#x2F;qmake</h2><p><strong>GNU</strong>&#x2F;Linux：简称Linux，包括Ubuntu，Debian，CentOS，自带gcc；<br><strong>gcc&#x2F;g++</strong> ：GNU编译器套件（GNU Compiler Collection）,在<em>Linux</em>或MacOS上使用，gcc主要用于C语言,g++支持更多的C++特性。</p>
 <p><strong>MinGW</strong>(Minimalist GNUfor Windows)，是<em>Windows</em>下运行的GNU环境，包含gcc和一系列工具，让开发者在Windows下可以写GNU的c&#x2F;c++代码, 编译的结果是windows的可执行文件exe；<br><strong>MSVC</strong>:微软开发的C&#x2F;C++编译器，在<em>Windows</em>下编译C&#x2F;C++程序。它被集成在Visual Studio IDE中。</p>
 <p><strong>Makefile</strong>包含了描述如何编译和链接程序的规则和指令,指定哪些文件需要先编译，后编译以及重新编译，甚至更复杂的功能操作,通常被用于自动化构建C&#x2F;C++项目;<br><strong>Make</strong>是一个自动化构建工具，执行Make命令时，它会读取Makefile中的规则，并根据依赖项关系来判断哪些规则需要被执行，来实现编译、链接等操作。<br><strong>CMake</strong>是一个跨平台的自动化构建工具，与Make类似，但是它不直接构建项目，而是生成适合不同构建系统的配置文件，如Makefile或Visual Studio的.sln文件，并调用相应的构建系统来进行项目构建。<br><strong>qmake</strong>是Qt框架提供的自动化构建工具，用于构建Qt项目。</p>
@@ -423,14 +528,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">49k</span>
+    <span title="站点总字数">50k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:58</span>
+    <span title="站点阅读时长">3:03</span>
   </span>
 </div>
 <div class="busuanzi-count">
