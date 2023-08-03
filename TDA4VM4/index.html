@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="Arrow的笔记本">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-07T02:40:00.000Z">
-<meta property="article:modified_time" content="2023-08-01T10:41:19.557Z">
+<meta property="article:modified_time" content="2023-08-03T11:18:44.328Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
@@ -144,7 +144,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ONNX%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%8F%8A%E6%8E%A8%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">ONNX模型转换及推理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIDL%E7%BC%96%E8%AF%91"><span class="nav-number">2.</span> <span class="nav-text">TIDL编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Edge-AI-Studio"><span class="nav-number">2.1.</span> <span class="nav-text">Edge AI Studio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EdgeAI-TIDL-Tools"><span class="nav-number">2.2.</span> <span class="nav-text">EdgeAI-TIDL-Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#onnxrt-ep-py%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.2.1.</span> <span class="nav-text">onnxrt_ep.py详解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#model-artifacts"><span class="nav-number">2.3.</span> <span class="nav-text">model-artifacts</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ONNX%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%8F%8A%E6%8E%A8%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">ONNX模型转换及推理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIDL-python%E7%BC%96%E8%AF%91%E6%8E%A8%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">TIDL python编译推理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Edge-AI-Studio"><span class="nav-number">2.1.</span> <span class="nav-text">Edge AI Studio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EdgeAI-TIDL-Tools"><span class="nav-number">2.2.</span> <span class="nav-text">EdgeAI-TIDL-Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#onnxrt-ep-py%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.2.1.</span> <span class="nav-text">onnxrt_ep.py详解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#model-artifacts"><span class="nav-number">2.3.</span> <span class="nav-text">model-artifacts</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIDL-tools-c-%E6%8E%A8%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">TIDL tools c++推理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SK%E6%9D%BF%E8%BF%90%E8%A1%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">SK板运行自定义深度学习模型</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -259,7 +259,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-08-01 18:41:19" itemprop="dateModified" datetime="2023-08-01T18:41:19+08:00">2023-08-01</time>
+      <time title="修改时间：2023-08-03 19:18:44" itemprop="dateModified" datetime="2023-08-03T19:18:44+08:00">2023-08-03</time>
     </span>
 
   
@@ -276,14 +276,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.8k</span>
+      <span>4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>14 分钟</span>
+      <span>15 分钟</span>
     </span>
 </div>
 
@@ -319,7 +319,7 @@
 <p>使用ONNX Runtime 运行推理，验证模型转换的正确性</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np    </span><br><span class="line"><span class="keyword">import</span> onnxruntime    </span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> onnx</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="comment">#导入模型和推理图片</span></span><br><span class="line">model_path = <span class="string">&quot;./XXX.onnx&quot;</span></span><br><span class="line">input_file=<span class="string">&quot;1.jpg&quot;</span></span><br><span class="line">session = onnxruntime.InferenceSession(model_path, <span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># get the name of the first input of the model</span></span><br><span class="line">input_name = session.get_inputs()[<span class="number">0</span>].name  </span><br><span class="line">input_details  = session.get_inputs()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Model input details:&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> input_details:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">output_details = session.get_outputs()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Model output details:&quot;</span>, )</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> output_details:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br><span class="line">input_shape = input_details[<span class="number">0</span>].shape</span><br><span class="line">input_height, input_width = input_shape[<span class="number">2</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pre-Process input</span></span><br><span class="line">img_bgr = cv2.imread(input_file)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;image size:&quot;</span>, img_bgr.shape)</span><br><span class="line">img_bgr2 = cv2.resize(img_bgr, ( input_width,input_height))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;image resize:&quot;</span>, img_bgr2.shape)</span><br><span class="line">img_rgb = img_bgr2[:,:,::-<span class="number">1</span>]</span><br><span class="line">device = torch.device(<span class="string">&#x27;cuda:0&#x27;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line"><span class="comment"># 预处理-归一化</span></span><br><span class="line">input_tensor = img_rgb / <span class="number">255</span>    <span class="comment"># 预处理-构造输入 Tensor</span></span><br><span class="line">input_tensor = np.expand_dims(input_tensor, axis=<span class="number">0</span>) <span class="comment"># 加 batch 维度</span></span><br><span class="line">input_tensor = input_tensor.transpose((<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>)) <span class="comment"># N, C, H, W</span></span><br><span class="line">input_tensor = np.ascontiguousarray(input_tensor)   <span class="comment"># 将内存不连续存储的数组，转换为内存连续存储的数组，使得内存访问速度更快</span></span><br><span class="line">input_tensor = torch.from_numpy(input_tensor).to(device).<span class="built_in">float</span>() <span class="comment"># 转 Pytorch Tensor</span></span><br><span class="line">input_tensor = input_tensor[:, :<span class="number">1</span>, :, :]    <span class="comment">#[1, &quot;1&quot;, 384, 128]</span></span><br><span class="line"><span class="built_in">print</span>(input_tensor.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Run inference session</span></span><br><span class="line">raw_result = session.run([], &#123;input_name: input_tensor.numpy()&#125;)</span><br><span class="line"><span class="keyword">for</span> result <span class="keyword">in</span> raw_result:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;result shape:&quot;</span>, result.shape)</span><br></pre></td></tr></table></figure>
 <p><code>print(result)</code> :正常应该输出正确的推理结果，如果数值全都一样(-4.59512)，可能是没有检测到有效的目标或者模型效果太差</p>
-<h1 id="TIDL编译"><a href="#TIDL编译" class="headerlink" title="TIDL编译"></a>TIDL编译</h1><p>得到onnx相关文件后，使用ti提供的工具进行编译和推理，这里依然采用两种方法：<a target="_blank" rel="noopener" href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a> 和 <a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/tree/08_06_00_05">edgeai-tidl-tools</a></p>
+<h1 id="TIDL-python编译推理"><a href="#TIDL-python编译推理" class="headerlink" title="TIDL python编译推理"></a>TIDL python编译推理</h1><p>得到onnx相关文件后，使用ti提供的工具进行编译和推理，这里依然采用两种方法：<a target="_blank" rel="noopener" href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a> 和 <a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/tree/08_06_00_05">edgeai-tidl-tools</a></p>
 <h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a>Edge AI Studio</h2><p>参考yolox的编译过程：<a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM3/#b-%E4%BD%BF%E7%94%A8TIDL-Tools%EF%BC%88by-Edge-AI-Studio%EF%BC%89">YOLOX的模型转换与SK板端运行</a>，修改数据预处理与compile_options部分，最后重写画框部分（optional）</p>
 <blockquote>
 <p><strong>Debug:</strong><br><code>[ONNXRuntimeError] : 6 ... </code>: compile_options中设置deny_list，剔除不支持的层，如<code>&#39;Slice, Resize&#39;</code>，TIDL支持的算子见：<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/supported_ops_rts_versions.md">supported_ops_rts_versions</a></p>
@@ -348,10 +348,55 @@
 <li><em>1102</em><br>  起始于Conv_1338前的Concat，输出为最终的output</li>
 </ul>
 <p>由此看出，四组网络结构文件拼接成一个完整的网络，但由于不支持的层被deny, 需要offload到arm端运行，因此在相应的位置被拆分，前期结构设计时需要尽量避免出现该情况。</p>
+<h1 id="TIDL-tools-c-推理"><a href="#TIDL-tools-c-推理" class="headerlink" title="TIDL tools c++推理"></a>TIDL tools c++推理</h1><p>TIDL runtime 提供的CPP api解决方案仅支持模型推理，因此仍需在PC上运行Python示例以生成模型工件。<br><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/tree/master/examples/osrt_cpp">edgeai-tidl-tools&#x2F;examples&#x2F;osrt_cpp</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">mkdir</span> build2 &amp;&amp; <span class="built_in">cd</span> build2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="SK板运行自定义深度学习模型"><a href="#SK板运行自定义深度学习模型" class="headerlink" title="SK板运行自定义深度学习模型"></a>SK板运行自定义深度学习模型</h1><p>通过SD卡配置编译生成的模型：</p>
+<blockquote>
+<p>配置模型文件夹 custom_model 放入&#x2F;opt&#x2F;modelzoo文件夹</p>
+<blockquote>
+<p>artifacts：存放编译生成的工件，model-artifacts<br>model：原onnx模型，.onnx<br>param.yaml：配置文件, 其中需要修改model_path等参数<br>dataset.yaml：数据集类别对应文件</p>
+</blockquote>
+</blockquote>
+<p>通过SD卡配置&#x2F;opt&#x2F;edgeai-gst-apps&#x2F;configs&#x2F;custom_model.yaml，在model参数中索引上面建立的模型文件夹 custom_model</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#通过minicom连接串口</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line">root <span class="comment">#登录</span></span><br><span class="line"><span class="comment">#运行yolox_s实例</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_cpp</span><br><span class="line">./bin/Release/app_edgeai ../configs/custom_model.yaml</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <hr>
 <p><a target="_blank" rel="noopener" href="https://www.ti.com/video/6286792047001">Efficient object detection using Yolov5 and TDA4x processors | Video | TI.com</a><br><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/common/inference_models.html">4. Deep learning models &amp;mdash; Processor SDK Linux for SK-TDA4VM Documentation</a></p>
 <blockquote>
-<p>TDA4系列文章：<br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
+<p>TDA4系列文章：<br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义深度学习模型</a></p>
 </blockquote>
 
     </div>
@@ -415,7 +460,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:05</span>
+    <span title="站点阅读时长">3:07</span>
   </span>
 </div>
 <div class="busuanzi-count">
