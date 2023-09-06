@@ -58,7 +58,7 @@ A-->E[C.定义]</pre>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#97;&#x70;&#64;&#x30;&#46;&#x35;">&#x6d;&#97;&#x70;&#64;&#x30;&#46;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#97;&#112;&#64;&#48;&#x2e;&#x35;">&#109;&#97;&#112;&#64;&#48;&#x2e;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -74,109 +74,6 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
-    <url>/DLdeploy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
-<ul>
-<li>Network selection：</li>
-<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
-<li>Deployment：<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
-</ul>
-<p>Netron神经网络可视化: <a href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a href="https://netron.app/">在线网站</a></p>
-<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a href="https://onnx.ai/">ONNX</a>，<a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnxruntime.ai/">ONNX Runtime</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
-<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
-<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
-<blockquote>
-<p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
-</blockquote>
-<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-
-<details>
-    <summary>SRCNN超分辨率代码</summary>
-
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<p>模型转换为ONNX，验证正确性，运行推理：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 0" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
-
-<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
-<ul>
-<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
-<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的。</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字）</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
-<li>PyTorch 算子<ul>
-<li>组合现有算子</li>
-<li>添加 TorchScript 算子</li>
-<li>添加普通 C++ 拓展算子</li>
-</ul>
-</li>
-<li>映射方法<ul>
-<li>为 ATen 算子添加符号函数</li>
-<li>为 TorchScript 算子添加符号函数</li>
-<li>封装成 <code>torch.autograd.Function</code> 并添加符号函数</li>
-</ul>
-</li>
-<li>ONNX 算子<ul>
-<li>使用现有 ONNX 算子</li>
-<li>定义新 ONNX 算子</li>
-</ul>
-</li>
-</ul>
-<p><a href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
-<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
-<p>浮点数格式 (float32)：$V &#x3D; (-1)^s×M×2^E$</p>
-<table>
-<thead>
-<tr>
-<th>符号位s</th>
-<th>阶码E</th>
-<th>尾数M</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>8</td>
-<td>23</td>
-</tr>
-</tbody></table>
-<p>定点数格式 (int8)：</p>
-<table>
-<thead>
-<tr>
-<th>符号位</th>
-<th>整数位（设定）</th>
-<th>小数位(量化系数)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>4</td>
-<td>3</td>
-</tr>
-</tbody></table>
-<p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
-<p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
-<blockquote>
-<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
-</blockquote>
-<p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
-<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
-
-<p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -525,6 +422,109 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>C/C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
+    <url>/DLdeploy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
+<ul>
+<li>Network selection：</li>
+<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
+<li>Deployment：<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
+</ul>
+<p>Netron神经网络可视化: <a href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a href="https://netron.app/">在线网站</a></p>
+<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a href="https://onnx.ai/">ONNX</a>，<a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnxruntime.ai/">ONNX Runtime</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
+<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
+<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
+<blockquote>
+<p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
+</blockquote>
+<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<details>
+    <summary>SRCNN超分辨率代码</summary>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<p>模型转换为ONNX，验证正确性，运行推理：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
+<img alt="picture 0" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
+
+<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
+<ul>
+<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
+<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的。</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字）</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
+<li>PyTorch 算子<ul>
+<li>组合现有算子</li>
+<li>添加 TorchScript 算子</li>
+<li>添加普通 C++ 拓展算子</li>
+</ul>
+</li>
+<li>映射方法<ul>
+<li>为 ATen 算子添加符号函数</li>
+<li>为 TorchScript 算子添加符号函数</li>
+<li>封装成 <code>torch.autograd.Function</code> 并添加符号函数</li>
+</ul>
+</li>
+<li>ONNX 算子<ul>
+<li>使用现有 ONNX 算子</li>
+<li>定义新 ONNX 算子</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
+<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
+<p>浮点数格式 (float32)：$V &#x3D; (-1)^s×M×2^E$</p>
+<table>
+<thead>
+<tr>
+<th>符号位s</th>
+<th>阶码E</th>
+<th>尾数M</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>8</td>
+<td>23</td>
+</tr>
+</tbody></table>
+<p>定点数格式 (int8)：</p>
+<table>
+<thead>
+<tr>
+<th>符号位</th>
+<th>整数位（设定）</th>
+<th>小数位(量化系数)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>4</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
+<p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
+<blockquote>
+<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
+</blockquote>
+<p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
+<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
+
+<p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -2434,6 +2434,107 @@ B-->C</pre>
       </tags>
   </entry>
   <entry>
+    <title>Yolo：Code，Config，Ideas</title>
+    <url>/Yolo/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Yolo"><a href="#Yolo" class="headerlink" title="Yolo"></a>Yolo</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>详细配置见 <a href="https://wangyujie.site/Pytorch/">Anaconda，Pycharm，Jupyter，Pytorch</a></p>
+<p><strong>Windows环境配置</strong></p>
+<ol>
+<li><p>安装<a href="https://www.anaconda.com/"><strong>Anaconda</strong></a>，<br>防止环境装在C盘占空间：修改user目录下.condarc文件里的默认地址，或执行<code>conda config --add D:\Anaconda3\envs </code>,然后<code>conda info</code> 检查envs directories<br>（若报错 The channel is not accessible or is invalid 运行<code>conda config --remove-key channels</code>）</p>
+</li>
+<li><p><strong>配置环境</strong>：打开Anaconda Prompt<br>创建环境<code>conda create -n pytorch python=3.8</code><br>激活环境<code>conda activate pytorch</code></p>
+</li>
+<li><p>安装显卡驱动对应的<strong>CUDA</strong>：<code>nvidia-smi</code> 查询支持CUDA版本，<br>再到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装, 如：<br><code>conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</code><br>（验证torch能否使用GPU：<code>python -c &quot;import torch;print(torch.cuda.is_available())&quot;</code>   返回True说明GPU可以被使用）</p>
+</li>
+<li><p>安装<a href="https://www.jetbrains.com/pycharm/"><strong>Pychram</strong></a>, 用pycharm打开YOLO项目文件夹，配置编辑器<code>D:P\Anaconda3\envs\pytorch\python.exe</code>，在pycharm的terminal中打开pytorch环境</p>
+</li>
+<li><p>安装各种<strong>包</strong>：<code>pip install -r requirements.txt</code>,<br>换源补装失败的包<code>pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple/</code></p>
+</li>
+</ol>
+<p><strong>Linux 环境配置</strong></p>
+<ol>
+<li><p>安装miniconda，相较Anaconda更小巧快捷，功能一样</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="comment">#一路Enter + Yes，最后使修改的PATH环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">canda   <span class="comment">#验证是否成功</span></span><br><span class="line">conda create -n pytorch python=3.6  <span class="comment">#创建一个名为pytorch的环境</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>（若要安装：<a href="https://www.anaconda.com/">Anaconda</a>，执行下载的.sh文件，输入<code>bash XXX.sh</code>，然后一路enter和yes；激活：<code>cd ///root/anaconda3/bin</code>,输入：<code>source ./activate</code>，终端前出现<code>(base)</code>则激活成功）</p>
+</blockquote>
+</li>
+<li><p>下载pycharm，解压，进入bin文件夹，运行<code>./pycharm.sh</code>以打开pycharm（更简单且能生成图标的方法：<code>sudo snap install pycharm-community --classic</code>）<br>在项目中导入环境<code>.conda/envs/pytorch/bin/python3.6</code></p>
+</li>
+<li><p>安装CUDA</p>
+<ul>
+<li><strong>pytorch</strong><br> <code>conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia</code></li>
+<li><strong>tensorflow</strong><br> cuda:<code>conda install cudatoolkit=10.0</code><br> cuDNN:<code>conda install cudnn=7.6</code><br> tf:<code>pip install tensorflow-gpu==1.15.0</code>(注意版本匹配)</li>
+</ul>
+</li>
+</ol>
+<p>如果requirements中有包实在安不上，手动装包：进<a href="https://pypi.org/">网站</a>搜索包，下载.whl，在包所在位置激活环境运行<code>pip install [].whl</code>(包名中cp38代表python3.8版本)</p>
+<h2 id="资料-amp-Paper-amp-Code"><a href="#资料-amp-Paper-amp-Code" class="headerlink" title="资料 &amp; Paper &amp; Code"></a>资料 &amp; Paper &amp; Code</h2><p>YOLOv1 - v5历程：<a href="https://blog.csdn.net/wjinjie/article/details/107509243">从yolov1至yolov5的进阶之路</a><br>YOLOv3论文精读视频：<a href="https://www.bilibili.com/video/BV1Vg411V7bJ/">同济子豪兄YOLOV3目标检测</a><br>YOLOv5知识精讲：<a href="https://zhuanlan.zhihu.com/p/172121380">Yolov5核心基础知识完整讲解</a><br>YOLOv7网络结构：<a href="https://blog.csdn.net/athrunsunny/article/details/125951001">理解yolov7网络结构</a> ,<a href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a><br>全流程指导视频：<a href="https://www.bilibili.com/video/BV1tf4y1t7ru/">目标检测 YOLOv5 开源代码项目调试与讲解实战</a></p>
+<p><a href="https://arxiv.org/pdf/1506.02640.pdf">YOLOv1</a> &amp; <a href="https://pjreddie.com/darknet/yolov1/">Code</a>; <a href="https://arxiv.org/pdf/1612.08242.pdf">YOLOv2</a> &amp; <a href="https://pjreddie.com/darknet/yolo/">Code</a>; <a href="https://arxiv.org/pdf/1804.02767.pdf">YOLOv3</a> &amp; <a href="https://github.com/ultralytics/yolov3">Code</a>; YOLOv4 &amp; <a href="https://github.com/Tianxiaomo/pytorch-YOLOv4">Code</a>; YOLOv5 &amp; <a href="https://github.com/search?q=yolov5">Code</a>; <a href="https://arxiv.org/pdf/2209.02976.pdf">YOLOv6</a> &amp; <a href="https://github.com/meituan/YOLOv6">Code</a>; <a href="https://arxiv.org/abs/2207.02696">YOLOv7</a> &amp; <a href="https://github.com/WongKinYiu/yolov7">Code</a>; YOLOv8 &amp; <a href="https://github.com/ultralytics/ultralytics">Code</a></p>
+<p>算法复现精品仓库：<a href="https://github.com/bubbliiiing">Bubbliiiing</a></p>
+<p>论文：<a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a>，代码：<a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><strong>Detect参数</strong><br>调用电脑摄像头:<br>右上角py配置 &gt; Edit Configurations &gt; Parameters<br><code>--view-img --source 0</code></p>
+<p>调用手机摄像头：<br>下载 <a href="https://www.123pan.com/s/goS7Vv-QeKbd.html">IP摄像头</a> App，关闭代理，连同一个网，Parameters配置为：<br><code>--source http://admin:admin@192.168.43.1:8081</code> 具体地址见 APP</p>
+<p><strong>Train参数</strong><br><code>action=&#39;store_true&#39;</code> 触发了为true，否则为false 和 default&#x3D;False 效果一样</p>
+<p><strong>YOLOv8</strong><br>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
+<blockquote>
+<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
+</blockquote>
+<p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
+<h1 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><blockquote>
+<p><a href="https://www.kaggle.com/datasets">Kaggle数据集</a><br><a href="https://gas.graviti.cn/open-datasets">格物钛数据集</a><br><a href="https://universe.roboflow.com/roboflow-100">Roboflow数据集</a><br><a href="https://ieee-dataport.org/datasets">IEEE DataPort</a></p>
+</blockquote>
+<p>标注工具：<a href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
+<p>开源驾驶员行为数据集：<a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
+<p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
+<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png" alt="图 1">  </p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
+<li>在 <code>models/common.py</code> 加入新的结构代码</li>
+<li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
+<li><code>.yaml</code> 修改网络结构<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png" alt="图 2"></li>
+</ol>
+<h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
+<blockquote>
+<p>位置：<br>在上采样+concat之后接一个注意力机制可能会更好？<br>backbone结尾使用一个注意力机制？<br>每个block（如residual block）结尾使用比每个Conv里使用更好？</p>
+</blockquote>
+<p>transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块</p>
+<h2 id="激活函数-activations-py"><a href="#激活函数-activations-py" class="headerlink" title="激活函数 activations.py"></a>激活函数 activations.py</h2><blockquote>
+<p>activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数<br>common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面</p>
+</blockquote>
+<p>例：插入激活函数：Mish<br>1.在utils&#x2F;activation.py中定义Mish激活函数<br>2.重构Conv模块，改激活函数：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Conv</span>(nn.Module):</span><br><span class="line">    <span class="comment"># Standard convolution</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, c1, c2, k=<span class="number">1</span>, s=<span class="number">1</span>, p=<span class="literal">None</span>, g=<span class="number">1</span>, act=<span class="literal">True</span></span>):  <span class="comment"># ch_in, ch_out, kernel, stride, padding, groups</span></span><br><span class="line">        <span class="built_in">super</span>(Conv, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(c1, c2, k, s, autopad(k, p), groups=g, bias=<span class="literal">False</span>)</span><br><span class="line">        self.bn = nn.BatchNorm2d(c2)</span><br><span class="line">        <span class="comment">#self.act = nn.SiLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())</span></span><br><span class="line">        self.act = nn.Mish() <span class="keyword">if</span> act <span class="keyword">is</span> <span class="literal">True</span> <span class="keyword">else</span> (act <span class="keyword">if</span> <span class="built_in">isinstance</span>(act, nn.Module) <span class="keyword">else</span> nn.Identity())</span><br></pre></td></tr></table></figure>
+
+<h2 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h2><p>例：改 EIOU loss</p>
+<ol>
+<li>修改 general.py，增加EIOU。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">elif</span> EIoU:</span><br><span class="line">                w=(w1-w2)*(w1-w2)</span><br><span class="line">                h=(h1-h2)*(h1-h2)</span><br><span class="line">                <span class="keyword">return</span> iou-(rho2/c2+w/(cw**<span class="number">2</span>)+h/(ch**<span class="number">2</span>))<span class="comment">#EIOU  2021.12.29</span></span><br></pre></td></tr></table></figure></li>
+<li>将loss.py中边框位置回归损失函数改为eiou。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=<span class="literal">False</span>, EIoU=<span class="literal">True</span>)  <span class="comment"># iou(prediction, target)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="炼丹经验"><a href="#炼丹经验" class="headerlink" title="炼丹经验"></a>炼丹经验</h1><ul>
+<li><p><strong>数据集</strong>：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度</p>
+</li>
+<li><p><strong>配置</strong>：mosic有时没用可删；删卷积层可减少计算量；若显存不足需要调小batchsize或数据集分辨率；可以从小模型中学到的权重开始，对更大模型进行训练</p>
+<ul>
+<li>大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛</li>
+<li>参数调优过程一般要反复多次进行<code>微调&lt;—&gt;训练&lt;—&gt;测试</code>，最终得出符合需求&#x2F;较优的HyperPara，应用在项目中	<code>data/hyps/hyp.finetune.yaml</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>小目标检测</strong>：小目标检测效果不好主要原因为小目标尺寸问题。<br>以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608&#x2F;76&#x3D;8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。<br>另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。<br>这种情况可以使用分割的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： </p>
+<blockquote>
+<p>优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。<br>比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。<br>缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。</p>
+</blockquote>
+<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo3.png" alt="图 3">  </p>
+<h1 id="其他未实现的想法"><a href="#其他未实现的想法" class="headerlink" title="其他未实现的想法"></a>其他未实现的想法</h1><p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
+<p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
+<p>用5折交叉验证<br>双流网络<br>矩形训练<br>PERCLOS值怎么显示？<br>把图像增强工作流加入算法？</p>
+<p>The author uses ArcFace loss to measure the error of prediction. This loss was proposed for facial recognition in 2018. Other sophisticated approaches have also been published in recent years, such as <a href="https://openaccess.thecvf.com/content/CVPR2022W/Biometrics/papers/Boutros_ElasticFace_Elastic_Margin_Loss_for_Deep_Face_Recognition_CVPRW_2022_paper.pdf">ElasticFace</a>. author can compare the proposed loss with this approach.</p>
+<p><a href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别</a></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TDA4④：部署自定义深度学习模型</title>
     <url>/TDA4VM4/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>接上一篇：<a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a></p>
@@ -2569,107 +2670,6 @@ B-->C</pre>
       <tags>
         <tag>深度学习</tag>
         <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Yolo：Code，Config，Ideas</title>
-    <url>/Yolo/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Yolo"><a href="#Yolo" class="headerlink" title="Yolo"></a>Yolo</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>详细配置见 <a href="https://wangyujie.site/Pytorch/">Anaconda，Pycharm，Jupyter，Pytorch</a></p>
-<p><strong>Windows环境配置</strong></p>
-<ol>
-<li><p>安装<a href="https://www.anaconda.com/"><strong>Anaconda</strong></a>，<br>防止环境装在C盘占空间：修改user目录下.condarc文件里的默认地址，或执行<code>conda config --add D:\Anaconda3\envs </code>,然后<code>conda info</code> 检查envs directories<br>（若报错 The channel is not accessible or is invalid 运行<code>conda config --remove-key channels</code>）</p>
-</li>
-<li><p><strong>配置环境</strong>：打开Anaconda Prompt<br>创建环境<code>conda create -n pytorch python=3.8</code><br>激活环境<code>conda activate pytorch</code></p>
-</li>
-<li><p>安装显卡驱动对应的<strong>CUDA</strong>：<code>nvidia-smi</code> 查询支持CUDA版本，<br>再到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装, 如：<br><code>conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</code><br>（验证torch能否使用GPU：<code>python -c &quot;import torch;print(torch.cuda.is_available())&quot;</code>   返回True说明GPU可以被使用）</p>
-</li>
-<li><p>安装<a href="https://www.jetbrains.com/pycharm/"><strong>Pychram</strong></a>, 用pycharm打开YOLO项目文件夹，配置编辑器<code>D:P\Anaconda3\envs\pytorch\python.exe</code>，在pycharm的terminal中打开pytorch环境</p>
-</li>
-<li><p>安装各种<strong>包</strong>：<code>pip install -r requirements.txt</code>,<br>换源补装失败的包<code>pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple/</code></p>
-</li>
-</ol>
-<p><strong>Linux 环境配置</strong></p>
-<ol>
-<li><p>安装miniconda，相较Anaconda更小巧快捷，功能一样</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="comment">#一路Enter + Yes，最后使修改的PATH环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">canda   <span class="comment">#验证是否成功</span></span><br><span class="line">conda create -n pytorch python=3.6  <span class="comment">#创建一个名为pytorch的环境</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>（若要安装：<a href="https://www.anaconda.com/">Anaconda</a>，执行下载的.sh文件，输入<code>bash XXX.sh</code>，然后一路enter和yes；激活：<code>cd ///root/anaconda3/bin</code>,输入：<code>source ./activate</code>，终端前出现<code>(base)</code>则激活成功）</p>
-</blockquote>
-</li>
-<li><p>下载pycharm，解压，进入bin文件夹，运行<code>./pycharm.sh</code>以打开pycharm（更简单且能生成图标的方法：<code>sudo snap install pycharm-community --classic</code>）<br>在项目中导入环境<code>.conda/envs/pytorch/bin/python3.6</code></p>
-</li>
-<li><p>安装CUDA</p>
-<ul>
-<li><strong>pytorch</strong><br> <code>conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia</code></li>
-<li><strong>tensorflow</strong><br> cuda:<code>conda install cudatoolkit=10.0</code><br> cuDNN:<code>conda install cudnn=7.6</code><br> tf:<code>pip install tensorflow-gpu==1.15.0</code>(注意版本匹配)</li>
-</ul>
-</li>
-</ol>
-<p>如果requirements中有包实在安不上，手动装包：进<a href="https://pypi.org/">网站</a>搜索包，下载.whl，在包所在位置激活环境运行<code>pip install [].whl</code>(包名中cp38代表python3.8版本)</p>
-<h2 id="资料-amp-Paper-amp-Code"><a href="#资料-amp-Paper-amp-Code" class="headerlink" title="资料 &amp; Paper &amp; Code"></a>资料 &amp; Paper &amp; Code</h2><p>YOLOv1 - v5历程：<a href="https://blog.csdn.net/wjinjie/article/details/107509243">从yolov1至yolov5的进阶之路</a><br>YOLOv3论文精读视频：<a href="https://www.bilibili.com/video/BV1Vg411V7bJ/">同济子豪兄YOLOV3目标检测</a><br>YOLOv5知识精讲：<a href="https://zhuanlan.zhihu.com/p/172121380">Yolov5核心基础知识完整讲解</a><br>YOLOv7网络结构：<a href="https://blog.csdn.net/athrunsunny/article/details/125951001">理解yolov7网络结构</a> ,<a href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a><br>全流程指导视频：<a href="https://www.bilibili.com/video/BV1tf4y1t7ru/">目标检测 YOLOv5 开源代码项目调试与讲解实战</a></p>
-<p><a href="https://arxiv.org/pdf/1506.02640.pdf">YOLOv1</a> &amp; <a href="https://pjreddie.com/darknet/yolov1/">Code</a>; <a href="https://arxiv.org/pdf/1612.08242.pdf">YOLOv2</a> &amp; <a href="https://pjreddie.com/darknet/yolo/">Code</a>; <a href="https://arxiv.org/pdf/1804.02767.pdf">YOLOv3</a> &amp; <a href="https://github.com/ultralytics/yolov3">Code</a>; YOLOv4 &amp; <a href="https://github.com/Tianxiaomo/pytorch-YOLOv4">Code</a>; YOLOv5 &amp; <a href="https://github.com/search?q=yolov5">Code</a>; <a href="https://arxiv.org/pdf/2209.02976.pdf">YOLOv6</a> &amp; <a href="https://github.com/meituan/YOLOv6">Code</a>; <a href="https://arxiv.org/abs/2207.02696">YOLOv7</a> &amp; <a href="https://github.com/WongKinYiu/yolov7">Code</a>; YOLOv8 &amp; <a href="https://github.com/ultralytics/ultralytics">Code</a></p>
-<p>算法复现精品仓库：<a href="https://github.com/bubbliiiing">Bubbliiiing</a></p>
-<p>论文：<a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a>，代码：<a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><strong>Detect参数</strong><br>调用电脑摄像头:<br>右上角py配置 &gt; Edit Configurations &gt; Parameters<br><code>--view-img --source 0</code></p>
-<p>调用手机摄像头：<br>下载 <a href="https://www.123pan.com/s/goS7Vv-QeKbd.html">IP摄像头</a> App，关闭代理，连同一个网，Parameters配置为：<br><code>--source http://admin:admin@192.168.43.1:8081</code> 具体地址见 APP</p>
-<p><strong>Train参数</strong><br><code>action=&#39;store_true&#39;</code> 触发了为true，否则为false 和 default&#x3D;False 效果一样</p>
-<p><strong>YOLOv8</strong><br>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
-<blockquote>
-<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
-</blockquote>
-<p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
-<h1 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><blockquote>
-<p><a href="https://www.kaggle.com/datasets">Kaggle数据集</a><br><a href="https://gas.graviti.cn/open-datasets">格物钛数据集</a><br><a href="https://universe.roboflow.com/roboflow-100">Roboflow数据集</a><br><a href="https://ieee-dataport.org/datasets">IEEE DataPort</a></p>
-</blockquote>
-<p>标注工具：<a href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
-<p>开源驾驶员行为数据集：<a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
-<p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
-<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png" alt="图 1">  </p>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
-<li>在 <code>models/common.py</code> 加入新的结构代码</li>
-<li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
-<li><code>.yaml</code> 修改网络结构<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png" alt="图 2"></li>
-</ol>
-<h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
-<blockquote>
-<p>位置：<br>在上采样+concat之后接一个注意力机制可能会更好？<br>backbone结尾使用一个注意力机制？<br>每个block（如residual block）结尾使用比每个Conv里使用更好？</p>
-</blockquote>
-<p>transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块</p>
-<h2 id="激活函数-activations-py"><a href="#激活函数-activations-py" class="headerlink" title="激活函数 activations.py"></a>激活函数 activations.py</h2><blockquote>
-<p>activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数<br>common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面</p>
-</blockquote>
-<p>例：插入激活函数：Mish<br>1.在utils&#x2F;activation.py中定义Mish激活函数<br>2.重构Conv模块，改激活函数：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Conv</span>(nn.Module):</span><br><span class="line">    <span class="comment"># Standard convolution</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, c1, c2, k=<span class="number">1</span>, s=<span class="number">1</span>, p=<span class="literal">None</span>, g=<span class="number">1</span>, act=<span class="literal">True</span></span>):  <span class="comment"># ch_in, ch_out, kernel, stride, padding, groups</span></span><br><span class="line">        <span class="built_in">super</span>(Conv, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(c1, c2, k, s, autopad(k, p), groups=g, bias=<span class="literal">False</span>)</span><br><span class="line">        self.bn = nn.BatchNorm2d(c2)</span><br><span class="line">        <span class="comment">#self.act = nn.SiLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())</span></span><br><span class="line">        self.act = nn.Mish() <span class="keyword">if</span> act <span class="keyword">is</span> <span class="literal">True</span> <span class="keyword">else</span> (act <span class="keyword">if</span> <span class="built_in">isinstance</span>(act, nn.Module) <span class="keyword">else</span> nn.Identity())</span><br></pre></td></tr></table></figure>
-
-<h2 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h2><p>例：改 EIOU loss</p>
-<ol>
-<li>修改 general.py，增加EIOU。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">elif</span> EIoU:</span><br><span class="line">                w=(w1-w2)*(w1-w2)</span><br><span class="line">                h=(h1-h2)*(h1-h2)</span><br><span class="line">                <span class="keyword">return</span> iou-(rho2/c2+w/(cw**<span class="number">2</span>)+h/(ch**<span class="number">2</span>))<span class="comment">#EIOU  2021.12.29</span></span><br></pre></td></tr></table></figure></li>
-<li>将loss.py中边框位置回归损失函数改为eiou。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=<span class="literal">False</span>, EIoU=<span class="literal">True</span>)  <span class="comment"># iou(prediction, target)</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="炼丹经验"><a href="#炼丹经验" class="headerlink" title="炼丹经验"></a>炼丹经验</h1><ul>
-<li><p><strong>数据集</strong>：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度</p>
-</li>
-<li><p><strong>配置</strong>：mosic有时没用可删；删卷积层可减少计算量；若显存不足需要调小batchsize或数据集分辨率；可以从小模型中学到的权重开始，对更大模型进行训练</p>
-<ul>
-<li>大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛</li>
-<li>参数调优过程一般要反复多次进行<code>微调&lt;—&gt;训练&lt;—&gt;测试</code>，最终得出符合需求&#x2F;较优的HyperPara，应用在项目中	<code>data/hyps/hyp.finetune.yaml</code></li>
-</ul>
-</li>
-</ul>
-<p><strong>小目标检测</strong>：小目标检测效果不好主要原因为小目标尺寸问题。<br>以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608&#x2F;76&#x3D;8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。<br>另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。<br>这种情况可以使用分割的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： </p>
-<blockquote>
-<p>优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。<br>比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。<br>缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。</p>
-</blockquote>
-<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo3.png" alt="图 3">  </p>
-<h1 id="其他未实现的想法"><a href="#其他未实现的想法" class="headerlink" title="其他未实现的想法"></a>其他未实现的想法</h1><p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
-<p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
-<p>用5折交叉验证<br>双流网络<br>矩形训练<br>PERCLOS值怎么显示？<br>把图像增强工作流加入算法？</p>
-<p>The author uses ArcFace loss to measure the error of prediction. This loss was proposed for facial recognition in 2018. Other sophisticated approaches have also been published in recent years, such as <a href="https://openaccess.thecvf.com/content/CVPR2022W/Biometrics/papers/Boutros_ElasticFace_Elastic_Margin_Loss_for_Deep_Face_Recognition_CVPRW_2022_paper.pdf">ElasticFace</a>. author can compare the proposed loss with this approach.</p>
-<p><a href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别</a></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>python</tag>
       </tags>
   </entry>
 </search>
