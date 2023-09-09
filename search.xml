@@ -58,7 +58,7 @@ A-->E[C.定义]</pre>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#97;&#112;&#x40;&#x30;&#x2e;&#x35;">&#109;&#97;&#112;&#x40;&#x30;&#x2e;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#x61;&#112;&#64;&#48;&#x2e;&#53;">&#x6d;&#x61;&#112;&#64;&#48;&#x2e;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -74,6 +74,111 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Embedded：嵌入式应用知识</title>
+    <url>/Embedded/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="相关常识"><a href="#相关常识" class="headerlink" title="相关常识"></a>相关常识</h1><h2 id="电容"><a href="#电容" class="headerlink" title="电容"></a>电容</h2><p>电容是电路设计中最为普通常用的器件，是无源元件之一，有源器件简单地说就是需能(电)源的器件叫有源器件，无需能(电)源的器件就是无源器件。<br>电容的作用和用途一般都有好多种，如：在旁路、去耦、滤波、储能方面的作用；在完成振荡、同步以及时间常数的作用：<br><strong>隔直流</strong>：作用是阻止直流通过而让交流通过。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded23.png" width = "50%" /></p>
+<p><strong>旁路（去耦）</strong>：为交流电路中某些并联的元件提供低阻抗通路。<br><img alt="图 24" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded24.png" width = "50%"/>  </p>
+<p><strong>旁路电容</strong>：旁路电容，又称为退耦电容，是为某个器件提供能量的储能器件。<br>它利用了电容的频率阻抗特性，理想电容的频率特性随频率的升高，阻抗降低，就像一个水塘，它能使输出电压输出均匀，降低负载电压波动。<br>旁路电容要尽量靠近负载器件的供电电源管脚和地管脚，这是阻抗要求。<br>在画PCB时候特别要注意，只有靠近某个元器件时候才能抑制电压或其他输信号因过大而导致的地电位抬高和噪声。<br>说白了就是把直流电源中的交流分量，通过电容耦合到电源地中，起到了净化直流电源的作用。如图为旁路电容，画图时候要尽量靠近IC1。<br> <img alt="图 25" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded25.png" width = "50%"/>  </p>
+<p><strong>去耦电容</strong>：去耦电容，是把输出信号的干扰作为滤除对象，去耦电容相当于电池，利用其充放电，使得放大后的信号不会因电流的突变而受干扰。<br>它的容量根据信号的频率、抑制波纹程度而定，去耦电容就是起到一个“电池”的作用，满足驱动电路电流的变化，避免相互间的耦合干扰。<br><strong>旁路电容实际也是去耦合的</strong>，只是旁路电容一般是指高频旁路，也就是给高频的开关噪声提高一条低阻抗泄防途径。<br>高频旁路电容一般比较小，根据谐振频率一般取 0.1μF、0.01μF 等。<br>而去耦合电容的容量一般较大，可能是 10μF 或者更大，依据电路中分布参数、以及驱动电流的变化大小来确定。上图C3为去耦电容<br><strong>区别</strong>：旁路是把输入信号中的干扰作为滤除对象，而去耦是把输出信号的干扰作为滤除对象，防止干扰信号返回电源。<br><strong>耦合</strong>：作为两个电路之间的连接，允许交流信号通过并传输到下一级电路 。<br><img alt="图 26" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded26.png" width = "50%"/>  </p>
+<p>用电容做耦合的元件，是为了将前级信号传递到后一级，并且隔断前一级的直流对后一级的影响，使电路调试简单，性能稳定。<br>如果不加电容交流信号放大不会改变，只是各级工作点需重新设计，由于前后级影响，调试工作点非常困难，在多级时几乎无法实现。<br><strong>滤波</strong>：这个对电路而言很重要，CPU背后的电容基本都是这个作用。<br>即频率f越大，电容的阻抗Z越小。当低频时，电容C由于阻抗Z比较大，有用信号可以顺利通过；当高频时，电容C由于阻抗Z已经很小了，相当于把高频噪声短路到GND上去了。<br><img alt="图 27" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded27.png" width = "50%"/>  <img alt="图 39" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded28.png" width = "50%"/>  </p>
+<p><strong>滤波作用</strong>：理想电容，电容越大，阻抗越小，通过的频率也越高。<br>电解电容一般都是超过 1uF ，其中的电感成份很大，因此频率高后反而阻抗会大。<br>我们经常看见有时会看到有一个电容量较大电解电容并联了一个小电容，其实大的电容通低频，小电容通高频，这样才能充分滤除高低频。<br>电容频率越高时候则衰减越大，电容像一个水塘，几滴水不足以引起它的很大变化，也就是说电压波动不是你很大时候电压可以缓冲，如图C2：<br> <img alt="图 29" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded29.png" width = "50%"/>  </p>
+<p><strong>温度补偿</strong>：针对其它元件对温度的适应性不够带来的影响，而进行补偿，改善电路的稳定性。<br>  <img alt="图 30" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded30.png" />  </p>
+<p><strong>分析</strong>：由于定时电容的容量决定了行振荡器的振荡频率，所以要求定时电容的容量非常稳定，不随环境湿度变化而变化，这样才能使行振荡器的振荡频率稳定。<br>因此采用正、负温度系数的电容释联，进行温度互补。<br>当工作温度升高时，Cl的容量在增大，而C2的容量在减小，两只电容并联后的总容量为两只电容容量之和，由于一个容量在增大而另一个在减小，所以总容量基本不变。<br>同理，在温度降低时，一个电容的容量在减小而另一个在增大，总的容量基本不变，稳定了振荡频率，实现温度补偿目的。<br><strong>计时</strong>：电容器与电阻器配合使用，确定电路的时间常数。<br> <img alt="图 31" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded31.png" />  </p>
+<p>输入信号由低向高跳变时，经过缓冲1后输入RC电路。<br>电容充电的特性使B点的信号并不会跟随输入信号立即跳变，而是有一个逐渐变大的过程。<br>当变大到一定程度时，缓冲2翻转，在输出端得到了一个延迟的由低向高的跳变。<br><strong>时间常数</strong>：以常见的 RC 串联构成积分电路为例，当输入信号电压加在输入端时，电容上的电压逐渐上升。<br>而其充电电流则随着电压的上升而减小，电阻R和电容C串联接入输入信号VI，由电容C输出信号V0，当RC (τ)数值与输入方波宽度tW之间满足：τ》》tW，这种电路称为积分电路。<br><strong>调谐</strong>：对与频率相关的电路进行系统调谐，比如手机、收音机、电视机。<br><img alt="图 32" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded32.png" width = "50%"/>  </p>
+<p>因为lc调谐的振荡电路的谐振频率是lc的函数，我们发现振荡电路的最大与最小谐振频率之比随着电容比的平方根变化。<br>此处电容比是指反偏电压最小时的电容与反偏电压最大时的电容之比。<br>因而，电路的调谐特征曲线（偏压一谐振频率）基本上是一条抛物线。<br><strong>整流</strong>：在预定的时间开或者关半闭导体开关元件。<br><img alt="图 44" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded33.png" width = "70%"/>  </p>
+<p><strong>储能</strong>：储存电能，用于必须要的时候释放。<br>例如相机闪光灯，加热设备等等．（如今某些电容的储能水平己经接近锂电池的水准，一个电容储存的电能可以供一个手机使用一天。<br>一般地，电解电容都会有储能的作用，对于专门的储能作用的电容，电容储能的机理为双电层电容以及法拉第电容。<br>其主要形式为超级电容储能，其中超级电容器是利用双电层原理的电容器。<br>当外加电压加到超级电容器的两个极板上时，与普通电容器一样，极板的正电极存储正电荷，负极板存储负电荷。<br>在超级电容器的两极板上电荷产生的电场作用下，在电解液与电极间的界面上形成相反的电荷，以平衡电解液的内电场。<br>这种正电荷与负电荷在两个不同相之间的接触面上，以正负电荷之间极短间隙排列在相反的位置上，这个电荷分布层叫做双电层，因此电容量非常大。</p>
+<h1 id="PCB布局布线"><a href="#PCB布局布线" class="headerlink" title="PCB布局布线"></a>PCB布局布线</h1><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>元器件布局的10条规则：</p>
+<ol>
+<li>遵照<strong>先大后小，先难后易</strong>的布置原则，即重要的单元电路、核心元器件应当优先布局。</li>
+<li>布局中应参考原理框图，根据单板的主信号流向规律安排主要元器件。</li>
+<li>元器件的排列要便于调试和维修，亦即小元件周围不能放置大元件、需调试的元器件周围要有足够的空间。 </li>
+<li>相同结构电路部分，尽可能采用“对称式”标准布局。</li>
+<li>按照均匀分布、重心平衡、版面美观的标准优化布局。 </li>
+<li>同类型插装元器件在X或Y方向上应朝一个方向放置。同一种类型的有极性分立元件也要力争在X或Y方向上保持一致，便于生产和检验。 </li>
+<li>发热元件一般应均匀分布，以利于单板和整机的散热，除温度检测元件以外的温度敏感器件应远离发热量大的元器件。 </li>
+<li>布局应尽量满足以下要求：总的连线尽可能短，关键信号线最短；高电压、大电流信号与小电流，低电压的弱信号完全分开；模拟信号与数字信号分开；高频信号与低频信号分开；高频元器件的间隔要充分。</li>
+<li>去耦电容的布局要尽量靠近IC的电源管脚，并使之与电源和地之间形成的回路最短。 </li>
+<li>元件布局时，应适当考虑使用同一种电源的器件尽量放在一起, 以便于将来的电源分隔。</li>
+</ol>
+<h2 id="布线"><a href="#布线" class="headerlink" title="布线"></a>布线</h2><h3 id="（1）布线优先次序"><a href="#（1）布线优先次序" class="headerlink" title="（1）布线优先次序"></a>（1）布线优先次序</h3><p>关键信号线优先：模拟小信号、高速信号、时钟信号和同步信号等关键信号优先布线<br>密度优先原则：从单板上连接关系最复杂的器件优先布线。从单板上连线 最密集的区域开始布线<br>注意点：</p>
+<blockquote>
+<p>a. 尽量为时钟信号、高频信号、敏感信号等关键信号提供专门的布线层，并保证其最小的回路面积。必要时应采取手工优先布线、屏蔽和加大安全间距等方法。保证信号质量。<br>b. 电源层和地层之间的EMC环境较差，应避免布置对干扰敏感的信号。<br>c. 有阻抗控制要求的网络应尽量按线长线宽要求布线。 </p>
+</blockquote>
+<h3 id="（2）四种具体走线方式"><a href="#（2）四种具体走线方式" class="headerlink" title="（2）四种具体走线方式"></a>（2）四种具体走线方式</h3><h4 id="1-时钟的布线："><a href="#1-时钟的布线：" class="headerlink" title="1. 时钟的布线："></a>1. 时钟的布线：</h4><p>时钟线是对EMC 影响最大的因素之一。在时钟线上应少打过孔，尽量避免和其它信号线并行走线，且应远离一般信号线，避免对信号线的干扰。同时应避开板上的电源部分，以防止电源和时钟互相干扰。<br>如果板上有专门的时钟发生芯片，其下方不可走线，应在其下方铺铜，必要时还可以对其专门割地。对于很多芯片都有参考的晶体振荡器，这些晶振下方也不应走线，要铺铜隔离。<br><img alt="图 45" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded1.png" width = "80%"/>  </p>
+<h4 id="2-直角走线"><a href="#2-直角走线" class="headerlink" title="2. 直角走线:"></a>2. 直角走线:</h4><p>直角走线一般是PCB布线中要求尽量避免的情况，也几乎成为衡量布线好坏的标准之一，那么直角走线究竟会对信号传输产生多大的影响呢？从原理上说，直角走线会使传输线的线宽发生变化，造成阻抗的不连续。其实不光是直角走线，顿角，锐角走线都可能会造成阻抗变化的情况。</p>
+<p>直角走线的对信号的影响就是主要体现在三个方面：</p>
+<blockquote>
+<p>一是拐角可以等效为传输线上的容性负载，减缓上升时间；<br>二是阻抗不连续会造成信号的反射；<br>三是直角尖端产生的EMI。</p>
+</blockquote>
+<h4 id="3-差分走线"><a href="#3-差分走线" class="headerlink" title="3. 差分走线:"></a>3. 差分走线:</h4><p>参看：Altium Designer – 差分布线和阻抗匹配<br><strong>差分信号</strong>（Differential Signal）在高速电路设计中的应用越来越广泛，电路中最关键的信号往往都要采用差分结构设计.定义:通俗地说，就是驱动端发送两个等值、反相的信号，接收端通过比较这两个电压的差值来判断逻辑状态“0”还是“1”。而承载差分信号的那一对走线就称为差分走线。<br>差分信号和普通的单端信号走线相比，最明显的优势体现在以下三个方面：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span>.抗干扰能力强，因为两根差分走线之间的耦合很好，当外界存在噪声干扰时，几乎是同时被耦合到两条线上，而接收端关心的只是两信号的差值，所以外界的共模噪声可以被完全抵消。</span><br><span class="line"><span class="selector-tag">b</span>.能有效抑制EMI，同样的道理，由于两根信号的极性相反，他们对外辐射的电磁场可以相互抵消，耦合的越紧密，泄放到外界的电磁能量越少。</span><br><span class="line">c.时序定位精确，由于差分信号的开关变化是位于两个信号的交点，而不像普通单端信号依靠高低两个阈值电压判断，因而受工艺，温度的影响小，能降低时序上的误差，同时也更适合于低幅度信号的电路。目前流行的LVDS（low voltage differential signaling）就是指这种小振幅差分信号技术。</span><br></pre></td></tr></table></figure>
+<p>对于PCB工程师来说，最关注的还是如何确保在实际走线中能完全发挥差分走线的这些优势。也许只要是接触过Layout的人都会了解差分走线的一般要求，那就是“等长、等距”。</p>
+<p>等长是为了保证两个差分信号时刻保持相反极性，减少共模分量；等距则主要是为了保证两者差分阻抗一致，减少反射。“尽量靠近原则”有时候也是差分走线的要求之一。</p>
+<h4 id="4-蛇形线"><a href="#4-蛇形线" class="headerlink" title="4. 蛇形线:"></a>4. 蛇形线:</h4><p>蛇形线是Layout中经常使用的一类走线方式。其主要目的就是为了调节延时，满足系统时序设计要求。<br>设计者首先要有这样的认识：<br>蛇形线会破坏信号质量，改变传输延时，布线时要尽量避免使用。但实际设计中，为了保证信号有足够的保持时间，或者减小同组信号之间的时间偏移，往往不得不故意进行绕线。<br>注意点:<br>成对出现的差分信号线，一般平行走线，尽量少打过孔，必须打孔时，应两线一同打孔，以做到阻抗匹配。<br>相同属性的一组总线，应尽量并排走线，做到尽量等长。从贴片焊盘引出的过孔尽量离焊盘远些。<br><img alt="图 2" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded2.png" width = "60%"/>  </p>
+<h3 id="（3）布线常用规则"><a href="#（3）布线常用规则" class="headerlink" title="（3）布线常用规则"></a>（3）布线常用规则</h3><ol>
+<li><p>走线的方向控制规则：<br>即相邻层的走线方向成正交结构。避免将不同的信号线在相邻层走成同一方向，以减少不必要的层间串扰；<br>当由于板结构限制（如某些背板）难以避免出现该情况，特别是信号速率较高时，应考虑用地平面隔离各布线层，用地信号线隔离各信号线。 </p>
+<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded3.png" width = "50%"/>  
+</li>
+<li><p>走线的开环检查规则：<br>一般不允许出现一端浮空的布线（Dangling Line), 主要是为了避免产生”天线效应”，减少不必要的干扰辐射和接受，否则可能带来不可预知的结果。   </p>
+<img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded4.png" width = "50%"/>  
+</li>
+<li><p>阻抗匹配检查规则：<br>同一网络的布线宽度应保持一致，线宽的变化会造成线路特性阻抗的不均匀，当传输的速度较高时会产生反射，在设计中应该尽量避免这种情况。<br>在某些条件下，如接插件引出线，BGA封装的引出线类似的结构时，可能无法避免线宽的变化，应该尽量减少中间不一致部分的有效长度。</p>
+<img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded5.png" width = "50%"/>  
+</li>
+<li><p>走线长度控制规则：<br>即短线规则，在设计时应该尽量让布线长度尽量短，以减少由于走线过长带来的干扰问题，特别是一些重要信号线，如时钟线，务必将其振荡器放在离器件很近的地方。对驱动多个器件的情况，应根据具体情况决定采用何种网络拓扑结构。 </p>
+<img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded6.png" width = "50%"/>  
+</li>
+<li><p>倒角规则：<br>PCB设计中应避免产生锐角和直角， 产生不必要的辐射，同时工艺性能也不好。</p>
+ <img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded7.png" width = "50%"/>  
+</li>
+<li><p>器件去耦规则：<br>A. 在印制版上增加必要的去耦电容，滤除电源上的干扰信号，使电源信号稳定。<br>在多层板中，对去耦电容的位置一般要求不太高，但对双层板，去耦电容的布局及电源的布线方式将直接影响到整个系统的稳定性，有时甚至关系到设计的成败。<br>B. 在双层板设计中，一般应该使电流先经过滤波电容滤波再供器件使用。<br>C. 在高速电路设计中，能否正确地使用去耦电容，关系到整个板的稳定性。 </p>
+<img alt="图 8" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded8.png" width = "50%"/>  
+</li>
+<li><p>器件布局分区&#x2F;分层规则：<br>A. 主要是为了防止不同工作频率的模块之间的互相干扰，同时尽量缩短高频部分的布线长度。<br>B. 对混合电路，也有将模拟与数字电路分别布置在印制板的两面，分别使用不同的层布线，中间用地层隔离的方式。</p>
+<img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded9.png" width = "50%"/>  
+</li>
+<li><p>地线回路规则：<br>环路最小规则，即信号线与其回路构成的环面积要尽可能小，环面积越小，对外的辐射越少，接收外界的干扰也越小。 </p>
+<img alt="图 10" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded10.png" width = "50%"/>  
+</li>
+<li><p>电源与地线层的完整性规则：<br>对于导通孔密集的区域，要注意避免孔在电源和地层的挖空区域相互连接，形成对平面层的分割，从而破坏平面层的完整性，并进而导致信号线在地层的回路面积增大。</p>
+<img alt="图 11" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded11.png" width = "50%"/>  
+</li>
+<li><p>3W规则：<br>为了减少线间串扰，应保证线间距足够大，当线中心间距不少于3倍线宽时，则可保持70%的电场不互相干扰，称为3W规则。如要达到98%的电场不互相干扰，可使用10W的间距。</p>
+ <img alt="图 12" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded12.png" width = "50%"/>  
+</li>
+<li><p>屏蔽保护：<br>对应地线回路规则，实际上也是为了尽量减小信号的回路面积，多见于一些比较重要的信号，如时钟信号，同步信号；<br>对一些特别重要，频率特别高的信号，应该考虑采用铜轴电缆屏蔽结构设计，即将所布的线上下左右用地线隔离，而且还要考虑好如何有效的让屏蔽地与实际地平面有效结合。 </p>
+ <img alt="图 13" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded13.png" width = "50%"/>  
+</li>
+<li><p>走线终结网络规则：<br>在高速数字电路中， 当PCB布线的延迟时间大于信号上升时间（或下降时间） 的1&#x2F;4时，该布线即可以看成传输线，为了保证信号的输入和输出阻抗与传输线的阻抗正确匹配，可以采用多种形式的匹配方法， 所选择的匹配方法与网络的连接方式和布线的拓朴结构有关。<br>A. 对于点对点（一个输出对应一个输入） 连接， 可以选择始端串联匹配或终端并联匹配。前者结构简单，成本低，但延迟较大。后者匹配效果好，但结构复杂，成本较高。<br>B. 对于点对多点（一个输出对应多个输出） 连接， 当网络的拓朴结构为菊花链时，应选择终端并联匹配。<br>当网络为星型结构时，可以参考点对点结构。星形和菊花链为两种基本的拓扑结构, 其他结构可看成基本结构的变形, 可采取一些灵活措施进行匹配。<br>在实际操作中要兼顾成本、 功耗和性能等因素， 一般不追求完全匹配，只要将失配引起的反射等干扰限制在可接受的范围即可。</p>
+<img alt="图 14" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded14.png" width = "50%"/>  
+</li>
+<li><p>走线闭环检查规则：<br>防止信号线在不同层间形成自环。在多层板设计中容易发生此类问题， 自环将引起辐射干扰。</p>
+<img alt="图 15" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded15.png" width = "50%"/>  
+</li>
+<li><p>走线的分枝长度控制规则：<br>尽量控制分枝的长度，一般的要求是Tdelay&lt;&#x3D;Trise&#x2F;20。</p>
+ <img alt="图 16" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded16.png" width = "50%"/>  
+</li>
+<li><p>走线的谐振规则：<br>主要针对高频信号设计而言， 即布线长度不得与其波长成整数倍关系， 以免产生谐振现象。</p>
+<img alt="图 17" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded17.png" width = "50%"/>  
+</li>
+<li><p>孤立铜区控制规则：<br>孤立铜区的出现， 将带来一些不可预知的问题， 因此将孤立铜区与别的信号相接， 有助于改善信号质量，通常是将孤立铜区接地或删除。<br>在实际的制作中， PCB厂家将一些板的空置部分增加了一些铜箔，这主要是为了方便印制板加工，同时对防止印制板翘曲也有一定的作用。</p>
+<img alt="图 18" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded18.png" width = "50%"/>  
+</li>
+<li><p>重叠电源与地线层规则：<br>不同电源层在空间上要避免重叠。主要是为了减少不同电源之间的干扰， 特别是一些电压相差很大的电源之间， 电源平面的重叠问题一定要设法避免， 难以避免时可考虑中间隔地层。</p>
+<img alt="图 19" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded19.png" width = "50%"/>  
+</li>
+<li><p>20H规则：<br>由于电源层与地层之间的电场是变化的， 在板的边缘会向外辐射电磁干扰。称为边沿效应。<br>解决的办法是将电源层内缩， 使得电场只在接地层的范围内传导。以一个H（电源和地之间的介质厚度）为单位，若内缩20H则可以将70%的电场限制在接地层边沿内；内缩100H则可以将98%的电场限制在内。 </p>
+<img alt="图 20" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded20.png" width = "50%"/></li>
+</ol>
+<h3 id="（4）其他"><a href="#（4）其他" class="headerlink" title="（4）其他"></a>（4）其他</h3><p>对于单双层板电源线应尽量粗而短。电源线和地线的宽度要求可以根据1mm的线宽最大对应1A 的电流来计算，电源和地构成的环路尽量小。<br> <img alt="图 21" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded21.png" width = "60%"/>  </p>
+<p>为了防止电源线较长时，电源线上的耦合杂讯直接进入负载器件，应在进入每个器件之前，先对电源去耦。且为了防止它们彼此间的相互干扰，对每个负载的电源独立去耦，并做到先滤波再进入负载。<br>在布线中应保持接地良好。如下图。<br><img alt="图 22" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded22.png" width = "60%"/>  </p>
+<p><a href="https://blog.csdn.net/qq_36347513/article/details/121873555">立创EDA PCB设计</a></p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -557,111 +662,6 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>C/C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Embedded：嵌入式应用知识</title>
-    <url>/Embedded/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="相关常识"><a href="#相关常识" class="headerlink" title="相关常识"></a>相关常识</h1><h2 id="电容"><a href="#电容" class="headerlink" title="电容"></a>电容</h2><p>电容是电路设计中最为普通常用的器件，是无源元件之一，有源器件简单地说就是需能(电)源的器件叫有源器件，无需能(电)源的器件就是无源器件。<br>电容的作用和用途一般都有好多种，如：在旁路、去耦、滤波、储能方面的作用；在完成振荡、同步以及时间常数的作用：<br><strong>隔直流</strong>：作用是阻止直流通过而让交流通过。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded23.png" width = "50%" /></p>
-<p><strong>旁路（去耦）</strong>：为交流电路中某些并联的元件提供低阻抗通路。<br><img alt="图 24" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded24.png" width = "50%"/>  </p>
-<p><strong>旁路电容</strong>：旁路电容，又称为退耦电容，是为某个器件提供能量的储能器件。<br>它利用了电容的频率阻抗特性，理想电容的频率特性随频率的升高，阻抗降低，就像一个水塘，它能使输出电压输出均匀，降低负载电压波动。<br>旁路电容要尽量靠近负载器件的供电电源管脚和地管脚，这是阻抗要求。<br>在画PCB时候特别要注意，只有靠近某个元器件时候才能抑制电压或其他输信号因过大而导致的地电位抬高和噪声。<br>说白了就是把直流电源中的交流分量，通过电容耦合到电源地中，起到了净化直流电源的作用。如图为旁路电容，画图时候要尽量靠近IC1。<br> <img alt="图 25" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded25.png" width = "50%"/>  </p>
-<p><strong>去耦电容</strong>：去耦电容，是把输出信号的干扰作为滤除对象，去耦电容相当于电池，利用其充放电，使得放大后的信号不会因电流的突变而受干扰。<br>它的容量根据信号的频率、抑制波纹程度而定，去耦电容就是起到一个“电池”的作用，满足驱动电路电流的变化，避免相互间的耦合干扰。<br><strong>旁路电容实际也是去耦合的</strong>，只是旁路电容一般是指高频旁路，也就是给高频的开关噪声提高一条低阻抗泄防途径。<br>高频旁路电容一般比较小，根据谐振频率一般取 0.1μF、0.01μF 等。<br>而去耦合电容的容量一般较大，可能是 10μF 或者更大，依据电路中分布参数、以及驱动电流的变化大小来确定。上图C3为去耦电容<br><strong>区别</strong>：旁路是把输入信号中的干扰作为滤除对象，而去耦是把输出信号的干扰作为滤除对象，防止干扰信号返回电源。<br><strong>耦合</strong>：作为两个电路之间的连接，允许交流信号通过并传输到下一级电路 。<br><img alt="图 26" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded26.png" width = "50%"/>  </p>
-<p>用电容做耦合的元件，是为了将前级信号传递到后一级，并且隔断前一级的直流对后一级的影响，使电路调试简单，性能稳定。<br>如果不加电容交流信号放大不会改变，只是各级工作点需重新设计，由于前后级影响，调试工作点非常困难，在多级时几乎无法实现。<br><strong>滤波</strong>：这个对电路而言很重要，CPU背后的电容基本都是这个作用。<br>即频率f越大，电容的阻抗Z越小。当低频时，电容C由于阻抗Z比较大，有用信号可以顺利通过；当高频时，电容C由于阻抗Z已经很小了，相当于把高频噪声短路到GND上去了。<br><img alt="图 27" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded27.png" width = "50%"/>  <img alt="图 39" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded28.png" width = "50%"/>  </p>
-<p><strong>滤波作用</strong>：理想电容，电容越大，阻抗越小，通过的频率也越高。<br>电解电容一般都是超过 1uF ，其中的电感成份很大，因此频率高后反而阻抗会大。<br>我们经常看见有时会看到有一个电容量较大电解电容并联了一个小电容，其实大的电容通低频，小电容通高频，这样才能充分滤除高低频。<br>电容频率越高时候则衰减越大，电容像一个水塘，几滴水不足以引起它的很大变化，也就是说电压波动不是你很大时候电压可以缓冲，如图C2：<br> <img alt="图 29" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded29.png" width = "50%"/>  </p>
-<p><strong>温度补偿</strong>：针对其它元件对温度的适应性不够带来的影响，而进行补偿，改善电路的稳定性。<br>  <img alt="图 30" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded30.png" />  </p>
-<p><strong>分析</strong>：由于定时电容的容量决定了行振荡器的振荡频率，所以要求定时电容的容量非常稳定，不随环境湿度变化而变化，这样才能使行振荡器的振荡频率稳定。<br>因此采用正、负温度系数的电容释联，进行温度互补。<br>当工作温度升高时，Cl的容量在增大，而C2的容量在减小，两只电容并联后的总容量为两只电容容量之和，由于一个容量在增大而另一个在减小，所以总容量基本不变。<br>同理，在温度降低时，一个电容的容量在减小而另一个在增大，总的容量基本不变，稳定了振荡频率，实现温度补偿目的。<br><strong>计时</strong>：电容器与电阻器配合使用，确定电路的时间常数。<br> <img alt="图 31" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded31.png" />  </p>
-<p>输入信号由低向高跳变时，经过缓冲1后输入RC电路。<br>电容充电的特性使B点的信号并不会跟随输入信号立即跳变，而是有一个逐渐变大的过程。<br>当变大到一定程度时，缓冲2翻转，在输出端得到了一个延迟的由低向高的跳变。<br><strong>时间常数</strong>：以常见的 RC 串联构成积分电路为例，当输入信号电压加在输入端时，电容上的电压逐渐上升。<br>而其充电电流则随着电压的上升而减小，电阻R和电容C串联接入输入信号VI，由电容C输出信号V0，当RC (τ)数值与输入方波宽度tW之间满足：τ》》tW，这种电路称为积分电路。<br><strong>调谐</strong>：对与频率相关的电路进行系统调谐，比如手机、收音机、电视机。<br><img alt="图 32" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded32.png" width = "50%"/>  </p>
-<p>因为lc调谐的振荡电路的谐振频率是lc的函数，我们发现振荡电路的最大与最小谐振频率之比随着电容比的平方根变化。<br>此处电容比是指反偏电压最小时的电容与反偏电压最大时的电容之比。<br>因而，电路的调谐特征曲线（偏压一谐振频率）基本上是一条抛物线。<br><strong>整流</strong>：在预定的时间开或者关半闭导体开关元件。<br><img alt="图 44" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded33.png" width = "70%"/>  </p>
-<p><strong>储能</strong>：储存电能，用于必须要的时候释放。<br>例如相机闪光灯，加热设备等等．（如今某些电容的储能水平己经接近锂电池的水准，一个电容储存的电能可以供一个手机使用一天。<br>一般地，电解电容都会有储能的作用，对于专门的储能作用的电容，电容储能的机理为双电层电容以及法拉第电容。<br>其主要形式为超级电容储能，其中超级电容器是利用双电层原理的电容器。<br>当外加电压加到超级电容器的两个极板上时，与普通电容器一样，极板的正电极存储正电荷，负极板存储负电荷。<br>在超级电容器的两极板上电荷产生的电场作用下，在电解液与电极间的界面上形成相反的电荷，以平衡电解液的内电场。<br>这种正电荷与负电荷在两个不同相之间的接触面上，以正负电荷之间极短间隙排列在相反的位置上，这个电荷分布层叫做双电层，因此电容量非常大。</p>
-<h1 id="PCB布局布线"><a href="#PCB布局布线" class="headerlink" title="PCB布局布线"></a>PCB布局布线</h1><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>元器件布局的10条规则：</p>
-<ol>
-<li>遵照<strong>先大后小，先难后易</strong>的布置原则，即重要的单元电路、核心元器件应当优先布局。</li>
-<li>布局中应参考原理框图，根据单板的主信号流向规律安排主要元器件。</li>
-<li>元器件的排列要便于调试和维修，亦即小元件周围不能放置大元件、需调试的元器件周围要有足够的空间。 </li>
-<li>相同结构电路部分，尽可能采用“对称式”标准布局。</li>
-<li>按照均匀分布、重心平衡、版面美观的标准优化布局。 </li>
-<li>同类型插装元器件在X或Y方向上应朝一个方向放置。同一种类型的有极性分立元件也要力争在X或Y方向上保持一致，便于生产和检验。 </li>
-<li>发热元件一般应均匀分布，以利于单板和整机的散热，除温度检测元件以外的温度敏感器件应远离发热量大的元器件。 </li>
-<li>布局应尽量满足以下要求：总的连线尽可能短，关键信号线最短；高电压、大电流信号与小电流，低电压的弱信号完全分开；模拟信号与数字信号分开；高频信号与低频信号分开；高频元器件的间隔要充分。</li>
-<li>去耦电容的布局要尽量靠近IC的电源管脚，并使之与电源和地之间形成的回路最短。 </li>
-<li>元件布局时，应适当考虑使用同一种电源的器件尽量放在一起, 以便于将来的电源分隔。</li>
-</ol>
-<h2 id="布线"><a href="#布线" class="headerlink" title="布线"></a>布线</h2><h3 id="（1）布线优先次序"><a href="#（1）布线优先次序" class="headerlink" title="（1）布线优先次序"></a>（1）布线优先次序</h3><p>关键信号线优先：模拟小信号、高速信号、时钟信号和同步信号等关键信号优先布线<br>密度优先原则：从单板上连接关系最复杂的器件优先布线。从单板上连线 最密集的区域开始布线<br>注意点：</p>
-<blockquote>
-<p>a. 尽量为时钟信号、高频信号、敏感信号等关键信号提供专门的布线层，并保证其最小的回路面积。必要时应采取手工优先布线、屏蔽和加大安全间距等方法。保证信号质量。<br>b. 电源层和地层之间的EMC环境较差，应避免布置对干扰敏感的信号。<br>c. 有阻抗控制要求的网络应尽量按线长线宽要求布线。 </p>
-</blockquote>
-<h3 id="（2）四种具体走线方式"><a href="#（2）四种具体走线方式" class="headerlink" title="（2）四种具体走线方式"></a>（2）四种具体走线方式</h3><h4 id="1-时钟的布线："><a href="#1-时钟的布线：" class="headerlink" title="1. 时钟的布线："></a>1. 时钟的布线：</h4><p>时钟线是对EMC 影响最大的因素之一。在时钟线上应少打过孔，尽量避免和其它信号线并行走线，且应远离一般信号线，避免对信号线的干扰。同时应避开板上的电源部分，以防止电源和时钟互相干扰。<br>如果板上有专门的时钟发生芯片，其下方不可走线，应在其下方铺铜，必要时还可以对其专门割地。对于很多芯片都有参考的晶体振荡器，这些晶振下方也不应走线，要铺铜隔离。<br><img alt="图 45" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded1.png" width = "80%"/>  </p>
-<h4 id="2-直角走线"><a href="#2-直角走线" class="headerlink" title="2. 直角走线:"></a>2. 直角走线:</h4><p>直角走线一般是PCB布线中要求尽量避免的情况，也几乎成为衡量布线好坏的标准之一，那么直角走线究竟会对信号传输产生多大的影响呢？从原理上说，直角走线会使传输线的线宽发生变化，造成阻抗的不连续。其实不光是直角走线，顿角，锐角走线都可能会造成阻抗变化的情况。</p>
-<p>直角走线的对信号的影响就是主要体现在三个方面：</p>
-<blockquote>
-<p>一是拐角可以等效为传输线上的容性负载，减缓上升时间；<br>二是阻抗不连续会造成信号的反射；<br>三是直角尖端产生的EMI。</p>
-</blockquote>
-<h4 id="3-差分走线"><a href="#3-差分走线" class="headerlink" title="3. 差分走线:"></a>3. 差分走线:</h4><p>参看：Altium Designer – 差分布线和阻抗匹配<br><strong>差分信号</strong>（Differential Signal）在高速电路设计中的应用越来越广泛，电路中最关键的信号往往都要采用差分结构设计.定义:通俗地说，就是驱动端发送两个等值、反相的信号，接收端通过比较这两个电压的差值来判断逻辑状态“0”还是“1”。而承载差分信号的那一对走线就称为差分走线。<br>差分信号和普通的单端信号走线相比，最明显的优势体现在以下三个方面：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span>.抗干扰能力强，因为两根差分走线之间的耦合很好，当外界存在噪声干扰时，几乎是同时被耦合到两条线上，而接收端关心的只是两信号的差值，所以外界的共模噪声可以被完全抵消。</span><br><span class="line"><span class="selector-tag">b</span>.能有效抑制EMI，同样的道理，由于两根信号的极性相反，他们对外辐射的电磁场可以相互抵消，耦合的越紧密，泄放到外界的电磁能量越少。</span><br><span class="line">c.时序定位精确，由于差分信号的开关变化是位于两个信号的交点，而不像普通单端信号依靠高低两个阈值电压判断，因而受工艺，温度的影响小，能降低时序上的误差，同时也更适合于低幅度信号的电路。目前流行的LVDS（low voltage differential signaling）就是指这种小振幅差分信号技术。</span><br></pre></td></tr></table></figure>
-<p>对于PCB工程师来说，最关注的还是如何确保在实际走线中能完全发挥差分走线的这些优势。也许只要是接触过Layout的人都会了解差分走线的一般要求，那就是“等长、等距”。</p>
-<p>等长是为了保证两个差分信号时刻保持相反极性，减少共模分量；等距则主要是为了保证两者差分阻抗一致，减少反射。“尽量靠近原则”有时候也是差分走线的要求之一。</p>
-<h4 id="4-蛇形线"><a href="#4-蛇形线" class="headerlink" title="4. 蛇形线:"></a>4. 蛇形线:</h4><p>蛇形线是Layout中经常使用的一类走线方式。其主要目的就是为了调节延时，满足系统时序设计要求。<br>设计者首先要有这样的认识：<br>蛇形线会破坏信号质量，改变传输延时，布线时要尽量避免使用。但实际设计中，为了保证信号有足够的保持时间，或者减小同组信号之间的时间偏移，往往不得不故意进行绕线。<br>注意点:<br>成对出现的差分信号线，一般平行走线，尽量少打过孔，必须打孔时，应两线一同打孔，以做到阻抗匹配。<br>相同属性的一组总线，应尽量并排走线，做到尽量等长。从贴片焊盘引出的过孔尽量离焊盘远些。<br><img alt="图 2" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded2.png" width = "60%"/>  </p>
-<h3 id="（3）布线常用规则"><a href="#（3）布线常用规则" class="headerlink" title="（3）布线常用规则"></a>（3）布线常用规则</h3><ol>
-<li><p>走线的方向控制规则：<br>即相邻层的走线方向成正交结构。避免将不同的信号线在相邻层走成同一方向，以减少不必要的层间串扰；<br>当由于板结构限制（如某些背板）难以避免出现该情况，特别是信号速率较高时，应考虑用地平面隔离各布线层，用地信号线隔离各信号线。 </p>
-<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded3.png" width = "50%"/>  
-</li>
-<li><p>走线的开环检查规则：<br>一般不允许出现一端浮空的布线（Dangling Line), 主要是为了避免产生”天线效应”，减少不必要的干扰辐射和接受，否则可能带来不可预知的结果。   </p>
-<img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded4.png" width = "50%"/>  
-</li>
-<li><p>阻抗匹配检查规则：<br>同一网络的布线宽度应保持一致，线宽的变化会造成线路特性阻抗的不均匀，当传输的速度较高时会产生反射，在设计中应该尽量避免这种情况。<br>在某些条件下，如接插件引出线，BGA封装的引出线类似的结构时，可能无法避免线宽的变化，应该尽量减少中间不一致部分的有效长度。</p>
-<img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded5.png" width = "50%"/>  
-</li>
-<li><p>走线长度控制规则：<br>即短线规则，在设计时应该尽量让布线长度尽量短，以减少由于走线过长带来的干扰问题，特别是一些重要信号线，如时钟线，务必将其振荡器放在离器件很近的地方。对驱动多个器件的情况，应根据具体情况决定采用何种网络拓扑结构。 </p>
-<img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded6.png" width = "50%"/>  
-</li>
-<li><p>倒角规则：<br>PCB设计中应避免产生锐角和直角， 产生不必要的辐射，同时工艺性能也不好。</p>
- <img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded7.png" width = "50%"/>  
-</li>
-<li><p>器件去耦规则：<br>A. 在印制版上增加必要的去耦电容，滤除电源上的干扰信号，使电源信号稳定。<br>在多层板中，对去耦电容的位置一般要求不太高，但对双层板，去耦电容的布局及电源的布线方式将直接影响到整个系统的稳定性，有时甚至关系到设计的成败。<br>B. 在双层板设计中，一般应该使电流先经过滤波电容滤波再供器件使用。<br>C. 在高速电路设计中，能否正确地使用去耦电容，关系到整个板的稳定性。 </p>
-<img alt="图 8" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded8.png" width = "50%"/>  
-</li>
-<li><p>器件布局分区&#x2F;分层规则：<br>A. 主要是为了防止不同工作频率的模块之间的互相干扰，同时尽量缩短高频部分的布线长度。<br>B. 对混合电路，也有将模拟与数字电路分别布置在印制板的两面，分别使用不同的层布线，中间用地层隔离的方式。</p>
-<img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded9.png" width = "50%"/>  
-</li>
-<li><p>地线回路规则：<br>环路最小规则，即信号线与其回路构成的环面积要尽可能小，环面积越小，对外的辐射越少，接收外界的干扰也越小。 </p>
-<img alt="图 10" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded10.png" width = "50%"/>  
-</li>
-<li><p>电源与地线层的完整性规则：<br>对于导通孔密集的区域，要注意避免孔在电源和地层的挖空区域相互连接，形成对平面层的分割，从而破坏平面层的完整性，并进而导致信号线在地层的回路面积增大。</p>
-<img alt="图 11" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded11.png" width = "50%"/>  
-</li>
-<li><p>3W规则：<br>为了减少线间串扰，应保证线间距足够大，当线中心间距不少于3倍线宽时，则可保持70%的电场不互相干扰，称为3W规则。如要达到98%的电场不互相干扰，可使用10W的间距。</p>
- <img alt="图 12" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded12.png" width = "50%"/>  
-</li>
-<li><p>屏蔽保护：<br>对应地线回路规则，实际上也是为了尽量减小信号的回路面积，多见于一些比较重要的信号，如时钟信号，同步信号；<br>对一些特别重要，频率特别高的信号，应该考虑采用铜轴电缆屏蔽结构设计，即将所布的线上下左右用地线隔离，而且还要考虑好如何有效的让屏蔽地与实际地平面有效结合。 </p>
- <img alt="图 13" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded13.png" width = "50%"/>  
-</li>
-<li><p>走线终结网络规则：<br>在高速数字电路中， 当PCB布线的延迟时间大于信号上升时间（或下降时间） 的1&#x2F;4时，该布线即可以看成传输线，为了保证信号的输入和输出阻抗与传输线的阻抗正确匹配，可以采用多种形式的匹配方法， 所选择的匹配方法与网络的连接方式和布线的拓朴结构有关。<br>A. 对于点对点（一个输出对应一个输入） 连接， 可以选择始端串联匹配或终端并联匹配。前者结构简单，成本低，但延迟较大。后者匹配效果好，但结构复杂，成本较高。<br>B. 对于点对多点（一个输出对应多个输出） 连接， 当网络的拓朴结构为菊花链时，应选择终端并联匹配。<br>当网络为星型结构时，可以参考点对点结构。星形和菊花链为两种基本的拓扑结构, 其他结构可看成基本结构的变形, 可采取一些灵活措施进行匹配。<br>在实际操作中要兼顾成本、 功耗和性能等因素， 一般不追求完全匹配，只要将失配引起的反射等干扰限制在可接受的范围即可。</p>
-<img alt="图 14" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded14.png" width = "50%"/>  
-</li>
-<li><p>走线闭环检查规则：<br>防止信号线在不同层间形成自环。在多层板设计中容易发生此类问题， 自环将引起辐射干扰。</p>
-<img alt="图 15" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded15.png" width = "50%"/>  
-</li>
-<li><p>走线的分枝长度控制规则：<br>尽量控制分枝的长度，一般的要求是Tdelay&lt;&#x3D;Trise&#x2F;20。</p>
- <img alt="图 16" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded16.png" width = "50%"/>  
-</li>
-<li><p>走线的谐振规则：<br>主要针对高频信号设计而言， 即布线长度不得与其波长成整数倍关系， 以免产生谐振现象。</p>
-<img alt="图 17" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded17.png" width = "50%"/>  
-</li>
-<li><p>孤立铜区控制规则：<br>孤立铜区的出现， 将带来一些不可预知的问题， 因此将孤立铜区与别的信号相接， 有助于改善信号质量，通常是将孤立铜区接地或删除。<br>在实际的制作中， PCB厂家将一些板的空置部分增加了一些铜箔，这主要是为了方便印制板加工，同时对防止印制板翘曲也有一定的作用。</p>
-<img alt="图 18" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded18.png" width = "50%"/>  
-</li>
-<li><p>重叠电源与地线层规则：<br>不同电源层在空间上要避免重叠。主要是为了减少不同电源之间的干扰， 特别是一些电压相差很大的电源之间， 电源平面的重叠问题一定要设法避免， 难以避免时可考虑中间隔地层。</p>
-<img alt="图 19" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded19.png" width = "50%"/>  
-</li>
-<li><p>20H规则：<br>由于电源层与地层之间的电场是变化的， 在板的边缘会向外辐射电磁干扰。称为边沿效应。<br>解决的办法是将电源层内缩， 使得电场只在接地层的范围内传导。以一个H（电源和地之间的介质厚度）为单位，若内缩20H则可以将70%的电场限制在接地层边沿内；内缩100H则可以将98%的电场限制在内。 </p>
-<img alt="图 20" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded20.png" width = "50%"/></li>
-</ol>
-<h3 id="（4）其他"><a href="#（4）其他" class="headerlink" title="（4）其他"></a>（4）其他</h3><p>对于单双层板电源线应尽量粗而短。电源线和地线的宽度要求可以根据1mm的线宽最大对应1A 的电流来计算，电源和地构成的环路尽量小。<br> <img alt="图 21" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded21.png" width = "60%"/>  </p>
-<p>为了防止电源线较长时，电源线上的耦合杂讯直接进入负载器件，应在进入每个器件之前，先对电源去耦。且为了防止它们彼此间的相互干扰，对每个负载的电源独立去耦，并做到先滤波再进入负载。<br>在布线中应保持接地良好。如下图。<br><img alt="图 22" src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Embedded22.png" width = "60%"/>  </p>
-<p><a href="https://blog.csdn.net/qq_36347513/article/details/121873555">立创EDA PCB设计</a></p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -2492,107 +2492,6 @@ B-->C</pre>
       </tags>
   </entry>
   <entry>
-    <title>Yolo：Code，Config，Ideas</title>
-    <url>/Yolo/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Yolo"><a href="#Yolo" class="headerlink" title="Yolo"></a>Yolo</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>详细配置见 <a href="https://wangyujie.site/Pytorch/">Anaconda，Pycharm，Jupyter，Pytorch</a></p>
-<p><strong>Windows环境配置</strong></p>
-<ol>
-<li><p>安装<a href="https://www.anaconda.com/"><strong>Anaconda</strong></a>，<br>防止环境装在C盘占空间：修改user目录下.condarc文件里的默认地址，或执行<code>conda config --add D:\Anaconda3\envs </code>,然后<code>conda info</code> 检查envs directories<br>（若报错 The channel is not accessible or is invalid 运行<code>conda config --remove-key channels</code>）</p>
-</li>
-<li><p><strong>配置环境</strong>：打开Anaconda Prompt<br>创建环境<code>conda create -n pytorch python=3.8</code><br>激活环境<code>conda activate pytorch</code></p>
-</li>
-<li><p>安装显卡驱动对应的<strong>CUDA</strong>：<code>nvidia-smi</code> 查询支持CUDA版本，<br>再到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装, 如：<br><code>conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</code><br>（验证torch能否使用GPU：<code>python -c &quot;import torch;print(torch.cuda.is_available())&quot;</code>   返回True说明GPU可以被使用）</p>
-</li>
-<li><p>安装<a href="https://www.jetbrains.com/pycharm/"><strong>Pychram</strong></a>, 用pycharm打开YOLO项目文件夹，配置编辑器<code>D:P\Anaconda3\envs\pytorch\python.exe</code>，在pycharm的terminal中打开pytorch环境</p>
-</li>
-<li><p>安装各种<strong>包</strong>：<code>pip install -r requirements.txt</code>,<br>换源补装失败的包<code>pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple/</code></p>
-</li>
-</ol>
-<p><strong>Linux 环境配置</strong></p>
-<ol>
-<li><p>安装miniconda，相较Anaconda更小巧快捷，功能一样</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="comment">#一路Enter + Yes，最后使修改的PATH环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">canda   <span class="comment">#验证是否成功</span></span><br><span class="line">conda create -n pytorch python=3.6  <span class="comment">#创建一个名为pytorch的环境</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>（若要安装：<a href="https://www.anaconda.com/">Anaconda</a>，执行下载的.sh文件，输入<code>bash XXX.sh</code>，然后一路enter和yes；激活：<code>cd ///root/anaconda3/bin</code>,输入：<code>source ./activate</code>，终端前出现<code>(base)</code>则激活成功）</p>
-</blockquote>
-</li>
-<li><p>下载pycharm，解压，进入bin文件夹，运行<code>./pycharm.sh</code>以打开pycharm（更简单且能生成图标的方法：<code>sudo snap install pycharm-community --classic</code>）<br>在项目中导入环境<code>.conda/envs/pytorch/bin/python3.6</code></p>
-</li>
-<li><p>安装CUDA</p>
-<ul>
-<li><strong>pytorch</strong><br> <code>conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia</code></li>
-<li><strong>tensorflow</strong><br> cuda:<code>conda install cudatoolkit=10.0</code><br> cuDNN:<code>conda install cudnn=7.6</code><br> tf:<code>pip install tensorflow-gpu==1.15.0</code>(注意版本匹配)</li>
-</ul>
-</li>
-</ol>
-<p>如果requirements中有包实在安不上，手动装包：进<a href="https://pypi.org/">网站</a>搜索包，下载.whl，在包所在位置激活环境运行<code>pip install [].whl</code>(包名中cp38代表python3.8版本)</p>
-<h2 id="资料-amp-Paper-amp-Code"><a href="#资料-amp-Paper-amp-Code" class="headerlink" title="资料 &amp; Paper &amp; Code"></a>资料 &amp; Paper &amp; Code</h2><p>YOLOv1 - v5历程：<a href="https://blog.csdn.net/wjinjie/article/details/107509243">从yolov1至yolov5的进阶之路</a><br>YOLOv3论文精读视频：<a href="https://www.bilibili.com/video/BV1Vg411V7bJ/">同济子豪兄YOLOV3目标检测</a><br>YOLOv5知识精讲：<a href="https://zhuanlan.zhihu.com/p/172121380">Yolov5核心基础知识完整讲解</a><br>YOLOv7网络结构：<a href="https://blog.csdn.net/athrunsunny/article/details/125951001">理解yolov7网络结构</a> ,<a href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a><br>全流程指导视频：<a href="https://www.bilibili.com/video/BV1tf4y1t7ru/">目标检测 YOLOv5 开源代码项目调试与讲解实战</a></p>
-<p><a href="https://arxiv.org/pdf/1506.02640.pdf">YOLOv1</a> &amp; <a href="https://pjreddie.com/darknet/yolov1/">Code</a>; <a href="https://arxiv.org/pdf/1612.08242.pdf">YOLOv2</a> &amp; <a href="https://pjreddie.com/darknet/yolo/">Code</a>; <a href="https://arxiv.org/pdf/1804.02767.pdf">YOLOv3</a> &amp; <a href="https://github.com/ultralytics/yolov3">Code</a>; YOLOv4 &amp; <a href="https://github.com/Tianxiaomo/pytorch-YOLOv4">Code</a>; YOLOv5 &amp; <a href="https://github.com/search?q=yolov5">Code</a>; <a href="https://arxiv.org/pdf/2209.02976.pdf">YOLOv6</a> &amp; <a href="https://github.com/meituan/YOLOv6">Code</a>; <a href="https://arxiv.org/abs/2207.02696">YOLOv7</a> &amp; <a href="https://github.com/WongKinYiu/yolov7">Code</a>; YOLOv8 &amp; <a href="https://github.com/ultralytics/ultralytics">Code</a></p>
-<p>算法复现精品仓库：<a href="https://github.com/bubbliiiing">Bubbliiiing</a></p>
-<p>论文：<a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a>，代码：<a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><strong>Detect参数</strong><br>调用电脑摄像头:<br>右上角py配置 &gt; Edit Configurations &gt; Parameters<br><code>--view-img --source 0</code></p>
-<p>调用手机摄像头：<br>下载 <a href="https://www.123pan.com/s/goS7Vv-QeKbd.html">IP摄像头</a> App，关闭代理，连同一个网，Parameters配置为：<br><code>--source http://admin:admin@192.168.43.1:8081</code> 具体地址见 APP</p>
-<p><strong>Train参数</strong><br><code>action=&#39;store_true&#39;</code> 触发了为true，否则为false 和 default&#x3D;False 效果一样</p>
-<p><strong>YOLOv8</strong><br>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
-<blockquote>
-<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
-</blockquote>
-<p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
-<h1 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><blockquote>
-<p><a href="https://www.kaggle.com/datasets">Kaggle数据集</a><br><a href="https://gas.graviti.cn/open-datasets">格物钛数据集</a><br><a href="https://universe.roboflow.com/roboflow-100">Roboflow数据集</a><br><a href="https://ieee-dataport.org/datasets">IEEE DataPort</a></p>
-</blockquote>
-<p>标注工具：<a href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
-<p>开源驾驶员行为数据集：<a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
-<p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
-<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png" alt="图 1">  </p>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
-<li>在 <code>models/common.py</code> 加入新的结构代码</li>
-<li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
-<li><code>.yaml</code> 修改网络结构<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png" alt="图 2"></li>
-</ol>
-<h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
-<blockquote>
-<p>位置：<br>在上采样+concat之后接一个注意力机制可能会更好？<br>backbone结尾使用一个注意力机制？<br>每个block（如residual block）结尾使用比每个Conv里使用更好？</p>
-</blockquote>
-<p>transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块</p>
-<h2 id="激活函数-activations-py"><a href="#激活函数-activations-py" class="headerlink" title="激活函数 activations.py"></a>激活函数 activations.py</h2><blockquote>
-<p>activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数<br>common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面</p>
-</blockquote>
-<p>例：插入激活函数：Mish<br>1.在utils&#x2F;activation.py中定义Mish激活函数<br>2.重构Conv模块，改激活函数：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Conv</span>(nn.Module):</span><br><span class="line">    <span class="comment"># Standard convolution</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, c1, c2, k=<span class="number">1</span>, s=<span class="number">1</span>, p=<span class="literal">None</span>, g=<span class="number">1</span>, act=<span class="literal">True</span></span>):  <span class="comment"># ch_in, ch_out, kernel, stride, padding, groups</span></span><br><span class="line">        <span class="built_in">super</span>(Conv, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(c1, c2, k, s, autopad(k, p), groups=g, bias=<span class="literal">False</span>)</span><br><span class="line">        self.bn = nn.BatchNorm2d(c2)</span><br><span class="line">        <span class="comment">#self.act = nn.SiLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())</span></span><br><span class="line">        self.act = nn.Mish() <span class="keyword">if</span> act <span class="keyword">is</span> <span class="literal">True</span> <span class="keyword">else</span> (act <span class="keyword">if</span> <span class="built_in">isinstance</span>(act, nn.Module) <span class="keyword">else</span> nn.Identity())</span><br></pre></td></tr></table></figure>
-
-<h2 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h2><p>例：改 EIOU loss</p>
-<ol>
-<li>修改 general.py，增加EIOU。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">elif</span> EIoU:</span><br><span class="line">                w=(w1-w2)*(w1-w2)</span><br><span class="line">                h=(h1-h2)*(h1-h2)</span><br><span class="line">                <span class="keyword">return</span> iou-(rho2/c2+w/(cw**<span class="number">2</span>)+h/(ch**<span class="number">2</span>))<span class="comment">#EIOU  2021.12.29</span></span><br></pre></td></tr></table></figure></li>
-<li>将loss.py中边框位置回归损失函数改为eiou。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=<span class="literal">False</span>, EIoU=<span class="literal">True</span>)  <span class="comment"># iou(prediction, target)</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="炼丹经验"><a href="#炼丹经验" class="headerlink" title="炼丹经验"></a>炼丹经验</h1><ul>
-<li><p><strong>数据集</strong>：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度</p>
-</li>
-<li><p><strong>配置</strong>：mosic有时没用可删；删卷积层可减少计算量；若显存不足需要调小batchsize或数据集分辨率；可以从小模型中学到的权重开始，对更大模型进行训练</p>
-<ul>
-<li>大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛</li>
-<li>参数调优过程一般要反复多次进行<code>微调&lt;—&gt;训练&lt;—&gt;测试</code>，最终得出符合需求&#x2F;较优的HyperPara，应用在项目中	<code>data/hyps/hyp.finetune.yaml</code></li>
-</ul>
-</li>
-</ul>
-<p><strong>小目标检测</strong>：小目标检测效果不好主要原因为小目标尺寸问题。<br>以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608&#x2F;76&#x3D;8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。<br>另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。<br>这种情况可以使用分割的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： </p>
-<blockquote>
-<p>优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。<br>比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。<br>缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。</p>
-</blockquote>
-<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo3.png" alt="图 3">  </p>
-<h1 id="其他未实现的想法"><a href="#其他未实现的想法" class="headerlink" title="其他未实现的想法"></a>其他未实现的想法</h1><p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
-<p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
-<p>用5折交叉验证<br>双流网络<br>矩形训练<br>PERCLOS值怎么显示？<br>把图像增强工作流加入算法？</p>
-<p>The author uses ArcFace loss to measure the error of prediction. This loss was proposed for facial recognition in 2018. Other sophisticated approaches have also been published in recent years, such as <a href="https://openaccess.thecvf.com/content/CVPR2022W/Biometrics/papers/Boutros_ElasticFace_Elastic_Margin_Loss_for_Deep_Face_Recognition_CVPRW_2022_paper.pdf">ElasticFace</a>. author can compare the proposed loss with this approach.</p>
-<p><a href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别</a></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TDA4④：部署自定义深度学习模型</title>
     <url>/TDA4VM4/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>接上一篇：<a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a></p>
@@ -2728,6 +2627,107 @@ B-->C</pre>
       <tags>
         <tag>深度学习</tag>
         <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Yolo：Code，Config，Ideas</title>
+    <url>/Yolo/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Yolo"><a href="#Yolo" class="headerlink" title="Yolo"></a>Yolo</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>详细配置见 <a href="https://wangyujie.site/Pytorch/">Anaconda，Pycharm，Jupyter，Pytorch</a></p>
+<p><strong>Windows环境配置</strong></p>
+<ol>
+<li><p>安装<a href="https://www.anaconda.com/"><strong>Anaconda</strong></a>，<br>防止环境装在C盘占空间：修改user目录下.condarc文件里的默认地址，或执行<code>conda config --add D:\Anaconda3\envs </code>,然后<code>conda info</code> 检查envs directories<br>（若报错 The channel is not accessible or is invalid 运行<code>conda config --remove-key channels</code>）</p>
+</li>
+<li><p><strong>配置环境</strong>：打开Anaconda Prompt<br>创建环境<code>conda create -n pytorch python=3.8</code><br>激活环境<code>conda activate pytorch</code></p>
+</li>
+<li><p>安装显卡驱动对应的<strong>CUDA</strong>：<code>nvidia-smi</code> 查询支持CUDA版本，<br>再到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装, 如：<br><code>conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</code><br>（验证torch能否使用GPU：<code>python -c &quot;import torch;print(torch.cuda.is_available())&quot;</code>   返回True说明GPU可以被使用）</p>
+</li>
+<li><p>安装<a href="https://www.jetbrains.com/pycharm/"><strong>Pychram</strong></a>, 用pycharm打开YOLO项目文件夹，配置编辑器<code>D:P\Anaconda3\envs\pytorch\python.exe</code>，在pycharm的terminal中打开pytorch环境</p>
+</li>
+<li><p>安装各种<strong>包</strong>：<code>pip install -r requirements.txt</code>,<br>换源补装失败的包<code>pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple/</code></p>
+</li>
+</ol>
+<p><strong>Linux 环境配置</strong></p>
+<ol>
+<li><p>安装miniconda，相较Anaconda更小巧快捷，功能一样</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="comment">#一路Enter + Yes，最后使修改的PATH环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">canda   <span class="comment">#验证是否成功</span></span><br><span class="line">conda create -n pytorch python=3.6  <span class="comment">#创建一个名为pytorch的环境</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>（若要安装：<a href="https://www.anaconda.com/">Anaconda</a>，执行下载的.sh文件，输入<code>bash XXX.sh</code>，然后一路enter和yes；激活：<code>cd ///root/anaconda3/bin</code>,输入：<code>source ./activate</code>，终端前出现<code>(base)</code>则激活成功）</p>
+</blockquote>
+</li>
+<li><p>下载pycharm，解压，进入bin文件夹，运行<code>./pycharm.sh</code>以打开pycharm（更简单且能生成图标的方法：<code>sudo snap install pycharm-community --classic</code>）<br>在项目中导入环境<code>.conda/envs/pytorch/bin/python3.6</code></p>
+</li>
+<li><p>安装CUDA</p>
+<ul>
+<li><strong>pytorch</strong><br> <code>conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia</code></li>
+<li><strong>tensorflow</strong><br> cuda:<code>conda install cudatoolkit=10.0</code><br> cuDNN:<code>conda install cudnn=7.6</code><br> tf:<code>pip install tensorflow-gpu==1.15.0</code>(注意版本匹配)</li>
+</ul>
+</li>
+</ol>
+<p>如果requirements中有包实在安不上，手动装包：进<a href="https://pypi.org/">网站</a>搜索包，下载.whl，在包所在位置激活环境运行<code>pip install [].whl</code>(包名中cp38代表python3.8版本)</p>
+<h2 id="资料-amp-Paper-amp-Code"><a href="#资料-amp-Paper-amp-Code" class="headerlink" title="资料 &amp; Paper &amp; Code"></a>资料 &amp; Paper &amp; Code</h2><p>YOLOv1 - v5历程：<a href="https://blog.csdn.net/wjinjie/article/details/107509243">从yolov1至yolov5的进阶之路</a><br>YOLOv3论文精读视频：<a href="https://www.bilibili.com/video/BV1Vg411V7bJ/">同济子豪兄YOLOV3目标检测</a><br>YOLOv5知识精讲：<a href="https://zhuanlan.zhihu.com/p/172121380">Yolov5核心基础知识完整讲解</a><br>YOLOv7网络结构：<a href="https://blog.csdn.net/athrunsunny/article/details/125951001">理解yolov7网络结构</a> ,<a href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a><br>全流程指导视频：<a href="https://www.bilibili.com/video/BV1tf4y1t7ru/">目标检测 YOLOv5 开源代码项目调试与讲解实战</a></p>
+<p><a href="https://arxiv.org/pdf/1506.02640.pdf">YOLOv1</a> &amp; <a href="https://pjreddie.com/darknet/yolov1/">Code</a>; <a href="https://arxiv.org/pdf/1612.08242.pdf">YOLOv2</a> &amp; <a href="https://pjreddie.com/darknet/yolo/">Code</a>; <a href="https://arxiv.org/pdf/1804.02767.pdf">YOLOv3</a> &amp; <a href="https://github.com/ultralytics/yolov3">Code</a>; YOLOv4 &amp; <a href="https://github.com/Tianxiaomo/pytorch-YOLOv4">Code</a>; YOLOv5 &amp; <a href="https://github.com/search?q=yolov5">Code</a>; <a href="https://arxiv.org/pdf/2209.02976.pdf">YOLOv6</a> &amp; <a href="https://github.com/meituan/YOLOv6">Code</a>; <a href="https://arxiv.org/abs/2207.02696">YOLOv7</a> &amp; <a href="https://github.com/WongKinYiu/yolov7">Code</a>; YOLOv8 &amp; <a href="https://github.com/ultralytics/ultralytics">Code</a></p>
+<p>算法复现精品仓库：<a href="https://github.com/bubbliiiing">Bubbliiiing</a></p>
+<p>论文：<a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a>，代码：<a href="https://github.com/Arrowes/CEAM-YOLOv7">Github</a></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><strong>Detect参数</strong><br>调用电脑摄像头:<br>右上角py配置 &gt; Edit Configurations &gt; Parameters<br><code>--view-img --source 0</code></p>
+<p>调用手机摄像头：<br>下载 <a href="https://www.123pan.com/s/goS7Vv-QeKbd.html">IP摄像头</a> App，关闭代理，连同一个网，Parameters配置为：<br><code>--source http://admin:admin@192.168.43.1:8081</code> 具体地址见 APP</p>
+<p><strong>Train参数</strong><br><code>action=&#39;store_true&#39;</code> 触发了为true，否则为false 和 default&#x3D;False 效果一样</p>
+<p><strong>YOLOv8</strong><br>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
+<blockquote>
+<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
+</blockquote>
+<p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
+<h1 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><blockquote>
+<p><a href="https://www.kaggle.com/datasets">Kaggle数据集</a><br><a href="https://gas.graviti.cn/open-datasets">格物钛数据集</a><br><a href="https://universe.roboflow.com/roboflow-100">Roboflow数据集</a><br><a href="https://ieee-dataport.org/datasets">IEEE DataPort</a></p>
+</blockquote>
+<p>标注工具：<a href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
+<p>开源驾驶员行为数据集：<a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
+<p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
+<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png" alt="图 1">  </p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
+<li>在 <code>models/common.py</code> 加入新的结构代码</li>
+<li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
+<li><code>.yaml</code> 修改网络结构<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png" alt="图 2"></li>
+</ol>
+<h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
+<blockquote>
+<p>位置：<br>在上采样+concat之后接一个注意力机制可能会更好？<br>backbone结尾使用一个注意力机制？<br>每个block（如residual block）结尾使用比每个Conv里使用更好？</p>
+</blockquote>
+<p>transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块</p>
+<h2 id="激活函数-activations-py"><a href="#激活函数-activations-py" class="headerlink" title="激活函数 activations.py"></a>激活函数 activations.py</h2><blockquote>
+<p>activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数<br>common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面</p>
+</blockquote>
+<p>例：插入激活函数：Mish<br>1.在utils&#x2F;activation.py中定义Mish激活函数<br>2.重构Conv模块，改激活函数：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Conv</span>(nn.Module):</span><br><span class="line">    <span class="comment"># Standard convolution</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, c1, c2, k=<span class="number">1</span>, s=<span class="number">1</span>, p=<span class="literal">None</span>, g=<span class="number">1</span>, act=<span class="literal">True</span></span>):  <span class="comment"># ch_in, ch_out, kernel, stride, padding, groups</span></span><br><span class="line">        <span class="built_in">super</span>(Conv, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(c1, c2, k, s, autopad(k, p), groups=g, bias=<span class="literal">False</span>)</span><br><span class="line">        self.bn = nn.BatchNorm2d(c2)</span><br><span class="line">        <span class="comment">#self.act = nn.SiLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())</span></span><br><span class="line">        self.act = nn.Mish() <span class="keyword">if</span> act <span class="keyword">is</span> <span class="literal">True</span> <span class="keyword">else</span> (act <span class="keyword">if</span> <span class="built_in">isinstance</span>(act, nn.Module) <span class="keyword">else</span> nn.Identity())</span><br></pre></td></tr></table></figure>
+
+<h2 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h2><p>例：改 EIOU loss</p>
+<ol>
+<li>修改 general.py，增加EIOU。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">elif</span> EIoU:</span><br><span class="line">                w=(w1-w2)*(w1-w2)</span><br><span class="line">                h=(h1-h2)*(h1-h2)</span><br><span class="line">                <span class="keyword">return</span> iou-(rho2/c2+w/(cw**<span class="number">2</span>)+h/(ch**<span class="number">2</span>))<span class="comment">#EIOU  2021.12.29</span></span><br></pre></td></tr></table></figure></li>
+<li>将loss.py中边框位置回归损失函数改为eiou。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=<span class="literal">False</span>, EIoU=<span class="literal">True</span>)  <span class="comment"># iou(prediction, target)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="炼丹经验"><a href="#炼丹经验" class="headerlink" title="炼丹经验"></a>炼丹经验</h1><ul>
+<li><p><strong>数据集</strong>：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度</p>
+</li>
+<li><p><strong>配置</strong>：mosic有时没用可删；删卷积层可减少计算量；若显存不足需要调小batchsize或数据集分辨率；可以从小模型中学到的权重开始，对更大模型进行训练</p>
+<ul>
+<li>大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛</li>
+<li>参数调优过程一般要反复多次进行<code>微调&lt;—&gt;训练&lt;—&gt;测试</code>，最终得出符合需求&#x2F;较优的HyperPara，应用在项目中	<code>data/hyps/hyp.finetune.yaml</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>小目标检测</strong>：小目标检测效果不好主要原因为小目标尺寸问题。<br>以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608&#x2F;76&#x3D;8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。<br>另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。<br>这种情况可以使用分割的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： </p>
+<blockquote>
+<p>优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。<br>比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。<br>缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。</p>
+</blockquote>
+<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo3.png" alt="图 3">  </p>
+<h1 id="其他未实现的想法"><a href="#其他未实现的想法" class="headerlink" title="其他未实现的想法"></a>其他未实现的想法</h1><p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
+<p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
+<p>用5折交叉验证<br>双流网络<br>矩形训练<br>PERCLOS值怎么显示？<br>把图像增强工作流加入算法？</p>
+<p>The author uses ArcFace loss to measure the error of prediction. This loss was proposed for facial recognition in 2018. Other sophisticated approaches have also been published in recent years, such as <a href="https://openaccess.thecvf.com/content/CVPR2022W/Biometrics/papers/Boutros_ElasticFace_Elastic_Margin_Loss_for_Deep_Face_Recognition_CVPRW_2022_paper.pdf">ElasticFace</a>. author can compare the proposed loss with this approach.</p>
+<p><a href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别</a></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>
