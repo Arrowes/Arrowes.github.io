@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2perform.png">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png">
 <meta property="article:published_time" content="2023-05-18T08:28:00.000Z">
-<meta property="article:modified_time" content="2023-09-07T10:44:27.295Z">
+<meta property="article:modified_time" content="2023-09-19T03:07:09.850Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
@@ -271,7 +271,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-09-07 18:44:27" itemprop="dateModified" datetime="2023-09-07T18:44:27+08:00">2023-09-07</time>
+      <time title="修改时间：2023-09-19 11:07:09" itemprop="dateModified" datetime="2023-09-19T11:07:09+08:00">2023-09-19</time>
     </span>
 
   
@@ -288,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -356,7 +356,7 @@
 <blockquote>
 <p>物料准备：<br>SK板，microUSB串口线，USB camera，HDMI&#x2F;DP显示器，≥16GB的内存卡，网线和局域网*，串口电源（5-20V DC ≥20w），散热风扇</p>
 </blockquote>
-<p>通过USB挂载SD卡到Ubuntu<br>下载<a target="_blank" rel="noopener" href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-SK-TDA4VM">SD card .wic image</a><br>使用<a target="_blank" rel="noopener" href="https://github.com/balena-io/etcher/releases/tag/v1.7.0">Balena etcher tool 1.7.0</a> 把 SD card .wic image <code>flash</code>到SD卡上<br>然后插入SD卡到SK板，SK板连接显示器，上电，进入界面。</p>
+<p>通过USB挂载SD卡到Ubuntu<br>下载<a target="_blank" rel="noopener" href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-SK-TDA4VM">SD card .wic image</a><br>使用<a target="_blank" rel="noopener" href="https://github.com/balena-io/etcher/releases/tag/v1.7.0">Balena etcher tool 1.7.0</a> 把 SD card .wic image <code>flash</code>到SD卡上<br>然后插入SD卡到SK板，拨码开关拨到数字端，系统从SD卡启动<br>SK板连接显示器，上电，进入界面。</p>
 <p>连接串口线，在虚拟机设置中挂载USB串口，使用 <a target="_blank" rel="noopener" href="https://help.ubuntu.com/community/Minicom">minicom</a> 串口通讯：<br>(在minicom中自动换行：Ctrl+A Z W)</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk</span></span><br><span class="line"><span class="comment">#若连接了USB摄像头此时会显示端口信息，也可以cd , ./.profile 查摄像头：/dev/video2</span></span><br></pre></td></tr></table></figure>
 
