@@ -1,105 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
-    <url>/DLdeploy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
-<ul>
-<li>Network selection：</li>
-<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
-<li>Deployment：<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
-</ul>
-<p>Netron神经网络可视化: <a href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a href="https://netron.app/">在线网站</a></p>
-<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a href="https://onnx.ai/">ONNX</a>，<a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnxruntime.ai/">ONNX Runtime</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
-<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
-<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
+    <title>DL：深度学习相关概念</title>
+    <url>/DL/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>从机器学习到深度学习：<a href="https://www.cnblogs.com/subconscious/p/4107357.html">从机器学习谈起</a>，<a href="https://www.cnblogs.com/subconscious/p/5058741.html">从神经元到深度学习</a><br>什么是卷积讲解视频：<a href="https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a">大白话讲解卷积神经网络工作原理</a></p>
+<h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a>深度学习框架</h1><pre class="mermaid">graph LR
+A[程序框架]-->B[A.黑箱]
+A-->C[B.模块化] -->1.处理数据
+C-->2.构建网络
+C-->3.损失函数
+C-->4.优化函数
+C-->5.模型保存
+A-->E[C.定义]</pre>
+
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL1.png" width = "80%" />
+
+<p>GPU 网络和数据要同时送进GPU</p>
+<h2 id="感受野-Receptive-field"><a href="#感受野-Receptive-field" class="headerlink" title="感受野(Receptive field)"></a>感受野(Receptive field)</h2><p>感受野（Receptive Field）是指在卷积神经网络（CNN）中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。<br><img src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  /></p>
+<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL2.png" width = "50%" /><br><img src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "50%" /></p>
+<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
+<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL3.gif" width = "60%" />
+
+<p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL4.png" alt="图 4">  </p>
+<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> $^1$（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> $^2$。</p>
 <blockquote>
-<p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
+<ol>
+<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
+<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
+</ol>
 </blockquote>
-<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-
-<details>
-    <summary>SRCNN超分辨率代码</summary>
-
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<p>模型转换为ONNX，验证正确性，运行推理：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 0" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
-
-<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
-<ul>
-<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
-<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的。</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字）</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
-<li>PyTorch 算子<ul>
-<li>组合现有算子</li>
-<li>添加 TorchScript 算子</li>
-<li>添加普通 C++ 拓展算子</li>
-</ul>
-</li>
-<li>映射方法<ul>
-<li>为 ATen 算子添加符号函数</li>
-<li>为 TorchScript 算子添加符号函数</li>
-<li>封装成 <code>torch.autograd.Function</code> 并添加符号函数</li>
-</ul>
-</li>
-<li>ONNX 算子<ul>
-<li>使用现有 ONNX 算子</li>
-<li>定义新 ONNX 算子</li>
-</ul>
-</li>
-</ul>
-<p><a href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
-<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
-<p>浮点数格式 (float32)：$V &#x3D; (-1)^s×M×2^E$</p>
-<table>
-<thead>
-<tr>
-<th>符号位s</th>
-<th>阶码E</th>
-<th>尾数M</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>8</td>
-<td>23</td>
-</tr>
-</tbody></table>
-<p>定点数格式 (int8)：</p>
-<table>
-<thead>
-<tr>
-<th>符号位</th>
-<th>整数位（设定）</th>
-<th>小数位(量化系数)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>4</td>
-<td>3</td>
-</tr>
-</tbody></table>
-<p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
-<p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
+<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
 <blockquote>
-<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
+<ol>
+<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
+<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
+<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
+</ol>
 </blockquote>
-<p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
-<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
+<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
+<h3 id="基于距离度量的损失函数"><a href="#基于距离度量的损失函数" class="headerlink" title="基于距离度量的损失函数"></a>基于距离度量的损失函数</h3><p>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。<br><strong>L1范数损失函数（MAE）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；<br><strong>L2损失函数（MSE均方误差损失函数）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
+<h3 id="基于概率分布度量的损失函数"><a href="#基于概率分布度量的损失函数" class="headerlink" title="基于概率分布度量的损失函数"></a>基于概率分布度量的损失函数</h3><p>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。<br><strong>KL散度（ Kullback-Leibler divergence）</strong><br>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。</p>
+<p>交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数</p>
+<p>在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。</p>
+<p>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 </p>
+<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
+<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
+<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL5.png" width = "50%" /></p>
+<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
+<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL6.png" alt="图 6">  </p>
+<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
+<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
+<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL7.png" alt="图 7"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
+<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL8.png" width = "70%" />
 
-<p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
+<p>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
+<blockquote>
+<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
+</blockquote>
+<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#x6d;&#x61;&#112;&#64;&#48;&#46;&#x35;">&#x6d;&#x61;&#112;&#64;&#48;&#46;&#x35;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
+<p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
+<blockquote>
+<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
+</blockquote>
+<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
+<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
+<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
+<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
+<p><strong>换算计算量</strong>,一般一个参数是指一个float，也就是４个字节,1kb&#x3D;1024字节</p>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL13.png" alt="图 13"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL14.png" alt="图 14"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL15.png" alt="图 15">  </p>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>深度学习</tag>
       </tags>
   </entry>
@@ -466,79 +439,106 @@
       </tags>
   </entry>
   <entry>
-    <title>DL：深度学习相关概念</title>
-    <url>/DL/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>从机器学习到深度学习：<a href="https://www.cnblogs.com/subconscious/p/4107357.html">从机器学习谈起</a>，<a href="https://www.cnblogs.com/subconscious/p/5058741.html">从神经元到深度学习</a><br>什么是卷积讲解视频：<a href="https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a">大白话讲解卷积神经网络工作原理</a></p>
-<h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a>深度学习框架</h1><pre class="mermaid">graph LR
-A[程序框架]-->B[A.黑箱]
-A-->C[B.模块化] -->1.处理数据
-C-->2.构建网络
-C-->3.损失函数
-C-->4.优化函数
-C-->5.模型保存
-A-->E[C.定义]</pre>
-
-<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL1.png" width = "80%" />
-
-<p>GPU 网络和数据要同时送进GPU</p>
-<h2 id="感受野-Receptive-field"><a href="#感受野-Receptive-field" class="headerlink" title="感受野(Receptive field)"></a>感受野(Receptive field)</h2><p>感受野（Receptive Field）是指在卷积神经网络（CNN）中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。<br><img src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  /></p>
-<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL2.png" width = "50%" /><br><img src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "50%" /></p>
-<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
-<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL3.gif" width = "60%" />
-
-<p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL4.png" alt="图 4">  </p>
-<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> $^1$（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> $^2$。</p>
+    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
+    <url>/DLdeploy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
+<ul>
+<li>Network selection：</li>
+<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
+<li>Deployment：<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
+</ul>
+<p>Netron神经网络可视化: <a href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a href="https://netron.app/">在线网站</a></p>
+<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a href="https://onnx.ai/">ONNX</a>，<a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnxruntime.ai/">ONNX Runtime</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
+<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
+<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
 <blockquote>
-<ol>
-<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
-<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
-</ol>
+<p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
 </blockquote>
-<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
-<blockquote>
-<ol>
-<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
-<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
-<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
-</ol>
-</blockquote>
-<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
-<h3 id="基于距离度量的损失函数"><a href="#基于距离度量的损失函数" class="headerlink" title="基于距离度量的损失函数"></a>基于距离度量的损失函数</h3><p>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。<br><strong>L1范数损失函数（MAE）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；<br><strong>L2损失函数（MSE均方误差损失函数）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
-<h3 id="基于概率分布度量的损失函数"><a href="#基于概率分布度量的损失函数" class="headerlink" title="基于概率分布度量的损失函数"></a>基于概率分布度量的损失函数</h3><p>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。<br><strong>KL散度（ Kullback-Leibler divergence）</strong><br>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。</p>
-<p>交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数</p>
-<p>在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。</p>
-<p>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 </p>
-<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
-<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
-<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL5.png" width = "50%" /></p>
-<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
-<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL6.png" alt="图 6">  </p>
-<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
-<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
-<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL7.png" alt="图 7"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
-<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL8.png" width = "70%" />
+<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
 
-<p>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
+<details>
+    <summary>SRCNN超分辨率代码</summary>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<p>模型转换为ONNX，验证正确性，运行推理：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
+<img alt="picture 0" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
+
+<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
+<ul>
+<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
+<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的。</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字）</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
+<li>PyTorch 算子<ul>
+<li>组合现有算子</li>
+<li>添加 TorchScript 算子</li>
+<li>添加普通 C++ 拓展算子</li>
+</ul>
+</li>
+<li>映射方法<ul>
+<li>为 ATen 算子添加符号函数</li>
+<li>为 TorchScript 算子添加符号函数</li>
+<li>封装成 <code>torch.autograd.Function</code> 并添加符号函数</li>
+</ul>
+</li>
+<li>ONNX 算子<ul>
+<li>使用现有 ONNX 算子</li>
+<li>定义新 ONNX 算子</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
+<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
+<p>浮点数格式 (float32)：$V &#x3D; (-1)^s×M×2^E$</p>
+<table>
+<thead>
+<tr>
+<th>符号位s</th>
+<th>阶码E</th>
+<th>尾数M</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>8</td>
+<td>23</td>
+</tr>
+</tbody></table>
+<p>定点数格式 (int8)：</p>
+<table>
+<thead>
+<tr>
+<th>符号位</th>
+<th>整数位（设定）</th>
+<th>小数位(量化系数)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>4</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
+<p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
 <blockquote>
-<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
+<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
 </blockquote>
-<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。<a href="mailto:&#109;&#x61;&#x70;&#x40;&#48;&#x2e;&#53;">&#109;&#x61;&#x70;&#x40;&#48;&#x2e;&#53;</a>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
-<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
-<p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
-<blockquote>
-<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
-</blockquote>
-<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
-<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
-<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
-<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
-<p><strong>换算计算量</strong>,一般一个参数是指一个float，也就是４个字节,1kb&#x3D;1024字节</p>
-<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL13.png" alt="图 13"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL14.png" alt="图 14"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL15.png" alt="图 15">  </p>
+<p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
+<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
+
+<p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -647,84 +647,6 @@ A-->E[C.定义]</pre>
       </tags>
   </entry>
   <entry>
-    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
-    <url>/Hello-blog/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
-[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
-[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
-[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
-[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
-[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>。</p>
-<span id="more"></span>
-<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Hello-blogBlogPhoto.jpg" width = "30%"/>  
-
-<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
-<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
-<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
-<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
-<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
-<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
-<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
-<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
-<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
-<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>统计人数、阅读次数：<br>&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>统计字数、阅读时间：</p>
-<ol>
-<li>npm install hexo-word-counter</li>
-<li>&#x2F;next&#x2F;_config:设置item_text_total为true</li>
-</ol>
-<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>配置博客链接：_config中<code>permalink: :title/</code></p>
-<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><ol>
-<li>在项目根目录下运行 <code>npm install hexo-generator-searchdb --save</code></li>
-<li>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable改为true</li>
-</ol>
-<h4 id="首页展示文章数"><a href="#首页展示文章数" class="headerlink" title="首页展示文章数"></a>首页展示文章数</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#Hexo-config</span>文件修改</span><br><span class="line">index_generator:</span><br><span class="line">  path: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">0</span> #不分页</span><br></pre></td></tr></table></figure>
-
-<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
-<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
-</li>
-<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">1</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在主题配置文件&#x2F;next&#x2F;_config中 excerpt_description 改为false</p>
-</li>
-</ol>
-<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
-<li>配置 主题配置文件中删掉tags的注释</li>
-<li>文件 新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
-<li>文章 <code>tags: - XXX</code></li>
-</ol>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>主题配置文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">every_page:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mathjax:  enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
-<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
-<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
-<li>引用时直接 &#x2F;resume&#x2F;</li>
-</ol>
-<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
-<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
-<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
-<p><strong>Markdown 粘贴插件</strong><br>Markdown paste 右键智能粘贴<br>Paste URL Ctrl+Alt+P快速粘贴链接</p>
-<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.sevencdn.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.sevencdn.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
-<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
-<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
-<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，多试几次</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<em>Download ZIP</em>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
-<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
-<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
-<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
-<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
-<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
-      <tags>
-        <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux：Ubuntu，Git，Docker</title>
     <url>/Linux/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹( rm -r XXX  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找 find *XXX*</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br><span class="line">script -f log.txt   <span class="comment">#输出terminal内容到文件 exit退出记录，或在指令后加入 &gt; log.txt</span></span><br></pre></td></tr></table></figure>
@@ -805,6 +727,84 @@ A-->E[C.定义]</pre>
 <h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
+    <url>/Hello-blog/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
+[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
+[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
+[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
+[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
+[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>。</p>
+<span id="more"></span>
+<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Hello-blogBlogPhoto.jpg" width = "30%"/>  
+
+<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
+<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
+<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
+<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
+<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
+<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
+<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
+<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
+<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>统计人数、阅读次数：<br>&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>统计字数、阅读时间：</p>
+<ol>
+<li>npm install hexo-word-counter</li>
+<li>&#x2F;next&#x2F;_config:设置item_text_total为true</li>
+</ol>
+<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>配置博客链接：_config中<code>permalink: :title/</code></p>
+<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><ol>
+<li>在项目根目录下运行 <code>npm install hexo-generator-searchdb --save</code></li>
+<li>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable改为true</li>
+</ol>
+<h4 id="首页展示文章数"><a href="#首页展示文章数" class="headerlink" title="首页展示文章数"></a>首页展示文章数</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#Hexo-config</span>文件修改</span><br><span class="line">index_generator:</span><br><span class="line">  path: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">0</span> #不分页</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
+<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
+</li>
+<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
+ <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">1</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在主题配置文件&#x2F;next&#x2F;_config中 excerpt_description 改为false</p>
+</li>
+</ol>
+<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
+<li>配置 主题配置文件中删掉tags的注释</li>
+<li>文件 新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
+<li>文章 <code>tags: - XXX</code></li>
+</ol>
+<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>主题配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">every_page:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mathjax:  enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
+<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
+<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
+<li>引用时直接 &#x2F;resume&#x2F;</li>
+</ol>
+<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
+<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
+<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
+<p><strong>Markdown 粘贴插件</strong><br>Markdown paste 右键智能粘贴<br>Paste URL Ctrl+Alt+P快速粘贴链接</p>
+<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.sevencdn.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.sevencdn.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
+<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
+<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
+<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，多试几次</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<em>Download ZIP</em>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
+<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
+<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
+<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
+<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
+<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+      <tags>
+        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
@@ -1206,61 +1206,6 @@ B-->C</pre>
       </tags>
   </entry>
   <entry>
-    <title>Project：多个项目汇总</title>
-    <url>/Project/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法"><a href="#FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法" class="headerlink" title="FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法"></a>FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法</h1><ul>
-<li><a href="https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=">A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7</a></li>
-<li>Github: <a href="https://github.com/Arrowes/FEY-YOLOv7">FEY-YOLOv7</a></li>
-</ul>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><ul>
-<li><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></li>
-<li>Github: <a href="https://github.com/Arrowes/CEAM-YOLOv7">CEAM-YOLOv7</a></li>
-</ul>
-<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
-<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
-<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
-<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
-<h2 id="实现效果-1"><a href="#实现效果-1" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
-<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
-<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
-<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
-<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
-<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
-<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
-<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
-<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
-<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
-<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
-<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
-<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
-<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
-<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
-<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
-<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
-<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
-<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
-<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
-<h2 id="项目简介-5"><a href="#项目简介-5" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
-<h2 id="技术点-5"><a href="#技术点-5" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
-<p>技术创新：</p>
-<blockquote>
-<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
-</blockquote>
-<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
-<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
-<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
-<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
-<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
-]]></content>
-      <tags>
-        <tag>技术</tag>
-        <tag>总结</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python：Anaconda，Pycharm，Pytorch</title>
     <url>/Pytorch/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>视频：<a href="https://www.bilibili.com/video/BV1hE411t7RN/">PyTorch深度学习快速入门教程</a></p>
@@ -1355,6 +1300,61 @@ B-->C</pre>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">model = torch.load(<span class="string">&quot;tudui_29_gpu.pth&quot;</span>, map_location=torch.device(<span class="string">&#x27;cpu&#x27;</span>)) </span><br><span class="line"><span class="built_in">print</span>(model) 	<span class="comment">#训练好的权重代入模型</span></span><br><span class="line">image = torch.reshape(image, (<span class="number">1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    output = model(image)</span><br><span class="line"><span class="built_in">print</span>(output)</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Project：多个项目汇总</title>
+    <url>/Project/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法"><a href="#FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法" class="headerlink" title="FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法"></a>FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法</h1><ul>
+<li><a href="https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=">A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7</a></li>
+<li>Github: <a href="https://github.com/Arrowes/FEY-YOLOv7">FEY-YOLOv7</a></li>
+</ul>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><ul>
+<li><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></li>
+<li>Github: <a href="https://github.com/Arrowes/CEAM-YOLOv7">CEAM-YOLOv7</a></li>
+</ul>
+<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
+<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
+<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
+<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
+<h2 id="实现效果-1"><a href="#实现效果-1" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
+<p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
+<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
+<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
+<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
+<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
+<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
+<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
+<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
+<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
+<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
+<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
+<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
+<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
+<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
+<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
+<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
+<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
+<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
+<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
+<h2 id="项目简介-5"><a href="#项目简介-5" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
+<h2 id="技术点-5"><a href="#技术点-5" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
+<p>技术创新：</p>
+<blockquote>
+<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+</blockquote>
+<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
+<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
+<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
+<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
+<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
+]]></content>
+      <tags>
+        <tag>技术</tag>
+        <tag>总结</tag>
       </tags>
   </entry>
   <entry>
@@ -1625,8 +1625,8 @@ B-->C</pre>
 </blockquote>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -1784,8 +1784,8 @@ B-->C</pre>
 </blockquote>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -2494,8 +2494,8 @@ B-->C</pre>
 </blockquote>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -2632,8 +2632,8 @@ B-->C</pre>
 </blockquote>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>深度学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
