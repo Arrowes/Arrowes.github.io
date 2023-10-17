@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="DL模型转换及部署：torch &gt; onnx &gt; deploy">
@@ -32,8 +32,8 @@
 <meta property="article:published_time" content="2023-06-09T03:36:00.000Z">
 <meta property="article:modified_time" content="2023-07-17T04:22:17.872Z">
 <meta property="article:author" content="Arrow">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png">
 
@@ -303,7 +303,7 @@
 <ul>
 <li>Network selection：</li>
 <li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
-<li>Deployment：<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
+<li>Deployment：<img alt="图 1" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
 </ul>
 <p>Netron神经网络可视化: <a target="_blank" rel="noopener" href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a target="_blank" rel="noopener" href="https://netron.app/">在线网站</a></p>
 <h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a target="_blank" rel="noopener" href="https://onnx.ai/">ONNX</a>，<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx">Github</a>，<a target="_blank" rel="noopener" href="https://onnxruntime.ai/">ONNX Runtime</a>，<a target="_blank" rel="noopener" href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
@@ -324,7 +324,7 @@
 <hr>
 <p>模型转换为ONNX，验证正确性，运行推理：</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 0" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
+<img alt="picture 0" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
 
 <h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
 <ul>
@@ -387,10 +387,10 @@
 <p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
 <p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
 <blockquote>
-<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
+<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img data-src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
 </blockquote>
 <p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
-<img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
+<img alt="图 3" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
 
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
 
@@ -402,8 +402,8 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
               <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
           </div>
 
         
@@ -429,6 +429,7 @@
 
 
 
+    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -490,7 +491,10 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
 
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
@@ -505,7 +509,7 @@
 
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
@@ -516,6 +520,13 @@
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://example.com/DLdeploy/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Arrowes","repo":"https://github.com/Arrowes/Blog","client_id":null,"client_secret":null,"admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"34020faed9b87226101b5fb19dab6c5b"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
 
 
 
