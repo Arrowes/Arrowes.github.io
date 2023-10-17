@@ -27,9 +27,8 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png">
 <meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png">
-<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo3.png">
 <meta property="article:published_time" content="2022-11-27T08:04:02.000Z">
-<meta property="article:modified_time" content="2023-10-16T08:57:20.856Z">
+<meta property="article:modified_time" content="2023-10-17T09:33:16.178Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="python">
@@ -148,7 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Yolo"><span class="nav-number">1.</span> <span class="nav-text">Yolo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%96%99%E4%B8%8E%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">资料与代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%EF%BC%88YOLOv5%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">参数配置（YOLOv5）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ideas"><span class="nav-number">2.</span> <span class="nav-text">Ideas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anchor"><span class="nav-number">2.2.</span> <span class="nav-text">Anchor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%A8%A1%E5%9D%97"><span class="nav-number">2.4.</span> <span class="nav-text">注意力模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0-activations-py"><span class="nav-number">2.5.</span> <span class="nav-text">激活函数 activations.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss-Function"><span class="nav-number">2.6.</span> <span class="nav-text">Loss Function</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%BC%E4%B8%B9%E7%BB%8F%E9%AA%8C"><span class="nav-number">3.</span> <span class="nav-text">炼丹经验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%9C%AA%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%83%B3%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">其他未实现的想法</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Yolo"><span class="nav-number">1.</span> <span class="nav-text">Yolo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%96%99%E4%B8%8E%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">资料与代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ideas"><span class="nav-number">2.</span> <span class="nav-text">Ideas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anchor"><span class="nav-number">2.2.</span> <span class="nav-text">Anchor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%A8%A1%E5%9D%97"><span class="nav-number">2.4.</span> <span class="nav-text">注意力模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0-activations-py"><span class="nav-number">2.5.</span> <span class="nav-text">激活函数 activations.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss-Function"><span class="nav-number">2.6.</span> <span class="nav-text">Loss Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%EF%BC%88YOLOv5%EF%BC%89"><span class="nav-number">2.7.</span> <span class="nav-text">参数配置（YOLOv5）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%BC%E4%B8%B9%E7%BB%8F%E9%AA%8C"><span class="nav-number">3.</span> <span class="nav-text">炼丹经验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%9C%AA%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%83%B3%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">其他未实现的想法</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -263,7 +262,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-16 16:57:20" itemprop="dateModified" datetime="2023-10-16T16:57:20+08:00">2023-10-16</time>
+      <time title="修改时间：2023-10-17 17:33:16" itemprop="dateModified" datetime="2023-10-17T17:33:16+08:00">2023-10-17</time>
     </span>
 
   
@@ -280,14 +279,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.3k</span>
+      <span>2.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>9 分钟</span>
     </span>
 </div>
 
@@ -330,8 +329,7 @@
 </li>
 </ol>
 <p>如果requirements中有包实在安不上，手动装包：进<a target="_blank" rel="noopener" href="https://pypi.org/">网站</a>搜索包，下载.whl，在包所在位置激活环境运行<code>pip install [].whl</code>(包名中cp38代表python3.8版本)</p>
-<h2 id="资料与代码"><a href="#资料与代码" class="headerlink" title="资料与代码"></a>资料与代码</h2><p>官方论文+代码:</p>
-<table>
+<h2 id="资料与代码"><a href="#资料与代码" class="headerlink" title="资料与代码"></a>资料与代码</h2><table>
 <thead>
 <tr>
 <th>Model</th>
@@ -356,13 +354,13 @@
 </tr>
 <tr>
 <td>YOLOv4</td>
-<td>&#x2F;</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2004.10934.pdf">YOLOv4: Optimal Speed and Accuracy of Object Detection</a></td>
 <td><a target="_blank" rel="noopener" href="https://github.com/Tianxiaomo/pytorch-YOLOv4">Code</a></td>
 </tr>
 <tr>
 <td>YOLOv5</td>
 <td>&#x2F;</td>
-<td><a target="_blank" rel="noopener" href="https://github.com/search?q=yolov5">Code</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/ultralytics/yolov5">Code</a></td>
 </tr>
 <tr>
 <td>YOLOv6</td>
@@ -379,18 +377,19 @@
 <td>&#x2F;</td>
 <td><a target="_blank" rel="noopener" href="https://github.com/ultralytics/ultralytics">Code</a></td>
 </tr>
+<tr>
+<td>CEAM-YOLOv7</td>
+<td><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/Arrowes/CEAM-YOLOv7">Code</a></td>
+</tr>
+<tr>
+<td>FEY-YOLOv7</td>
+<td><a target="_blank" rel="noopener" href="https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=">A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/Arrowes/FEY-YOLOv7">Code</a></td>
+</tr>
 </tbody></table>
-<p>YOLOv1 - v5历程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wjinjie/article/details/107509243">从yolov1至yolov5的进阶之路</a><br>YOLOv3论文精读视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vg411V7bJ/">同济子豪兄YOLOV3目标检测</a><br>YOLOv5知识精讲：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/172121380">Yolov5核心基础知识完整讲解</a><br>YOLOv7网络结构：<a target="_blank" rel="noopener" href="https://blog.csdn.net/athrunsunny/article/details/125951001">理解yolov7网络结构</a> ,<a target="_blank" rel="noopener" href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a><br>全流程指导视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tf4y1t7ru/">目标检测 YOLOv5 开源代码项目调试与讲解实战</a></p>
-<p>算法复现精品仓库：<a target="_blank" rel="noopener" href="https://github.com/bubbliiiing">Bubbliiiing</a></p>
-<p>发表论文：<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a>，Github代码：<a target="_blank" rel="noopener" href="https://github.com/Arrowes/CEAM-YOLOv7">CEAM-YOLOv7</a></p>
-<h2 id="参数配置（YOLOv5）"><a href="#参数配置（YOLOv5）" class="headerlink" title="参数配置（YOLOv5）"></a>参数配置（YOLOv5）</h2><p><strong>Detect参数</strong><br>调用电脑摄像头:<br>右上角py配置 &gt; Edit Configurations &gt; Parameters<br><code>--view-img --source 0</code></p>
-<p>调用手机摄像头：<br>下载 <a target="_blank" rel="noopener" href="https://www.123pan.com/s/goS7Vv-QeKbd.html">IP摄像头</a> App，关闭代理，连同一个网，Parameters配置为：<br><code>--source http://admin:admin@192.168.43.1:8081</code> 具体地址见 APP</p>
-<p><strong>Train参数</strong><br><code>action=&#39;store_true&#39;</code> 触发了为true，否则为false 和 default&#x3D;False 效果一样</p>
-<p><strong>YOLOv8</strong><br>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
-<blockquote>
-<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
-</blockquote>
-<p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
+<p>YOLOv1 - v5历程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wjinjie/article/details/107509243">从yolov1至yolov5的进阶之路</a><br>YOLOv3论文精读视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vg411V7bJ/">同济子豪兄YOLOV3目标检测</a><br>YOLOv5知识精讲：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/172121380">Yolov5核心基础知识完整讲解</a>，<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38253797/article/details/119043919">YOLOV5-5.x 源码讲解</a><br>YOLOv7网络结构：<a target="_blank" rel="noopener" href="https://blog.csdn.net/athrunsunny/article/details/125951001">理解yolov7网络结构</a> ,<a target="_blank" rel="noopener" href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a><br>全流程指导视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tf4y1t7ru/">目标检测 YOLOv5 开源代码项目调试与讲解实战-土堆</a></p>
+<p>算法精品仓库：<a target="_blank" rel="noopener" href="https://github.com/bubbliiiing">Bubbliiiing</a><br><a target="_blank" rel="noopener" href="https://github.com/iscyy/yoloair">YOLO Air</a>，<a target="_blank" rel="noopener" href="https://github.com/iscyy/yoloair2">YOLO Air2</a><br><a target="_blank" rel="noopener" href="https://github.com/positive666/yolov5_research">yolov5_research</a></p>
 <h1 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets">Kaggle数据集</a><br><a target="_blank" rel="noopener" href="https://gas.graviti.cn/open-datasets">格物钛数据集</a><br><a target="_blank" rel="noopener" href="https://universe.roboflow.com/roboflow-100">Roboflow数据集</a><br><a target="_blank" rel="noopener" href="https://ieee-dataport.org/datasets">IEEE DataPort</a></p>
 </blockquote>
@@ -419,6 +418,14 @@
 <li>修改 general.py，增加EIOU。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elif</span> EIoU:</span><br><span class="line">                w=(w1-w2)*(w1-w2)</span><br><span class="line">                h=(h1-h2)*(h1-h2)</span><br><span class="line">                <span class="keyword">return</span> iou-(rho2/c2+w/(cw**<span class="number">2</span>)+h/(ch**<span class="number">2</span>))<span class="comment">#EIOU  2021.12.29</span></span><br></pre></td></tr></table></figure></li>
 <li>将loss.py中边框位置回归损失函数改为eiou。<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=<span class="literal">False</span>, EIoU=<span class="literal">True</span>)  <span class="comment"># iou(prediction, target)</span></span><br></pre></td></tr></table></figure></li>
 </ol>
+<h2 id="参数配置（YOLOv5）"><a href="#参数配置（YOLOv5）" class="headerlink" title="参数配置（YOLOv5）"></a>参数配置（YOLOv5）</h2><p><strong>Detect参数</strong><br>调用电脑摄像头:<br>右上角py配置 &gt; Edit Configurations &gt; Parameters<br><code>--view-img --source 0</code></p>
+<p>调用手机摄像头：<br>下载 <a target="_blank" rel="noopener" href="https://www.123pan.com/s/goS7Vv-QeKbd.html">IP摄像头</a> App，关闭代理，连同一个网，Parameters配置为：<br><code>--source http://admin:admin@192.168.43.1:8081</code> 具体地址见 APP</p>
+<p><strong>Train参数</strong><br><code>action=&#39;store_true&#39;</code> 触发了为true，否则为false 和 default&#x3D;False 效果一样</p>
+<p><strong>YOLOv8（没搞懂）</strong><br>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
+<blockquote>
+<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
+</blockquote>
+<p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
 <h1 id="炼丹经验"><a href="#炼丹经验" class="headerlink" title="炼丹经验"></a>炼丹经验</h1><ul>
 <li><p><strong>数据集</strong>：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度</p>
 </li>
@@ -429,12 +436,14 @@
 </ul>
 </li>
 </ul>
-<p><strong>小目标检测</strong>：小目标检测效果不好主要原因为小目标尺寸问题。<br>以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608&#x2F;76&#x3D;8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。<br>另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。<br>这种情况可以使用分割的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： </p>
+<p><strong>小目标检测</strong>：小目标检测效果不好主要原因为小目标尺寸问题。<br>以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608&#x2F;76&#x3D;8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。<br>另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。<br>这种情况可以使用<strong>分割</strong>的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： </p>
 <blockquote>
-<p>优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。<br>比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。<br>缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。</p>
+<p>优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。<br>比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。<br>缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别-CSDN博客</a></p>
 </blockquote>
-<p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo3.png" alt="图 3">  </p>
-<h1 id="其他未实现的想法"><a href="#其他未实现的想法" class="headerlink" title="其他未实现的想法"></a>其他未实现的想法</h1><p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
+<p>此外，也可以增加一个小目标检测层：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_70388905/article/details/125392908">增加小目标检测层-CSDN博客</a></p>
+<p>使用云服务器快速训练（收费）：<a target="_blank" rel="noopener" href="https://www.autodl.com/home">AutoDL算力云 | 弹性、好用、省钱</a><br><a target="_blank" rel="noopener" href="https://www.autodl.com/docs/gpu/">AutoDL帮助文档-GPU选型</a></p>
+<h1 id="其他未实现的想法"><a href="#其他未实现的想法" class="headerlink" title="其他未实现的想法"></a>其他未实现的想法</h1><p>剪枝：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_70388905/article/details/128222629">模型剪枝、蒸馏、压缩-CSDN博客</a><br><a target="_blank" rel="noopener" href="https://github.com/VainF/Torch-Pruning">GitHub - Torch-Pruning: [CVPR 2023] Towards Any Structural Pruning; </a></p>
+<p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
 <p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
 <p>用5折交叉验证<br>双流网络<br>矩形训练<br>PERCLOS值怎么显示？<br>把图像增强工作流加入算法？</p>
 <p>The author uses ArcFace loss to measure the error of prediction. This loss was proposed for facial recognition in 2018. Other sophisticated approaches have also been published in recent years, such as <a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/CVPR2022W/Biometrics/papers/Boutros_ElasticFace_Elastic_Margin_Loss_for_Deep_Face_Recognition_CVPRW_2022_paper.pdf">ElasticFace</a>. author can compare the proposed loss with this approach.</p>
@@ -456,8 +465,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/Pytorch/" rel="prev" title="Python：Anaconda，Pycharm，Pytorch">
-                  <i class="fa fa-chevron-left"></i> Python：Anaconda，Pycharm，Pytorch
+                <a href="/Pytorch/" rel="prev" title="Py：Anaconda，Pycharm，Pytorch">
+                  <i class="fa fa-chevron-left"></i> Py：Anaconda，Pycharm，Pytorch
                 </a>
             </div>
             <div class="post-nav-item">
@@ -498,14 +507,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">63k</span>
+    <span title="站点总字数">64k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:51</span>
+    <span title="站点阅读时长">3:52</span>
   </span>
 </div>
 <div class="busuanzi-count">
