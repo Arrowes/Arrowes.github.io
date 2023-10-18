@@ -1,86 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>DL：深度学习相关概念</title>
-    <url>/DL/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>从机器学习到深度学习：<a href="https://www.cnblogs.com/subconscious/p/4107357.html">从机器学习谈起</a>，<a href="https://www.cnblogs.com/subconscious/p/5058741.html">从神经元到深度学习</a><br>什么是卷积讲解视频：<a href="https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a">大白话讲解卷积神经网络工作原理</a></p>
-<h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a>深度学习框架</h1><pre class="mermaid">graph LR
-A[程序框架]-->B[A.黑箱]
-A-->C[B.模块化] -->1.处理数据
-C-->2.构建网络
-C-->3.损失函数
-C-->4.优化函数
-C-->5.模型保存
-A-->E[C.定义]</pre>
-
-<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL1.png" width = "80%" />
-
-<p>GPU 网络和数据要同时送进GPU</p>
-<h2 id="感受野-Receptive-field"><a href="#感受野-Receptive-field" class="headerlink" title="感受野(Receptive field)"></a>感受野(Receptive field)</h2><p>感受野（Receptive Field）是指在卷积神经网络（CNN）中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。<br><img src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  /></p>
-<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL2.png" width = "50%" /><br><img src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "50%" /></p>
-<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><img alt="图 37" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DL-Conv.jpg" />  
-
-
-<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
-<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL3.gif" width = "60%" />
-
-<p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL4.png" alt="图 4">  </p>
-<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> $^1$（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> $^2$。</p>
-<blockquote>
-<ol>
-<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
-<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
-</ol>
-</blockquote>
-<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
-<blockquote>
-<ol>
-<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
-<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
-<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
-</ol>
-</blockquote>
-<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
-<h3 id="基于距离度量的损失函数"><a href="#基于距离度量的损失函数" class="headerlink" title="基于距离度量的损失函数"></a>基于距离度量的损失函数</h3><p>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。<br><strong>L1范数损失函数（MAE）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；<br><strong>L2损失函数（MSE均方误差损失函数）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
-<h3 id="基于概率分布度量的损失函数"><a href="#基于概率分布度量的损失函数" class="headerlink" title="基于概率分布度量的损失函数"></a>基于概率分布度量的损失函数</h3><p>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。<br><strong>KL散度（ Kullback-Leibler divergence）</strong><br>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。</p>
-<p>交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数</p>
-<p>在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。</p>
-<p>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 </p>
-<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
-<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
-<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL5.png" width = "50%" /></p>
-<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
-<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL6.png" alt="图 6">  </p>
-<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
-<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
-<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL7.png" alt="图 7"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
-<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL8.png" width = "70%" />
-
-<p>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
-<blockquote>
-<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
-</blockquote>
-<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#109;&#x61;&#112;&#64;&#48;&#x2e;&#53;">&#109;&#x61;&#112;&#64;&#48;&#x2e;&#53;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
-<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
-<p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
-<blockquote>
-<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
-</blockquote>
-<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
-<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
-<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
-<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
-<p><strong>换算计算量</strong>,一般一个参数是指一个float，也就是４个字节,1kb&#x3D;1024字节</p>
-<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL13.png" alt="图 13"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL14.png" alt="图 14"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL15.png" alt="图 15">  </p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C, C++, Cmake</title>
     <url>/C/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>项目地址：<a href="https://github.com/Arrowes/C-coding">C-coding</a></p>
@@ -541,89 +461,88 @@ A-->E[C.定义]</pre>
 <p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>嵌入式</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
-    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
-    <url>/Hello-blog/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
-[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
-[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
-[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
-[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
-[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>。</p>
-<span id="more"></span>
-<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Hello-blogBlogPhoto.jpg" width = "30%"/>  
+    <title>DL：深度学习相关概念</title>
+    <url>/DL/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>从机器学习到深度学习：<a href="https://www.cnblogs.com/subconscious/p/4107357.html">从机器学习谈起</a>，<a href="https://www.cnblogs.com/subconscious/p/5058741.html">从神经元到深度学习</a><br>什么是卷积讲解视频：<a href="https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a">大白话讲解卷积神经网络工作原理</a></p>
+<h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a>深度学习框架</h1><pre class="mermaid">graph LR
+A[程序框架]-->B[A.黑箱]
+A-->C[B.模块化] -->1.处理数据
+C-->2.构建网络
+C-->3.损失函数
+C-->4.优化函数
+C-->5.模型保存
+A-->E[C.定义]</pre>
 
-<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
-<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
-<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
-<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
-<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
-<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
-<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
-<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
-<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
-<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>统计人数、阅读次数：<br>&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>统计字数、阅读时间：</p>
+<img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL1.png" width = "80%" />
+
+<p>GPU 网络和数据要同时送进GPU</p>
+<h2 id="感受野-Receptive-field"><a href="#感受野-Receptive-field" class="headerlink" title="感受野(Receptive field)"></a>感受野(Receptive field)</h2><p>感受野（Receptive Field）是指在卷积神经网络（CNN）中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。<br><img src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  /></p>
+<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL2.png" width = "50%" /><br><img src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "50%" /></p>
+<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><img alt="图 37" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DL-Conv.jpg" />  
+
+
+<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
+<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL3.gif" width = "60%" />
+
+<p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL4.png" alt="图 4">  </p>
+<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> $^1$（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> $^2$。</p>
+<blockquote>
 <ol>
-<li>npm install hexo-word-counter</li>
-<li>&#x2F;next&#x2F;_config:设置item_text_total为true</li>
+<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
+<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
 </ol>
-<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>配置博客链接：_config中<code>permalink: :title/</code></p>
-<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><ol>
-<li>在项目根目录下运行 <code>npm install hexo-generator-searchdb --save</code></li>
-<li>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable改为true</li>
+</blockquote>
+<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
+<blockquote>
+<ol>
+<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
+<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
+<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
 </ol>
-<h4 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h4><p>创建一个 Github Application 用来授权登录，如果没有 <a href="https://github.com/settings/applications/new">点击这里申请</a>, url都填<code>https://github.com/Arrowes/Arrowes.github.io</code></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"># Gitalk</span><br><span class="line"># For more information: https://gitalk.github.io</span><br><span class="line">gitalk:</span><br><span class="line">  enable: true</span><br><span class="line">  github_id: Arrowes # GitHub repo owner</span><br><span class="line">  repo: Arrowes.github.io # Repository name to store issues</span><br><span class="line">  client_id: <span class="number">0</span>cf14e51c1582cf64289 # GitHub Application Client ID</span><br><span class="line">  client_secret: <span class="number">5</span>e8273d27714e40495267c73e607c******** # GitHub Application Client Secret</span><br><span class="line">  admin_user: Arrowes # GitHub repo owner and collaborators, only these guys can initialize gitHub issues</span><br><span class="line">  distraction_free_mode: true # Facebook-like distraction free mode</span><br><span class="line">  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
+<h3 id="基于距离度量的损失函数"><a href="#基于距离度量的损失函数" class="headerlink" title="基于距离度量的损失函数"></a>基于距离度量的损失函数</h3><p>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。<br><strong>L1范数损失函数（MAE）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；<br><strong>L2损失函数（MSE均方误差损失函数）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
+<h3 id="基于概率分布度量的损失函数"><a href="#基于概率分布度量的损失函数" class="headerlink" title="基于概率分布度量的损失函数"></a>基于概率分布度量的损失函数</h3><p>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。<br><strong>KL散度（ Kullback-Leibler divergence）</strong><br>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。</p>
+<p>交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数</p>
+<p>在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。</p>
+<p>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 </p>
+<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
+<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
+<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL5.png" width = "50%" /></p>
+<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
+<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL6.png" alt="图 6">  </p>
+<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
+<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
+<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL7.png" alt="图 7"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
+<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL8.png" width = "70%" />
 
-<h4 id="首页展示文章数"><a href="#首页展示文章数" class="headerlink" title="首页展示文章数"></a>首页展示文章数</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#Hexo-config</span>文件修改</span><br><span class="line">index_generator:</span><br><span class="line">  path: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">0</span> #不分页</span><br></pre></td></tr></table></figure>
-
-<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
-<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
-</li>
-<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">1</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在主题配置文件&#x2F;next&#x2F;_config中 excerpt_description 改为false</p>
-</li>
-</ol>
-<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
-<li>配置 主题配置文件中删掉tags的注释</li>
-<li>文件 新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
-<li>文章 <code>tags: - XXX</code></li>
-</ol>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>主题配置文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">every_page:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mathjax:  enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
-<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
-<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
-<li>引用时直接 &#x2F;resume&#x2F;</li>
-</ol>
-<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
-<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
-<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
-<p><strong>Markdown 粘贴插件</strong><br>Markdown paste 右键智能粘贴<br>Paste URL Ctrl+Alt+P快速粘贴链接</p>
-<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.sevencdn.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.sevencdn.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
-<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
-<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
-<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，多试几次</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<em>Download ZIP</em>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
-<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
-<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
-<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
-<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
-<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+<p>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
+<blockquote>
+<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
+</blockquote>
+<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
+<p><em><a href="mailto:&#x6d;&#97;&#x70;&#64;&#x30;&#x2e;&#x35;">&#x6d;&#97;&#x70;&#64;&#x30;&#x2e;&#x35;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
+<p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
+<blockquote>
+<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
+</blockquote>
+<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
+<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
+<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
+<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
+<p><strong>换算计算量</strong>,一般一个参数是指一个float，也就是４个字节,1kb&#x3D;1024字节</p>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL13.png" alt="图 13"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL14.png" alt="图 14"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL15.png" alt="图 15">  </p>
+]]></content>
       <tags>
-        <tag>技术</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -751,6 +670,87 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
+    <url>/Hello-blog/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
+[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
+[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
+[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
+[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
+[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>。</p>
+<span id="more"></span>
+<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Hello-blogBlogPhoto.jpg" width = "30%"/>  
+
+<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
+<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
+<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
+<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
+<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
+<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
+<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
+<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
+<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>统计人数、阅读次数：<br>&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>统计字数、阅读时间：</p>
+<ol>
+<li>npm install hexo-word-counter</li>
+<li>&#x2F;next&#x2F;_config:设置item_text_total为true</li>
+</ol>
+<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>配置博客链接：_config中<code>permalink: :title/</code></p>
+<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><ol>
+<li>在项目根目录下运行 <code>npm install hexo-generator-searchdb --save</code></li>
+<li>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable改为true</li>
+</ol>
+<h4 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h4><p>创建一个 Github Application 用来授权登录，如果没有 <a href="https://github.com/settings/applications/new">点击这里申请</a>, url都填<code>https://github.com/Arrowes/Arrowes.github.io</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"># Gitalk</span><br><span class="line"># For more information: https://gitalk.github.io</span><br><span class="line">gitalk:</span><br><span class="line">  enable: true</span><br><span class="line">  github_id: Arrowes # GitHub repo owner</span><br><span class="line">  repo: Arrowes.github.io # Repository name to store issues</span><br><span class="line">  client_id: <span class="number">0</span>cf14e51c1582cf64289 # GitHub Application Client ID</span><br><span class="line">  client_secret: <span class="number">5</span>e8273d27714e40495267c73e607c******** # GitHub Application Client Secret</span><br><span class="line">  admin_user: Arrowes # GitHub repo owner and collaborators, only these guys can initialize gitHub issues</span><br><span class="line">  distraction_free_mode: true # Facebook-like distraction free mode</span><br><span class="line">  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
+
+<h4 id="首页展示文章数"><a href="#首页展示文章数" class="headerlink" title="首页展示文章数"></a>首页展示文章数</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#Hexo-config</span>文件修改</span><br><span class="line">index_generator:</span><br><span class="line">  path: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">0</span> #不分页</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
+<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
+</li>
+<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
+ <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">1</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在主题配置文件&#x2F;next&#x2F;_config中 excerpt_description 改为false</p>
+</li>
+</ol>
+<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
+<li>配置 主题配置文件中删掉tags的注释</li>
+<li>文件 新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
+<li>文章 <code>tags: - XXX</code></li>
+</ol>
+<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>主题配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="attr">every_page:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mathjax:  enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
+<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
+<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
+<li>引用时直接 &#x2F;resume&#x2F;</li>
+</ol>
+<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
+<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
+<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
+<p><strong>Markdown 粘贴插件</strong><br>Markdown paste 右键智能粘贴<br>Paste URL Ctrl+Alt+P快速粘贴链接</p>
+<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.sevencdn.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.sevencdn.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
+<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
+<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
+<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，多试几次</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<em>Download ZIP</em>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
+<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
+<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
+<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
+<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
+<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+      <tags>
+        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
@@ -1671,167 +1671,8 @@ B-->C</pre>
 </blockquote>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TDA4②：环境搭建、模型转换、Demo及Tools</title>
-    <url>/TDA4VM2/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见上一篇：<a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>环境搭建需要下载SDK：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
-<p>以下两节是EVM板的PSDK RTOS与PSDK Linux的环境搭建，因为暂时没有EVM板所以<em>没有上板测试</em>，只有SK板可以跳到第三节 TDA4VM-SK 配置。</p>
-<h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
-<p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#ti-processor-sdk-linux-j7-evm*/board-support/</span></span><br><span class="line">Make linux        <span class="comment">#编译Linux kernel代码和dtb，主要用于内核驱动的修改和裁剪。安装命令可以将内核和驱动模块自动拷贝到TF卡中。</span></span><br><span class="line">Make linux_install  <span class="comment">#生成built-images</span></span><br><span class="line">Make u-boot       <span class="comment">#编译u-boot代码，主要分为两部分：运行在MCU上的r5f部分和运行在A72上的a53部分。此处A72兼容A53指令集。</span></span><br><span class="line">Make sysfw-image  <span class="comment">#生成sysfw固件，主要在修改MSMC大小的时候会用到。</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="RTOS-SDK-环境搭建"><a href="#RTOS-SDK-环境搭建" class="headerlink" title="RTOS SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a> 环境搭建</h1><blockquote>
-<p>下载：<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03-prebuilt.tar<br>+两个dataset.tar.gz</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz  <span class="comment">#解压</span></span><br><span class="line"><span class="comment">#配置RTOS和Linux的安装环境变量</span></span><br><span class="line"><span class="built_in">export</span> PSDKL_PATH=/home/wyj/SDK/ti-processor-sdk-linux-j7-evm-08_06_01_02</span><br><span class="line"><span class="built_in">export</span> PSDKR_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03</span><br><span class="line"><span class="comment">#拷贝linux系统文件和linux启动文件到psdk rtos文件夹（或从rtos-prebuilt.tar）</span></span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/board-support/prebuilt-images/boot-j7-evm.tar.gz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/filesystem/tisdk-default-image-j7-evm.tar.xz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="comment">#安装依赖库和下载编译器，若安装报错则需换源，有包没安上会影响之后的make</span></span><br><span class="line">./psdk_rtos/scripts/setup_psdk_rtos.sh  <span class="comment">#若卡在git clone则进.sh把git://换成https://</span></span><br><span class="line"><span class="comment">#Packages installed successfully</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Vision-Apps-Demo-编译"><a href="#Vision-Apps-Demo-编译" class="headerlink" title="Vision Apps Demo 编译"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/vision_apps/docs/user_guide/ENVIRONMENT_SETUP.html">Vision Apps Demo</a> 编译</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改文件 tiovx/build_flags.mak（没修改过则是默认）</span></span><br><span class="line">BUILD_EMULATION_MODE=no <span class="comment">#非模拟器模式</span></span><br><span class="line">BUILD_TARGET_MODE=<span class="built_in">yes</span></span><br><span class="line">BUILD_LINUX_A72=<span class="built_in">yes</span></span><br><span class="line">PROFILE=release</span><br><span class="line"><span class="comment">#Optional:配置tiovx/build_flags.mak, vision_apps/vision_apps_build_flags.mak</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#开始编译vision apps</span></span><br><span class="line"><span class="built_in">cd</span> vision_apps</span><br><span class="line">make vision_apps -j8    <span class="comment">#若缺少core-secdev-k3包，手动导入(https://git.ti.com/cgit/security-development-tools/core-secdev-k3/snapshot/core-secdev-k3-08.06.00.006.tar.gz)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#编译成功可以看到对应目录下有产出文件，RTOS SDK主要使用了一个开源编译框架concerto，这个框架基于Makefile，他能够自动搜索当前目录内的所有concerto.mak文件，并且分析依赖，一次将各个核心的固件全部编译出来。编译生成的文件位于</span></span><br><span class="line">vision_apps/out/J7/A72/LINUX/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/R5F/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C66/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C71/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line"><span class="comment">##If clean build of vision_apps/clean the full PSDK RTOS</span></span><br><span class="line"><span class="comment">#cd vision_apps, make vision_apps_scrub/make sdk_scrub</span></span><br></pre></td></tr></table></figure>
-<details>
-<summary>配置SD卡(EVM)</summary>
-配置SD卡(EVM)，在TDA4VM的开发过程中，都是使用TF卡进行开发的。在单片机开发平台下，通常是直接用电脑使用USB方式将固件烧写到板卡的eMMC或FLASH中去。在TI平台下，首选的调试方法是使用TF卡：TF卡会被划分为两个分区，一个是 *BOOT* 分区（FAT32），用于存放bootloader如uboot等，另一个是 *rootfs* 分区（ext4），用于存放Linux需要的文件系统。每次Ubuntu编译完成的固件都需要手动拷贝到TF卡中，然后将TF卡插入EVM上电启动。
-
-<p><code>df -h</code>, 查得SD卡设备名 <code>/dev/sdb</code><br>使用RTOS SDK prebuilt中的脚本依次执行：</p>
-<table>
-<thead>
-<tr>
-<th>脚本</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>sudo .&#x2F;mk-linux-card.sh &#x2F;dev&#x2F;sdb</td>
-<td>用途：将TF卡重新分区、并且格式化</td>
-</tr>
-<tr>
-<td>.&#x2F;install_to_sd_card.sh</td>
-<td>将该脚本旁边的文件系统压缩包直接拷贝到&#x2F;media&#x2F;USER&#x2F;BOOT和&#x2F;media&#x2F;USER&#x2F;rootfs中，需要十几分钟，之后该卡就可以启动了。</td>
-</tr>
-<tr>
-<td>.&#x2F;install_data_set_to_sd_card.sh .&#x2F;psdk_rtos_ti_data_set_08_06_00.tar.gz</td>
-<td>以及.&#x2F;psdk_rtos_ti_data_set_08_06_00_j721e.tar.gz，将数据集解压到TF卡中对应的位置，这样默认SDK配套的Demo就可以正常运行。</td>
-</tr>
-</tbody></table>
-<p>添加可执行文件至SD card</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;PSDKR_PATH&#125;</span>/vision_apps</span><br><span class="line">make linux_fs_install_sd</span><br></pre></td></tr></table></figure>
-<p>然后即可插在EVM端运行，这里没有，跳过。</p>
-</details>
-
-<hr>
-<p>上面都是EVM板的相关环境配置，后面只拿到了SK板，因此转为SK板的相关配置。</p>
-<h1 id="TDA4VM-SK-配置"><a href="#TDA4VM-SK-配置" class="headerlink" title="TDA4VM-SK 配置"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">TDA4VM-SK</a> 配置</h1><p>硬件信息：<a href="https://www.ti.com.cn/cn/lit/ug/zhcu912c/zhcu912c.pdf">SK-TDA4VM 用户指南</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/running_simple_demos.html">Processor SDK Linux for Edge AI Documentation</a><br>配置文档：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">Processor SDK Linux for SK-TDA4VM Documentation - getting_started</a>，详细说明了如何配置，下面是简要步骤：</p>
-<blockquote>
-<p>物料准备：<br>SK板，microUSB串口线，USB camera，HDMI&#x2F;DP显示器，≥16GB的内存卡，网线和局域网*，串口电源（5-20V DC ≥20w），散热风扇</p>
-</blockquote>
-<p>通过USB挂载SD卡到Ubuntu<br>下载<a href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-SK-TDA4VM">SD card .wic image</a><br>使用<a href="https://github.com/balena-io/etcher/releases/tag/v1.7.0">Balena etcher tool 1.7.0</a> 把 SD card .wic image <code>flash</code>到SD卡上<br>然后插入SD卡到SK板，拨码开关拨到数字端，系统从SD卡启动<br>SK板连接显示器，上电，进入界面。</p>
-<p>连接串口线，在虚拟机设置中挂载USB串口，使用 <a href="https://help.ubuntu.com/community/Minicom">minicom</a> 串口通讯：<br>(在minicom中自动换行：Ctrl+A Z W)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk</span></span><br><span class="line"><span class="comment">#若连接了USB摄像头此时会显示端口信息，也可以运行 ./init_script.sh 查摄像头端口号：/dev/video2</span></span><br></pre></td></tr></table></figure>
-
-<p>连接显示器后（HDMI&#x2F;DP），可以鼠标点击试运行开箱即用的 GUI 应用程序，也可使用 Python 和C++参考示例开发边缘 AI 应用程序：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#配置</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/configs/  <span class="comment">#app_config_template.yaml中有参数介绍</span></span><br><span class="line">vi image_classification.yaml  <span class="comment">#flow参数配置为摄像头输入input0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Classification (python)</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_python</span><br><span class="line">./app_edgeai.py ../configs/image_classification.yaml  <span class="comment">#ctrl+c退出</span></span><br><span class="line"><span class="comment">#替换为configs下其他文件能执行不同任务如object_detection.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Classification (c++)</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_cpp</span><br><span class="line">./bin/Release/app_edgeai ../configs/image_classification.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment">#视频流车辆检测</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/scripts/optiflow</span><br><span class="line">`./optiflow.py ../../configs/object_detection.yaml -t`  <span class="comment">#如果没有单引号，终端会将 -t 选项解释为一个单独的参数，而不是作为 optiflow.py 命令的选项之一</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#多flows</span></span><br><span class="line">flows:</span><br><span class="line">    <span class="comment"># flowname : [input,mode1,output,[mosaic_pos_x,mosaic_pos_y,width,height]]</span></span><br><span class="line">    flow0: [input0,model1,output0,[160,90,800,450]]</span><br><span class="line">    flow1: [input0,model2,output0,[960,90,800,450]]</span><br><span class="line">    flow2: [input1,model0,output0,[160,540,800,450]]</span><br><span class="line">    flow3: [input1,model3,output0,[960,540,800,450]]</span><br></pre></td></tr></table></figure>
-<p>如果运行过程中突然重启，一般是需要加个<em>风扇</em>增强散热</p>
-<p>可选操作：</p>
-<ul>
-<li>连接网线，ifconfig查询板子ip地址，后面即可使用ssh登陆，可以使用vscode的remote插件来直接ssh登陆到板子，然后可以很方便地修改配置文件</li>
-<li>安装tensorflow，onnx，python和c++依赖库 <code>/opt/edge_ai_apps#./setup_script.sh </code></li>
-</ul>
-<p><strong>Dataflows</strong><br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai_object_detection.png" width='90%'><br>GStreamer input pipeline:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">v4l2src device=/dev/video18 io-mode=2 ! image/jpeg, width=1280, height=720 ! jpegdec ! tiovxdlcolorconvert ! video/x-raw, format=NV12 ! tiovxmultiscaler name=split_01</span><br><span class="line">split_01. ! queue ! video/x-raw, width=320, height=320 ! tiovxdlpreproc data-type=10 channel-order=1 mean-0=128.000000 mean-1=128.000000 mean-2=128.000000 scale-0=0.007812 scale-1=0.007812 scale-2=0.007812 tensor-format=rgb out-pool-size=4 ! application/x-tensor-tiovx ! appsink name=pre_0 max-buffers=2 drop=<span class="literal">true</span></span><br><span class="line">split_01. ! queue ! video/x-raw, width=1280, height=720 ! tiovxdlcolorconvert out-pool-size=4 ! video/x-raw, format=RGB ! appsink name=sen_0 max-buffers=2 drop=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>GStreamer output pipeline:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">appsrc format=GST_FORMAT_TIME is-live=<span class="literal">true</span> block=<span class="literal">true</span> do-timestamp=<span class="literal">true</span> name=post_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1280, height=720 ! queue ! mosaic_0.sink_0</span><br><span class="line">appsrc format=GST_FORMAT_TIME block=<span class="literal">true</span> num-buffers=1 name=background_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1920, height=1080 ! queue ! mosaic_0.background</span><br><span class="line">tiovxmosaic name=mosaic_0</span><br><span class="line">sink_0::startx=<span class="string">&quot;&lt;320&gt;&quot;</span>  sink_0::starty=<span class="string">&quot;&lt;180&gt;&quot;</span>  sink_0::widths=<span class="string">&quot;&lt;1280&gt;&quot;</span>   sink_0::heights=<span class="string">&quot;&lt;720&gt;&quot;</span></span><br><span class="line">! video/x-raw,format=NV12, width=1920, height=1080 ! kmssink <span class="built_in">sync</span>=<span class="literal">false</span> driver-name=tidss</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/TexasInstruments/edgeai-gst-apps/tree/44f4d44ddcda766d2abb5e89b9b112a1280f99ec">Edge AI application stack</a><br><img src='https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai-app-stack.jpg' width='80%'></p>
-<h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html">TIDL</a></h1><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_import_process.png" >
-
-<h2 id="Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK"><a href="#Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK" class="headerlink" title="Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)"></a>Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)</h2><p>文档教程：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html#importing-mobilenetv2-model-for-image-classification">MobileNetV2 Tensorflow，PeleeNet Caffe，JSegNet21V2 Caffe model</a>，下面以PeleeNet为例</p>
-<p><strong>Config</strong> TIDL</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03/tidl_j721e_08_06_00_10</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#optional：tidlModelGraphviz tool 模型可视化工具</span></span><br><span class="line">sudo apt install graphviz-dev</span><br><span class="line"><span class="built_in">export</span> TIDL_GRAPHVIZ_PATH=/usr</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/utils/tidlModelGraphviz</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-
-<p><strong>Import</strong>ing PeleeNet model for object detection (caffe)<br><a href="https://drive.google.com/file/d/1KJHKYQ2nChZXlxroZRpg-tRsksTXUhe9/view">下载</a>并提取.caffemodel，deploy.prototxt放入<code>ti_dl/test/testvecs/models/public/caffe/peele/pelee_voc/</code><br>deploy.prototxt中改confidence_threshold: 0.4</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/utils/tidlModelImport</span><br><span class="line">./out/tidl_model_import.out <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test/testvecs/config/import/public/caffe/tidl_import_peeleNet.txt</span><br><span class="line"><span class="comment">#$&#123;TIDL_INSTALL_PATH&#125;/ti_dl/test/下面的配置文件在RTOSsdk8.6中找不到，要从SDK8.5复制！！！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#successful Memory allocation</span></span><br><span class="line"><span class="comment"># Compiled network and I/O .bin files used for inference</span></span><br><span class="line">    <span class="comment"># Compiled network file in ti_dl/test/testvecs/config/tidl_models/caffe/tidl_net_peele_300.bin</span></span><br><span class="line">    <span class="comment"># Compiled I/O file in ti_dl/test/testvecs/config/tidl_models/caffe/tidl_io_peele_300_1.bin</span></span><br><span class="line"><span class="comment"># Performance simulation results for network analysis in ti_dl/utils/perfsim/tidl_import_peeleNet.txt/tidl_import_peeleNet...csv</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#若是tensorflow例程，.pb需要先运行tensorflow的.local/lib/python3.6/site-packages/tensorflow/python/tools/optimize_for_inference.py工具进行模型推理优化，再导入。</span></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>Run</strong>ning PeleeNet for object detection</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在文件ti_dl/test/testvecs/config/config_list.txt顶部加入:</span></span><br><span class="line">1 testvecs/config/infer/public/caffe/tidl_infer_pelee.txt</span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"><span class="comment">#运行，结果在ti_dl/test/testvecs/output/</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test</span><br><span class="line">./PC_dsp_test_dl_algo.out</span><br><span class="line"><span class="comment">#若标注框尺寸不匹配，需要改deploy.prototxt文件顶部：dim: 512  dim: 1024</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 1" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/out_ti_lindau_000020.png" width="70%"/>  
-
-
-
-
-
-
-
-<h2 id="TIDL-RT"><a href="#TIDL-RT" class="headerlink" title="TIDL-RT"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_dependency_info.html">TIDL-RT</a></h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/ywang85/SDK/RTOSSDK/tidl_j721e_08_06_00_10   <span class="comment">#设置环境变量</span></span><br><span class="line"><span class="comment">#TARGET_PLATFORM=PC make gv失败：../../inc/itidl_ti.h:91:21: fatal error: ivision.h: No such file or directory</span></span><br><span class="line"><span class="comment">#跳过，不修改code暂时不要rebuild</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>EdgeAI TIDL Tools是TI提供的深度学习开发工具，后续会多次用到。</p>
-<p>要求：OS——Ubuntu 18.04，Python Version——3.6<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png" width="60%"/>  </p>
-<ol>
-<li>OSRT(Open Source Runtimes:TFLite,ONNX,TVM) 作为用户应用程序的顶级推理 API</li>
-<li>将子图卸载到 C7x&#x2F;MMA 以使用TIDL进行加速执行</li>
-<li>在 ARM 核心上运行优化代码，以支持 TIDL 不支持的层（<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/supported_ops_rts_versions.md">支持情况</a>）</li>
-</ol>
-<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/tree/08_06_00_05#setup">Setup - TexasInstruments&#x2F;edgeai-tidl-tools at 08_06_00_05</a></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line"><span class="built_in">cd</span> edgeai-tidl-tools</span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh</span><br><span class="line"><span class="comment">#Docker Based X86_PC Setup 跳过，不用docker装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置变量</span></span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">export</span> TIDL_TOOLS_PATH=$(<span class="built_in">pwd</span>)/tidl_tools</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$TIDL_TOOLS_PATH</span></span><br><span class="line"><span class="built_in">export</span> ARM64_GCC_PATH=$(<span class="built_in">pwd</span>)/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">source</span> ./scripts/run_python_examples.sh <span class="comment">#编译运行</span></span><br><span class="line">python3 ./scripts/gen_test_report.py    <span class="comment">#评估</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Compile and Validate on X86_PC for cpp_example</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake ../examples &amp;&amp; make -j &amp;&amp; <span class="built_in">cd</span> ..</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th align="center">Image Classification</th>
-<th align="center">Object detection</th>
-<th align="center">Semantic Segmentation</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_cls.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_cls.jpg"></a></td>
-<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_od.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_od.jpg"></a></td>
-<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_ss.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_ss.jpg"></a></td>
-</tr>
-</tbody></table>
-<h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a><a href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a></h2><img src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2studio.png" width="80%"/>  
-
-<p>TI官方提供的云端环境，集成了一系列工具,无需本地搭环境，使用需要申请，提供两个工具：</p>
-<ul>
-<li><a href="https://dev.ti.com/modelcomposer/">Model Composer</a>： 为 TI 嵌入式处理器训练、优化和编译 AI 模型。支持数据采集，标注，模型训练，以及上板编译，<strong>一步到位</strong>。目前仅支持分类和检测任务，只能使用modelzoo中的模型进行训练，比如OD任务只有yolox模型，灵活度不高，主打方便快捷。</li>
-<li><a href="https://dev.ti.com/edgeaisession/">Model Analyzer</a>：远程连接到真实的评估硬件，基于jupyter notebook，在 TI 嵌入式处理器上部署和测试 AI 模型性能，进行多个模型的Benchmark。前身叫做 TI edge AI cloud。</li>
-</ul>
-<h3 id="Model-Analyzer"><a href="#Model-Analyzer" class="headerlink" title="Model Analyzer"></a>Model Analyzer</h3><p>选TDA4VM设备，能使用3h，文件在顶端My Workspace;<br>进入后分两大板块:</p>
-<ul>
-<li>Find your model: Compare model performance, 能查看不同模型在板端的表现，用来选择适合自己需求的模型；<img src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2perform.png" width="70%"/>  </li>
-<li>Get model benchmarks：<ul>
-<li>Model performance 是配置好的jupyter notebook，无需修改一步步运行即可输出结果；</li>
-<li>下面重点使用Custom models：</li>
-</ul>
-</li>
-</ul>
-<p><strong>Custom models</strong>（onnxRT）</p>
-<ul>
-<li>编译模型（在异构模型编译期间，支持的层将被装载到<code>TI-DSP</code>，生成推理所需工件（artifacts））</li>
-<li>使用生成的工件进行推理</li>
-<li><em>执行输入预处理和输出后处理</em></li>
-<li>启用调试日志</li>
-<li>使用deny-layer编译选项来隔离可能有问题的层并创建额外的模型子图</li>
-<li>使用生成的子图工件进行推理</li>
-<li><em>执行输入预处理和输出后处理</em></li>
-</ul>
-<p>Create Onnx runtime with <code>tidl_model_import_onnx</code> library to generate artifacts that offload supported portion of the DL model to the TI DSP.<br>参数配置见<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md#user-options-for-tidl-acceleration">User options for TIDL Acceleration</a></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># &#x27;sess&#x27; model compilation options</span></span><br><span class="line">compile_options = &#123;</span><br><span class="line">    <span class="string">&#x27;tidl_tools_path&#x27;</span> : os.environ[<span class="string">&#x27;TIDL_TOOLS_PATH&#x27;</span>], <span class="comment">#tidl tools 路径</span></span><br><span class="line">    <span class="string">&#x27;artifacts_folder&#x27;</span> : output_dir, <span class="comment">#编译输出目录</span></span><br><span class="line">    <span class="string">&#x27;tensor_bits&#x27;</span> : num_bits,    <span class="comment">#量化位数</span></span><br><span class="line">    <span class="string">&#x27;accuracy_level&#x27;</span> : accuracy, <span class="comment">#精度级别，0快但精度低，1慢但精度高</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_frames&#x27;</span> : <span class="built_in">len</span>(calib_images),  <span class="comment">#设置用于校准模型量化参数的图片</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_iterations&#x27;</span> : <span class="number">3</span>, <span class="comment">#设置校准迭代次数 used if accuracy_level = 1</span></span><br><span class="line">    <span class="string">&#x27;debug_level&#x27;</span> : <span class="number">1</span>, <span class="comment">#设置调试级别，级别越高提供的调试信息越详细</span></span><br><span class="line">    <span class="string">&#x27;deny_list&#x27;</span> : <span class="string">&quot;MaxPool&quot;</span> <span class="comment">#排除ONNXRT不支持的层</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个会话选项对象，可以设置GPU加速、CPU 线程数、精度模式等会话参数</span></span><br><span class="line">so = rt.SessionOptions() <span class="comment">#此处默认参数</span></span><br><span class="line"><span class="comment"># 设置执行提供者列表，包含 TIDLCompilationProvider 和 CPUExecutionProvider</span></span><br><span class="line">EP_list = [<span class="string">&#x27;TIDLCompilationProvider&#x27;</span>, <span class="string">&#x27;CPUExecutionProvider&#x27;</span>]</span><br><span class="line"><span class="comment"># compile the model with TIDL acceleration by passing required compilation options.</span></span><br><span class="line">sess = rt.InferenceSession(onnx_model_path, providers=EP_list, provider_options=[compile_options, &#123;&#125;], sess_options=so)</span><br><span class="line"><span class="comment"># 载入 ONNX 模型并进行推理。可以使用 sess 对象来进行标准化、预处理、推理等操作，还可以获取模型的输入信息、输出信息、元图信息等</span></span><br><span class="line"><span class="comment"># At the end of model compilation step, model-artifacts for inference will be generated in user specified path.</span></span><br><span class="line"></span><br><span class="line">input_details = sess.get_inputs() <span class="comment"># 获取输入数据信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对校准图片进行预处理并进行推理，并将输出结果存储到 output 列表中</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> tqdm.trange(<span class="built_in">len</span>(calib_images)):</span><br><span class="line">    output = <span class="built_in">list</span>(sess.run(<span class="literal">None</span>, &#123;input_details[<span class="number">0</span>].name : preprocess_for_onnx_resent18v2(calib_images[num])&#125;))[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># Create OSRT inference session with TIDL acceleration option for running inference with generated model artifacts in the above step.</span></span><br></pre></td></tr></table></figure>
-
-<p>Then using Onnx with the libtidl_onnxrt_EP inference library we run the model and collect benchmark data.<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png" width="88%"/>  </p>
-<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md">edgeai-tidl-tools:Python Examples</a><br><a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a></p>
-<h1 id="EdgeAI-Benchmark"><a href="#EdgeAI-Benchmark" class="headerlink" title="EdgeAI-Benchmark"></a><a href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master">EdgeAI-Benchmark</a></h1><p>EdgeAI-Benchmark提供了一系列针对不同图像识别任务的脚本，包括分类、分割、检测和关键点检测。（使用<a href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a>用于模型编译和推理）</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>文档：<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/docs/setup_instructions.md">setup_instructions</a>，其中<code>pyenv install 3.6</code>可能因为网络原因下载极慢，这时可以先从官网或镜像源下载所需要的包到 ~&#x2F;.pyenv&#x2F;cache 目录下，再执行安装命令<br>此后每次需要激活环境：<code>pyenv activate benchmark</code></p>
-<h2 id="edgeai-tidl-tools-docs-custom-model-evaluation-md"><a href="#edgeai-tidl-tools-docs-custom-model-evaluation-md" class="headerlink" title="edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</a></h2><blockquote>
-<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
-</blockquote>
-]]></content>
-      <tags>
         <tag>深度学习</tag>
-        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -2540,8 +2381,167 @@ B-->C</pre>
 </blockquote>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>嵌入式</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TDA4②：环境搭建、模型转换、Demo及Tools</title>
+    <url>/TDA4VM2/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见上一篇：<a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>环境搭建需要下载SDK：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
+<p>以下两节是EVM板的PSDK RTOS与PSDK Linux的环境搭建，因为暂时没有EVM板所以<em>没有上板测试</em>，只有SK板可以跳到第三节 TDA4VM-SK 配置。</p>
+<h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
+<p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#ti-processor-sdk-linux-j7-evm*/board-support/</span></span><br><span class="line">Make linux        <span class="comment">#编译Linux kernel代码和dtb，主要用于内核驱动的修改和裁剪。安装命令可以将内核和驱动模块自动拷贝到TF卡中。</span></span><br><span class="line">Make linux_install  <span class="comment">#生成built-images</span></span><br><span class="line">Make u-boot       <span class="comment">#编译u-boot代码，主要分为两部分：运行在MCU上的r5f部分和运行在A72上的a53部分。此处A72兼容A53指令集。</span></span><br><span class="line">Make sysfw-image  <span class="comment">#生成sysfw固件，主要在修改MSMC大小的时候会用到。</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="RTOS-SDK-环境搭建"><a href="#RTOS-SDK-环境搭建" class="headerlink" title="RTOS SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a> 环境搭建</h1><blockquote>
+<p>下载：<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03-prebuilt.tar<br>+两个dataset.tar.gz</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz  <span class="comment">#解压</span></span><br><span class="line"><span class="comment">#配置RTOS和Linux的安装环境变量</span></span><br><span class="line"><span class="built_in">export</span> PSDKL_PATH=/home/wyj/SDK/ti-processor-sdk-linux-j7-evm-08_06_01_02</span><br><span class="line"><span class="built_in">export</span> PSDKR_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03</span><br><span class="line"><span class="comment">#拷贝linux系统文件和linux启动文件到psdk rtos文件夹（或从rtos-prebuilt.tar）</span></span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/board-support/prebuilt-images/boot-j7-evm.tar.gz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/filesystem/tisdk-default-image-j7-evm.tar.xz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="comment">#安装依赖库和下载编译器，若安装报错则需换源，有包没安上会影响之后的make</span></span><br><span class="line">./psdk_rtos/scripts/setup_psdk_rtos.sh  <span class="comment">#若卡在git clone则进.sh把git://换成https://</span></span><br><span class="line"><span class="comment">#Packages installed successfully</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Vision-Apps-Demo-编译"><a href="#Vision-Apps-Demo-编译" class="headerlink" title="Vision Apps Demo 编译"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/vision_apps/docs/user_guide/ENVIRONMENT_SETUP.html">Vision Apps Demo</a> 编译</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改文件 tiovx/build_flags.mak（没修改过则是默认）</span></span><br><span class="line">BUILD_EMULATION_MODE=no <span class="comment">#非模拟器模式</span></span><br><span class="line">BUILD_TARGET_MODE=<span class="built_in">yes</span></span><br><span class="line">BUILD_LINUX_A72=<span class="built_in">yes</span></span><br><span class="line">PROFILE=release</span><br><span class="line"><span class="comment">#Optional:配置tiovx/build_flags.mak, vision_apps/vision_apps_build_flags.mak</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#开始编译vision apps</span></span><br><span class="line"><span class="built_in">cd</span> vision_apps</span><br><span class="line">make vision_apps -j8    <span class="comment">#若缺少core-secdev-k3包，手动导入(https://git.ti.com/cgit/security-development-tools/core-secdev-k3/snapshot/core-secdev-k3-08.06.00.006.tar.gz)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#编译成功可以看到对应目录下有产出文件，RTOS SDK主要使用了一个开源编译框架concerto，这个框架基于Makefile，他能够自动搜索当前目录内的所有concerto.mak文件，并且分析依赖，一次将各个核心的固件全部编译出来。编译生成的文件位于</span></span><br><span class="line">vision_apps/out/J7/A72/LINUX/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/R5F/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C66/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C71/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line"><span class="comment">##If clean build of vision_apps/clean the full PSDK RTOS</span></span><br><span class="line"><span class="comment">#cd vision_apps, make vision_apps_scrub/make sdk_scrub</span></span><br></pre></td></tr></table></figure>
+<details>
+<summary>配置SD卡(EVM)</summary>
+配置SD卡(EVM)，在TDA4VM的开发过程中，都是使用TF卡进行开发的。在单片机开发平台下，通常是直接用电脑使用USB方式将固件烧写到板卡的eMMC或FLASH中去。在TI平台下，首选的调试方法是使用TF卡：TF卡会被划分为两个分区，一个是 *BOOT* 分区（FAT32），用于存放bootloader如uboot等，另一个是 *rootfs* 分区（ext4），用于存放Linux需要的文件系统。每次Ubuntu编译完成的固件都需要手动拷贝到TF卡中，然后将TF卡插入EVM上电启动。
+
+<p><code>df -h</code>, 查得SD卡设备名 <code>/dev/sdb</code><br>使用RTOS SDK prebuilt中的脚本依次执行：</p>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sudo .&#x2F;mk-linux-card.sh &#x2F;dev&#x2F;sdb</td>
+<td>用途：将TF卡重新分区、并且格式化</td>
+</tr>
+<tr>
+<td>.&#x2F;install_to_sd_card.sh</td>
+<td>将该脚本旁边的文件系统压缩包直接拷贝到&#x2F;media&#x2F;USER&#x2F;BOOT和&#x2F;media&#x2F;USER&#x2F;rootfs中，需要十几分钟，之后该卡就可以启动了。</td>
+</tr>
+<tr>
+<td>.&#x2F;install_data_set_to_sd_card.sh .&#x2F;psdk_rtos_ti_data_set_08_06_00.tar.gz</td>
+<td>以及.&#x2F;psdk_rtos_ti_data_set_08_06_00_j721e.tar.gz，将数据集解压到TF卡中对应的位置，这样默认SDK配套的Demo就可以正常运行。</td>
+</tr>
+</tbody></table>
+<p>添加可执行文件至SD card</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;PSDKR_PATH&#125;</span>/vision_apps</span><br><span class="line">make linux_fs_install_sd</span><br></pre></td></tr></table></figure>
+<p>然后即可插在EVM端运行，这里没有，跳过。</p>
+</details>
+
+<hr>
+<p>上面都是EVM板的相关环境配置，后面只拿到了SK板，因此转为SK板的相关配置。</p>
+<h1 id="TDA4VM-SK-配置"><a href="#TDA4VM-SK-配置" class="headerlink" title="TDA4VM-SK 配置"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">TDA4VM-SK</a> 配置</h1><p>硬件信息：<a href="https://www.ti.com.cn/cn/lit/ug/zhcu912c/zhcu912c.pdf">SK-TDA4VM 用户指南</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/running_simple_demos.html">Processor SDK Linux for Edge AI Documentation</a><br>配置文档：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">Processor SDK Linux for SK-TDA4VM Documentation - getting_started</a>，详细说明了如何配置，下面是简要步骤：</p>
+<blockquote>
+<p>物料准备：<br>SK板，microUSB串口线，USB camera，HDMI&#x2F;DP显示器，≥16GB的内存卡，网线和局域网*，串口电源（5-20V DC ≥20w），散热风扇</p>
+</blockquote>
+<p>通过USB挂载SD卡到Ubuntu<br>下载<a href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-SK-TDA4VM">SD card .wic image</a><br>使用<a href="https://github.com/balena-io/etcher/releases/tag/v1.7.0">Balena etcher tool 1.7.0</a> 把 SD card .wic image <code>flash</code>到SD卡上<br>然后插入SD卡到SK板，拨码开关拨到数字端，系统从SD卡启动<br>SK板连接显示器，上电，进入界面。</p>
+<p>连接串口线，在虚拟机设置中挂载USB串口，使用 <a href="https://help.ubuntu.com/community/Minicom">minicom</a> 串口通讯：<br>(在minicom中自动换行：Ctrl+A Z W)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk</span></span><br><span class="line"><span class="comment">#若连接了USB摄像头此时会显示端口信息，也可以运行 ./init_script.sh 查摄像头端口号：/dev/video2</span></span><br></pre></td></tr></table></figure>
+
+<p>连接显示器后（HDMI&#x2F;DP），可以鼠标点击试运行开箱即用的 GUI 应用程序，也可使用 Python 和C++参考示例开发边缘 AI 应用程序：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#配置</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/configs/  <span class="comment">#app_config_template.yaml中有参数介绍</span></span><br><span class="line">vi image_classification.yaml  <span class="comment">#flow参数配置为摄像头输入input0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Classification (python)</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_python</span><br><span class="line">./app_edgeai.py ../configs/image_classification.yaml  <span class="comment">#ctrl+c退出</span></span><br><span class="line"><span class="comment">#替换为configs下其他文件能执行不同任务如object_detection.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Classification (c++)</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_cpp</span><br><span class="line">./bin/Release/app_edgeai ../configs/image_classification.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment">#视频流车辆检测</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/scripts/optiflow</span><br><span class="line">`./optiflow.py ../../configs/object_detection.yaml -t`  <span class="comment">#如果没有单引号，终端会将 -t 选项解释为一个单独的参数，而不是作为 optiflow.py 命令的选项之一</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#多flows</span></span><br><span class="line">flows:</span><br><span class="line">    <span class="comment"># flowname : [input,mode1,output,[mosaic_pos_x,mosaic_pos_y,width,height]]</span></span><br><span class="line">    flow0: [input0,model1,output0,[160,90,800,450]]</span><br><span class="line">    flow1: [input0,model2,output0,[960,90,800,450]]</span><br><span class="line">    flow2: [input1,model0,output0,[160,540,800,450]]</span><br><span class="line">    flow3: [input1,model3,output0,[960,540,800,450]]</span><br></pre></td></tr></table></figure>
+<p>如果运行过程中突然重启，一般是需要加个<em>风扇</em>增强散热</p>
+<p>可选操作：</p>
+<ul>
+<li>连接网线，ifconfig查询板子ip地址，后面即可使用ssh登陆，可以使用vscode的remote插件来直接ssh登陆到板子，然后可以很方便地修改配置文件</li>
+<li>安装tensorflow，onnx，python和c++依赖库 <code>/opt/edge_ai_apps#./setup_script.sh </code></li>
+</ul>
+<p><strong>Dataflows</strong><br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai_object_detection.png" width='90%'><br>GStreamer input pipeline:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">v4l2src device=/dev/video18 io-mode=2 ! image/jpeg, width=1280, height=720 ! jpegdec ! tiovxdlcolorconvert ! video/x-raw, format=NV12 ! tiovxmultiscaler name=split_01</span><br><span class="line">split_01. ! queue ! video/x-raw, width=320, height=320 ! tiovxdlpreproc data-type=10 channel-order=1 mean-0=128.000000 mean-1=128.000000 mean-2=128.000000 scale-0=0.007812 scale-1=0.007812 scale-2=0.007812 tensor-format=rgb out-pool-size=4 ! application/x-tensor-tiovx ! appsink name=pre_0 max-buffers=2 drop=<span class="literal">true</span></span><br><span class="line">split_01. ! queue ! video/x-raw, width=1280, height=720 ! tiovxdlcolorconvert out-pool-size=4 ! video/x-raw, format=RGB ! appsink name=sen_0 max-buffers=2 drop=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>GStreamer output pipeline:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">appsrc format=GST_FORMAT_TIME is-live=<span class="literal">true</span> block=<span class="literal">true</span> do-timestamp=<span class="literal">true</span> name=post_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1280, height=720 ! queue ! mosaic_0.sink_0</span><br><span class="line">appsrc format=GST_FORMAT_TIME block=<span class="literal">true</span> num-buffers=1 name=background_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1920, height=1080 ! queue ! mosaic_0.background</span><br><span class="line">tiovxmosaic name=mosaic_0</span><br><span class="line">sink_0::startx=<span class="string">&quot;&lt;320&gt;&quot;</span>  sink_0::starty=<span class="string">&quot;&lt;180&gt;&quot;</span>  sink_0::widths=<span class="string">&quot;&lt;1280&gt;&quot;</span>   sink_0::heights=<span class="string">&quot;&lt;720&gt;&quot;</span></span><br><span class="line">! video/x-raw,format=NV12, width=1920, height=1080 ! kmssink <span class="built_in">sync</span>=<span class="literal">false</span> driver-name=tidss</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/TexasInstruments/edgeai-gst-apps/tree/44f4d44ddcda766d2abb5e89b9b112a1280f99ec">Edge AI application stack</a><br><img src='https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai-app-stack.jpg' width='80%'></p>
+<h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html">TIDL</a></h1><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_import_process.png" >
+
+<h2 id="Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK"><a href="#Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK" class="headerlink" title="Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)"></a>Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)</h2><p>文档教程：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html#importing-mobilenetv2-model-for-image-classification">MobileNetV2 Tensorflow，PeleeNet Caffe，JSegNet21V2 Caffe model</a>，下面以PeleeNet为例</p>
+<p><strong>Config</strong> TIDL</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03/tidl_j721e_08_06_00_10</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#optional：tidlModelGraphviz tool 模型可视化工具</span></span><br><span class="line">sudo apt install graphviz-dev</span><br><span class="line"><span class="built_in">export</span> TIDL_GRAPHVIZ_PATH=/usr</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/utils/tidlModelGraphviz</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p><strong>Import</strong>ing PeleeNet model for object detection (caffe)<br><a href="https://drive.google.com/file/d/1KJHKYQ2nChZXlxroZRpg-tRsksTXUhe9/view">下载</a>并提取.caffemodel，deploy.prototxt放入<code>ti_dl/test/testvecs/models/public/caffe/peele/pelee_voc/</code><br>deploy.prototxt中改confidence_threshold: 0.4</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/utils/tidlModelImport</span><br><span class="line">./out/tidl_model_import.out <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test/testvecs/config/import/public/caffe/tidl_import_peeleNet.txt</span><br><span class="line"><span class="comment">#$&#123;TIDL_INSTALL_PATH&#125;/ti_dl/test/下面的配置文件在RTOSsdk8.6中找不到，要从SDK8.5复制！！！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#successful Memory allocation</span></span><br><span class="line"><span class="comment"># Compiled network and I/O .bin files used for inference</span></span><br><span class="line">    <span class="comment"># Compiled network file in ti_dl/test/testvecs/config/tidl_models/caffe/tidl_net_peele_300.bin</span></span><br><span class="line">    <span class="comment"># Compiled I/O file in ti_dl/test/testvecs/config/tidl_models/caffe/tidl_io_peele_300_1.bin</span></span><br><span class="line"><span class="comment"># Performance simulation results for network analysis in ti_dl/utils/perfsim/tidl_import_peeleNet.txt/tidl_import_peeleNet...csv</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#若是tensorflow例程，.pb需要先运行tensorflow的.local/lib/python3.6/site-packages/tensorflow/python/tools/optimize_for_inference.py工具进行模型推理优化，再导入。</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>Run</strong>ning PeleeNet for object detection</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在文件ti_dl/test/testvecs/config/config_list.txt顶部加入:</span></span><br><span class="line">1 testvecs/config/infer/public/caffe/tidl_infer_pelee.txt</span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"><span class="comment">#运行，结果在ti_dl/test/testvecs/output/</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test</span><br><span class="line">./PC_dsp_test_dl_algo.out</span><br><span class="line"><span class="comment">#若标注框尺寸不匹配，需要改deploy.prototxt文件顶部：dim: 512  dim: 1024</span></span><br></pre></td></tr></table></figure>
+<img alt="picture 1" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/out_ti_lindau_000020.png" width="70%"/>  
+
+
+
+
+
+
+
+<h2 id="TIDL-RT"><a href="#TIDL-RT" class="headerlink" title="TIDL-RT"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_dependency_info.html">TIDL-RT</a></h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/ywang85/SDK/RTOSSDK/tidl_j721e_08_06_00_10   <span class="comment">#设置环境变量</span></span><br><span class="line"><span class="comment">#TARGET_PLATFORM=PC make gv失败：../../inc/itidl_ti.h:91:21: fatal error: ivision.h: No such file or directory</span></span><br><span class="line"><span class="comment">#跳过，不修改code暂时不要rebuild</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>EdgeAI TIDL Tools是TI提供的深度学习开发工具，后续会多次用到。</p>
+<p>要求：OS——Ubuntu 18.04，Python Version——3.6<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png" width="60%"/>  </p>
+<ol>
+<li>OSRT(Open Source Runtimes:TFLite,ONNX,TVM) 作为用户应用程序的顶级推理 API</li>
+<li>将子图卸载到 C7x&#x2F;MMA 以使用TIDL进行加速执行</li>
+<li>在 ARM 核心上运行优化代码，以支持 TIDL 不支持的层（<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/supported_ops_rts_versions.md">支持情况</a>）</li>
+</ol>
+<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/tree/08_06_00_05#setup">Setup - TexasInstruments&#x2F;edgeai-tidl-tools at 08_06_00_05</a></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line"><span class="built_in">cd</span> edgeai-tidl-tools</span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh</span><br><span class="line"><span class="comment">#Docker Based X86_PC Setup 跳过，不用docker装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置变量</span></span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">export</span> TIDL_TOOLS_PATH=$(<span class="built_in">pwd</span>)/tidl_tools</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$TIDL_TOOLS_PATH</span></span><br><span class="line"><span class="built_in">export</span> ARM64_GCC_PATH=$(<span class="built_in">pwd</span>)/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">source</span> ./scripts/run_python_examples.sh <span class="comment">#编译运行</span></span><br><span class="line">python3 ./scripts/gen_test_report.py    <span class="comment">#评估</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Compile and Validate on X86_PC for cpp_example</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake ../examples &amp;&amp; make -j &amp;&amp; <span class="built_in">cd</span> ..</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">Image Classification</th>
+<th align="center">Object detection</th>
+<th align="center">Semantic Segmentation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_cls.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_cls.jpg"></a></td>
+<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_od.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_od.jpg"></a></td>
+<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_ss.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_ss.jpg"></a></td>
+</tr>
+</tbody></table>
+<h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a><a href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a></h2><img src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2studio.png" width="80%"/>  
+
+<p>TI官方提供的云端环境，集成了一系列工具,无需本地搭环境，使用需要申请，提供两个工具：</p>
+<ul>
+<li><a href="https://dev.ti.com/modelcomposer/">Model Composer</a>： 为 TI 嵌入式处理器训练、优化和编译 AI 模型。支持数据采集，标注，模型训练，以及上板编译，<strong>一步到位</strong>。目前仅支持分类和检测任务，只能使用modelzoo中的模型进行训练，比如OD任务只有yolox模型，灵活度不高，主打方便快捷。</li>
+<li><a href="https://dev.ti.com/edgeaisession/">Model Analyzer</a>：远程连接到真实的评估硬件，基于jupyter notebook，在 TI 嵌入式处理器上部署和测试 AI 模型性能，进行多个模型的Benchmark。前身叫做 TI edge AI cloud。</li>
+</ul>
+<h3 id="Model-Analyzer"><a href="#Model-Analyzer" class="headerlink" title="Model Analyzer"></a>Model Analyzer</h3><p>选TDA4VM设备，能使用3h，文件在顶端My Workspace;<br>进入后分两大板块:</p>
+<ul>
+<li>Find your model: Compare model performance, 能查看不同模型在板端的表现，用来选择适合自己需求的模型；<img src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2perform.png" width="70%"/>  </li>
+<li>Get model benchmarks：<ul>
+<li>Model performance 是配置好的jupyter notebook，无需修改一步步运行即可输出结果；</li>
+<li>下面重点使用Custom models：</li>
+</ul>
+</li>
+</ul>
+<p><strong>Custom models</strong>（onnxRT）</p>
+<ul>
+<li>编译模型（在异构模型编译期间，支持的层将被装载到<code>TI-DSP</code>，生成推理所需工件（artifacts））</li>
+<li>使用生成的工件进行推理</li>
+<li><em>执行输入预处理和输出后处理</em></li>
+<li>启用调试日志</li>
+<li>使用deny-layer编译选项来隔离可能有问题的层并创建额外的模型子图</li>
+<li>使用生成的子图工件进行推理</li>
+<li><em>执行输入预处理和输出后处理</em></li>
+</ul>
+<p>Create Onnx runtime with <code>tidl_model_import_onnx</code> library to generate artifacts that offload supported portion of the DL model to the TI DSP.<br>参数配置见<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md#user-options-for-tidl-acceleration">User options for TIDL Acceleration</a></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># &#x27;sess&#x27; model compilation options</span></span><br><span class="line">compile_options = &#123;</span><br><span class="line">    <span class="string">&#x27;tidl_tools_path&#x27;</span> : os.environ[<span class="string">&#x27;TIDL_TOOLS_PATH&#x27;</span>], <span class="comment">#tidl tools 路径</span></span><br><span class="line">    <span class="string">&#x27;artifacts_folder&#x27;</span> : output_dir, <span class="comment">#编译输出目录</span></span><br><span class="line">    <span class="string">&#x27;tensor_bits&#x27;</span> : num_bits,    <span class="comment">#量化位数</span></span><br><span class="line">    <span class="string">&#x27;accuracy_level&#x27;</span> : accuracy, <span class="comment">#精度级别，0快但精度低，1慢但精度高</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_frames&#x27;</span> : <span class="built_in">len</span>(calib_images),  <span class="comment">#设置用于校准模型量化参数的图片</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_iterations&#x27;</span> : <span class="number">3</span>, <span class="comment">#设置校准迭代次数 used if accuracy_level = 1</span></span><br><span class="line">    <span class="string">&#x27;debug_level&#x27;</span> : <span class="number">1</span>, <span class="comment">#设置调试级别，级别越高提供的调试信息越详细</span></span><br><span class="line">    <span class="string">&#x27;deny_list&#x27;</span> : <span class="string">&quot;MaxPool&quot;</span> <span class="comment">#排除ONNXRT不支持的层</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个会话选项对象，可以设置GPU加速、CPU 线程数、精度模式等会话参数</span></span><br><span class="line">so = rt.SessionOptions() <span class="comment">#此处默认参数</span></span><br><span class="line"><span class="comment"># 设置执行提供者列表，包含 TIDLCompilationProvider 和 CPUExecutionProvider</span></span><br><span class="line">EP_list = [<span class="string">&#x27;TIDLCompilationProvider&#x27;</span>, <span class="string">&#x27;CPUExecutionProvider&#x27;</span>]</span><br><span class="line"><span class="comment"># compile the model with TIDL acceleration by passing required compilation options.</span></span><br><span class="line">sess = rt.InferenceSession(onnx_model_path, providers=EP_list, provider_options=[compile_options, &#123;&#125;], sess_options=so)</span><br><span class="line"><span class="comment"># 载入 ONNX 模型并进行推理。可以使用 sess 对象来进行标准化、预处理、推理等操作，还可以获取模型的输入信息、输出信息、元图信息等</span></span><br><span class="line"><span class="comment"># At the end of model compilation step, model-artifacts for inference will be generated in user specified path.</span></span><br><span class="line"></span><br><span class="line">input_details = sess.get_inputs() <span class="comment"># 获取输入数据信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对校准图片进行预处理并进行推理，并将输出结果存储到 output 列表中</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> tqdm.trange(<span class="built_in">len</span>(calib_images)):</span><br><span class="line">    output = <span class="built_in">list</span>(sess.run(<span class="literal">None</span>, &#123;input_details[<span class="number">0</span>].name : preprocess_for_onnx_resent18v2(calib_images[num])&#125;))[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># Create OSRT inference session with TIDL acceleration option for running inference with generated model artifacts in the above step.</span></span><br></pre></td></tr></table></figure>
+
+<p>Then using Onnx with the libtidl_onnxrt_EP inference library we run the model and collect benchmark data.<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png" width="88%"/>  </p>
+<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md">edgeai-tidl-tools:Python Examples</a><br><a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a></p>
+<h1 id="EdgeAI-Benchmark"><a href="#EdgeAI-Benchmark" class="headerlink" title="EdgeAI-Benchmark"></a><a href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master">EdgeAI-Benchmark</a></h1><p>EdgeAI-Benchmark提供了一系列针对不同图像识别任务的脚本，包括分类、分割、检测和关键点检测。（使用<a href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a>用于模型编译和推理）</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>文档：<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/docs/setup_instructions.md">setup_instructions</a>，其中<code>pyenv install 3.6</code>可能因为网络原因下载极慢，这时可以先从官网或镜像源下载所需要的包到 ~&#x2F;.pyenv&#x2F;cache 目录下，再执行安装命令<br>此后每次需要激活环境：<code>pyenv activate benchmark</code></p>
+<h2 id="edgeai-tidl-tools-docs-custom-model-evaluation-md"><a href="#edgeai-tidl-tools-docs-custom-model-evaluation-md" class="headerlink" title="edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</a></h2><blockquote>
+<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2678,8 +2678,8 @@ B-->C</pre>
 </blockquote>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>嵌入式</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
