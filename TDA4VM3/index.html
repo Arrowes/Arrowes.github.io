@@ -17,11 +17,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wangyujie.site","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="TDA4③：YOLOX的模型转换与SK板端运行">
-<meta property="og:url" content="http://example.com/TDA4VM3/index.html">
+<meta property="og:url" content="https://wangyujie.site/TDA4VM3/index.html">
 <meta property="og:site_name" content="Arrow的笔记本">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/TexasInstruments/edgeai-yolox/raw/main/yolox/utils/figures/Focus.png">
@@ -39,11 +39,11 @@
 <meta name="twitter:image" content="https://github.com/TexasInstruments/edgeai-yolox/raw/main/yolox/utils/figures/Focus.png">
 
 
-<link rel="canonical" href="http://example.com/TDA4VM3/">
+<link rel="canonical" href="https://wangyujie.site/TDA4VM3/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/TDA4VM3/","path":"TDA4VM3/","title":"TDA4③：YOLOX的模型转换与SK板端运行"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangyujie.site/TDA4VM3/","path":"TDA4VM3/","title":"TDA4③：YOLOX的模型转换与SK板端运行"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>TDA4③：YOLOX的模型转换与SK板端运行 | Arrow的笔记本</title>
@@ -158,7 +158,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/TDA4VM3/">
+    <link itemprop="mainEntityOfPage" href="https://wangyujie.site/TDA4VM3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -221,7 +221,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>接上一篇：<a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a></p>
+    <div class="post-body" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>接上一篇：<a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a></p>
 <h1 id="YOLOX部署TDA4VM-SK流程"><a href="#YOLOX部署TDA4VM-SK流程" class="headerlink" title="YOLOX部署TDA4VM-SK流程"></a>YOLOX部署TDA4VM-SK流程</h1><p>TI官方在<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-modelzoo"> ModelZOO </a>中提供了一系列预训练模型可以直接拿来转换，也提供了<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolov5"> edgeai-YOLOv5 </a>与<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolox"> edgeai-YOLOX </a>等优化的开源项目，可以直接下载提供的YOLOX_s的<a target="_blank" rel="noopener" href="http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-yolox/yolox-s-ti-lite_39p1_57p9.onnx"> onnx文件 </a>和<a target="_blank" rel="noopener" href="http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-yolox/yolox_s_ti_lite_metaarch.prototxt"> prototxt文件 </a>，也可以在官方项目上训练自己的模型后再导入。</p>
 <p>这里尝试跑通全流程，在 edgeai-YOLOX 项目中训练，得到 <code>.pth</code> 权重文件，使用 export_onnx.py 文件转换为 <code>.onnx</code> 模型文件和 <code>.prototxt</code> 架构配置文件，并导入TIDL，得到部署用的 <code>.bin</code> 文件。<br>主要参考<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolox/blob/main/README_2d_od.md"> edgeai-YOLOX文档 </a>以及<a target="_blank" rel="noopener" href="https://blog.csdn.net/AIRKernel/article/details/126222505"> YOLOX模型训练结果导入及平台移植应用 </a></p>
 <img alt="picture 1" src="https://github.com/TexasInstruments/edgeai-yolox/raw/main/yolox/utils/figures/Focus.png"/>  
@@ -920,7 +920,7 @@
 </tbody></table>
 <hr>
 <blockquote>
-<p>TDA4系列文章：<br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
+<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
 </blockquote>
 
     </div>
@@ -930,23 +930,6 @@
     
 
     <footer class="post-footer">
-          <div class="followme">
-  <span>欢迎关注我的其它发布渠道</span>
-
-  <div class="social-list">
-
-      <div class="social-item">
-          <a target="_blank" class="social-link" href="/atom.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-
-            <span class="label">RSS</span>
-          </a>
-      </div>
-  </div>
-</div>
-
           <div class="post-tags">
               <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
               <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
