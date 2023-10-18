@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/128.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png">
-  <link rel="mask-icon" href="/images/arrow.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="TDA4③：YOLOX的模型转换与SK板端运行">
@@ -55,22 +54,22 @@
 
 
 
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+<link rel="alternate" href="/atom.xml" title="Arrow的笔记本" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -81,61 +80,23 @@
       <p class="site-title">Arrow的笔记本</p>
       <i class="logo-line"></i>
     </a>
-      <img class="custom-logo-image" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Arrow.png" alt="Arrow的笔记本">
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
 
 
 
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
 
-    </div>
-  </div>
-
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -151,16 +112,16 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLOX%E9%83%A8%E7%BD%B2TDA4VM-SK%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">YOLOX部署TDA4VM-SK流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E8%BD%ACONNX"><span class="nav-number">1.1.</span> <span class="nav-text">1. 模型文件转ONNX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8TIDL%E7%BC%96%E8%AF%91ONNX%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.</span> <span class="nav-text">2. 使用TIDL编译ONNX并运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E4%BD%BF%E7%94%A8TIDL-Importer-by-RTOS-SDK"><span class="nav-number">1.2.1.</span> <span class="nav-text">a. 使用TIDL Importer (by RTOS SDK)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E4%BD%BF%E7%94%A8TIDL-Tools%EF%BC%88by-Edge-AI-Studio%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">b. 使用TIDL Tools（by Edge AI Studio）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9D%BF%E7%AB%AF%E8%BF%90%E8%A1%8C-TDA4VM-SK"><span class="nav-number">1.3.</span> <span class="nav-text">3. 板端运行(TDA4VM-SK)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9app-edgeai%EF%BC%88optional%EF%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">修改app_edgeai（optional）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="nav-number">1.4.</span> <span class="nav-text">4. 性能评估</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance-Logs"><span class="nav-number">2.</span> <span class="nav-text">Performance Logs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-of-CPU-load"><span class="nav-number">2.1.</span> <span class="nav-text">Summary of CPU load</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HWA-performance-statistics"><span class="nav-number">2.2.</span> <span class="nav-text">HWA performance statistics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DDR-performance-statistics"><span class="nav-number">2.3.</span> <span class="nav-text">DDR performance statistics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detailed-CPU-performance-x2F-memory-statistics"><span class="nav-number">2.4.</span> <span class="nav-text">Detailed CPU performance&#x2F;memory statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-mcu2-0"><span class="nav-number">2.4.1.</span> <span class="nav-text">CPU: mcu2_0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-mcu2-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">CPU: mcu2_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-1"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c6x-1"><span class="nav-number">2.4.3.</span> <span class="nav-text">CPU: c6x_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-2"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c6x-2"><span class="nav-number">2.4.4.</span> <span class="nav-text">CPU: c6x_2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-3"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c7x-1"><span class="nav-number">2.4.5.</span> <span class="nav-text">CPU: c7x_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-4"><span class="nav-number">2.4.5.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-point-statistics"><span class="nav-number">2.5.</span> <span class="nav-text">Performance point statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance"><span class="nav-number">2.5.1.</span> <span class="nav-text">Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FPS"><span class="nav-number">2.5.2.</span> <span class="nav-text">FPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Temperature-statistics"><span class="nav-number">2.6.</span> <span class="nav-text">Temperature statistics</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLOX%E9%83%A8%E7%BD%B2TDA4VM-SK%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">YOLOX部署TDA4VM-SK流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E8%BD%ACONNX"><span class="nav-number">1.1.</span> <span class="nav-text">1. 模型文件转ONNX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8TIDL%E7%BC%96%E8%AF%91ONNX%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.</span> <span class="nav-text">2. 使用TIDL编译ONNX并运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E4%BD%BF%E7%94%A8TIDL-Importer-by-RTOS-SDK"><span class="nav-number">1.2.1.</span> <span class="nav-text">a. 使用TIDL Importer (by RTOS SDK)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E4%BD%BF%E7%94%A8TIDL-Tools%EF%BC%88by-Edge-AI-Studio%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">b. 使用TIDL Tools（by Edge AI Studio）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9D%BF%E7%AB%AF%E8%BF%90%E8%A1%8C-TDA4VM-SK"><span class="nav-number">1.3.</span> <span class="nav-text">3. 板端运行(TDA4VM-SK)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9app-edgeai%EF%BC%88optional%EF%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">修改app_edgeai（optional）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="nav-number">1.4.</span> <span class="nav-text">4. 性能评估</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance-Logs"><span class="nav-number">2.</span> <span class="nav-text">Performance Logs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-of-CPU-load"><span class="nav-number">2.1.</span> <span class="nav-text">Summary of CPU load</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HWA-performance-statistics"><span class="nav-number">2.2.</span> <span class="nav-text">HWA performance statistics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DDR-performance-statistics"><span class="nav-number">2.3.</span> <span class="nav-text">DDR performance statistics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detailed-CPU-performance-memory-statistics"><span class="nav-number">2.4.</span> <span class="nav-text">Detailed CPU performance&#x2F;memory statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-mcu2-0"><span class="nav-number">2.4.1.</span> <span class="nav-text">CPU: mcu2_0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-mcu2-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">CPU: mcu2_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-1"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c6x-1"><span class="nav-number">2.4.3.</span> <span class="nav-text">CPU: c6x_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-2"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c6x-2"><span class="nav-number">2.4.4.</span> <span class="nav-text">CPU: c6x_2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-3"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-c7x-1"><span class="nav-number">2.4.5.</span> <span class="nav-text">CPU: c7x_1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-Heap-Table-4"><span class="nav-number">2.4.5.1.</span> <span class="nav-text">CPU Heap Table</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-point-statistics"><span class="nav-number">2.5.</span> <span class="nav-text">Performance point statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance"><span class="nav-number">2.5.1.</span> <span class="nav-text">Performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FPS"><span class="nav-number">2.5.2.</span> <span class="nav-text">FPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Temperature-statistics"><span class="nav-number">2.6.</span> <span class="nav-text">Temperature statistics</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Arrow</p>
   <div class="site-description" itemprop="description">记录一些杂七杂八的东西</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -175,49 +136,16 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Arrowes" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Arrowes" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:395841716@qq.com" title="E-Mail → mailto:395841716@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/wangyujie.site" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wangyujie.site" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://blog.csdn.net/Arrowes?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Arrowes?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa-brands fa-bilibili fa-fw"></i>Bilibili</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://oshwhub.com/arrows" title="立创EDA → https:&#x2F;&#x2F;oshwhub.com&#x2F;arrows" rel="noopener" target="_blank"><i class="fa-solid fa-microchip fa-fw"></i>立创EDA</a>
-      </span>
-  </div>
-
-
 
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -270,13 +198,6 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
     <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
@@ -300,11 +221,10 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>接上一篇：<a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a></p>
+    <div class="post-body" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>接上一篇：<a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a></p>
 <h1 id="YOLOX部署TDA4VM-SK流程"><a href="#YOLOX部署TDA4VM-SK流程" class="headerlink" title="YOLOX部署TDA4VM-SK流程"></a>YOLOX部署TDA4VM-SK流程</h1><p>TI官方在<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-modelzoo"> ModelZOO </a>中提供了一系列预训练模型可以直接拿来转换，也提供了<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolov5"> edgeai-YOLOv5 </a>与<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolox"> edgeai-YOLOX </a>等优化的开源项目，可以直接下载提供的YOLOX_s的<a target="_blank" rel="noopener" href="http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-yolox/yolox-s-ti-lite_39p1_57p9.onnx"> onnx文件 </a>和<a target="_blank" rel="noopener" href="http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-yolox/yolox_s_ti_lite_metaarch.prototxt"> prototxt文件 </a>，也可以在官方项目上训练自己的模型后再导入。</p>
 <p>这里尝试跑通全流程，在 edgeai-YOLOX 项目中训练，得到 <code>.pth</code> 权重文件，使用 export_onnx.py 文件转换为 <code>.onnx</code> 模型文件和 <code>.prototxt</code> 架构配置文件，并导入TIDL，得到部署用的 <code>.bin</code> 文件。<br>主要参考<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolox/blob/main/README_2d_od.md"> edgeai-YOLOX文档 </a>以及<a target="_blank" rel="noopener" href="https://blog.csdn.net/AIRKernel/article/details/126222505"> YOLOX模型训练结果导入及平台移植应用 </a></p>
-<img alt="picture 1" data-src="https://github.com/TexasInstruments/edgeai-yolox/raw/main/yolox/utils/figures/Focus.png"/>  
+<img alt="picture 1" src="https://github.com/TexasInstruments/edgeai-yolox/raw/main/yolox/utils/figures/Focus.png"/>  
 
 <h2 id="1-模型文件转ONNX"><a href="#1-模型文件转ONNX" class="headerlink" title="1. 模型文件转ONNX"></a>1. 模型文件转ONNX</h2><p><del>pycharm进入edgeai-yolox项目，根据提示额外安装requirements</del><br>Window中配置该环境需要安装visual studio build tools，而且很多包报错，因此转ubuntu用vscode搭pytorch环境，非常顺利（vscode插件离线安装：如装python插件，直接进<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/vscode"> marketplace </a>下好拖到扩展位置）拓展设置中把Python Default Path改成创建的环境 <code>/home/wyj/anaconda3/envs/pytorch/bin/python</code>，最后用vscode打开项目，F5运行py程序，将.pth转为 <code>.onnx, .prototxt</code> 文件。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pip3 install -U pip &amp;&amp; pip3 install -r requirements.txt</span><br><span class="line">pip3 install -v -e .  <span class="comment"># or  python3 setup.py develop</span></span><br><span class="line"><span class="comment">#安装pycocotools</span></span><br><span class="line">pip3 install cython</span><br><span class="line">pip3 install <span class="string">&#x27;git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI&#x27;</span></span><br><span class="line"><span class="comment">#下载ti的yolox-s-ti-lite.pth放入项目文件夹，运行export，</span></span><br><span class="line">python3 tools/export_onnx.py --output-name yolox_s_ti_lite.onnx -f exps/default/yolox_s_ti_lite.py -c yolox-s-ti-lite.pth</span><br><span class="line"></span><br><span class="line"><span class="comment">#Debug：</span></span><br><span class="line">TypeError: Descriptors cannot not be created directly. &gt; pip install protobuf==3.19.6;</span><br><span class="line">AttributeError: module <span class="string">&#x27;numpy&#x27;</span> has no attribute <span class="string">&#x27;object&#x27;</span>. &gt; pip install numpy==1.23.4</span><br><span class="line"><span class="comment">#成功，生成onnx文件</span></span><br><span class="line"> __main__:main:245 - generated onnx model named yolox_s_ti_lite.onnx</span><br><span class="line"> __main__:main:261 - generated simplified onnx model named yolox_s_ti_lite.onnx</span><br><span class="line"> __main__:main:264 - generated prototxt yolox_s_ti_lite.prototxt</span><br></pre></td></tr></table></figure>
@@ -317,7 +237,7 @@
 <hr>
 <p><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-yolox/tree/main/demo/ONNXRuntime#yolox-onnxruntime-in-python">ONNXRuntime inference</a></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;YOLOX_HOME&gt;</span><br><span class="line">python3 demo/ONNXRuntime/onnx_inference.py -m yolox_s_ti_lite.onnx -i assets/dog.jpg -o output -s 0.3 --input_shape 640,640</span><br><span class="line"><span class="comment">#成功基于ONNXRuntime输出预测结果</span></span><br></pre></td></tr></table></figure>
-<img alt="图 1" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3onnxinference.jpg" width="50%"/>  
+<img alt="图 1" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3onnxinference.jpg" width="50%"/>  
 
 <h2 id="2-使用TIDL编译ONNX并运行"><a href="#2-使用TIDL编译ONNX并运行" class="headerlink" title="2. 使用TIDL编译ONNX并运行"></a>2. 使用TIDL编译ONNX并运行</h2><p>本节使用了两种不同的方法完成PC端TIDL的编译运行：</p>
 <ol>
@@ -337,7 +257,7 @@
 </li>
 <li><p>TIDL运行(PC inference)</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在文件ti_dl/test/testvecs/config/config_list.txt顶部加入:</span></span><br><span class="line">1 testvecs/config/infer/public/onnx/tidl_infer_yolox.txt</span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"><span class="comment">#新建tidl_infer_yolox.txt:</span></span><br><span class="line">inFileFormat    = 2</span><br><span class="line">numFrames       = 1</span><br><span class="line">netBinFile      = <span class="string">&quot;testvecs/config/tidl_models/onnx/yolo/tidl_net_yolox_s.bin&quot;</span></span><br><span class="line">ioConfigFile    = <span class="string">&quot;testvecs/config/tidl_models/onnx/yolo/tidl_io_yolox_s_1.bin&quot;</span></span><br><span class="line">inData  =   testvecs/config/detection_list.txt</span><br><span class="line">outData =   testvecs/output/tidl_yolox_od.bin</span><br><span class="line">inResizeMode    = 0</span><br><span class="line">debugTraceLevel = 0</span><br><span class="line">writeTraceLevel = 0</span><br><span class="line">postProcType    = 2</span><br><span class="line"></span><br><span class="line"><span class="comment">#运行，结果在ti_dl/test/testvecs/output/</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test</span><br><span class="line">./PC_dsp_test_dl_algo.out</span><br></pre></td></tr></table></figure>
-<img alt="图 2" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3sdktidlyolox.png" width="50%"/></li>
+<img alt="图 2" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3sdktidlyolox.png" width="50%"/></li>
 </ol>
 <h3 id="b-使用TIDL-Tools（by-Edge-AI-Studio）"><a href="#b-使用TIDL-Tools（by-Edge-AI-Studio）" class="headerlink" title="b. 使用TIDL Tools（by Edge AI Studio）"></a>b. 使用TIDL Tools（by <a target="_blank" rel="noopener" href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a>）</h3><p>使用<code>Edge AI Studio &gt; Model Analyzer &gt; Custom models &gt; ONNX runtime &gt; custom-model-onnx.ipynb</code>例程, 并结合 <code>OD.ipynb</code> 例程进行修改</p>
 <p><em>YOLOX.ipynb</em></p>
@@ -350,11 +270,11 @@
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#模型转换</span></span><br><span class="line">so = rt.SessionOptions()</span><br><span class="line">EP_list = [<span class="string">&#x27;TIDLCompilationProvider&#x27;</span>,<span class="string">&#x27;CPUExecutionProvider&#x27;</span>]</span><br><span class="line">sess = rt.InferenceSession(onnx_model_path ,providers=EP_list, provider_options=[compile_options, &#123;&#125;], sess_options=so)</span><br><span class="line"><span class="comment"># 获取所有输入输出详细信息</span></span><br><span class="line">input_details = sess.get_inputs()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Model input details:&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> input_details:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">output_details = sess.get_outputs()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Model output details:&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> output_details:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"><span class="comment">#运行</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tqdm.trange(<span class="built_in">len</span>(images)):</span><br><span class="line">    processed_image = preprocess(images[i])</span><br><span class="line">    output=<span class="literal">None</span></span><br><span class="line">    output = <span class="built_in">list</span>(sess.run(<span class="literal">None</span>, &#123;input_details[<span class="number">0</span>].name :processed_image &#125;))</span><br></pre></td></tr></table></figure>
 <p>打印输入输出信息，运行编译</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#画框</span></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw</span><br><span class="line">img = Image.<span class="built_in">open</span>(<span class="string">&quot;WYJ/dog.jpg&quot;</span>)</span><br><span class="line"></span><br><span class="line">width_scale = <span class="number">640</span> / img.size[<span class="number">0</span>]</span><br><span class="line">height_scale = <span class="number">640</span> / img.size[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># 创建ImageDraw对象</span></span><br><span class="line">draw = ImageDraw.Draw(img)</span><br><span class="line"><span class="comment"># 遍历所有边界框，画出矩形</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>(output[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>].shape[<span class="number">0</span>])):</span><br><span class="line">    <span class="comment"># 取出顶点坐标和置信度</span></span><br><span class="line">    xmin, ymin, xmax, ymax, conf = <span class="built_in">tuple</span>(output[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>][i].tolist())</span><br><span class="line">    <span class="keyword">if</span>(conf &gt; <span class="number">0.4</span>) :</span><br><span class="line">        cls = <span class="built_in">int</span>(output[<span class="number">1</span>][<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>][i])  <span class="comment"># 取出类别编号</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;class:&#x27;</span>, cls, <span class="string">&#x27;, box:&#x27;</span>,output[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>][i])</span><br><span class="line">        color = (<span class="number">255</span>, cls*<span class="number">10</span>, cls*<span class="number">100</span>)        <span class="comment"># 选择不同颜色表示不同类别</span></span><br><span class="line">        <span class="comment"># 画出矩形框</span></span><br><span class="line">        draw.rectangle(((xmin/ width_scale, ymin/ height_scale), (xmax/ width_scale, ymax/ height_scale)), outline=color, width=<span class="number">2</span>)</span><br><span class="line">img.show()  <span class="comment"># 显示画好的图像</span></span><br></pre></td></tr></table></figure>
-<p>画框，引入了缩放比例，否则框的位置不对<br><img alt="图 3" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3studioyolox.png" width="50%"/>  </p>
+<p>画框，引入了缩放比例，否则框的位置不对<br><img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3studioyolox.png" width="50%"/>  </p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Subgraphs visualization</span></span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> Markdown <span class="keyword">as</span> md</span><br><span class="line"></span><br><span class="line">subgraph_link =get_svg_path(output_dir) </span><br><span class="line"><span class="keyword">for</span> sg <span class="keyword">in</span> subgraph_link:</span><br><span class="line">    hl_text = os.path.join(*Path(sg).parts[<span class="number">4</span>:])</span><br><span class="line">    sg_rel = os.path.join(<span class="string">&#x27;../&#x27;</span>, sg)</span><br><span class="line">    display(md(<span class="string">&quot;[&#123;&#125;](&#123;&#125;)&quot;</span>.<span class="built_in">format</span>(hl_text,sg_rel)))</span><br></pre></td></tr></table></figure>
 <p>生成两个.svg网络可视化图的链接</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#模型推理</span></span><br><span class="line">EP_list = [<span class="string">&#x27;TIDLExecutionProvider&#x27;</span>,<span class="string">&#x27;CPUExecutionProvider&#x27;</span>]</span><br><span class="line">sess = rt.InferenceSession(onnx_model_path ,providers=EP_list, provider_options=[compile_options, &#123;&#125;], sess_options=so)</span><br><span class="line"></span><br><span class="line">input_details = sess.get_inputs()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):<span class="comment">#Running inference several times to get an stable performance output</span></span><br><span class="line">    output = <span class="built_in">list</span>(sess.run(<span class="literal">None</span>, &#123;input_details[<span class="number">0</span>].name : preprocess(<span class="string">&#x27;WYJ/dog.jpg&#x27;</span>)&#125;))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scripts.utils <span class="keyword">import</span> plot_TI_performance_data, plot_TI_DDRBW_data, get_benchmark_output</span><br><span class="line">stats = sess.get_TI_benchmark_data()</span><br><span class="line">fig, ax = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">1</span>, figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">plot_TI_performance_data(stats, axis=ax)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">tt, st, rb, wb = get_benchmark_output(stats)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;Statistics : \n Inferences Per Second   : <span class="subst">&#123;<span class="number">1000.0</span>/tt :<span class="number">7.2</span>f&#125;</span> fps&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27; Inference Time Per Image : <span class="subst">&#123;tt :<span class="number">7.2</span>f&#125;</span> ms  \n DDR BW Per Image        : <span class="subst">&#123;rb+ wb : <span class="number">7.2</span>f&#125;</span> MB&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>推理，注意<code>TIDLCompilationProvider</code>和<code>TIDLExecutionProvider</code>的区别<br><img alt="图 2" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3yoloxs.png" width="90%"/>  </p>
+<p>推理，注意<code>TIDLCompilationProvider</code>和<code>TIDLExecutionProvider</code>的区别<br><img alt="图 2" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM3yoloxs.png" width="90%"/>  </p>
 <blockquote>
 <p>Statistics :<br>  Inferences Per Second   :  104.44 fps<br>  Inference Time Per Image :    9.57 ms<br>  DDR BW Per Image        :   16.22 MB</p>
 </blockquote>
@@ -382,7 +302,7 @@
 <h2 id="4-性能评估"><a href="#4-性能评估" class="headerlink" title="4. 性能评估"></a>4. 性能评估</h2><p>Docs: <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/performance_visualizer.html#">Performance Visualization Tool</a><br>运行实例时，会在运行文件的上一级<code>../perf_Logs/</code>中生成 <code>.md</code> 格式的<strong>Performance Logs</strong>，最多15个，运行时会不断覆写</p>
 <p>也可以使用Perfstats tool, 把运行状态在terminal print:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#构建工具</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/scripts/perf_stats</span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake .. &amp;&amp; make</span><br><span class="line"><span class="comment">#运行评估</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/scripts/perf_stats/build</span><br><span class="line">../bin/Release/perf_stats -l</span><br></pre></td></tr></table></figure>
-<p>此外，使用官方提供的可视化工具Visualization tool是最佳选择，但是要装Docker<br><img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/_images/perf_plots.png"></p>
+<p>此外，使用官方提供的可视化工具Visualization tool是最佳选择，但是要装Docker<br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/_images/perf_plots.png"></p>
 <h1 id="Performance-Logs"><a href="#Performance-Logs" class="headerlink" title="Performance Logs"></a>Performance Logs</h1><h2 id="Summary-of-CPU-load"><a href="#Summary-of-CPU-load" class="headerlink" title="Summary of CPU load"></a>Summary of CPU load</h2><table>
 <thead>
 <tr>
@@ -455,7 +375,7 @@
 <td>9356 MB&#x2F;s</td>
 </tr>
 </tbody></table>
-<h2 id="Detailed-CPU-performance-x2F-memory-statistics"><a href="#Detailed-CPU-performance-x2F-memory-statistics" class="headerlink" title="Detailed CPU performance&#x2F;memory statistics"></a>Detailed CPU performance&#x2F;memory statistics</h2><h3 id="CPU-mcu2-0"><a href="#CPU-mcu2-0" class="headerlink" title="CPU: mcu2_0"></a>CPU: mcu2_0</h3><table>
+<h2 id="Detailed-CPU-performance-memory-statistics"><a href="#Detailed-CPU-performance-memory-statistics" class="headerlink" title="Detailed CPU performance&#x2F;memory statistics"></a>Detailed CPU performance&#x2F;memory statistics</h2><h3 id="CPU-mcu2-0"><a href="#CPU-mcu2-0" class="headerlink" title="CPU: mcu2_0"></a>CPU: mcu2_0</h3><table>
 <thead>
 <tr>
 <th>TASK</th>
@@ -1020,12 +940,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/DLdeploy/" rel="prev" title="DL模型转换及部署：torch > onnx > deploy">
-                  <i class="fa fa-chevron-left"></i> DL模型转换及部署：torch > onnx > deploy
+                  <i class="fa fa-angle-left"></i> DL模型转换及部署：torch > onnx > deploy
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/TDA4VM4/" rel="next" title="TDA4④：部署自定义深度学习模型">
-                  TDA4④：部署自定义深度学习模型 <i class="fa fa-chevron-right"></i>
+                  TDA4④：部署自定义深度学习模型 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -1038,104 +958,71 @@
 
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
 
-
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa-solid fa-star"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Arrow</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Arrow</span>
+  </div>
 <div class="wordcount">
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-      <span>站点总字数：</span>
     <span title="站点总字数">64k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span>站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">3:52</span>
   </span>
 </div>
-<div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-
-
-
-<!--  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div> -->
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
 
     </div>
   </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.8/pdfobject.min.js","integrity":"sha256-tu9j5pBilBQrWSDePOOajCUdz6hWsid/lBNzK4KgEPM="},"url":"/lib/pdf/web/viewer.html"}</script>
-  <script src="/js/third-party/tags/pdf.js"></script>
-
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.7/mermaid.min.js","integrity":"sha256-G58AID1YoX5YaEtWfXSI0VLrZ6N4kvNvwg0BI8zUFxE="}}</script>
-  <script src="/js/third-party/tags/mermaid.js"></script>
 
 
-
-  
-  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
 
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://example.com/TDA4VM3/"}</script>
-  <script src="/js/third-party/quicklink.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Arrowes","repo":"Arrowes.github.io","client_id":"0cf14e51c1582cf64289","client_secret":"5e8273d27714e40495267c73e607cfe9322b7266","admin_user":"Arrowes","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"eff9cf46dfeefbb1e41c216c4f65c367"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
 
 

@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/128.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png">
-  <link rel="mask-icon" href="/images/arrow.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="Linux：Ubuntu，Git，Docker">
@@ -51,22 +50,22 @@
 
 
 
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+<link rel="alternate" href="/atom.xml" title="Arrow的笔记本" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -77,61 +76,23 @@
       <p class="site-title">Arrow的笔记本</p>
       <i class="logo-line"></i>
     </a>
-      <img class="custom-logo-image" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Arrow.png" alt="Arrow的笔记本">
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
 
 
 
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
 
-    </div>
-  </div>
-
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -152,11 +113,11 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Arrow</p>
   <div class="site-description" itemprop="description">记录一些杂七杂八的东西</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -171,49 +132,16 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Arrowes" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Arrowes" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:395841716@qq.com" title="E-Mail → mailto:395841716@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/wangyujie.site" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wangyujie.site" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://blog.csdn.net/Arrowes?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Arrowes?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa-brands fa-bilibili fa-fw"></i>Bilibili</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://oshwhub.com/arrows" title="立创EDA → https:&#x2F;&#x2F;oshwhub.com&#x2F;arrows" rel="noopener" target="_blank"><i class="fa-solid fa-microchip fa-fw"></i>立创EDA</a>
-      </span>
-  </div>
-
-
 
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -266,13 +194,6 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
     <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
@@ -296,8 +217,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹( rm -r XXX  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找 find *XXX*</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br><span class="line">script -f log.txt   <span class="comment">#输出terminal内容到文件 exit退出记录，或在指令后加入 &gt; log.txt</span></span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹( rm -r XXX  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找 find *XXX*</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br><span class="line">script -f log.txt   <span class="comment">#输出terminal内容到文件 exit退出记录，或在指令后加入 &gt; log.txt</span></span><br></pre></td></tr></table></figure>
 <h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/version   <span class="comment">#查版本信息</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本</span></span><br><span class="line">free -m             <span class="comment">#查内存使用情况</span></span><br><span class="line"><span class="built_in">df</span> -hl              <span class="comment">#查看磁盘剩余空间</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>截图：1.screen截图应用程序   2.设置-设备-键盘-截图快捷键</p>
 <h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a target="_blank" rel="noopener" href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> + <a target="_blank" rel="noopener" href="http://releases.ubuntu.com/20.04/">Ubuntu 20.04</a>, 或<a target="_blank" rel="noopener" href="https://releases.ubuntu.com/bionic/">18.04</a>（速度慢则换<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/20.04/">镜像源</a>）</p>
@@ -360,7 +280,7 @@
 <li><code>git pull origin master</code> 再把远端的最新代码拉至本地</li>
 </ol>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19e4y1q7JJ">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" width="100%">
+<img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" width="100%">
 
 
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#branch 与 tag：</span></span><br><span class="line">git tag/branch  <span class="comment">#查本地仓库所有的tag或branch -r:远程分支 -a:所有分支</span></span><br><span class="line">git checkout [tag/branch]   <span class="comment">#已有仓库切换 tag/branch</span></span><br><span class="line">git checkout -b [branch]    <span class="comment">#新建一个分支，并切换到该分支</span></span><br><span class="line">git merge [branch]  <span class="comment">#合并指定分支到当前分支</span></span><br><span class="line">git tag [tag]       <span class="comment">#新建一个 tag 在当前 commit</span></span><br><span class="line">git describe --tag  <span class="comment">#查当前tag</span></span><br><span class="line">git show [tag]      <span class="comment">#查看tag信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tag 对应某次 commit, 是一个点，是不可移动的。</span></span><br><span class="line"><span class="comment">#branch 对应一系列 commit，是很多点连成的一根线，有一个HEAD 指针，是可以依靠 HEAD 指针移动的。</span></span><br><span class="line"><span class="comment">#两者的区别决定了使用方式，改动代码用 branch ,不改动只查看用 tag</span></span><br></pre></td></tr></table></figure>
@@ -369,7 +289,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#常用指令：</span></span><br><span class="line">git init [project-name] <span class="comment">#新建一个目录，将其初始化为Git代码库</span></span><br><span class="line">git status  <span class="comment">#显示有变更的文件</span></span><br><span class="line">git <span class="built_in">log</span>     <span class="comment">#显示当前分支的版本历史 commit id</span></span><br><span class="line">git diff    <span class="comment">#显示暂存区和工作区的差异</span></span><br><span class="line">git reset --hard [commitId]  <span class="comment"># 进行回溯</span></span><br><span class="line"></span><br><span class="line">git config --list   <span class="comment">#检查当前配置</span></span><br><span class="line"><span class="comment"># 配置全局信息 无global则是在项目中配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;[name]&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;[email address]&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
 <p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
 <h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>
@@ -389,12 +309,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/Yolo/" rel="prev" title="Yolo：Code，Config，Ideas">
-                  <i class="fa fa-chevron-left"></i> Yolo：Code，Config，Ideas
+                  <i class="fa fa-angle-left"></i> Yolo：Code，Config，Ideas
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/Photograph/" rel="next" title="Photograph：个人摄影笔记">
-                  Photograph：个人摄影笔记 <i class="fa fa-chevron-right"></i>
+                  Photograph：个人摄影笔记 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -407,104 +327,71 @@
 
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
 
-
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa-solid fa-star"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Arrow</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Arrow</span>
+  </div>
 <div class="wordcount">
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-      <span>站点总字数：</span>
     <span title="站点总字数">64k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span>站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">3:52</span>
   </span>
 </div>
-<div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-
-
-
-<!--  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div> -->
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
 
     </div>
   </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.8/pdfobject.min.js","integrity":"sha256-tu9j5pBilBQrWSDePOOajCUdz6hWsid/lBNzK4KgEPM="},"url":"/lib/pdf/web/viewer.html"}</script>
-  <script src="/js/third-party/tags/pdf.js"></script>
-
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.7/mermaid.min.js","integrity":"sha256-G58AID1YoX5YaEtWfXSI0VLrZ6N4kvNvwg0BI8zUFxE="}}</script>
-  <script src="/js/third-party/tags/mermaid.js"></script>
 
 
-
-  
-  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
 
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://example.com/Linux/"}</script>
-  <script src="/js/third-party/quicklink.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Arrowes","repo":"Arrowes.github.io","client_id":"0cf14e51c1582cf64289","client_secret":"5e8273d27714e40495267c73e607cfe9322b7266","admin_user":"Arrowes","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"f7389188501f19b4636e25cae731f26f"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
 
 

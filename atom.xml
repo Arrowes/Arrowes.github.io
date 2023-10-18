@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Arrow的笔记本</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2023-10-09T11:11:37.415Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>Arrow</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TDA4④：部署自定义深度学习模型</title>
+    <link href="http://example.com/TDA4VM4/"/>
+    <id>http://example.com/TDA4VM4/</id>
+    <published>2023-07-07T02:40:00.000Z</published>
+    <updated>2023-10-09T11:11:37.415Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TDA4③：YOLOX的模型转换与SK板端运行</title>
+    <link href="http://example.com/TDA4VM3/"/>
+    <id>http://example.com/TDA4VM3/</id>
+    <published>2023-06-15T01:40:00.000Z</published>
+    <updated>2023-10-13T11:51:57.503Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
+    <link href="http://example.com/DLdeploy/"/>
+    <id>http://example.com/DLdeploy/</id>
+    <published>2023-06-09T03:36:00.000Z</published>
+    <updated>2023-07-17T04:22:17.872Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TDA4②：环境搭建、模型转换、Demo及Tools</title>
+    <link href="http://example.com/TDA4VM2/"/>
+    <id>http://example.com/TDA4VM2/</id>
+    <published>2023-05-18T08:28:00.000Z</published>
+    <updated>2023-10-09T11:11:37.414Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C, C++, Cmake</title>
+    <link href="http://example.com/C/"/>
+    <id>http://example.com/C/</id>
+    <published>2023-05-16T01:43:00.000Z</published>
+    <updated>2023-10-06T16:01:27.127Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="C/C++" scheme="http://example.com/tags/C-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TDA4①：SDK, TIDL, OpenVX</title>
+    <link href="http://example.com/TDA4VM/"/>
+    <id>http://example.com/TDA4VM/</id>
+    <published>2023-05-10T09:00:00.000Z</published>
+    <updated>2023-09-07T10:44:27.293Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Paper：科研方法总结</title>
+    <link href="http://example.com/Paper/"/>
+    <id>http://example.com/Paper/</id>
+    <published>2023-03-15T01:47:16.000Z</published>
+    <updated>2023-10-08T12:22:59.228Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="总结" scheme="http://example.com/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Project：多个项目汇总</title>
+    <link href="http://example.com/Project/"/>
+    <id>http://example.com/Project/</id>
+    <published>2023-02-15T08:59:22.000Z</published>
+    <updated>2023-10-13T11:51:57.501Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="总结" scheme="http://example.com/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DL：深度学习相关概念</title>
+    <link href="http://example.com/DL/"/>
+    <id>http://example.com/DL/</id>
+    <published>2022-12-28T12:22:05.000Z</published>
+    <updated>2023-10-16T08:57:20.855Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Embedded：嵌入式应用知识</title>
+    <link href="http://example.com/Embedded/"/>
+    <id>http://example.com/Embedded/</id>
+    <published>2022-12-11T12:54:34.000Z</published>
+    <updated>2023-10-15T04:15:54.688Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Photograph：个人摄影笔记</title>
+    <link href="http://example.com/Photograph/"/>
+    <id>http://example.com/Photograph/</id>
+    <published>2022-12-01T03:05:54.000Z</published>
+    <updated>2023-09-24T15:14:07.175Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="摄影" scheme="http://example.com/tags/%E6%91%84%E5%BD%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux：Ubuntu，Git，Docker</title>
+    <link href="http://example.com/Linux/"/>
+    <id>http://example.com/Linux/</id>
+    <published>2022-11-28T02:32:42.000Z</published>
+    <updated>2023-10-12T08:11:54.744Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Yolo：Code，Config，Ideas</title>
+    <link href="http://example.com/Yolo/"/>
+    <id>http://example.com/Yolo/</id>
+    <published>2022-11-27T08:04:02.000Z</published>
+    <updated>2023-10-17T09:33:16.178Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Py：Anaconda，Pycharm，Pytorch</title>
+    <link href="http://example.com/Pytorch/"/>
+    <id>http://example.com/Pytorch/</id>
+    <published>2022-11-24T13:26:44.000Z</published>
+    <updated>2023-10-17T09:33:16.177Z</updated>
+    
+    
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
+    <link href="http://example.com/Hello-blog/"/>
+    <id>http://example.com/Hello-blog/</id>
+    <published>2022-11-22T11:36:45.000Z</published>
+    <updated>2023-10-17T09:32:04.937Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;&lt;span class=&quot;hint--top hint--error hint--medium hint--rounded hint--bounce&quot; aria-label=&quot;[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
+[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
+[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
+[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
+[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
+[个人网站：Arrow的笔记本](http://wangyujie.site/)&quot;&gt;[1]&lt;/span&gt;&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+</feed>

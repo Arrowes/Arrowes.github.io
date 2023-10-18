@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/128.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png">
-  <link rel="mask-icon" href="/images/arrow.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="TDA4②：环境搭建、模型转换、Demo及Tools">
@@ -60,22 +59,22 @@
 
 
 
+
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+<link rel="alternate" href="/atom.xml" title="Arrow的笔记本" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -86,61 +85,23 @@
       <p class="site-title">Arrow的笔记本</p>
       <i class="logo-line"></i>
     </a>
-      <img class="custom-logo-image" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Arrow.png" alt="Arrow的笔记本">
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
 
 
 
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
 
-    </div>
-  </div>
-
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -156,16 +117,16 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-SDK-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">Linux SDK 环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RTOS-SDK-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">RTOS SDK 环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Apps-Demo-%E7%BC%96%E8%AF%91"><span class="nav-number">2.1.</span> <span class="nav-text">Vision Apps Demo 编译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TDA4VM-SK-%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">TDA4VM-SK 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIDL"><span class="nav-number">4.</span> <span class="nav-text">TIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-%E4%BD%BF%E7%94%A8TIDL%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%A7%8D%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AF%BC%E5%85%A5%E3%80%81%E8%BF%90%E8%A1%8C-from-RTOS-SDK"><span class="nav-number">4.1.</span> <span class="nav-text">Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIDL-RT"><span class="nav-number">4.2.</span> <span class="nav-text">TIDL-RT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EdgeAI-TIDL-Tools"><span class="nav-number">4.3.</span> <span class="nav-text">EdgeAI TIDL Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Edge-AI-Studio"><span class="nav-number">4.4.</span> <span class="nav-text">Edge AI Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Analyzer"><span class="nav-number">4.4.1.</span> <span class="nav-text">Model Analyzer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EdgeAI-Benchmark"><span class="nav-number">5.</span> <span class="nav-text">EdgeAI-Benchmark</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">5.1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#edgeai-tidl-tools-x2F-docs-x2F-custom-model-evaluation-md"><span class="nav-number">5.2.</span> <span class="nav-text">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-SDK-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">Linux SDK 环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RTOS-SDK-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">RTOS SDK 环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Apps-Demo-%E7%BC%96%E8%AF%91"><span class="nav-number">2.1.</span> <span class="nav-text">Vision Apps Demo 编译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TDA4VM-SK-%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">TDA4VM-SK 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIDL"><span class="nav-number">4.</span> <span class="nav-text">TIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-%E4%BD%BF%E7%94%A8TIDL%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%A7%8D%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AF%BC%E5%85%A5%E3%80%81%E8%BF%90%E8%A1%8C-from-RTOS-SDK"><span class="nav-number">4.1.</span> <span class="nav-text">Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIDL-RT"><span class="nav-number">4.2.</span> <span class="nav-text">TIDL-RT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EdgeAI-TIDL-Tools"><span class="nav-number">4.3.</span> <span class="nav-text">EdgeAI TIDL Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Edge-AI-Studio"><span class="nav-number">4.4.</span> <span class="nav-text">Edge AI Studio</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Analyzer"><span class="nav-number">4.4.1.</span> <span class="nav-text">Model Analyzer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EdgeAI-Benchmark"><span class="nav-number">5.</span> <span class="nav-text">EdgeAI-Benchmark</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">5.1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#edgeai-tidl-tools-docs-custom-model-evaluation-md"><span class="nav-number">5.2.</span> <span class="nav-text">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Arrow</p>
   <div class="site-description" itemprop="description">记录一些杂七杂八的东西</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
@@ -180,49 +141,16 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author site-overview-item animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Arrowes" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Arrowes" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:395841716@qq.com" title="E-Mail → mailto:395841716@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/wangyujie.site" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wangyujie.site" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://blog.csdn.net/Arrowes?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Arrowes?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa-brands fa-bilibili fa-fw"></i>Bilibili</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://oshwhub.com/arrows" title="立创EDA → https:&#x2F;&#x2F;oshwhub.com&#x2F;arrows" rel="noopener" target="_blank"><i class="fa-solid fa-microchip fa-fw"></i>立创EDA</a>
-      </span>
-  </div>
-
-
 
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -275,13 +203,6 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
     <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
@@ -305,8 +226,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见上一篇：<a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>环境搭建需要下载SDK：<a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
+    <div class="post-body" itemprop="articleBody"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见上一篇：<a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>环境搭建需要下载SDK：<a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
 <p>以下两节是EVM板的PSDK RTOS与PSDK Linux的环境搭建，因为暂时没有EVM板所以<em>没有上板测试</em>，只有SK板可以跳到第三节 TDA4VM-SK 配置。</p>
 <h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
 <p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
@@ -368,12 +288,12 @@
 <li>连接网线，ifconfig查询板子ip地址，后面即可使用ssh登陆，可以使用vscode的remote插件来直接ssh登陆到板子，然后可以很方便地修改配置文件</li>
 <li>安装tensorflow，onnx，python和c++依赖库 <code>/opt/edge_ai_apps#./setup_script.sh </code></li>
 </ul>
-<p><strong>Dataflows</strong><br><img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai_object_detection.png" width='90%'><br>GStreamer input pipeline:</p>
+<p><strong>Dataflows</strong><br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai_object_detection.png" width='90%'><br>GStreamer input pipeline:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v4l2src device=/dev/video18 io-mode=2 ! image/jpeg, width=1280, height=720 ! jpegdec ! tiovxdlcolorconvert ! video/x-raw, format=NV12 ! tiovxmultiscaler name=split_01</span><br><span class="line">split_01. ! queue ! video/x-raw, width=320, height=320 ! tiovxdlpreproc data-type=10 channel-order=1 mean-0=128.000000 mean-1=128.000000 mean-2=128.000000 scale-0=0.007812 scale-1=0.007812 scale-2=0.007812 tensor-format=rgb out-pool-size=4 ! application/x-tensor-tiovx ! appsink name=pre_0 max-buffers=2 drop=<span class="literal">true</span></span><br><span class="line">split_01. ! queue ! video/x-raw, width=1280, height=720 ! tiovxdlcolorconvert out-pool-size=4 ! video/x-raw, format=RGB ! appsink name=sen_0 max-buffers=2 drop=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>GStreamer output pipeline:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">appsrc format=GST_FORMAT_TIME is-live=<span class="literal">true</span> block=<span class="literal">true</span> do-timestamp=<span class="literal">true</span> name=post_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1280, height=720 ! queue ! mosaic_0.sink_0</span><br><span class="line">appsrc format=GST_FORMAT_TIME block=<span class="literal">true</span> num-buffers=1 name=background_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1920, height=1080 ! queue ! mosaic_0.background</span><br><span class="line">tiovxmosaic name=mosaic_0</span><br><span class="line">sink_0::startx=<span class="string">&quot;&lt;320&gt;&quot;</span>  sink_0::starty=<span class="string">&quot;&lt;180&gt;&quot;</span>  sink_0::widths=<span class="string">&quot;&lt;1280&gt;&quot;</span>   sink_0::heights=<span class="string">&quot;&lt;720&gt;&quot;</span></span><br><span class="line">! video/x-raw,format=NV12, width=1920, height=1080 ! kmssink <span class="built_in">sync</span>=<span class="literal">false</span> driver-name=tidss</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-gst-apps/tree/44f4d44ddcda766d2abb5e89b9b112a1280f99ec">Edge AI application stack</a><br><img data-src='https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai-app-stack.jpg' width='80%'></p>
-<h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html">TIDL</a></h1><img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_import_process.png" >
+<p><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-gst-apps/tree/44f4d44ddcda766d2abb5e89b9b112a1280f99ec">Edge AI application stack</a><br><img src='https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai-app-stack.jpg' width='80%'></p>
+<h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html">TIDL</a></h1><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_import_process.png" >
 
 <h2 id="Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK"><a href="#Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK" class="headerlink" title="Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)"></a>Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)</h2><p>文档教程：<a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html#importing-mobilenetv2-model-for-image-classification">MobileNetV2 Tensorflow，PeleeNet Caffe，JSegNet21V2 Caffe model</a>，下面以PeleeNet为例</p>
 <p><strong>Config</strong> TIDL</p>
@@ -385,7 +305,7 @@
 
 <p><strong>Run</strong>ning PeleeNet for object detection</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在文件ti_dl/test/testvecs/config/config_list.txt顶部加入:</span></span><br><span class="line">1 testvecs/config/infer/public/caffe/tidl_infer_pelee.txt</span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"><span class="comment">#运行，结果在ti_dl/test/testvecs/output/</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test</span><br><span class="line">./PC_dsp_test_dl_algo.out</span><br><span class="line"><span class="comment">#若标注框尺寸不匹配，需要改deploy.prototxt文件顶部：dim: 512  dim: 1024</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 1" data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/out_ti_lindau_000020.png" width="70%"/>  
+<img alt="picture 1" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/out_ti_lindau_000020.png" width="70%"/>  
 
 
 
@@ -398,7 +318,7 @@
 
 
 <h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>EdgeAI TIDL Tools是TI提供的深度学习开发工具，后续会多次用到。</p>
-<p>要求：OS——Ubuntu 18.04，Python Version——3.6<br><img alt="图 9" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png" width="60%"/>  </p>
+<p>要求：OS——Ubuntu 18.04，Python Version——3.6<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png" width="60%"/>  </p>
 <ol>
 <li>OSRT(Open Source Runtimes:TFLite,ONNX,TVM) 作为用户应用程序的顶级推理 API</li>
 <li>将子图卸载到 C7x&#x2F;MMA 以使用TIDL进行加速执行</li>
@@ -415,12 +335,12 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_cls.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_cls.jpg"></a></td>
-<td align="center"><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_od.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_od.jpg"></a></td>
-<td align="center"><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_ss.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_ss.jpg"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_cls.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_cls.jpg"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_od.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_od.jpg"></a></td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_ss.jpg"><img src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_ss.jpg"></a></td>
 </tr>
 </tbody></table>
-<h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a><a target="_blank" rel="noopener" href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a></h2><img data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2studio.png" width="80%"/>  
+<h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a><a target="_blank" rel="noopener" href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a></h2><img src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2studio.png" width="80%"/>  
 
 <p>TI官方提供的云端环境，集成了一系列工具,无需本地搭环境，使用需要申请，提供两个工具：</p>
 <ul>
@@ -429,7 +349,7 @@
 </ul>
 <h3 id="Model-Analyzer"><a href="#Model-Analyzer" class="headerlink" title="Model Analyzer"></a>Model Analyzer</h3><p>选TDA4VM设备，能使用3h，文件在顶端My Workspace;<br>进入后分两大板块:</p>
 <ul>
-<li>Find your model: Compare model performance, 能查看不同模型在板端的表现，用来选择适合自己需求的模型；<img data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2perform.png" width="70%"/>  </li>
+<li>Find your model: Compare model performance, 能查看不同模型在板端的表现，用来选择适合自己需求的模型；<img src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2perform.png" width="70%"/>  </li>
 <li>Get model benchmarks：<ul>
 <li>Model performance 是配置好的jupyter notebook，无需修改一步步运行即可输出结果；</li>
 <li>下面重点使用Custom models：</li>
@@ -449,11 +369,11 @@
 <p>Create Onnx runtime with <code>tidl_model_import_onnx</code> library to generate artifacts that offload supported portion of the DL model to the TI DSP.<br>参数配置见<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md#user-options-for-tidl-acceleration">User options for TIDL Acceleration</a></p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#x27;sess&#x27; model compilation options</span></span><br><span class="line">compile_options = &#123;</span><br><span class="line">    <span class="string">&#x27;tidl_tools_path&#x27;</span> : os.environ[<span class="string">&#x27;TIDL_TOOLS_PATH&#x27;</span>], <span class="comment">#tidl tools 路径</span></span><br><span class="line">    <span class="string">&#x27;artifacts_folder&#x27;</span> : output_dir, <span class="comment">#编译输出目录</span></span><br><span class="line">    <span class="string">&#x27;tensor_bits&#x27;</span> : num_bits,    <span class="comment">#量化位数</span></span><br><span class="line">    <span class="string">&#x27;accuracy_level&#x27;</span> : accuracy, <span class="comment">#精度级别，0快但精度低，1慢但精度高</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_frames&#x27;</span> : <span class="built_in">len</span>(calib_images),  <span class="comment">#设置用于校准模型量化参数的图片</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_iterations&#x27;</span> : <span class="number">3</span>, <span class="comment">#设置校准迭代次数 used if accuracy_level = 1</span></span><br><span class="line">    <span class="string">&#x27;debug_level&#x27;</span> : <span class="number">1</span>, <span class="comment">#设置调试级别，级别越高提供的调试信息越详细</span></span><br><span class="line">    <span class="string">&#x27;deny_list&#x27;</span> : <span class="string">&quot;MaxPool&quot;</span> <span class="comment">#排除ONNXRT不支持的层</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个会话选项对象，可以设置GPU加速、CPU 线程数、精度模式等会话参数</span></span><br><span class="line">so = rt.SessionOptions() <span class="comment">#此处默认参数</span></span><br><span class="line"><span class="comment"># 设置执行提供者列表，包含 TIDLCompilationProvider 和 CPUExecutionProvider</span></span><br><span class="line">EP_list = [<span class="string">&#x27;TIDLCompilationProvider&#x27;</span>, <span class="string">&#x27;CPUExecutionProvider&#x27;</span>]</span><br><span class="line"><span class="comment"># compile the model with TIDL acceleration by passing required compilation options.</span></span><br><span class="line">sess = rt.InferenceSession(onnx_model_path, providers=EP_list, provider_options=[compile_options, &#123;&#125;], sess_options=so)</span><br><span class="line"><span class="comment"># 载入 ONNX 模型并进行推理。可以使用 sess 对象来进行标准化、预处理、推理等操作，还可以获取模型的输入信息、输出信息、元图信息等</span></span><br><span class="line"><span class="comment"># At the end of model compilation step, model-artifacts for inference will be generated in user specified path.</span></span><br><span class="line"></span><br><span class="line">input_details = sess.get_inputs() <span class="comment"># 获取输入数据信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对校准图片进行预处理并进行推理，并将输出结果存储到 output 列表中</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> tqdm.trange(<span class="built_in">len</span>(calib_images)):</span><br><span class="line">    output = <span class="built_in">list</span>(sess.run(<span class="literal">None</span>, &#123;input_details[<span class="number">0</span>].name : preprocess_for_onnx_resent18v2(calib_images[num])&#125;))[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># Create OSRT inference session with TIDL acceleration option for running inference with generated model artifacts in the above step.</span></span><br></pre></td></tr></table></figure>
 
-<p>Then using Onnx with the libtidl_onnxrt_EP inference library we run the model and collect benchmark data.<br><img alt="图 9" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png" width="88%"/>  </p>
+<p>Then using Onnx with the libtidl_onnxrt_EP inference library we run the model and collect benchmark data.<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png" width="88%"/>  </p>
 <p><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md">edgeai-tidl-tools:Python Examples</a><br><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a></p>
 <h1 id="EdgeAI-Benchmark"><a href="#EdgeAI-Benchmark" class="headerlink" title="EdgeAI-Benchmark"></a><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master">EdgeAI-Benchmark</a></h1><p>EdgeAI-Benchmark提供了一系列针对不同图像识别任务的脚本，包括分类、分割、检测和关键点检测。（使用<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a>用于模型编译和推理）</p>
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>文档：<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/docs/setup_instructions.md">setup_instructions</a>，其中<code>pyenv install 3.6</code>可能因为网络原因下载极慢，这时可以先从官网或镜像源下载所需要的包到 ~&#x2F;.pyenv&#x2F;cache 目录下，再执行安装命令<br>此后每次需要激活环境：<code>pyenv activate benchmark</code></p>
-<h2 id="edgeai-tidl-tools-x2F-docs-x2F-custom-model-evaluation-md"><a href="#edgeai-tidl-tools-x2F-docs-x2F-custom-model-evaluation-md" class="headerlink" title="edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md"></a><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</a></h2><blockquote>
+<h2 id="edgeai-tidl-tools-docs-custom-model-evaluation-md"><a href="#edgeai-tidl-tools-docs-custom-model-evaluation-md" class="headerlink" title="edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md"></a><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</a></h2><blockquote>
 <p>TDA4系列文章：<br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a target="_blank" rel="noopener" href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
 </blockquote>
 
@@ -474,12 +394,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/C/" rel="prev" title="C, C++, Cmake">
-                  <i class="fa fa-chevron-left"></i> C, C++, Cmake
+                  <i class="fa fa-angle-left"></i> C, C++, Cmake
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/DLdeploy/" rel="next" title="DL模型转换及部署：torch > onnx > deploy">
-                  DL模型转换及部署：torch > onnx > deploy <i class="fa fa-chevron-right"></i>
+                  DL模型转换及部署：torch > onnx > deploy <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -492,104 +412,71 @@
 
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
 
-
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa-solid fa-star"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Arrow</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Arrow</span>
+  </div>
 <div class="wordcount">
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-      <span>站点总字数：</span>
     <span title="站点总字数">64k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span>站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">3:52</span>
   </span>
 </div>
-<div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-
-
-
-<!--  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div> -->
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
 
     </div>
   </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.8/pdfobject.min.js","integrity":"sha256-tu9j5pBilBQrWSDePOOajCUdz6hWsid/lBNzK4KgEPM="},"url":"/lib/pdf/web/viewer.html"}</script>
-  <script src="/js/third-party/tags/pdf.js"></script>
-
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.7/mermaid.min.js","integrity":"sha256-G58AID1YoX5YaEtWfXSI0VLrZ6N4kvNvwg0BI8zUFxE="}}</script>
-  <script src="/js/third-party/tags/mermaid.js"></script>
 
 
-
-  
-  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
 
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://example.com/TDA4VM2/"}</script>
-  <script src="/js/third-party/quicklink.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Arrowes","repo":"Arrowes.github.io","client_id":"0cf14e51c1582cf64289","client_secret":"5e8273d27714e40495267c73e607cfe9322b7266","admin_user":"Arrowes","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"0ac938afb33c62889c28ba577739fb2d"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
 
 
