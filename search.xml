@@ -424,7 +424,7 @@ A-->E[C.定义]</pre>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
 <p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#x6d;&#97;&#x70;&#64;&#x30;&#46;&#x35;">&#x6d;&#97;&#x70;&#64;&#x30;&#46;&#x35;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><em><a href="mailto:&#109;&#97;&#x70;&#x40;&#x30;&#46;&#53;">&#109;&#97;&#x70;&#x40;&#x30;&#46;&#53;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -440,109 +440,6 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
-    <url>/DLdeploy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
-<ul>
-<li>Network selection：</li>
-<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
-<li>Deployment：<img alt="图 1" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
-</ul>
-<p>Netron神经网络可视化: <a href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a href="https://netron.app/">在线网站</a></p>
-<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a href="https://onnx.ai/">ONNX</a>，<a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnxruntime.ai/">ONNX Runtime</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
-<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
-<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
-<blockquote>
-<p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
-</blockquote>
-<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-
-<details>
-    <summary>SRCNN超分辨率代码</summary>
-
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<p>模型转换为ONNX，验证正确性，运行推理：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 0" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
-
-<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
-<ul>
-<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
-<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的。</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字）</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
-<li>PyTorch 算子<ul>
-<li>组合现有算子</li>
-<li>添加 TorchScript 算子</li>
-<li>添加普通 C++ 拓展算子</li>
-</ul>
-</li>
-<li>映射方法<ul>
-<li>为 ATen 算子添加符号函数</li>
-<li>为 TorchScript 算子添加符号函数</li>
-<li>封装成 <code>torch.autograd.Function</code> 并添加符号函数</li>
-</ul>
-</li>
-<li>ONNX 算子<ul>
-<li>使用现有 ONNX 算子</li>
-<li>定义新 ONNX 算子</li>
-</ul>
-</li>
-</ul>
-<p><a href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
-<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
-<p>浮点数格式 (float32)：$V &#x3D; (-1)^s×M×2^E$</p>
-<table>
-<thead>
-<tr>
-<th>符号位s</th>
-<th>阶码E</th>
-<th>尾数M</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>8</td>
-<td>23</td>
-</tr>
-</tbody></table>
-<p>定点数格式 (int8)：</p>
-<table>
-<thead>
-<tr>
-<th>符号位</th>
-<th>整数位（设定）</th>
-<th>小数位(量化系数)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>4</td>
-<td>3</td>
-</tr>
-</tbody></table>
-<p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
-<p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
-<blockquote>
-<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img data-src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
-</blockquote>
-<p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
-<img alt="图 3" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
-
-<p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -673,6 +570,109 @@ A-->E[C.定义]</pre>
       </tags>
   </entry>
   <entry>
+    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
+    <url>/DLdeploy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
+<ul>
+<li>Network selection：</li>
+<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
+<li>Deployment：<img alt="图 1" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
+</ul>
+<p>Netron神经网络可视化: <a href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a href="https://netron.app/">在线网站</a></p>
+<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a href="https://onnx.ai/">ONNX</a>，<a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnxruntime.ai/">ONNX Runtime</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
+<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
+<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
+<blockquote>
+<p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
+</blockquote>
+<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<details>
+    <summary>SRCNN超分辨率代码</summary>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<p>模型转换为ONNX，验证正确性，运行推理：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
+<img alt="picture 0" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
+
+<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
+<ul>
+<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
+<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的。</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字）</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
+<li>PyTorch 算子<ul>
+<li>组合现有算子</li>
+<li>添加 TorchScript 算子</li>
+<li>添加普通 C++ 拓展算子</li>
+</ul>
+</li>
+<li>映射方法<ul>
+<li>为 ATen 算子添加符号函数</li>
+<li>为 TorchScript 算子添加符号函数</li>
+<li>封装成 <code>torch.autograd.Function</code> 并添加符号函数</li>
+</ul>
+</li>
+<li>ONNX 算子<ul>
+<li>使用现有 ONNX 算子</li>
+<li>定义新 ONNX 算子</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
+<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
+<p>浮点数格式 (float32)：$V &#x3D; (-1)^s×M×2^E$</p>
+<table>
+<thead>
+<tr>
+<th>符号位s</th>
+<th>阶码E</th>
+<th>尾数M</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>8</td>
+<td>23</td>
+</tr>
+</tbody></table>
+<p>定点数格式 (int8)：</p>
+<table>
+<thead>
+<tr>
+<th>符号位</th>
+<th>整数位（设定）</th>
+<th>小数位(量化系数)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>4</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
+<p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
+<blockquote>
+<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img data-src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
+</blockquote>
+<p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
+<img alt="图 3" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
+
+<p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello Blog! 从零开始搭建自己的博客网站</title>
     <url>/Hello-blog/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
@@ -751,89 +751,6 @@ A-->E[C.定义]</pre>
 <a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
       <tags>
         <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux：Ubuntu，Git，Docker</title>
-    <url>/Linux/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹( rm -r XXX  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找 find *XXX*</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br><span class="line">script -f log.txt   <span class="comment">#输出terminal内容到文件 exit退出记录，或在指令后加入 &gt; log.txt</span></span><br></pre></td></tr></table></figure>
-<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/version   <span class="comment">#查版本信息</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本</span></span><br><span class="line">free -m             <span class="comment">#查内存使用情况</span></span><br><span class="line"><span class="built_in">df</span> -hl              <span class="comment">#查看磁盘剩余空间</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>截图：1.screen截图应用程序   2.设置-设备-键盘-截图快捷键</p>
-<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> + <a href="http://releases.ubuntu.com/20.04/">Ubuntu 20.04</a>, 或<a href="https://releases.ubuntu.com/bionic/">18.04</a>（速度慢则换<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/20.04/">镜像源</a>）</p>
-<blockquote>
-<p>新建 &gt; 导入.iso镜像 &gt; 配置（分4G内存,100G硬盘）<br>设置 &gt; 共享文件夹 &gt; 添加（自动挂载，固定分配）<br>设置 &gt; 共享粘贴板、拖放 &gt; 双向<br>挂载U盘：USB &gt; USB设置 &gt; 添加一个USB &gt; 在ubuntu设备中勾选</p>
-</blockquote>
-<p>Host 键:右ctrl，方向键上：获取上次的命令，Tab：自动补全<br><code>Ctrl + alt + T</code>	Terminal<br><code>Ctrl + H</code>	显示隐藏文件   </p>
-<blockquote>
-<p>Debug:<br>VirtualBox安装 64位的Ubuntu系统，在安装时没有显示64位的Linux安装项: 1.CPU要是64位, 2.CPU开启了虚拟化 &gt; <code>进入BOIS &gt; Security&gt; Virtualization &gt; Enable</code> 还是不行则要查看Win10系统安装了自带的Hyper-V虚拟机是否占用了CPU虚拟化技术，将其卸载</p>
-</blockquote>
-<h2 id="上网"><a href="#上网" class="headerlink" title="上网"></a>上网</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ol>
-<li>找一个合适的梯子，建议直接买付费的，稳定快速，推荐 <a href="sockboom.link">SockBoom</a>, 购买后会得到一个订阅地址，类似于<code>https://sub.sockboom.pro/.../.ini</code>，之后把这个地址填进软件，即可成功挂上梯子</li>
-<li>下载软件：<a href="https://github.com/Fndroid/clash_for_windows_pkg/releases">Clash.for.Windows</a>，解压后双击<code>Clash for Windows.exe</code>打开软件 (备用下载链接：<a href="https://sockboomdownload.com/ssr-download/ClashforWindows.zip">Clash</a>)</li>
-<li>点击左侧的 <code>配置</code>，在顶部的输入栏中粘贴你复制的Clash订阅地址后点击 <code>下载</code>, 显示绿色的成功之后，点击名字为 <code>Sockboom</code> 的地方</li>
-<li>点击左侧的<code>代理</code>，点击上方的<code>Rule</code>，一般选择<code>手动选择</code>内的节点即可，不同的节点名称代表不同地区的服务器，可以点右上方的WiFi图标进行测速，哪个延迟低选哪个节点（用ChatGPT不能选香港），节点有失效可能，注意切换</li>
-<li>点击左侧的<code>主页</code>，打开下面<code>系统代理</code>的开关，即<strong>成功挂上梯子</strong>，左上角会显示实时流量，建议在<code>设置&gt;快捷键</code>中将系统代理设为<code>Ctrl+W</code>, 按需随时开关，节约流量<br>（注意：在<code>系统代理</code>的开关打开的情况下关闭软件，将会<em>出现电脑连不上网的情况</em>，此时重新打开Clash即可解决，因此，建议也打开<code>开机自启动</code>的开关，保持Clash后台常驻）</li>
-</ol>
-<p>至此，即可流畅登录Github上传或下载代码，以及在终端中安装各种工具包，避免了换源等繁琐操作</p>
-<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><a href="https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.29/Clash.for.Windows-0.20.29-x64-linux.tar.gz">Clash.for.Windows-0.20.29-x64-linux.tar.gz </a>可用于Ubuntu，<br>解压缩，进入文件夹终端，运行<code>.cfw</code>,即可打开软件<br>Ubuntu设置-网络代理设为手动，将http&#x2F;https代理指向clash默认端口7890：<code>HTTP代理：127.0.0.1 7890</code> <code>HTTPS代理：127.0.0.1 7890</code></p>
-<p>创建软件快捷方式(Optional)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://cdn.jsdelivr.net/gh/Dreamacro/clash@master/docs/logo.png    <span class="comment"># 下载clash icon做为桌面图标</span></span><br><span class="line">vim clash.desktop</span><br><span class="line"><span class="comment"># 输入下面的内容</span></span><br><span class="line">[Desktop Entry]</span><br><span class="line"> Name=clash</span><br><span class="line"> Comment=Clash</span><br><span class="line"> Exec=/home/.../clash/cfw</span><br><span class="line"> Icon=/home/.../clash/logo.png</span><br><span class="line"> Type=Application</span><br><span class="line"> Categories=Development;</span><br><span class="line"> StartupNotify=<span class="literal">true</span></span><br><span class="line"> NoDisplay=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">mv</span> clash.desktop /usr/share/applications/</span><br></pre></td></tr></table></figure>
-<p>最终就能实现通过图标打开</p>
-<p><strong>使用手机或其他USB设备提供网络</strong><br>VirtualBox设置 &gt; USB设备 &gt; 添加对应的USB口 &gt; 重新启动虚拟机 &gt; 右上角网络 &gt; 连接USB以太网</p>
-<h2 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a>VScode</h2><p>vscode远程访问：1.安装remote插件 2.连接服务器<code>ssh ywang85@she1-w50502</code> 3.connect，打开terminal</p>
-<p>上传文件：vscode直接拖拽到目录<br>下载文件：右键download</p>
-<p>vscode插件离线安装：如装python插件，直接进<a href="https://marketplace.visualstudio.com/vscode"> marketplace </a>下好拖到扩展位置</p>
-<p><strong>快捷键</strong><br>打开vscode左下角键盘快捷键设置，找到copy line down，即可查看当前默认快捷键为<code>shift + Alt + ↓</code>，双击快捷键，输入自己想要的快捷组合，如Ctrl+D，然后回车即可设置自己的组合了</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Ctrl + /    <span class="comment">#注释</span></span><br><span class="line">alt + ↑/↓   <span class="comment">#移动行</span></span><br><span class="line">alt + ←/→   <span class="comment">#光标跳到上/下一个单词</span></span><br><span class="line">Ctrl + L    <span class="comment">#选择整行</span></span><br><span class="line">Ctrl + X    <span class="comment">#删除整行</span></span><br><span class="line">Ctrl + ~    <span class="comment">#控制台终端显示与隐藏：</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
-<li>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code></li>
-<li>共享文件夹ubuntu中不显示 &gt; 重新安装VMware tools</li>
-<li><code>sudo apt-get install</code> failed &gt; 换源</li>
-<li>若打不开终端：系统设置修改语言后重新登陆</li>
-</ul>
-<p> </p>
-<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><p>下载 <a href="https://git-scm.com/downloads">Git</a>，与 <a href="https://tortoisegit.org/download/">TortoiseGit</a> 小乌龟配合使用可以少记很多指令，在目标文件夹右键可执行push、clone、commit等操作</p>
-<h2 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h2><ol>
-<li><code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地</li>
-<li><code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上</li>
-<li>修改或者添加本地代码（部署在硬盘的源文件上）</li>
-<li><code>git diff</code> 查看自己对代码做出的改变</li>
-<li><code>git add .</code> 上传所有代码至暂存区 也可把 . 换成指定文件</li>
-<li><code>git commit</code> 可以将暂存区里更新后的代码更新到本地git</li>
-<li><code>git push origin xxx</code> 将本地的xxx git分支上传至github上的git</li>
-</ol>
-<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变</p>
-<ol>
-<li><code>git checkout main</code> 切换回main分支</li>
-<li><code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地</li>
-<li><code>git checkout xxx</code> 回到xxx分支</li>
-<li><code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict –&gt; 手动选择保留哪段代码）</li>
-<li><code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上（-f –&gt; 强行）</li>
-<li>原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</li>
-</ol>
-<p>远端完成更新后</p>
-<ol>
-<li><code>git branch -d xxx</code> 删除本地的git分支</li>
-<li><code>git pull origin master</code> 再把远端的最新代码拉至本地</li>
-</ol>
-<p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" width="100%">
-
-
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#branch 与 tag：</span></span><br><span class="line">git tag/branch  <span class="comment">#查本地仓库所有的tag或branch -r:远程分支 -a:所有分支</span></span><br><span class="line">git checkout [tag/branch]   <span class="comment">#已有仓库切换 tag/branch</span></span><br><span class="line">git checkout -b [branch]    <span class="comment">#新建一个分支，并切换到该分支</span></span><br><span class="line">git merge [branch]  <span class="comment">#合并指定分支到当前分支</span></span><br><span class="line">git tag [tag]       <span class="comment">#新建一个 tag 在当前 commit</span></span><br><span class="line">git describe --tag  <span class="comment">#查当前tag</span></span><br><span class="line">git show [tag]      <span class="comment">#查看tag信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tag 对应某次 commit, 是一个点，是不可移动的。</span></span><br><span class="line"><span class="comment">#branch 对应一系列 commit，是很多点连成的一根线，有一个HEAD 指针，是可以依靠 HEAD 指针移动的。</span></span><br><span class="line"><span class="comment">#两者的区别决定了使用方式，改动代码用 branch ,不改动只查看用 tag</span></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常用指令：</span></span><br><span class="line">git init [project-name] <span class="comment">#新建一个目录，将其初始化为Git代码库</span></span><br><span class="line">git status  <span class="comment">#显示有变更的文件</span></span><br><span class="line">git <span class="built_in">log</span>     <span class="comment">#显示当前分支的版本历史 commit id</span></span><br><span class="line">git diff    <span class="comment">#显示暂存区和工作区的差异</span></span><br><span class="line">git reset --hard [commitId]  <span class="comment"># 进行回溯</span></span><br><span class="line"></span><br><span class="line">git config --list   <span class="comment">#检查当前配置</span></span><br><span class="line"><span class="comment"># 配置全局信息 无global则是在项目中配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;[name]&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;[email address]&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
-<p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
-<h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1232,6 +1149,89 @@ B-->C</pre>
       <tags>
         <tag>技术</tag>
         <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux：Ubuntu，Git，Docker</title>
+    <url>/Linux/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹( rm -r XXX  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找 find *XXX*</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br><span class="line">script -f log.txt   <span class="comment">#输出terminal内容到文件 exit退出记录，或在指令后加入 &gt; log.txt</span></span><br></pre></td></tr></table></figure>
+<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/version   <span class="comment">#查版本信息</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本</span></span><br><span class="line">free -m             <span class="comment">#查内存使用情况</span></span><br><span class="line"><span class="built_in">df</span> -hl              <span class="comment">#查看磁盘剩余空间</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>截图：1.screen截图应用程序   2.设置-设备-键盘-截图快捷键</p>
+<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> + <a href="http://releases.ubuntu.com/20.04/">Ubuntu 20.04</a>, 或<a href="https://releases.ubuntu.com/bionic/">18.04</a>（速度慢则换<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/20.04/">镜像源</a>）</p>
+<blockquote>
+<p>新建 &gt; 导入.iso镜像 &gt; 配置（分4G内存,100G硬盘）<br>设置 &gt; 共享文件夹 &gt; 添加（自动挂载，固定分配）<br>设置 &gt; 共享粘贴板、拖放 &gt; 双向<br>挂载U盘：USB &gt; USB设置 &gt; 添加一个USB &gt; 在ubuntu设备中勾选</p>
+</blockquote>
+<p>Host 键:右ctrl，方向键上：获取上次的命令，Tab：自动补全<br><code>Ctrl + alt + T</code>	Terminal<br><code>Ctrl + H</code>	显示隐藏文件   </p>
+<blockquote>
+<p>Debug:<br>VirtualBox安装 64位的Ubuntu系统，在安装时没有显示64位的Linux安装项: 1.CPU要是64位, 2.CPU开启了虚拟化 &gt; <code>进入BOIS &gt; Security&gt; Virtualization &gt; Enable</code> 还是不行则要查看Win10系统安装了自带的Hyper-V虚拟机是否占用了CPU虚拟化技术，将其卸载</p>
+</blockquote>
+<h2 id="上网"><a href="#上网" class="headerlink" title="上网"></a>上网</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ol>
+<li>找一个合适的梯子，建议直接买付费的，稳定快速，推荐 <a href="sockboom.link">SockBoom</a>, 购买后会得到一个订阅地址，类似于<code>https://sub.sockboom.pro/.../.ini</code>，之后把这个地址填进软件，即可成功挂上梯子</li>
+<li>下载软件：<a href="https://github.com/Fndroid/clash_for_windows_pkg/releases">Clash.for.Windows</a>，解压后双击<code>Clash for Windows.exe</code>打开软件 (备用下载链接：<a href="https://sockboomdownload.com/ssr-download/ClashforWindows.zip">Clash</a>)</li>
+<li>点击左侧的 <code>配置</code>，在顶部的输入栏中粘贴你复制的Clash订阅地址后点击 <code>下载</code>, 显示绿色的成功之后，点击名字为 <code>Sockboom</code> 的地方</li>
+<li>点击左侧的<code>代理</code>，点击上方的<code>Rule</code>，一般选择<code>手动选择</code>内的节点即可，不同的节点名称代表不同地区的服务器，可以点右上方的WiFi图标进行测速，哪个延迟低选哪个节点（用ChatGPT不能选香港），节点有失效可能，注意切换</li>
+<li>点击左侧的<code>主页</code>，打开下面<code>系统代理</code>的开关，即<strong>成功挂上梯子</strong>，左上角会显示实时流量，建议在<code>设置&gt;快捷键</code>中将系统代理设为<code>Ctrl+W</code>, 按需随时开关，节约流量<br>（注意：在<code>系统代理</code>的开关打开的情况下关闭软件，将会<em>出现电脑连不上网的情况</em>，此时重新打开Clash即可解决，因此，建议也打开<code>开机自启动</code>的开关，保持Clash后台常驻）</li>
+</ol>
+<p>至此，即可流畅登录Github上传或下载代码，以及在终端中安装各种工具包，避免了换源等繁琐操作</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><a href="https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.29/Clash.for.Windows-0.20.29-x64-linux.tar.gz">Clash.for.Windows-0.20.29-x64-linux.tar.gz </a>可用于Ubuntu，<br>解压缩，进入文件夹终端，运行<code>.cfw</code>,即可打开软件<br>Ubuntu设置-网络代理设为手动，将http&#x2F;https代理指向clash默认端口7890：<code>HTTP代理：127.0.0.1 7890</code> <code>HTTPS代理：127.0.0.1 7890</code></p>
+<p>创建软件快捷方式(Optional)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://cdn.jsdelivr.net/gh/Dreamacro/clash@master/docs/logo.png    <span class="comment"># 下载clash icon做为桌面图标</span></span><br><span class="line">vim clash.desktop</span><br><span class="line"><span class="comment"># 输入下面的内容</span></span><br><span class="line">[Desktop Entry]</span><br><span class="line"> Name=clash</span><br><span class="line"> Comment=Clash</span><br><span class="line"> Exec=/home/.../clash/cfw</span><br><span class="line"> Icon=/home/.../clash/logo.png</span><br><span class="line"> Type=Application</span><br><span class="line"> Categories=Development;</span><br><span class="line"> StartupNotify=<span class="literal">true</span></span><br><span class="line"> NoDisplay=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">mv</span> clash.desktop /usr/share/applications/</span><br></pre></td></tr></table></figure>
+<p>最终就能实现通过图标打开</p>
+<p><strong>使用手机或其他USB设备提供网络</strong><br>VirtualBox设置 &gt; USB设备 &gt; 添加对应的USB口 &gt; 重新启动虚拟机 &gt; 右上角网络 &gt; 连接USB以太网</p>
+<h2 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a>VScode</h2><p>vscode远程访问：1.安装remote插件 2.连接服务器<code>ssh ywang85@she1-w50502</code> 3.connect，打开terminal</p>
+<p>上传文件：vscode直接拖拽到目录<br>下载文件：右键download</p>
+<p>vscode插件离线安装：如装python插件，直接进<a href="https://marketplace.visualstudio.com/vscode"> marketplace </a>下好拖到扩展位置</p>
+<p><strong>快捷键</strong><br>打开vscode左下角键盘快捷键设置，找到copy line down，即可查看当前默认快捷键为<code>shift + Alt + ↓</code>，双击快捷键，输入自己想要的快捷组合，如Ctrl+D，然后回车即可设置自己的组合了</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Ctrl + /    <span class="comment">#注释</span></span><br><span class="line">alt + ↑/↓   <span class="comment">#移动行</span></span><br><span class="line">alt + ←/→   <span class="comment">#光标跳到上/下一个单词</span></span><br><span class="line">Ctrl + L    <span class="comment">#选择整行</span></span><br><span class="line">Ctrl + X    <span class="comment">#删除整行</span></span><br><span class="line">Ctrl + ~    <span class="comment">#控制台终端显示与隐藏：</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
+<li>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code></li>
+<li>共享文件夹ubuntu中不显示 &gt; 重新安装VMware tools</li>
+<li><code>sudo apt-get install</code> failed &gt; 换源</li>
+<li>若打不开终端：系统设置修改语言后重新登陆</li>
+</ul>
+<p> </p>
+<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><p>下载 <a href="https://git-scm.com/downloads">Git</a>，与 <a href="https://tortoisegit.org/download/">TortoiseGit</a> 小乌龟配合使用可以少记很多指令，在目标文件夹右键可执行push、clone、commit等操作</p>
+<h2 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h2><ol>
+<li><code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地</li>
+<li><code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上</li>
+<li>修改或者添加本地代码（部署在硬盘的源文件上）</li>
+<li><code>git diff</code> 查看自己对代码做出的改变</li>
+<li><code>git add .</code> 上传所有代码至暂存区 也可把 . 换成指定文件</li>
+<li><code>git commit</code> 可以将暂存区里更新后的代码更新到本地git</li>
+<li><code>git push origin xxx</code> 将本地的xxx git分支上传至github上的git</li>
+</ol>
+<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变</p>
+<ol>
+<li><code>git checkout main</code> 切换回main分支</li>
+<li><code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地</li>
+<li><code>git checkout xxx</code> 回到xxx分支</li>
+<li><code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict –&gt; 手动选择保留哪段代码）</li>
+<li><code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上（-f –&gt; 强行）</li>
+<li>原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</li>
+</ol>
+<p>远端完成更新后</p>
+<ol>
+<li><code>git branch -d xxx</code> 删除本地的git分支</li>
+<li><code>git pull origin master</code> 再把远端的最新代码拉至本地</li>
+</ol>
+<p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
+<img data-src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" width="100%">
+
+
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#branch 与 tag：</span></span><br><span class="line">git tag/branch  <span class="comment">#查本地仓库所有的tag或branch -r:远程分支 -a:所有分支</span></span><br><span class="line">git checkout [tag/branch]   <span class="comment">#已有仓库切换 tag/branch</span></span><br><span class="line">git checkout -b [branch]    <span class="comment">#新建一个分支，并切换到该分支</span></span><br><span class="line">git merge [branch]  <span class="comment">#合并指定分支到当前分支</span></span><br><span class="line">git tag [tag]       <span class="comment">#新建一个 tag 在当前 commit</span></span><br><span class="line">git describe --tag  <span class="comment">#查当前tag</span></span><br><span class="line">git show [tag]      <span class="comment">#查看tag信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tag 对应某次 commit, 是一个点，是不可移动的。</span></span><br><span class="line"><span class="comment">#branch 对应一系列 commit，是很多点连成的一根线，有一个HEAD 指针，是可以依靠 HEAD 指针移动的。</span></span><br><span class="line"><span class="comment">#两者的区别决定了使用方式，改动代码用 branch ,不改动只查看用 tag</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常用指令：</span></span><br><span class="line">git init [project-name] <span class="comment">#新建一个目录，将其初始化为Git代码库</span></span><br><span class="line">git status  <span class="comment">#显示有变更的文件</span></span><br><span class="line">git <span class="built_in">log</span>     <span class="comment">#显示当前分支的版本历史 commit id</span></span><br><span class="line">git diff    <span class="comment">#显示暂存区和工作区的差异</span></span><br><span class="line">git reset --hard [commitId]  <span class="comment"># 进行回溯</span></span><br><span class="line"></span><br><span class="line">git config --list   <span class="comment">#检查当前配置</span></span><br><span class="line"><span class="comment"># 配置全局信息 无global则是在项目中配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;[name]&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;[email address]&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
+<p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
+<h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
