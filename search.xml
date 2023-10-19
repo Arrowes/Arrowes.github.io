@@ -424,7 +424,7 @@ A-->E[C.定义]</pre>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL9.png" alt="图 9">  </p>
 <p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#x6d;&#x61;&#x70;&#x40;&#48;&#x2e;&#x35;">&#x6d;&#x61;&#x70;&#x40;&#48;&#x2e;&#x35;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
+<p><em><a href="mailto:&#109;&#97;&#x70;&#x40;&#48;&#x2e;&#x35;">&#109;&#97;&#x70;&#x40;&#48;&#x2e;&#x35;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -440,109 +440,6 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
-    <url>/DLdeploy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
-<ul>
-<li>Network selection：</li>
-<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
-<li>Deployment：<img alt="图 1" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
-</ul>
-<p>Netron神经网络可视化: <a href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a href="https://netron.app/">在线网站</a></p>
-<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a href="https://onnx.ai/">ONNX</a>，<a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnxruntime.ai/">ONNX Runtime</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
-<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
-<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
-<blockquote>
-<p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
-</blockquote>
-<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-
-<details>
-    <summary>SRCNN超分辨率代码</summary>
-
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-<p>模型转换为ONNX，验证正确性，运行推理：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 0" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
-
-<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
-<ul>
-<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
-<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的。</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字）</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
-<li>PyTorch 算子<ul>
-<li>组合现有算子</li>
-<li>添加 TorchScript 算子</li>
-<li>添加普通 C++ 拓展算子</li>
-</ul>
-</li>
-<li>映射方法<ul>
-<li>为 ATen 算子添加符号函数</li>
-<li>为 TorchScript 算子添加符号函数</li>
-<li>封装成 <code>torch.autograd.Function</code> 并添加符号函数</li>
-</ul>
-</li>
-<li>ONNX 算子<ul>
-<li>使用现有 ONNX 算子</li>
-<li>定义新 ONNX 算子</li>
-</ul>
-</li>
-</ul>
-<p><a href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
-<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
-<p>浮点数格式 (float32)：$V &#x3D; (-1)^s×M×2^E$</p>
-<table>
-<thead>
-<tr>
-<th>符号位s</th>
-<th>阶码E</th>
-<th>尾数M</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>8</td>
-<td>23</td>
-</tr>
-</tbody></table>
-<p>定点数格式 (int8)：</p>
-<table>
-<thead>
-<tr>
-<th>符号位</th>
-<th>整数位（设定）</th>
-<th>小数位(量化系数)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>4</td>
-<td>3</td>
-</tr>
-</tbody></table>
-<p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
-<p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
-<blockquote>
-<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img data-src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
-</blockquote>
-<p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
-<img alt="图 3" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
-
-<p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -673,6 +570,109 @@ A-->E[C.定义]</pre>
       </tags>
   </entry>
   <entry>
+    <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
+    <url>/DLdeploy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><strong>算法部署</strong></p>
+<ul>
+<li>Network selection：</li>
+<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
+<li>Deployment：<img alt="图 1" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
+</ul>
+<p>Netron神经网络可视化: <a href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a href="https://netron.app/">在线网站</a></p>
+<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a href="https://onnx.ai/">ONNX</a>，<a href="https://github.com/onnx/onnx">Github</a>，<a href="https://onnxruntime.ai/">ONNX Runtime</a>，<a href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
+<p><a href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
+<p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
+<blockquote>
+<p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
+</blockquote>
+<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<details>
+    <summary>SRCNN超分辨率代码</summary>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<p>模型转换为ONNX，验证正确性，运行推理：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
+<img alt="picture 0" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
+
+<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
+<ul>
+<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
+<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的。</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字）</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
+<li>PyTorch 算子<ul>
+<li>组合现有算子</li>
+<li>添加 TorchScript 算子</li>
+<li>添加普通 C++ 拓展算子</li>
+</ul>
+</li>
+<li>映射方法<ul>
+<li>为 ATen 算子添加符号函数</li>
+<li>为 TorchScript 算子添加符号函数</li>
+<li>封装成 <code>torch.autograd.Function</code> 并添加符号函数</li>
+</ul>
+</li>
+<li>ONNX 算子<ul>
+<li>使用现有 ONNX 算子</li>
+<li>定义新 ONNX 算子</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
+<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
+<p>浮点数格式 (float32)：$V &#x3D; (-1)^s×M×2^E$</p>
+<table>
+<thead>
+<tr>
+<th>符号位s</th>
+<th>阶码E</th>
+<th>尾数M</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>8</td>
+<td>23</td>
+</tr>
+</tbody></table>
+<p>定点数格式 (int8)：</p>
+<table>
+<thead>
+<tr>
+<th>符号位</th>
+<th>整数位（设定）</th>
+<th>小数位(量化系数)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>4</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p>若整数位占4位，小数位占3位，则其最大精度为0.125，最大值为15.875<br>若整数位占5位，小数位占2位，则其最大精度为0.250，最大值为31.750<br>$int8&#x3D;float32∗2^3$<br>$float32&#x3D;int8&#x2F;2^3$</p>
+<p>浮点运算在运算过程中，小数点的位置是变动的，而定点运算则是固定不变。如果将浮点数转换成定点数，就可以实现一次读取多个数进行计算（1 float32 &#x3D; 4 int8），提高了运算效率。</p>
+<blockquote>
+<p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。<br><img data-src="https://img2018.cnblogs.com/blog/947235/201905/947235-20190513143437402-715176586.png" width='70%'></p>
+</blockquote>
+<p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
+<img alt="图 3" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
+
+<p><a href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello Blog! 从零开始搭建自己的博客网站</title>
     <url>/Hello-blog/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
@@ -751,89 +751,6 @@ A-->E[C.定义]</pre>
 <a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
       <tags>
         <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux：Ubuntu，Git，Docker</title>
-    <url>/Linux/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹( rm -r XXX  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找 find *XXX*</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br><span class="line">script -f log.txt   <span class="comment">#输出terminal内容到文件 exit退出记录，或在指令后加入 &gt; log.txt</span></span><br></pre></td></tr></table></figure>
-<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/version   <span class="comment">#查版本信息</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本</span></span><br><span class="line">free -m             <span class="comment">#查内存使用情况</span></span><br><span class="line"><span class="built_in">df</span> -hl              <span class="comment">#查看磁盘剩余空间</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>截图：1.screen截图应用程序   2.设置-设备-键盘-截图快捷键</p>
-<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> + <a href="http://releases.ubuntu.com/20.04/">Ubuntu 20.04</a>, 或<a href="https://releases.ubuntu.com/bionic/">18.04</a>（速度慢则换<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/20.04/">镜像源</a>）</p>
-<blockquote>
-<p>新建 &gt; 导入.iso镜像 &gt; 配置（分4G内存,100G硬盘）<br>设置 &gt; 共享文件夹 &gt; 添加（自动挂载，固定分配）<br>设置 &gt; 共享粘贴板、拖放 &gt; 双向<br>挂载U盘：USB &gt; USB设置 &gt; 添加一个USB &gt; 在ubuntu设备中勾选</p>
-</blockquote>
-<p>Host 键:右ctrl，方向键上：获取上次的命令，Tab：自动补全<br><code>Ctrl + alt + T</code>	Terminal<br><code>Ctrl + H</code>	显示隐藏文件   </p>
-<blockquote>
-<p>Debug:<br>VirtualBox安装 64位的Ubuntu系统，在安装时没有显示64位的Linux安装项: 1.CPU要是64位, 2.CPU开启了虚拟化 &gt; <code>进入BOIS &gt; Security&gt; Virtualization &gt; Enable</code> 还是不行则要查看Win10系统安装了自带的Hyper-V虚拟机是否占用了CPU虚拟化技术，将其卸载</p>
-</blockquote>
-<h2 id="上网"><a href="#上网" class="headerlink" title="上网"></a>上网</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ol>
-<li>找一个合适的梯子，建议直接买付费的，稳定快速，推荐 <a href="sockboom.link">SockBoom</a>, 购买后会得到一个订阅地址，类似于<code>https://sub.sockboom.pro/.../.ini</code>，之后把这个地址填进软件，即可成功挂上梯子</li>
-<li>下载软件：<a href="https://github.com/Fndroid/clash_for_windows_pkg/releases">Clash.for.Windows</a>，解压后双击<code>Clash for Windows.exe</code>打开软件 (备用下载链接：<a href="https://sockboomdownload.com/ssr-download/ClashforWindows.zip">Clash</a>)</li>
-<li>点击左侧的 <code>配置</code>，在顶部的输入栏中粘贴你复制的Clash订阅地址后点击 <code>下载</code>, 显示绿色的成功之后，点击名字为 <code>Sockboom</code> 的地方</li>
-<li>点击左侧的<code>代理</code>，点击上方的<code>Rule</code>，一般选择<code>手动选择</code>内的节点即可，不同的节点名称代表不同地区的服务器，可以点右上方的WiFi图标进行测速，哪个延迟低选哪个节点（用ChatGPT不能选香港），节点有失效可能，注意切换</li>
-<li>点击左侧的<code>主页</code>，打开下面<code>系统代理</code>的开关，即<strong>成功挂上梯子</strong>，左上角会显示实时流量，建议在<code>设置&gt;快捷键</code>中将系统代理设为<code>Ctrl+W</code>, 按需随时开关，节约流量<br>（注意：在<code>系统代理</code>的开关打开的情况下关闭软件，将会<em>出现电脑连不上网的情况</em>，此时重新打开Clash即可解决，因此，建议也打开<code>开机自启动</code>的开关，保持Clash后台常驻）</li>
-</ol>
-<p>至此，即可流畅登录Github上传或下载代码，以及在终端中安装各种工具包，避免了换源等繁琐操作</p>
-<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><a href="https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.29/Clash.for.Windows-0.20.29-x64-linux.tar.gz">Clash.for.Windows-0.20.29-x64-linux.tar.gz </a>可用于Ubuntu，<br>解压缩，进入文件夹终端，运行<code>.cfw</code>,即可打开软件<br>Ubuntu设置-网络代理设为手动，将http&#x2F;https代理指向clash默认端口7890：<code>HTTP代理：127.0.0.1 7890</code> <code>HTTPS代理：127.0.0.1 7890</code></p>
-<p>创建软件快捷方式(Optional)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://cdn.jsdelivr.net/gh/Dreamacro/clash@master/docs/logo.png    <span class="comment"># 下载clash icon做为桌面图标</span></span><br><span class="line">vim clash.desktop</span><br><span class="line"><span class="comment"># 输入下面的内容</span></span><br><span class="line">[Desktop Entry]</span><br><span class="line"> Name=clash</span><br><span class="line"> Comment=Clash</span><br><span class="line"> Exec=/home/.../clash/cfw</span><br><span class="line"> Icon=/home/.../clash/logo.png</span><br><span class="line"> Type=Application</span><br><span class="line"> Categories=Development;</span><br><span class="line"> StartupNotify=<span class="literal">true</span></span><br><span class="line"> NoDisplay=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">mv</span> clash.desktop /usr/share/applications/</span><br></pre></td></tr></table></figure>
-<p>最终就能实现通过图标打开</p>
-<p><strong>使用手机或其他USB设备提供网络</strong><br>VirtualBox设置 &gt; USB设备 &gt; 添加对应的USB口 &gt; 重新启动虚拟机 &gt; 右上角网络 &gt; 连接USB以太网</p>
-<h2 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a>VScode</h2><p>vscode远程访问：1.安装remote插件 2.连接服务器<code>ssh ywang85@she1-w50502</code> 3.connect，打开terminal</p>
-<p>上传文件：vscode直接拖拽到目录<br>下载文件：右键download</p>
-<p>vscode插件离线安装：如装python插件，直接进<a href="https://marketplace.visualstudio.com/vscode"> marketplace </a>下好拖到扩展位置</p>
-<p><strong>快捷键</strong><br>打开vscode左下角键盘快捷键设置，找到copy line down，即可查看当前默认快捷键为<code>shift + Alt + ↓</code>，双击快捷键，输入自己想要的快捷组合，如Ctrl+D，然后回车即可设置自己的组合了</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Ctrl + /    <span class="comment">#注释</span></span><br><span class="line">alt + ↑/↓   <span class="comment">#移动行</span></span><br><span class="line">alt + ←/→   <span class="comment">#光标跳到上/下一个单词</span></span><br><span class="line">Ctrl + L    <span class="comment">#选择整行</span></span><br><span class="line">Ctrl + X    <span class="comment">#删除整行</span></span><br><span class="line">Ctrl + ~    <span class="comment">#控制台终端显示与隐藏：</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
-<li>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code></li>
-<li>共享文件夹ubuntu中不显示 &gt; 重新安装VMware tools</li>
-<li><code>sudo apt-get install</code> failed &gt; 换源</li>
-<li>若打不开终端：系统设置修改语言后重新登陆</li>
-</ul>
-<p> </p>
-<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><p>下载 <a href="https://git-scm.com/downloads">Git</a>，与 <a href="https://tortoisegit.org/download/">TortoiseGit</a> 小乌龟配合使用可以少记很多指令，在目标文件夹右键可执行push、clone、commit等操作</p>
-<h2 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h2><ol>
-<li><code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地</li>
-<li><code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上</li>
-<li>修改或者添加本地代码（部署在硬盘的源文件上）</li>
-<li><code>git diff</code> 查看自己对代码做出的改变</li>
-<li><code>git add .</code> 上传所有代码至暂存区 也可把 . 换成指定文件</li>
-<li><code>git commit</code> 可以将暂存区里更新后的代码更新到本地git</li>
-<li><code>git push origin xxx</code> 将本地的xxx git分支上传至github上的git</li>
-</ol>
-<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变</p>
-<ol>
-<li><code>git checkout main</code> 切换回main分支</li>
-<li><code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地</li>
-<li><code>git checkout xxx</code> 回到xxx分支</li>
-<li><code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict –&gt; 手动选择保留哪段代码）</li>
-<li><code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上（-f –&gt; 强行）</li>
-<li>原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</li>
-</ol>
-<p>远端完成更新后</p>
-<ol>
-<li><code>git branch -d xxx</code> 删除本地的git分支</li>
-<li><code>git pull origin master</code> 再把远端的最新代码拉至本地</li>
-</ol>
-<p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" width="100%">
-
-
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#branch 与 tag：</span></span><br><span class="line">git tag/branch  <span class="comment">#查本地仓库所有的tag或branch -r:远程分支 -a:所有分支</span></span><br><span class="line">git checkout [tag/branch]   <span class="comment">#已有仓库切换 tag/branch</span></span><br><span class="line">git checkout -b [branch]    <span class="comment">#新建一个分支，并切换到该分支</span></span><br><span class="line">git merge [branch]  <span class="comment">#合并指定分支到当前分支</span></span><br><span class="line">git tag [tag]       <span class="comment">#新建一个 tag 在当前 commit</span></span><br><span class="line">git describe --tag  <span class="comment">#查当前tag</span></span><br><span class="line">git show [tag]      <span class="comment">#查看tag信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tag 对应某次 commit, 是一个点，是不可移动的。</span></span><br><span class="line"><span class="comment">#branch 对应一系列 commit，是很多点连成的一根线，有一个HEAD 指针，是可以依靠 HEAD 指针移动的。</span></span><br><span class="line"><span class="comment">#两者的区别决定了使用方式，改动代码用 branch ,不改动只查看用 tag</span></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常用指令：</span></span><br><span class="line">git init [project-name] <span class="comment">#新建一个目录，将其初始化为Git代码库</span></span><br><span class="line">git status  <span class="comment">#显示有变更的文件</span></span><br><span class="line">git <span class="built_in">log</span>     <span class="comment">#显示当前分支的版本历史 commit id</span></span><br><span class="line">git diff    <span class="comment">#显示暂存区和工作区的差异</span></span><br><span class="line">git reset --hard [commitId]  <span class="comment"># 进行回溯</span></span><br><span class="line"></span><br><span class="line">git config --list   <span class="comment">#检查当前配置</span></span><br><span class="line"><span class="comment"># 配置全局信息 无global则是在项目中配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;[name]&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;[email address]&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
-<p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
-<h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -965,6 +882,161 @@ return ids.length + &quot; item(s) updated&quot;;
 <p><a href="https://journal.cricaas.com.cn/attached/file/20210517/20210517161953_566.pdf">[GB 3102.11-93] 物理科学和技术中使用的数学符号</a></p>
 ]]></content>
       <tags>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux：Ubuntu，Git，Docker</title>
+    <url>/Linux/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本    </span></span><br><span class="line">sudo passwd root    <span class="comment">#更改root账户的密码</span></span><br><span class="line">su                  <span class="comment">#切换到root用户，$ 是普通权限， #是管理员权限</span></span><br><span class="line">su username         <span class="comment">#切换到其他用户</span></span><br><span class="line">sudo usermod -aG sudo username   <span class="comment">#添加用户为root</span></span><br><span class="line">ps aux; <span class="built_in">kill</span> [PID]  <span class="comment">#查看进程; 根据进程号杀后台</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装 换源</span></span><br><span class="line">sudo apt-get install [] <span class="comment">#安装 失败则换源</span></span><br><span class="line">sudo gedit /ect/apt/source.list <span class="comment">#最后一行加入其他源</span></span><br><span class="line">sudo apt update	    <span class="comment">#更新索引(源)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#文件</span></span><br><span class="line"><span class="built_in">mkdir</span> []            <span class="comment">#新建文件夹  </span></span><br><span class="line"><span class="built_in">rmdir</span> []            <span class="comment">#删除文件夹( rm -r XXX  </span></span><br><span class="line">sudo nautilus       <span class="comment">#以root进入文件夹     </span></span><br><span class="line"><span class="built_in">touch</span> [] []         <span class="comment">#创建文件</span></span><br><span class="line"><span class="built_in">rm</span> []               <span class="comment">#删除文件</span></span><br><span class="line"><span class="built_in">mv</span> file1 [<span class="built_in">dir</span>]      <span class="comment">#移动文件 (无dir则相当于重命名)</span></span><br><span class="line"><span class="built_in">cp</span> -r [] []         <span class="comment">#复制文件</span></span><br><span class="line"><span class="built_in">chmod</span> u+x []        <span class="comment">#添加可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> -    <span class="comment">#切换到上一工作目录</span></span><br><span class="line"><span class="built_in">cd</span> ~    <span class="comment">#导航到主目录 /home/user1</span></span><br><span class="line"><span class="comment">#.当前目录 ..父目录； cd XX相对路径，cd /XX绝对路径</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span>                  <span class="comment">#检索</span></span><br><span class="line">tree []             <span class="comment">#查看树状图</span></span><br><span class="line">wget [url]          <span class="comment">#下载, wget -O myfile.zip [url] 重命名文件</span></span><br><span class="line">tar -xf []          <span class="comment">#解压</span></span><br><span class="line">vi []               <span class="comment">#命令行进入文件，按i进入插入模式，按Esc返回命令模式并输入:wq 保存退出, :q! 不保存退出</span></span><br><span class="line">gedit []            <span class="comment">#图形界面进入文件直接编辑</span></span><br><span class="line">whereis []          <span class="comment">#查找</span></span><br><span class="line">find / -name <span class="string">&quot;[]&quot;</span>   <span class="comment">#查找 find *XXX*</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> 变量名=值     <span class="comment">#设置或更新环境变量的值</span></span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">echo</span> []             <span class="comment">#输出指定的字符串或变量的值,用于调试程序、输出信息</span></span><br><span class="line">script -f log.txt   <span class="comment">#输出terminal内容到文件 exit退出记录，或在指令后加入 &gt; log.txt</span></span><br></pre></td></tr></table></figure>
+<h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/version   <span class="comment">#查版本信息</span></span><br><span class="line">lsb_release -a      <span class="comment">#查ubuntu版本</span></span><br><span class="line">free -m             <span class="comment">#查内存使用情况</span></span><br><span class="line"><span class="built_in">df</span> -hl              <span class="comment">#查看磁盘剩余空间</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>截图：1.screen截图应用程序   2.设置-设备-键盘-截图快捷键</p>
+<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p><a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> + <a href="http://releases.ubuntu.com/20.04/">Ubuntu 20.04</a>, 或<a href="https://releases.ubuntu.com/bionic/">18.04</a>（速度慢则换<a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/20.04/">镜像源</a>）</p>
+<blockquote>
+<p>新建 &gt; 导入.iso镜像 &gt; 配置（分4G内存,100G硬盘）<br>设置 &gt; 共享文件夹 &gt; 添加（自动挂载，固定分配）<br>设置 &gt; 共享粘贴板、拖放 &gt; 双向<br>挂载U盘：USB &gt; USB设置 &gt; 添加一个USB &gt; 在ubuntu设备中勾选</p>
+</blockquote>
+<p>Host 键:右ctrl，方向键上：获取上次的命令，Tab：自动补全<br><code>Ctrl + alt + T</code>	Terminal<br><code>Ctrl + H</code>	显示隐藏文件   </p>
+<blockquote>
+<p>Debug:<br>VirtualBox安装 64位的Ubuntu系统，在安装时没有显示64位的Linux安装项: 1.CPU要是64位, 2.CPU开启了虚拟化 &gt; <code>进入BOIS &gt; Security&gt; Virtualization &gt; Enable</code> 还是不行则要查看Win10系统安装了自带的Hyper-V虚拟机是否占用了CPU虚拟化技术，将其卸载</p>
+</blockquote>
+<h2 id="上网"><a href="#上网" class="headerlink" title="上网"></a>上网</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ol>
+<li>找一个合适的梯子，建议直接买付费的，稳定快速，推荐 <a href="sockboom.link">SockBoom</a>, 购买后会得到一个订阅地址，类似于<code>https://sub.sockboom.pro/.../.ini</code>，之后把这个地址填进软件，即可成功挂上梯子</li>
+<li>下载软件：<a href="https://github.com/Fndroid/clash_for_windows_pkg/releases">Clash.for.Windows</a>，解压后双击<code>Clash for Windows.exe</code>打开软件 (备用下载链接：<a href="https://sockboomdownload.com/ssr-download/ClashforWindows.zip">Clash</a>)</li>
+<li>点击左侧的 <code>配置</code>，在顶部的输入栏中粘贴你复制的Clash订阅地址后点击 <code>下载</code>, 显示绿色的成功之后，点击名字为 <code>Sockboom</code> 的地方</li>
+<li>点击左侧的<code>代理</code>，点击上方的<code>Rule</code>，一般选择<code>手动选择</code>内的节点即可，不同的节点名称代表不同地区的服务器，可以点右上方的WiFi图标进行测速，哪个延迟低选哪个节点（用ChatGPT不能选香港），节点有失效可能，注意切换</li>
+<li>点击左侧的<code>主页</code>，打开下面<code>系统代理</code>的开关，即<strong>成功挂上梯子</strong>，左上角会显示实时流量，建议在<code>设置&gt;快捷键</code>中将系统代理设为<code>Ctrl+W</code>, 按需随时开关，节约流量<br>（注意：在<code>系统代理</code>的开关打开的情况下关闭软件，将会<em>出现电脑连不上网的情况</em>，此时重新打开Clash即可解决，因此，建议也打开<code>开机自启动</code>的开关，保持Clash后台常驻）</li>
+</ol>
+<p>至此，即可流畅登录Github上传或下载代码，以及在终端中安装各种工具包，避免了换源等繁琐操作</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><a href="https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.29/Clash.for.Windows-0.20.29-x64-linux.tar.gz">Clash.for.Windows-0.20.29-x64-linux.tar.gz </a>可用于Ubuntu，<br>解压缩，进入文件夹终端，运行<code>.cfw</code>,即可打开软件<br>Ubuntu设置-网络代理设为手动，将http&#x2F;https代理指向clash默认端口7890：<code>HTTP代理：127.0.0.1 7890</code> <code>HTTPS代理：127.0.0.1 7890</code></p>
+<p>创建软件快捷方式(Optional)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://cdn.jsdelivr.net/gh/Dreamacro/clash@master/docs/logo.png    <span class="comment"># 下载clash icon做为桌面图标</span></span><br><span class="line">vim clash.desktop</span><br><span class="line"><span class="comment"># 输入下面的内容</span></span><br><span class="line">[Desktop Entry]</span><br><span class="line"> Name=clash</span><br><span class="line"> Comment=Clash</span><br><span class="line"> Exec=/home/.../clash/cfw</span><br><span class="line"> Icon=/home/.../clash/logo.png</span><br><span class="line"> Type=Application</span><br><span class="line"> Categories=Development;</span><br><span class="line"> StartupNotify=<span class="literal">true</span></span><br><span class="line"> NoDisplay=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">mv</span> clash.desktop /usr/share/applications/</span><br></pre></td></tr></table></figure>
+<p>最终就能实现通过图标打开</p>
+<p><strong>使用手机或其他USB设备提供网络</strong><br>VirtualBox设置 &gt; USB设备 &gt; 添加对应的USB口 &gt; 重新启动虚拟机 &gt; 右上角网络 &gt; 连接USB以太网</p>
+<h2 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a>VScode</h2><p>vscode远程访问：1.安装remote插件 2.连接服务器<code>ssh ywang85@she1-w50502</code> 3.connect，打开terminal</p>
+<p>上传文件：vscode直接拖拽到目录<br>下载文件：右键download</p>
+<p>vscode插件离线安装：如装python插件，直接进<a href="https://marketplace.visualstudio.com/vscode"> marketplace </a>下好拖到扩展位置</p>
+<p><strong>快捷键</strong><br>打开vscode左下角键盘快捷键设置，找到copy line down，即可查看当前默认快捷键为<code>shift + Alt + ↓</code>，双击快捷键，输入自己想要的快捷组合，如Ctrl+D，然后回车即可设置自己的组合了</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Ctrl + /    <span class="comment">#注释</span></span><br><span class="line">alt + ↑/↓   <span class="comment">#移动行</span></span><br><span class="line">alt + ←/→   <span class="comment">#光标跳到上/下一个单词</span></span><br><span class="line">Ctrl + L    <span class="comment">#选择整行</span></span><br><span class="line">Ctrl + X    <span class="comment">#删除整行</span></span><br><span class="line">Ctrl + ~    <span class="comment">#控制台终端显示与隐藏：</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
+<li>Could not get lock &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock – open &gt; 执行 <code>sudo rm -rf /var/lib/dpkg/lock</code></li>
+<li>共享文件夹ubuntu中不显示 &gt; 重新安装VMware tools</li>
+<li><code>sudo apt-get install</code> failed &gt; 换源</li>
+<li>若打不开终端：系统设置修改语言后重新登陆</li>
+</ul>
+<p> </p>
+<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><p>下载 <a href="https://git-scm.com/downloads">Git</a>，与 <a href="https://tortoisegit.org/download/">TortoiseGit</a> 小乌龟配合使用可以少记很多指令，在目标文件夹右键可执行push、clone、commit等操作</p>
+<h2 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h2><ol>
+<li><code>git clone &lt;X&gt;</code> &#x2F;&#x2F; 到本地</li>
+<li><code>git checkout -b xxx</code> 切换至新分支xxx，相当于复制了remote的仓库到本地的xxx分支上</li>
+<li>修改或者添加本地代码（部署在硬盘的源文件上）</li>
+<li><code>git diff</code> 查看自己对代码做出的改变</li>
+<li><code>git add .</code> 上传所有代码至暂存区 也可把 . 换成指定文件</li>
+<li><code>git commit</code> 可以将暂存区里更新后的代码更新到本地git</li>
+<li><code>git push origin xxx</code> 将本地的xxx git分支上传至github上的git</li>
+</ol>
+<p>如果在写自己的代码过程中发现远端GitHub上代码出现改变</p>
+<ol>
+<li><code>git checkout main</code> 切换回main分支</li>
+<li><code>git pull origin master(main)</code> 将远端修改过的代码再更新到本地</li>
+<li><code>git checkout xxx</code> 回到xxx分支</li>
+<li><code>git rebase main</code> 我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容<br>（中途可能会出现，rebase conflict –&gt; 手动选择保留哪段代码）</li>
+<li><code>git push -f origin xxx</code> 把rebase后并且更新过的代码再push到远端github上（-f –&gt; 强行）</li>
+<li>原项目主人采用pull request 中的 squash and merge 合并所有不同的commit</li>
+</ol>
+<p>远端完成更新后</p>
+<ol>
+<li><code>git branch -d xxx</code> 删除本地的git分支</li>
+<li><code>git pull origin master</code> 再把远端的最新代码拉至本地</li>
+</ol>
+<p><a href="https://www.bilibili.com/video/BV19e4y1q7JJ">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
+<img data-src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" width="100%">
+
+
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#branch 与 tag：</span></span><br><span class="line">git tag/branch  <span class="comment">#查本地仓库所有的tag或branch -r:远程分支 -a:所有分支</span></span><br><span class="line">git checkout [tag/branch]   <span class="comment">#已有仓库切换 tag/branch</span></span><br><span class="line">git checkout -b [branch]    <span class="comment">#新建一个分支，并切换到该分支</span></span><br><span class="line">git merge [branch]  <span class="comment">#合并指定分支到当前分支</span></span><br><span class="line">git tag [tag]       <span class="comment">#新建一个 tag 在当前 commit</span></span><br><span class="line">git describe --tag  <span class="comment">#查当前tag</span></span><br><span class="line">git show [tag]      <span class="comment">#查看tag信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tag 对应某次 commit, 是一个点，是不可移动的。</span></span><br><span class="line"><span class="comment">#branch 对应一系列 commit，是很多点连成的一根线，有一个HEAD 指针，是可以依靠 HEAD 指针移动的。</span></span><br><span class="line"><span class="comment">#两者的区别决定了使用方式，改动代码用 branch ,不改动只查看用 tag</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常用指令：</span></span><br><span class="line">git init [project-name] <span class="comment">#新建一个目录，将其初始化为Git代码库</span></span><br><span class="line">git status  <span class="comment">#显示有变更的文件</span></span><br><span class="line">git <span class="built_in">log</span>     <span class="comment">#显示当前分支的版本历史 commit id</span></span><br><span class="line">git diff    <span class="comment">#显示暂存区和工作区的差异</span></span><br><span class="line">git reset --hard [commitId]  <span class="comment"># 进行回溯</span></span><br><span class="line"></span><br><span class="line">git config --list   <span class="comment">#检查当前配置</span></span><br><span class="line"><span class="comment"># 配置全局信息 无global则是在项目中配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;[name]&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;[email address]&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
+<p><a href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
+<h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Project：多个项目汇总</title>
+    <url>/Project/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法"><a href="#FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法" class="headerlink" title="FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法"></a>FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法</h1><ul>
+<li>SCI四区论文：<a href="https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=">A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7</a></li>
+<li>Github: <a href="https://github.com/Arrowes/FEY-YOLOv7">FEY-YOLOv7</a></li>
+</ul>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>在车辆安全技术中，驾驶员疲劳检测应用广泛，其准确性和实时性至关重要。在本文中，我们提出了一种基于人脸眼睛和嘴巴打哈欠动态追踪的YOLOv7驾驶员疲劳检测算法，其中YOLOv7针对眼睛和嘴巴小目标进行了优化，结合PERCLOS算法，称为FEY-YOLOv7。在YOLOv7中插入Coordinate Attention(CA)模块，将重点放在坐标信息上，以提高动态追踪的准确性；增加一个小目标检测头，使网络能够提取小目标特征，增强了对眼睛、嘴巴的检测性能，提高了检测的精度。对YOLOv7的网络架构进行了显著简化，以减少计算量，提高检测速度。通过提取视频中每一帧驾驶员睁眼、闭眼、张嘴、闭嘴四种面部行为状态，利用 PERYAWN 判定算法对驾驶员状态进行标注及检测。在RGB-infrared Datasets上使用Guided Image Filtering图像增强算法，并进行混合训练及验证，验证结果表明，FEY-YOLOv7的mAP达到了0.983，FPS达到101，说明FEY-YOLOv7在准确率和速度上都优于最先进的方法，为基于图像信息的驾驶员疲劳检测提供了一个有效和实用的方案。</p>
+<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="CA注意力机制"><a href="#CA注意力机制" class="headerlink" title="CA注意力机制"></a>CA注意力机制</h3><p>CA模块在空间维度上自适应地对不同位置的特征进行加权，从而使得模型更加关注重要的空间位置，不仅捕获跨通道信息，还捕获方向感知和位置敏感信息，这有助于模型更准确地定位和识别感兴趣的对象。<br>具体来说，Coordinate Attention引入了一个全局自注意力模块，该模块可以对输入特征图的每个位置进行自适应的加权。该加权由两个步骤完成：Coordinate信息嵌入和Coordinate Attention生成。<br>1.	通过两个全局平均池化操作，分别计算输入特征图在通道维度上和空间维度上的均值。这两个均值分别表示了输入特征图在每个通道和每个空间位置的重要性。<br>2.	将通道维度上的均值与空间维度上的均值进行相乘，得到一个权重矩阵，该权重矩阵表示了每个位置在通道和空间维度上的重要性，并将其应用于输入特征图中。最终，每个位置的特征将与其在通道和空间维度上的重要性相关联，从而使得模型更加关注重要的空间位置。<br><img alt="图 43" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-CA.png" width='38%'/>  </p>
+<h3 id="PERYAWN疲劳评估算法"><a href="#PERYAWN疲劳评估算法" class="headerlink" title="PERYAWN疲劳评估算法"></a>PERYAWN疲劳评估算法</h3><p>$PERYAWN &#x3D; E&#x2F;(N - w · M)$</p>
+<p>其中，E是闭眼帧数，N是单位时间内总帧数，M代表“张嘴”的帧数，w是加权因子。为了量化四个驾驶员特征（睁眼、闭眼、张嘴和闭嘴）的检测结果，我们采用公式4和5，并将权重w设置为0.15。基于本研究中数据集标签的实际情况，我们确定当单位时间内的PERYAWN值超过0.20时，驾驶员处于疲劳状态。</p>
+<p>为了更直观地评估该算法在检测驾驶员状态方面的有效性，我们使用提出的PERYAWN参数作为定量指标来评估多个10秒的测试视频（每秒24帧）。如下图所示，如果PERYAWN值超过0.2，则将驾驶员分类为疲劳状态。如果该值超过0.5，则认为驾驶员处于严重疲劳状态。我们将检测到的状态与驾驶员的实际状态进行比较，并计算准确性。除了一些视频检测结果出现偏差外，所有结果都能够准确检测到三种状态：’正常’，’疲劳’和’严重疲劳’。<br><img alt="图 44" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-PERYAWN.png" width='60%'/>  </p>
+<h3 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h3><ul>
+<li><p>引导滤波算法<br>引导滤波就是基于局部线性回归，用引导图像的信息来指导输入图像的滤波过程，通常用于图像处理中的去噪、平滑、增强等任务。<br>引导滤波器的基本思想是，对于输入图像p中的每个像素，使用引导图像I中与该像素相关的信息来进行滤波, 引导滤波器将输入图像p的每个像素表示为一个线性组合, 利用线性岭回归模型对线性系数ak,bk进行求解；本文利用原图的灰度图实现了图像的细节增强，优化了对眼睛、嘴巴的目标检测效果，实现过程如下图：</p>
+<img alt="图 45" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-GuidedImageFilter.png" width='80%'/>  
+</li>
+<li><p>Static Crop+Mosaic预处理<br>对图像进行35-59% Horizontal Region, 25-75% Vertical Region的拆分，并进行4合1的Mosaic拼接，间接实现了面部特征的放大，将数据集重点偏向眼睛、嘴巴这类小目标，优化了算法对小目标的检测性能和鲁棒性。</p>
+<img alt="图 46" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-Mosaic.png" width='80%'/></li>
+</ul>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><img alt="图 48" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-FEYdetectResult.png" width='80%'/>  
+
+<img alt="图 47" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-FEYresult.png" width='80%'/>  
+
+
+<h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><ul>
+<li><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></li>
+<li>Github: <a href="https://github.com/Arrowes/CEAM-YOLOv7">CEAM-YOLOv7</a></li>
+</ul>
+<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
+<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
+<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
+<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
+<h2 id="实现效果-1"><a href="#实现效果-1" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
+<p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
+<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
+<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
+<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
+<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
+<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
+<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
+<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
+<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
+<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
+<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
+<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
+<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
+<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
+<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
+<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
+<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
+<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
+<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
+<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
+<h2 id="项目简介-5"><a href="#项目简介-5" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
+<h2 id="技术点-5"><a href="#技术点-5" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
+<p>技术创新：</p>
+<blockquote>
+<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
+</blockquote>
+<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
+<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
+<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
+<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
+<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
+]]></content>
+      <tags>
+        <tag>技术</tag>
         <tag>总结</tag>
       </tags>
   </entry>
@@ -1232,78 +1304,6 @@ B-->C</pre>
       <tags>
         <tag>技术</tag>
         <tag>摄影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Project：多个项目汇总</title>
-    <url>/Project/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法"><a href="#FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法" class="headerlink" title="FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法"></a>FEY-YOLOv7：基于面部小目标动态追踪的驾驶员疲劳检测算法</h1><ul>
-<li>SCI四区论文：<a href="https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=">A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7</a></li>
-<li>Github: <a href="https://github.com/Arrowes/FEY-YOLOv7">FEY-YOLOv7</a></li>
-</ul>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>在车辆安全技术中，驾驶员疲劳检测应用广泛，其准确性和实时性至关重要。在本文中，我们提出了一种基于人脸眼睛和嘴巴打哈欠动态追踪的YOLOv7驾驶员疲劳检测算法，其中YOLOv7针对眼睛和嘴巴小目标进行了优化，结合PERCLOS算法，称为FEY-YOLOv7。在YOLOv7中插入Coordinate Attention(CA)模块，将重点放在坐标信息上，以提高动态追踪的准确性；增加一个小目标检测头，使网络能够提取小目标特征，增强了对眼睛、嘴巴的检测性能，提高了检测的精度。对YOLOv7的网络架构进行了显著简化，以减少计算量，提高检测速度。通过提取视频中每一帧驾驶员睁眼、闭眼、张嘴、闭嘴四种面部行为状态，利用 PERYAWN 判定算法对驾驶员状态进行标注及检测。在RGB-infrared Datasets上使用Guided Image Filtering图像增强算法，并进行混合训练及验证，验证结果表明，FEY-YOLOv7的mAP达到了0.983，FPS达到101，说明FEY-YOLOv7在准确率和速度上都优于最先进的方法，为基于图像信息的驾驶员疲劳检测提供了一个有效和实用的方案。</p>
-<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="CA注意力机制"><a href="#CA注意力机制" class="headerlink" title="CA注意力机制"></a>CA注意力机制</h3><p>CA模块在空间维度上自适应地对不同位置的特征进行加权，从而使得模型更加关注重要的空间位置，不仅捕获跨通道信息，还捕获方向感知和位置敏感信息，这有助于模型更准确地定位和识别感兴趣的对象。<br>具体来说，Coordinate Attention引入了一个全局自注意力模块，该模块可以对输入特征图的每个位置进行自适应的加权。该加权由两个步骤完成：Coordinate信息嵌入和Coordinate Attention生成。<br>1.	通过两个全局平均池化操作，分别计算输入特征图在通道维度上和空间维度上的均值。这两个均值分别表示了输入特征图在每个通道和每个空间位置的重要性。<br>2.	将通道维度上的均值与空间维度上的均值进行相乘，得到一个权重矩阵，该权重矩阵表示了每个位置在通道和空间维度上的重要性，并将其应用于输入特征图中。最终，每个位置的特征将与其在通道和空间维度上的重要性相关联，从而使得模型更加关注重要的空间位置。<br><img alt="图 43" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-CA.png" width='38%'/>  </p>
-<h3 id="PERYAWN疲劳评估算法"><a href="#PERYAWN疲劳评估算法" class="headerlink" title="PERYAWN疲劳评估算法"></a>PERYAWN疲劳评估算法</h3><p>$PERYAWN &#x3D; E&#x2F;(N - w · M)$</p>
-<p>其中，E是闭眼帧数，N是单位时间内总帧数，M代表“张嘴”的帧数，w是加权因子。为了量化四个驾驶员特征（睁眼、闭眼、张嘴和闭嘴）的检测结果，我们采用公式4和5，并将权重w设置为0.15。基于本研究中数据集标签的实际情况，我们确定当单位时间内的PERYAWN值超过0.20时，驾驶员处于疲劳状态。</p>
-<p>为了更直观地评估该算法在检测驾驶员状态方面的有效性，我们使用提出的PERYAWN参数作为定量指标来评估多个10秒的测试视频（每秒24帧）。如下图所示，如果PERYAWN值超过0.2，则将驾驶员分类为疲劳状态。如果该值超过0.5，则认为驾驶员处于严重疲劳状态。我们将检测到的状态与驾驶员的实际状态进行比较，并计算准确性。除了一些视频检测结果出现偏差外，所有结果都能够准确检测到三种状态：’正常’，’疲劳’和’严重疲劳’。<br><img alt="图 44" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-PERYAWN.png" width='60%'/>  </p>
-<h3 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h3><ul>
-<li><p>引导滤波算法<br>引导滤波就是基于局部线性回归，用引导图像的信息来指导输入图像的滤波过程，通常用于图像处理中的去噪、平滑、增强等任务。<br>引导滤波器的基本思想是，对于输入图像p中的每个像素，使用引导图像I中与该像素相关的信息来进行滤波, 引导滤波器将输入图像p的每个像素表示为一个线性组合, 利用线性岭回归模型对线性系数ak,bk进行求解；本文利用原图的灰度图实现了图像的细节增强，优化了对眼睛、嘴巴的目标检测效果，实现过程如下图：</p>
-<img alt="图 45" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-GuidedImageFilter.png" width='80%'/>  
-</li>
-<li><p>Static Crop+Mosaic预处理<br>对图像进行35-59% Horizontal Region, 25-75% Vertical Region的拆分，并进行4合1的Mosaic拼接，间接实现了面部特征的放大，将数据集重点偏向眼睛、嘴巴这类小目标，优化了算法对小目标的检测性能和鲁棒性。</p>
-<img alt="图 46" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-Mosaic.png" width='80%'/></li>
-</ul>
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><img alt="图 48" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-FEYdetectResult.png" width='80%'/>  
-
-<img alt="图 47" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Project-FEYresult.png" width='80%'/>  
-
-
-<h1 id="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"><a href="#CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法" class="headerlink" title="CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法"></a>CEAM-YOLOv7：基于通道扩展注意机制的改进YOLOv7驾驶员行为检测算法</h1><ul>
-<li><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></li>
-<li>Github: <a href="https://github.com/Arrowes/CEAM-YOLOv7">CEAM-YOLOv7</a></li>
-</ul>
-<h2 id="项目简介-1"><a href="#项目简介-1" class="headerlink" title="项目简介"></a>项目简介</h2><p>驾驶员的不规范行为易引发交通事故，因此，为规范驾驶员行为，减少交通事故的发生，对驾驶员行为进行检测至关重要。本文提出了一种改进的目标检测模型CEAM-YOLOv7，该模型利用GAM注意力模块和通道扩展数据增强算法来减少特征图生成过程中的信息丢失，提高检测精度。将YOLOv7架构的Backbone和Head部分加入GAM注意力模块，减少信息损失的同时放大全局维度交互特征，同时，使用剪枝算法，在保证实时检测的前提下，提高了YOLOv7网络的检测性能。此外，使用更适合于实际驾驶场景的红外图像数据集进行训练，结合inversion和CLAHE图像增强方法，提出了一种基于通道扩展的红外图像数据增强算法，改善针对红外图像的目标检测效果。经大量实验结果表明，与YOLOv7相比，CEAM-YOLOv7的map提升了20.26%，FPS达到了156，本文方法的有效性和优越性得到了验证。 </p>
-<h2 id="技术点-1"><a href="#技术点-1" class="headerlink" title="技术点"></a>技术点</h2><h3 id="通道扩展算法"><a href="#通道扩展算法" class="headerlink" title="通道扩展算法"></a>通道扩展算法</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project1.png" alt="图 1">  </p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">inversion:</span>通过域迁移的思想使得网络能够更加适应处理后的红外图像。一般用于目标检测所用的 RGB 图像都是白天所摄，通常情况是背景较亮，目标较暗。但驾驶员环境通常较暗，且红外图像成像为辐射特性，背景辐射较弱而目标辐射较强，因此选用 inversion 操作；</span><br><span class="line"><span class="symbol">CLAHE:</span>由于红外图像的对比度比较低，其灰度分布通常都是分布在较窄的区域，采用自适应直方图均衡化能够使红外图像的灰度分布更均匀，增强对比度的同时抑制噪声，从而达到增加图像细节信息的作用。</span><br></pre></td></tr></table></figure>
-<h3 id="GAM注意力机制"><a href="#GAM注意力机制" class="headerlink" title="GAM注意力机制"></a>GAM注意力机制</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project2.png" alt="图 2"><br>GAM是一种能够捕捉所有三个维度的显著特征的注意机制，采用了CBAM中的顺序通道-空间注意机制，对通道-空间注意力子模块进行了重新设计，通道注意力子模块使用3D置换来跨三维保持信息，使用用两层感知器MLP（Multi-Layer Perceptron）放大跨维信道-空间相关性；空间注意力子模块采用了两个卷积层进行空间信息融合。由此，通过减少信息丢失和放大全局交互特征来提高深度神经网络的性能，提高了对于红外图像目标的识别能力，在识别速度和精度之间进行了有效的权衡，也与数据增强处理中的通道扩展算法相对应。</p>
-<h3 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project3.png" alt="图 3">  </p>
-<h2 id="实现效果-1"><a href="#实现效果-1" class="headerlink" title="实现效果"></a>实现效果</h2><p> <img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project4.png" alt="图 4">  </p>
-<p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project5.png" alt="图 5">  </p>
-<h1 id="基于-STM32-的智能空压机状态监测系统"><a href="#基于-STM32-的智能空压机状态监测系统" class="headerlink" title="基于 STM32 的智能空压机状态监测系统"></a><a href="https://oshwhub.com/Arrows/esp-kong-zhi-ji-dian-qi">基于 STM32 的智能空压机状态监测系统</a></h1><p>2020-2021<br>优秀毕设</p>
-<h2 id="项目简介-2"><a href="#项目简介-2" class="headerlink" title="项目简介"></a>项目简介</h2><p>空气压缩机是一种把气体压缩，从而提升气体压力的设备，使用范围广，其运行时的稳定性与可靠性将直接影响到企业生产时的生命与财产安全。本设计以往复式活塞压缩机为研究对象，基于因特网实现了对空压机运行状态的实时监控。</p>
-<h2 id="技术点-2"><a href="#技术点-2" class="headerlink" title="技术点"></a>技术点</h2><p>本文所设计的监控系统以STM32F103C8T6单片机为主控芯片，利用BMP280温压传感器及ADXL335 三轴加速度传感器分别测得温度、气压以及XYZ三轴方向上的振动信号，实现了空压机工作数据的采集，并通过OLED显示屏显示，以便现场工作人员监测并及时检修；同时，用ESP8266 WiFi模块，将数据上传至阿里云，通过因特网传送至手机端及PC端，实现了运行状态的实时监测，为避免空压机状态异常进而运行失控造成严重后果，本设计增加了状态异常报警、停机功能，同时工作人员在手机app及PC端网页上可进行开、关机操作。本设计可基本实现对空气压缩机的实时状态监控功能。</p>
-<h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project6.png" alt="图 6">  </p>
-<h3 id="电路设计"><a href="#电路设计" class="headerlink" title="电路设计"></a>电路设计</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project7.png" alt="图 7">  </p>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project8.png" alt="图 8">  </p>
-<h2 id="实物制作"><a href="#实物制作" class="headerlink" title="实物制作"></a>实物制作</h2><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project9.png" alt="图 9">  </p>
-<h1 id="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"><a href="#SE智厨：一种新型循环节能与安全防控的厨房智能仪器" class="headerlink" title="SE智厨：一种新型循环节能与安全防控的厨房智能仪器"></a>SE智厨：一种新型循环节能与安全防控的厨房智能仪器</h1><p>2019-2020<br>湖南科技大学第六届“互联网+”大学生创新创业大赛 铜奖</p>
-<h2 id="项目简介-3"><a href="#项目简介-3" class="headerlink" title="项目简介"></a>项目简介</h2><p>一款循环节能与安全防控的厨房智能产品，本装置利用炒菜或用火过程中炉火与外界的温差以及用太阳能板来发电储能在蓄电池中，以达到节约能源的目的；以STC15F2K60S2为主控，利用烟雾传感器MQ-2和温度传感器DS18B20的配合使用，监测现场火灾、煤气泄漏、漏电触电等厨房事故，并且该设备能对事故进行自动化处理，避免危害安全。</p>
-<h2 id="技术点-3"><a href="#技术点-3" class="headerlink" title="技术点"></a>技术点</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">安全监测：</span><br><span class="line">（<span class="number">1</span>）利用烟雾传感器MQ<span class="number">-2</span>和温度传感器DS18B20的配合使用,当达到预警设定时，立即进入报警处理，并通过电子阀门打开水闸开关，实现灭火处理；</span><br><span class="line">（<span class="number">2</span>）实时检测家中煤气是否泄漏，当出现煤气泄漏时，微处理器会立刻控制煤气电子阀门的关闭，通过<span class="built_in">GSM</span>无线通信模块向用户发送短信，传送当前煤气状态以及厨房是否发生火灾状态，预防事故发生。</span><br><span class="line">（<span class="number">3</span>）当厨房插座存在漏电或人触电时，能及时将电源切断。</span><br><span class="line">节能环保：</span><br><span class="line">（<span class="number">1</span>）系统能够将太阳能电压和温差发电输出的电压经过升压、降压、稳压电路稳定输出<span class="number">15</span>V，并通过充电电路存储在蓄电池中，给厨房智能控制系统和节能灯等工作，如果电压不足则自动切换到交流电供电。</span><br><span class="line">（<span class="number">2</span>）当用户使用炉火时，通过烟雾传感器检测油烟的浓度并实现排风扇的无级调速控制以达到节省用电效果；</span><br><span class="line">（<span class="number">3</span>）当厨房内温度较高时，系统根据DS18B20温度传感器检测的温度高低实现电风扇的无级调速，为厨房工作人员降温，减少能源的浪费；</span><br><span class="line">（<span class="number">4</span>）厨房内通过光敏传感器与红外传感器相结合检测厨房的光线强度和是否有人，当厨房较暗时，则自动调节LED照明亮度，以达到节约能源的目的，同时延长设备的使用寿命。</span><br></pre></td></tr></table></figure>
-<h2 id="系统设计-1"><a href="#系统设计-1" class="headerlink" title="系统设计"></a>系统设计</h2><p>系统由K60主控模块、温差发电系统、太阳能发电系统、烟雾检测模块、温度检测模块、红外检测模块、电流检测模块、升压降压稳压模块、语音模块、驱动模块、电压检测模块、GSM模块组成。<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project10.png" alt="图 10">  </p>
-<h3 id="电路设计-1"><a href="#电路设计-1" class="headerlink" title="电路设计"></a>电路设计</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project11.png" alt="图 11">  </p>
-<h3 id="实物制作-1"><a href="#实物制作-1" class="headerlink" title="实物制作"></a>实物制作</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project12.png" alt="图 12">  </p>
-<h1 id="地球仓"><a href="#地球仓" class="headerlink" title="地球仓"></a>地球仓</h1><p>2019-2020<br>实用新型专利：一种自适应旅居设备及控制系统</p>
-<h2 id="项目简介-4"><a href="#项目简介-4" class="headerlink" title="项目简介"></a>项目简介</h2><p>地球仓，一种高度智能化的房子，灵活的用于景区休闲娱乐。本设计基于单片机控制地球仓的底盘控制系统，主要模拟地球仓遇到外界环节环境变化时地球仓底盘自动变化的工程。</p>
-<h2 id="技术点-4"><a href="#技术点-4" class="headerlink" title="技术点"></a>技术点</h2><p>根据温度传感器和光敏传感器实时采集的数据，STC89C52 芯片根据温度传感器DS18B20和灵敏型光敏电阻传感器的信号来做出反应。当光线过于强烈，LED灯就会亮起并输入一个脉冲信号给STC89C52让步进电机转动带动底盘旋转 180 度；而温度达到一定值时，也会给STC89C52输入脉冲信号，使步进电机转动带动底盘旋转 90 度，同时数码管也会显示温度值。就是经过这样的底盘旋转控制，让地球仓适应更复杂的自然环境。</p>
-<h3 id="电路设计-2"><a href="#电路设计-2" class="headerlink" title="电路设计"></a>电路设计</h3><p> <img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project13.png" alt="图 13">  </p>
-<h3 id="实物制作-2"><a href="#实物制作-2" class="headerlink" title="实物制作"></a>实物制作</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project14.png" alt="图 14">  </p>
-<h1 id="风功率密度便携式测量仪"><a href="#风功率密度便携式测量仪" class="headerlink" title="风功率密度便携式测量仪"></a>风功率密度便携式测量仪</h1><p>2018-2019<br>第九届全国大学生电子商务“创新、创意及创业”挑战赛 校赛一等奖<br>第五届湖科大互联网+大赛 院赛金奖<br>“创青春”湖南科技大学大学生创业大赛 银奖</p>
-<h2 id="项目简介-5"><a href="#项目简介-5" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目成果是一种新型风功率密度测量仪器，主要应用于风电场风功率密度测量，以实现风能电能的准确转化，提高电网运行的稳定性。传统风功率测量系统仍然停留在运用测风塔、雷达测出风速，然后将风速代入建模公式中计算得出结果，其过程繁琐，成本高昂。因此，团队成员在海内外知名教授的指导下设计出直接测量风功率的仪器，在将降低测量成本、提高预测准确度、增大使用便携度等方面具有独具一格的优势。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">传统测风方法</span><br><span class="line">超声波测风：运用超声波测风无法启用风速，不受环境的影响，测量精度高、性能稳定，测量对象为风速、风向、温度，但无法直接计算出风功率，必须将风速带入一系列的数学建模公式中计算得出，过程复杂，耗时漫长。</span><br><span class="line">雷达测风：一次雷测风机具有足够大的发射频率，耗电量大，但是探测距离较近；距离远时回波信号弱；二次雷达具有探测精度高、采样速率快、使用方便等特点，但仍然无法直接测量出风功率。</span><br><span class="line">激光测风：激光测风虽然测量精度高、范围广，且测量过程不受天气的影响，但它目前技术仅仅停留在测量风速水平上，依旧无法打破新型技术壁垒<span class="comment">-----直接测量出瞬时风功率。</span></span><br></pre></td></tr></table></figure>
-<h2 id="技术点-5"><a href="#技术点-5" class="headerlink" title="技术点"></a>技术点</h2><p>本实用新型专利是一种集风电场的风速、气压、温度和湿度的综合型风能功率密度便携式测试仪，用于风电场风电机组服役环境下风能功率密度的测量。该风能功率密度测试仪通过测量大气压中的压力、温度、湿度以及风速信号后，由51单片机计算出空气密度，再结合风速计算得到风能功率密度。</p>
-<p>技术创新：</p>
-<blockquote>
-<p>①面向工程实际问题，直接输出风功率密度<br>②数据存储，有利于风电资源评估<br>③提出剔除风速瞬态扰动的有效功率密度处理算法，提高测量准确性<br>④操作简单、功耗较低，可随身携带使用或固定在风电场某处</p>
-</blockquote>
-<h2 id="信号采集与处理"><a href="#信号采集与处理" class="headerlink" title="信号采集与处理"></a>信号采集与处理</h2><h3 id="信号采集"><a href="#信号采集" class="headerlink" title="信号采集"></a>信号采集</h3><p>测试仪所需要采集的信号为风速信号、大气压力信号、温度信号以及湿度信号，分别利用NPN脉冲型RS485风速传感器(±（0.2+0.03v）m&#x2F;s)、BMP5大气压力传感器(±20Pa)、SHT21温湿度传感器(±0.3℃)(±2%RH)实现测量。<br>风速传感器采用输出为电压信号的机械式传感器，测量范围达到风电场风速变化的要求，需要信号调理电路输入到中央处理模块。大气压力、温湿度采用输出为数字量的模块化传感器对信号进行测量，可直接输入至单片机中进行处理。</p>
-<h3 id="信号调理"><a href="#信号调理" class="headerlink" title="信号调理"></a>信号调理</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">①幅值调理电路：由于风速传感器输出的电压信号比较微弱，无法满足后续测试的工作要求，利用运算放大器以及电阻构成的放大网络对输出信号进行幅值调理，将其幅值放大以便满足模-数转换电路的要求。</span><br><span class="line">②信号滤波电路：由于环境以及人为影响，在输出的电压信号中，常伴有不必要的噪声信号。利用运算放大器和电阻等元件组成的有源滤波网络，对输出电压信号中的噪声信号进行剔除。</span><br><span class="line">③模-数转换电路：单片机所能处理的是数字量，而风速传感器输出为模拟电压量。因此，设置一个模-数转换电路，将对应的模拟量转换成数字量并输入至单片机中，对其进行处理及显示。</span><br></pre></td></tr></table></figure>
-<h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project15.png" alt="图 15">  </p>
-<h2 id="电路设计-3"><a href="#电路设计-3" class="headerlink" title="电路设计"></a>电路设计</h2><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project16.png" alt="图 16"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project17.png" alt="图 17">  </p>
-<h2 id="实物制作-3"><a href="#实物制作-3" class="headerlink" title="实物制作"></a>实物制作</h2><p><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project18.png" alt="图 18"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Project19.png" alt="图 19">  </p>
-]]></content>
-      <tags>
-        <tag>技术</tag>
-        <tag>总结</tag>
       </tags>
   </entry>
   <entry>
@@ -1668,165 +1668,6 @@ B-->C</pre>
 <hr>
 <blockquote>
 <p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:0"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">0.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/zh-cn/video/6301563648001">视频：深度学习算法在ADAS处理器TDA4VM的应用与部署</a><a href="#fnref:0" rev="footnote"> ↩</a></span></li><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf?raw=true">Deep Learning with Jacinto™ 7 SoCs: TDA4x</a> | <a href="https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4">当深度学习遇上TDA4</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com.cn/cn/lit/wp/spry314/spry314.pdf?raw=true">Embedded low-power deep learning with TIDL</a><a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/cn/lit/an/zhcabs1/zhcabs1.pdf?raw=true">基于Pytorch训练并在TDA4上部署ONNX模型</a><a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf">TIOVX – TI’s OpenVX Implementation</a><a href="#fnref:4" rev="footnote"> ↩</a></span></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/423179832">OpenVX视觉加速中间件与TDA4VM平台上的应用</a> | <a href="https://zhuanlan.zhihu.com/p/606584605">TDA4横扫行泊一体市场与其背后的OpenVX</a><a href="#fnref:5" rev="footnote"> ↩</a></span></li></ol></div></div></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TDA4②：环境搭建、模型转换、Demo及Tools</title>
-    <url>/TDA4VM2/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见上一篇：<a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>环境搭建需要下载SDK：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
-<p>以下两节是EVM板的PSDK RTOS与PSDK Linux的环境搭建，因为暂时没有EVM板所以<em>没有上板测试</em>，只有SK板可以跳到第三节 TDA4VM-SK 配置。</p>
-<h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
-<p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#ti-processor-sdk-linux-j7-evm*/board-support/</span></span><br><span class="line">Make linux        <span class="comment">#编译Linux kernel代码和dtb，主要用于内核驱动的修改和裁剪。安装命令可以将内核和驱动模块自动拷贝到TF卡中。</span></span><br><span class="line">Make linux_install  <span class="comment">#生成built-images</span></span><br><span class="line">Make u-boot       <span class="comment">#编译u-boot代码，主要分为两部分：运行在MCU上的r5f部分和运行在A72上的a53部分。此处A72兼容A53指令集。</span></span><br><span class="line">Make sysfw-image  <span class="comment">#生成sysfw固件，主要在修改MSMC大小的时候会用到。</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="RTOS-SDK-环境搭建"><a href="#RTOS-SDK-环境搭建" class="headerlink" title="RTOS SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a> 环境搭建</h1><blockquote>
-<p>下载：<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03-prebuilt.tar<br>+两个dataset.tar.gz</p>
-</blockquote>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz  <span class="comment">#解压</span></span><br><span class="line"><span class="comment">#配置RTOS和Linux的安装环境变量</span></span><br><span class="line"><span class="built_in">export</span> PSDKL_PATH=/home/wyj/SDK/ti-processor-sdk-linux-j7-evm-08_06_01_02</span><br><span class="line"><span class="built_in">export</span> PSDKR_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03</span><br><span class="line"><span class="comment">#拷贝linux系统文件和linux启动文件到psdk rtos文件夹（或从rtos-prebuilt.tar）</span></span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/board-support/prebuilt-images/boot-j7-evm.tar.gz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/filesystem/tisdk-default-image-j7-evm.tar.xz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="comment">#安装依赖库和下载编译器，若安装报错则需换源，有包没安上会影响之后的make</span></span><br><span class="line">./psdk_rtos/scripts/setup_psdk_rtos.sh  <span class="comment">#若卡在git clone则进.sh把git://换成https://</span></span><br><span class="line"><span class="comment">#Packages installed successfully</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Vision-Apps-Demo-编译"><a href="#Vision-Apps-Demo-编译" class="headerlink" title="Vision Apps Demo 编译"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/vision_apps/docs/user_guide/ENVIRONMENT_SETUP.html">Vision Apps Demo</a> 编译</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改文件 tiovx/build_flags.mak（没修改过则是默认）</span></span><br><span class="line">BUILD_EMULATION_MODE=no <span class="comment">#非模拟器模式</span></span><br><span class="line">BUILD_TARGET_MODE=<span class="built_in">yes</span></span><br><span class="line">BUILD_LINUX_A72=<span class="built_in">yes</span></span><br><span class="line">PROFILE=release</span><br><span class="line"><span class="comment">#Optional:配置tiovx/build_flags.mak, vision_apps/vision_apps_build_flags.mak</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#开始编译vision apps</span></span><br><span class="line"><span class="built_in">cd</span> vision_apps</span><br><span class="line">make vision_apps -j8    <span class="comment">#若缺少core-secdev-k3包，手动导入(https://git.ti.com/cgit/security-development-tools/core-secdev-k3/snapshot/core-secdev-k3-08.06.00.006.tar.gz)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#编译成功可以看到对应目录下有产出文件，RTOS SDK主要使用了一个开源编译框架concerto，这个框架基于Makefile，他能够自动搜索当前目录内的所有concerto.mak文件，并且分析依赖，一次将各个核心的固件全部编译出来。编译生成的文件位于</span></span><br><span class="line">vision_apps/out/J7/A72/LINUX/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/R5F/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C66/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C71/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line"><span class="comment">##If clean build of vision_apps/clean the full PSDK RTOS</span></span><br><span class="line"><span class="comment">#cd vision_apps, make vision_apps_scrub/make sdk_scrub</span></span><br></pre></td></tr></table></figure>
-<details>
-<summary>配置SD卡(EVM)</summary>
-配置SD卡(EVM)，在TDA4VM的开发过程中，都是使用TF卡进行开发的。在单片机开发平台下，通常是直接用电脑使用USB方式将固件烧写到板卡的eMMC或FLASH中去。在TI平台下，首选的调试方法是使用TF卡：TF卡会被划分为两个分区，一个是 *BOOT* 分区（FAT32），用于存放bootloader如uboot等，另一个是 *rootfs* 分区（ext4），用于存放Linux需要的文件系统。每次Ubuntu编译完成的固件都需要手动拷贝到TF卡中，然后将TF卡插入EVM上电启动。
-
-<p><code>df -h</code>, 查得SD卡设备名 <code>/dev/sdb</code><br>使用RTOS SDK prebuilt中的脚本依次执行：</p>
-<table>
-<thead>
-<tr>
-<th>脚本</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>sudo .&#x2F;mk-linux-card.sh &#x2F;dev&#x2F;sdb</td>
-<td>用途：将TF卡重新分区、并且格式化</td>
-</tr>
-<tr>
-<td>.&#x2F;install_to_sd_card.sh</td>
-<td>将该脚本旁边的文件系统压缩包直接拷贝到&#x2F;media&#x2F;USER&#x2F;BOOT和&#x2F;media&#x2F;USER&#x2F;rootfs中，需要十几分钟，之后该卡就可以启动了。</td>
-</tr>
-<tr>
-<td>.&#x2F;install_data_set_to_sd_card.sh .&#x2F;psdk_rtos_ti_data_set_08_06_00.tar.gz</td>
-<td>以及.&#x2F;psdk_rtos_ti_data_set_08_06_00_j721e.tar.gz，将数据集解压到TF卡中对应的位置，这样默认SDK配套的Demo就可以正常运行。</td>
-</tr>
-</tbody></table>
-<p>添加可执行文件至SD card</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;PSDKR_PATH&#125;</span>/vision_apps</span><br><span class="line">make linux_fs_install_sd</span><br></pre></td></tr></table></figure>
-<p>然后即可插在EVM端运行，这里没有，跳过。</p>
-</details>
-
-<hr>
-<p>上面都是EVM板的相关环境配置，后面只拿到了SK板，因此转为SK板的相关配置。</p>
-<h1 id="TDA4VM-SK-配置"><a href="#TDA4VM-SK-配置" class="headerlink" title="TDA4VM-SK 配置"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">TDA4VM-SK</a> 配置</h1><p>硬件信息：<a href="https://www.ti.com.cn/cn/lit/ug/zhcu912c/zhcu912c.pdf">SK-TDA4VM 用户指南</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/running_simple_demos.html">Processor SDK Linux for Edge AI Documentation</a><br>配置文档：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">Processor SDK Linux for SK-TDA4VM Documentation - getting_started</a>，详细说明了如何配置，下面是简要步骤：</p>
-<blockquote>
-<p>物料准备：<br>SK板，microUSB串口线，USB camera，HDMI&#x2F;DP显示器，≥16GB的内存卡，网线和局域网*，串口电源（5-20V DC ≥20w），散热风扇</p>
-</blockquote>
-<p>通过USB挂载SD卡到Ubuntu<br>下载<a href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-SK-TDA4VM">SD card .wic image</a><br>使用<a href="https://github.com/balena-io/etcher/releases/tag/v1.7.0">Balena etcher tool 1.7.0</a> 把 SD card .wic image <code>flash</code>到SD卡上<br>然后插入SD卡到SK板，拨码开关拨到数字端，系统从SD卡启动<br>SK板连接显示器，上电，进入界面。</p>
-<p>连接串口线，在虚拟机设置中挂载USB串口，使用 <a href="https://help.ubuntu.com/community/Minicom">minicom</a> 串口通讯：<br>(在minicom中自动换行：Ctrl+A Z W)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk</span></span><br><span class="line"><span class="comment">#若连接了USB摄像头此时会显示端口信息，也可以运行 ./init_script.sh 查摄像头端口号：/dev/video2</span></span><br></pre></td></tr></table></figure>
-
-<p>连接显示器后（HDMI&#x2F;DP），可以鼠标点击试运行开箱即用的 GUI 应用程序，也可使用 Python 和C++参考示例开发边缘 AI 应用程序：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#配置</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/configs/  <span class="comment">#app_config_template.yaml中有参数介绍</span></span><br><span class="line">vi image_classification.yaml  <span class="comment">#flow参数配置为摄像头输入input0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Classification (python)</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_python</span><br><span class="line">./app_edgeai.py ../configs/image_classification.yaml  <span class="comment">#ctrl+c退出</span></span><br><span class="line"><span class="comment">#替换为configs下其他文件能执行不同任务如object_detection.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Classification (c++)</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_cpp</span><br><span class="line">./bin/Release/app_edgeai ../configs/image_classification.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment">#视频流车辆检测</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/scripts/optiflow</span><br><span class="line">`./optiflow.py ../../configs/object_detection.yaml -t`  <span class="comment">#如果没有单引号，终端会将 -t 选项解释为一个单独的参数，而不是作为 optiflow.py 命令的选项之一</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#多flows</span></span><br><span class="line">flows:</span><br><span class="line">    <span class="comment"># flowname : [input,mode1,output,[mosaic_pos_x,mosaic_pos_y,width,height]]</span></span><br><span class="line">    flow0: [input0,model1,output0,[160,90,800,450]]</span><br><span class="line">    flow1: [input0,model2,output0,[960,90,800,450]]</span><br><span class="line">    flow2: [input1,model0,output0,[160,540,800,450]]</span><br><span class="line">    flow3: [input1,model3,output0,[960,540,800,450]]</span><br></pre></td></tr></table></figure>
-<p>如果运行过程中突然重启，一般是需要加个<em>风扇</em>增强散热</p>
-<p>可选操作：</p>
-<ul>
-<li>连接网线，ifconfig查询板子ip地址，后面即可使用ssh登陆，可以使用vscode的remote插件来直接ssh登陆到板子，然后可以很方便地修改配置文件</li>
-<li>安装tensorflow，onnx，python和c++依赖库 <code>/opt/edge_ai_apps#./setup_script.sh </code></li>
-</ul>
-<p><strong>Dataflows</strong><br><img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai_object_detection.png" width='90%'><br>GStreamer input pipeline:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">v4l2src device=/dev/video18 io-mode=2 ! image/jpeg, width=1280, height=720 ! jpegdec ! tiovxdlcolorconvert ! video/x-raw, format=NV12 ! tiovxmultiscaler name=split_01</span><br><span class="line">split_01. ! queue ! video/x-raw, width=320, height=320 ! tiovxdlpreproc data-type=10 channel-order=1 mean-0=128.000000 mean-1=128.000000 mean-2=128.000000 scale-0=0.007812 scale-1=0.007812 scale-2=0.007812 tensor-format=rgb out-pool-size=4 ! application/x-tensor-tiovx ! appsink name=pre_0 max-buffers=2 drop=<span class="literal">true</span></span><br><span class="line">split_01. ! queue ! video/x-raw, width=1280, height=720 ! tiovxdlcolorconvert out-pool-size=4 ! video/x-raw, format=RGB ! appsink name=sen_0 max-buffers=2 drop=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>GStreamer output pipeline:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">appsrc format=GST_FORMAT_TIME is-live=<span class="literal">true</span> block=<span class="literal">true</span> do-timestamp=<span class="literal">true</span> name=post_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1280, height=720 ! queue ! mosaic_0.sink_0</span><br><span class="line">appsrc format=GST_FORMAT_TIME block=<span class="literal">true</span> num-buffers=1 name=background_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1920, height=1080 ! queue ! mosaic_0.background</span><br><span class="line">tiovxmosaic name=mosaic_0</span><br><span class="line">sink_0::startx=<span class="string">&quot;&lt;320&gt;&quot;</span>  sink_0::starty=<span class="string">&quot;&lt;180&gt;&quot;</span>  sink_0::widths=<span class="string">&quot;&lt;1280&gt;&quot;</span>   sink_0::heights=<span class="string">&quot;&lt;720&gt;&quot;</span></span><br><span class="line">! video/x-raw,format=NV12, width=1920, height=1080 ! kmssink <span class="built_in">sync</span>=<span class="literal">false</span> driver-name=tidss</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/TexasInstruments/edgeai-gst-apps/tree/44f4d44ddcda766d2abb5e89b9b112a1280f99ec">Edge AI application stack</a><br><img data-src='https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai-app-stack.jpg' width='80%'></p>
-<h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html">TIDL</a></h1><img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_import_process.png" >
-
-<h2 id="Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK"><a href="#Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK" class="headerlink" title="Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)"></a>Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)</h2><p>文档教程：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html#importing-mobilenetv2-model-for-image-classification">MobileNetV2 Tensorflow，PeleeNet Caffe，JSegNet21V2 Caffe model</a>，下面以PeleeNet为例</p>
-<p><strong>Config</strong> TIDL</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03/tidl_j721e_08_06_00_10</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#optional：tidlModelGraphviz tool 模型可视化工具</span></span><br><span class="line">sudo apt install graphviz-dev</span><br><span class="line"><span class="built_in">export</span> TIDL_GRAPHVIZ_PATH=/usr</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/utils/tidlModelGraphviz</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-
-<p><strong>Import</strong>ing PeleeNet model for object detection (caffe)<br><a href="https://drive.google.com/file/d/1KJHKYQ2nChZXlxroZRpg-tRsksTXUhe9/view">下载</a>并提取.caffemodel，deploy.prototxt放入<code>ti_dl/test/testvecs/models/public/caffe/peele/pelee_voc/</code><br>deploy.prototxt中改confidence_threshold: 0.4</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/utils/tidlModelImport</span><br><span class="line">./out/tidl_model_import.out <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test/testvecs/config/import/public/caffe/tidl_import_peeleNet.txt</span><br><span class="line"><span class="comment">#$&#123;TIDL_INSTALL_PATH&#125;/ti_dl/test/下面的配置文件在RTOSsdk8.6中找不到，要从SDK8.5复制！！！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#successful Memory allocation</span></span><br><span class="line"><span class="comment"># Compiled network and I/O .bin files used for inference</span></span><br><span class="line">    <span class="comment"># Compiled network file in ti_dl/test/testvecs/config/tidl_models/caffe/tidl_net_peele_300.bin</span></span><br><span class="line">    <span class="comment"># Compiled I/O file in ti_dl/test/testvecs/config/tidl_models/caffe/tidl_io_peele_300_1.bin</span></span><br><span class="line"><span class="comment"># Performance simulation results for network analysis in ti_dl/utils/perfsim/tidl_import_peeleNet.txt/tidl_import_peeleNet...csv</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#若是tensorflow例程，.pb需要先运行tensorflow的.local/lib/python3.6/site-packages/tensorflow/python/tools/optimize_for_inference.py工具进行模型推理优化，再导入。</span></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>Run</strong>ning PeleeNet for object detection</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在文件ti_dl/test/testvecs/config/config_list.txt顶部加入:</span></span><br><span class="line">1 testvecs/config/infer/public/caffe/tidl_infer_pelee.txt</span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"><span class="comment">#运行，结果在ti_dl/test/testvecs/output/</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test</span><br><span class="line">./PC_dsp_test_dl_algo.out</span><br><span class="line"><span class="comment">#若标注框尺寸不匹配，需要改deploy.prototxt文件顶部：dim: 512  dim: 1024</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 1" data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/out_ti_lindau_000020.png" width="70%"/>  
-
-
-
-
-
-
-
-<h2 id="TIDL-RT"><a href="#TIDL-RT" class="headerlink" title="TIDL-RT"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_dependency_info.html">TIDL-RT</a></h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/ywang85/SDK/RTOSSDK/tidl_j721e_08_06_00_10   <span class="comment">#设置环境变量</span></span><br><span class="line"><span class="comment">#TARGET_PLATFORM=PC make gv失败：../../inc/itidl_ti.h:91:21: fatal error: ivision.h: No such file or directory</span></span><br><span class="line"><span class="comment">#跳过，不修改code暂时不要rebuild</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>EdgeAI TIDL Tools是TI提供的深度学习开发工具，后续会多次用到。</p>
-<p>要求：OS——Ubuntu 18.04，Python Version——3.6<br><img alt="图 9" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png" width="60%"/>  </p>
-<ol>
-<li>OSRT(Open Source Runtimes:TFLite,ONNX,TVM) 作为用户应用程序的顶级推理 API</li>
-<li>将子图卸载到 C7x&#x2F;MMA 以使用TIDL进行加速执行</li>
-<li>在 ARM 核心上运行优化代码，以支持 TIDL 不支持的层（<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/supported_ops_rts_versions.md">支持情况</a>）</li>
-</ol>
-<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/tree/08_06_00_05#setup">Setup - TexasInstruments&#x2F;edgeai-tidl-tools at 08_06_00_05</a></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line"><span class="built_in">cd</span> edgeai-tidl-tools</span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh</span><br><span class="line"><span class="comment">#Docker Based X86_PC Setup 跳过，不用docker装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置变量</span></span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">export</span> TIDL_TOOLS_PATH=$(<span class="built_in">pwd</span>)/tidl_tools</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$TIDL_TOOLS_PATH</span></span><br><span class="line"><span class="built_in">export</span> ARM64_GCC_PATH=$(<span class="built_in">pwd</span>)/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">source</span> ./scripts/run_python_examples.sh <span class="comment">#编译运行</span></span><br><span class="line">python3 ./scripts/gen_test_report.py    <span class="comment">#评估</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Compile and Validate on X86_PC for cpp_example</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake ../examples &amp;&amp; make -j &amp;&amp; <span class="built_in">cd</span> ..</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th align="center">Image Classification</th>
-<th align="center">Object detection</th>
-<th align="center">Semantic Segmentation</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_cls.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_cls.jpg"></a></td>
-<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_od.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_od.jpg"></a></td>
-<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_ss.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_ss.jpg"></a></td>
-</tr>
-</tbody></table>
-<h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a><a href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a></h2><img data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2studio.png" width="80%"/>  
-
-<p>TI官方提供的云端环境，集成了一系列工具,无需本地搭环境，使用需要申请，提供两个工具：</p>
-<ul>
-<li><a href="https://dev.ti.com/modelcomposer/">Model Composer</a>： 为 TI 嵌入式处理器训练、优化和编译 AI 模型。支持数据采集，标注，模型训练，以及上板编译，<strong>一步到位</strong>。目前仅支持分类和检测任务，只能使用modelzoo中的模型进行训练，比如OD任务只有yolox模型，灵活度不高，主打方便快捷。</li>
-<li><a href="https://dev.ti.com/edgeaisession/">Model Analyzer</a>：远程连接到真实的评估硬件，基于jupyter notebook，在 TI 嵌入式处理器上部署和测试 AI 模型性能，进行多个模型的Benchmark。前身叫做 TI edge AI cloud。</li>
-</ul>
-<h3 id="Model-Analyzer"><a href="#Model-Analyzer" class="headerlink" title="Model Analyzer"></a>Model Analyzer</h3><p>选TDA4VM设备，能使用3h，文件在顶端My Workspace;<br>进入后分两大板块:</p>
-<ul>
-<li>Find your model: Compare model performance, 能查看不同模型在板端的表现，用来选择适合自己需求的模型；<img data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2perform.png" width="70%"/>  </li>
-<li>Get model benchmarks：<ul>
-<li>Model performance 是配置好的jupyter notebook，无需修改一步步运行即可输出结果；</li>
-<li>下面重点使用Custom models：</li>
-</ul>
-</li>
-</ul>
-<p><strong>Custom models</strong>（onnxRT）</p>
-<ul>
-<li>编译模型（在异构模型编译期间，支持的层将被装载到<code>TI-DSP</code>，生成推理所需工件（artifacts））</li>
-<li>使用生成的工件进行推理</li>
-<li><em>执行输入预处理和输出后处理</em></li>
-<li>启用调试日志</li>
-<li>使用deny-layer编译选项来隔离可能有问题的层并创建额外的模型子图</li>
-<li>使用生成的子图工件进行推理</li>
-<li><em>执行输入预处理和输出后处理</em></li>
-</ul>
-<p>Create Onnx runtime with <code>tidl_model_import_onnx</code> library to generate artifacts that offload supported portion of the DL model to the TI DSP.<br>参数配置见<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md#user-options-for-tidl-acceleration">User options for TIDL Acceleration</a></p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># &#x27;sess&#x27; model compilation options</span></span><br><span class="line">compile_options = &#123;</span><br><span class="line">    <span class="string">&#x27;tidl_tools_path&#x27;</span> : os.environ[<span class="string">&#x27;TIDL_TOOLS_PATH&#x27;</span>], <span class="comment">#tidl tools 路径</span></span><br><span class="line">    <span class="string">&#x27;artifacts_folder&#x27;</span> : output_dir, <span class="comment">#编译输出目录</span></span><br><span class="line">    <span class="string">&#x27;tensor_bits&#x27;</span> : num_bits,    <span class="comment">#量化位数</span></span><br><span class="line">    <span class="string">&#x27;accuracy_level&#x27;</span> : accuracy, <span class="comment">#精度级别，0快但精度低，1慢但精度高</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_frames&#x27;</span> : <span class="built_in">len</span>(calib_images),  <span class="comment">#设置用于校准模型量化参数的图片</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_iterations&#x27;</span> : <span class="number">3</span>, <span class="comment">#设置校准迭代次数 used if accuracy_level = 1</span></span><br><span class="line">    <span class="string">&#x27;debug_level&#x27;</span> : <span class="number">1</span>, <span class="comment">#设置调试级别，级别越高提供的调试信息越详细</span></span><br><span class="line">    <span class="string">&#x27;deny_list&#x27;</span> : <span class="string">&quot;MaxPool&quot;</span> <span class="comment">#排除ONNXRT不支持的层</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个会话选项对象，可以设置GPU加速、CPU 线程数、精度模式等会话参数</span></span><br><span class="line">so = rt.SessionOptions() <span class="comment">#此处默认参数</span></span><br><span class="line"><span class="comment"># 设置执行提供者列表，包含 TIDLCompilationProvider 和 CPUExecutionProvider</span></span><br><span class="line">EP_list = [<span class="string">&#x27;TIDLCompilationProvider&#x27;</span>, <span class="string">&#x27;CPUExecutionProvider&#x27;</span>]</span><br><span class="line"><span class="comment"># compile the model with TIDL acceleration by passing required compilation options.</span></span><br><span class="line">sess = rt.InferenceSession(onnx_model_path, providers=EP_list, provider_options=[compile_options, &#123;&#125;], sess_options=so)</span><br><span class="line"><span class="comment"># 载入 ONNX 模型并进行推理。可以使用 sess 对象来进行标准化、预处理、推理等操作，还可以获取模型的输入信息、输出信息、元图信息等</span></span><br><span class="line"><span class="comment"># At the end of model compilation step, model-artifacts for inference will be generated in user specified path.</span></span><br><span class="line"></span><br><span class="line">input_details = sess.get_inputs() <span class="comment"># 获取输入数据信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对校准图片进行预处理并进行推理，并将输出结果存储到 output 列表中</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> tqdm.trange(<span class="built_in">len</span>(calib_images)):</span><br><span class="line">    output = <span class="built_in">list</span>(sess.run(<span class="literal">None</span>, &#123;input_details[<span class="number">0</span>].name : preprocess_for_onnx_resent18v2(calib_images[num])&#125;))[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># Create OSRT inference session with TIDL acceleration option for running inference with generated model artifacts in the above step.</span></span><br></pre></td></tr></table></figure>
-
-<p>Then using Onnx with the libtidl_onnxrt_EP inference library we run the model and collect benchmark data.<br><img alt="图 9" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png" width="88%"/>  </p>
-<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md">edgeai-tidl-tools:Python Examples</a><br><a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a></p>
-<h1 id="EdgeAI-Benchmark"><a href="#EdgeAI-Benchmark" class="headerlink" title="EdgeAI-Benchmark"></a><a href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master">EdgeAI-Benchmark</a></h1><p>EdgeAI-Benchmark提供了一系列针对不同图像识别任务的脚本，包括分类、分割、检测和关键点检测。（使用<a href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a>用于模型编译和推理）</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>文档：<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/docs/setup_instructions.md">setup_instructions</a>，其中<code>pyenv install 3.6</code>可能因为网络原因下载极慢，这时可以先从官网或镜像源下载所需要的包到 ~&#x2F;.pyenv&#x2F;cache 目录下，再执行安装命令<br>此后每次需要激活环境：<code>pyenv activate benchmark</code></p>
-<h2 id="edgeai-tidl-tools-docs-custom-model-evaluation-md"><a href="#edgeai-tidl-tools-docs-custom-model-evaluation-md" class="headerlink" title="edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</a></h2><blockquote>
-<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
 </blockquote>
 ]]></content>
       <tags>
@@ -2536,6 +2377,165 @@ B-->C</pre>
 </tbody></table>
 <hr>
 <blockquote>
+<p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TDA4②：环境搭建、模型转换、Demo及Tools</title>
+    <url>/TDA4VM2/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关前置知识见上一篇：<a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>环境搭建需要下载SDK：<a href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
+<p>以下两节是EVM板的PSDK RTOS与PSDK Linux的环境搭建，因为暂时没有EVM板所以<em>没有上板测试</em>，只有SK板可以跳到第三节 TDA4VM-SK 配置。</p>
+<h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
+<p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#ti-processor-sdk-linux-j7-evm*/board-support/</span></span><br><span class="line">Make linux        <span class="comment">#编译Linux kernel代码和dtb，主要用于内核驱动的修改和裁剪。安装命令可以将内核和驱动模块自动拷贝到TF卡中。</span></span><br><span class="line">Make linux_install  <span class="comment">#生成built-images</span></span><br><span class="line">Make u-boot       <span class="comment">#编译u-boot代码，主要分为两部分：运行在MCU上的r5f部分和运行在A72上的a53部分。此处A72兼容A53指令集。</span></span><br><span class="line">Make sysfw-image  <span class="comment">#生成sysfw固件，主要在修改MSMC大小的时候会用到。</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="RTOS-SDK-环境搭建"><a href="#RTOS-SDK-环境搭建" class="headerlink" title="RTOS SDK 环境搭建"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/index.html">RTOS SDK</a> 环境搭建</h1><blockquote>
+<p>下载：<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz<br>ti-processor-sdk-rtos-j721e-evm-08_06_01_03-prebuilt.tar<br>+两个dataset.tar.gz</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf ti-processor-sdk-rtos-j721e-evm-08_06_01_03.tar.gz  <span class="comment">#解压</span></span><br><span class="line"><span class="comment">#配置RTOS和Linux的安装环境变量</span></span><br><span class="line"><span class="built_in">export</span> PSDKL_PATH=/home/wyj/SDK/ti-processor-sdk-linux-j7-evm-08_06_01_02</span><br><span class="line"><span class="built_in">export</span> PSDKR_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03</span><br><span class="line"><span class="comment">#拷贝linux系统文件和linux启动文件到psdk rtos文件夹（或从rtos-prebuilt.tar）</span></span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/board-support/prebuilt-images/boot-j7-evm.tar.gz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="built_in">cp</span> <span class="variable">$&#123;PSDKL_PATH&#125;</span>/filesystem/tisdk-default-image-j7-evm.tar.xz <span class="variable">$&#123;PSDKR_PATH&#125;</span>/</span><br><span class="line"><span class="comment">#安装依赖库和下载编译器，若安装报错则需换源，有包没安上会影响之后的make</span></span><br><span class="line">./psdk_rtos/scripts/setup_psdk_rtos.sh  <span class="comment">#若卡在git clone则进.sh把git://换成https://</span></span><br><span class="line"><span class="comment">#Packages installed successfully</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Vision-Apps-Demo-编译"><a href="#Vision-Apps-Demo-编译" class="headerlink" title="Vision Apps Demo 编译"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/vision_apps/docs/user_guide/ENVIRONMENT_SETUP.html">Vision Apps Demo</a> 编译</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改文件 tiovx/build_flags.mak（没修改过则是默认）</span></span><br><span class="line">BUILD_EMULATION_MODE=no <span class="comment">#非模拟器模式</span></span><br><span class="line">BUILD_TARGET_MODE=<span class="built_in">yes</span></span><br><span class="line">BUILD_LINUX_A72=<span class="built_in">yes</span></span><br><span class="line">PROFILE=release</span><br><span class="line"><span class="comment">#Optional:配置tiovx/build_flags.mak, vision_apps/vision_apps_build_flags.mak</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#开始编译vision apps</span></span><br><span class="line"><span class="built_in">cd</span> vision_apps</span><br><span class="line">make vision_apps -j8    <span class="comment">#若缺少core-secdev-k3包，手动导入(https://git.ti.com/cgit/security-development-tools/core-secdev-k3/snapshot/core-secdev-k3-08.06.00.006.tar.gz)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#编译成功可以看到对应目录下有产出文件，RTOS SDK主要使用了一个开源编译框架concerto，这个框架基于Makefile，他能够自动搜索当前目录内的所有concerto.mak文件，并且分析依赖，一次将各个核心的固件全部编译出来。编译生成的文件位于</span></span><br><span class="line">vision_apps/out/J7/A72/LINUX/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/R5F/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C66/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line">vision_apps/out/J7/C71/SYSBIOS/<span class="variable">$PROFILE</span></span><br><span class="line"><span class="comment">##If clean build of vision_apps/clean the full PSDK RTOS</span></span><br><span class="line"><span class="comment">#cd vision_apps, make vision_apps_scrub/make sdk_scrub</span></span><br></pre></td></tr></table></figure>
+<details>
+<summary>配置SD卡(EVM)</summary>
+配置SD卡(EVM)，在TDA4VM的开发过程中，都是使用TF卡进行开发的。在单片机开发平台下，通常是直接用电脑使用USB方式将固件烧写到板卡的eMMC或FLASH中去。在TI平台下，首选的调试方法是使用TF卡：TF卡会被划分为两个分区，一个是 *BOOT* 分区（FAT32），用于存放bootloader如uboot等，另一个是 *rootfs* 分区（ext4），用于存放Linux需要的文件系统。每次Ubuntu编译完成的固件都需要手动拷贝到TF卡中，然后将TF卡插入EVM上电启动。
+
+<p><code>df -h</code>, 查得SD卡设备名 <code>/dev/sdb</code><br>使用RTOS SDK prebuilt中的脚本依次执行：</p>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sudo .&#x2F;mk-linux-card.sh &#x2F;dev&#x2F;sdb</td>
+<td>用途：将TF卡重新分区、并且格式化</td>
+</tr>
+<tr>
+<td>.&#x2F;install_to_sd_card.sh</td>
+<td>将该脚本旁边的文件系统压缩包直接拷贝到&#x2F;media&#x2F;USER&#x2F;BOOT和&#x2F;media&#x2F;USER&#x2F;rootfs中，需要十几分钟，之后该卡就可以启动了。</td>
+</tr>
+<tr>
+<td>.&#x2F;install_data_set_to_sd_card.sh .&#x2F;psdk_rtos_ti_data_set_08_06_00.tar.gz</td>
+<td>以及.&#x2F;psdk_rtos_ti_data_set_08_06_00_j721e.tar.gz，将数据集解压到TF卡中对应的位置，这样默认SDK配套的Demo就可以正常运行。</td>
+</tr>
+</tbody></table>
+<p>添加可执行文件至SD card</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;PSDKR_PATH&#125;</span>/vision_apps</span><br><span class="line">make linux_fs_install_sd</span><br></pre></td></tr></table></figure>
+<p>然后即可插在EVM端运行，这里没有，跳过。</p>
+</details>
+
+<hr>
+<p>上面都是EVM板的相关环境配置，后面只拿到了SK板，因此转为SK板的相关配置。</p>
+<h1 id="TDA4VM-SK-配置"><a href="#TDA4VM-SK-配置" class="headerlink" title="TDA4VM-SK 配置"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">TDA4VM-SK</a> 配置</h1><p>硬件信息：<a href="https://www.ti.com.cn/cn/lit/ug/zhcu912c/zhcu912c.pdf">SK-TDA4VM 用户指南</a><br><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/running_simple_demos.html">Processor SDK Linux for Edge AI Documentation</a><br>配置文档：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">Processor SDK Linux for SK-TDA4VM Documentation - getting_started</a>，详细说明了如何配置，下面是简要步骤：</p>
+<blockquote>
+<p>物料准备：<br>SK板，microUSB串口线，USB camera，HDMI&#x2F;DP显示器，≥16GB的内存卡，网线和局域网*，串口电源（5-20V DC ≥20w），散热风扇</p>
+</blockquote>
+<p>通过USB挂载SD卡到Ubuntu<br>下载<a href="https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-SK-TDA4VM">SD card .wic image</a><br>使用<a href="https://github.com/balena-io/etcher/releases/tag/v1.7.0">Balena etcher tool 1.7.0</a> 把 SD card .wic image <code>flash</code>到SD卡上<br>然后插入SD卡到SK板，拨码开关拨到数字端，系统从SD卡启动<br>SK板连接显示器，上电，进入界面。</p>
+<p>连接串口线，在虚拟机设置中挂载USB串口，使用 <a href="https://help.ubuntu.com/community/Minicom">minicom</a> 串口通讯：<br>(在minicom中自动换行：Ctrl+A Z W)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install minicom  <span class="comment">#安装minicom</span></span><br><span class="line">sudo minicom -D /dev/ttyUSB2 -c on</span><br><span class="line"><span class="comment">#输入用户名：root，登录tda4vm-sk</span></span><br><span class="line"><span class="comment">#若连接了USB摄像头此时会显示端口信息，也可以运行 ./init_script.sh 查摄像头端口号：/dev/video2</span></span><br></pre></td></tr></table></figure>
+
+<p>连接显示器后（HDMI&#x2F;DP），可以鼠标点击试运行开箱即用的 GUI 应用程序，也可使用 Python 和C++参考示例开发边缘 AI 应用程序：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#配置</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/configs/  <span class="comment">#app_config_template.yaml中有参数介绍</span></span><br><span class="line">vi image_classification.yaml  <span class="comment">#flow参数配置为摄像头输入input0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Classification (python)</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_python</span><br><span class="line">./app_edgeai.py ../configs/image_classification.yaml  <span class="comment">#ctrl+c退出</span></span><br><span class="line"><span class="comment">#替换为configs下其他文件能执行不同任务如object_detection.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Classification (c++)</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/apps_cpp</span><br><span class="line">./bin/Release/app_edgeai ../configs/image_classification.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment">#视频流车辆检测</span></span><br><span class="line"><span class="built_in">cd</span> /opt/edgeai-gst-apps/scripts/optiflow</span><br><span class="line">`./optiflow.py ../../configs/object_detection.yaml -t`  <span class="comment">#如果没有单引号，终端会将 -t 选项解释为一个单独的参数，而不是作为 optiflow.py 命令的选项之一</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#多flows</span></span><br><span class="line">flows:</span><br><span class="line">    <span class="comment"># flowname : [input,mode1,output,[mosaic_pos_x,mosaic_pos_y,width,height]]</span></span><br><span class="line">    flow0: [input0,model1,output0,[160,90,800,450]]</span><br><span class="line">    flow1: [input0,model2,output0,[960,90,800,450]]</span><br><span class="line">    flow2: [input1,model0,output0,[160,540,800,450]]</span><br><span class="line">    flow3: [input1,model3,output0,[960,540,800,450]]</span><br></pre></td></tr></table></figure>
+<p>如果运行过程中突然重启，一般是需要加个<em>风扇</em>增强散热</p>
+<p>可选操作：</p>
+<ul>
+<li>连接网线，ifconfig查询板子ip地址，后面即可使用ssh登陆，可以使用vscode的remote插件来直接ssh登陆到板子，然后可以很方便地修改配置文件</li>
+<li>安装tensorflow，onnx，python和c++依赖库 <code>/opt/edge_ai_apps#./setup_script.sh </code></li>
+</ul>
+<p><strong>Dataflows</strong><br><img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai_object_detection.png" width='90%'><br>GStreamer input pipeline:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">v4l2src device=/dev/video18 io-mode=2 ! image/jpeg, width=1280, height=720 ! jpegdec ! tiovxdlcolorconvert ! video/x-raw, format=NV12 ! tiovxmultiscaler name=split_01</span><br><span class="line">split_01. ! queue ! video/x-raw, width=320, height=320 ! tiovxdlpreproc data-type=10 channel-order=1 mean-0=128.000000 mean-1=128.000000 mean-2=128.000000 scale-0=0.007812 scale-1=0.007812 scale-2=0.007812 tensor-format=rgb out-pool-size=4 ! application/x-tensor-tiovx ! appsink name=pre_0 max-buffers=2 drop=<span class="literal">true</span></span><br><span class="line">split_01. ! queue ! video/x-raw, width=1280, height=720 ! tiovxdlcolorconvert out-pool-size=4 ! video/x-raw, format=RGB ! appsink name=sen_0 max-buffers=2 drop=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>GStreamer output pipeline:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">appsrc format=GST_FORMAT_TIME is-live=<span class="literal">true</span> block=<span class="literal">true</span> do-timestamp=<span class="literal">true</span> name=post_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1280, height=720 ! queue ! mosaic_0.sink_0</span><br><span class="line">appsrc format=GST_FORMAT_TIME block=<span class="literal">true</span> num-buffers=1 name=background_0 ! tiovxdlcolorconvert ! video/x-raw,format=NV12, width=1920, height=1080 ! queue ! mosaic_0.background</span><br><span class="line">tiovxmosaic name=mosaic_0</span><br><span class="line">sink_0::startx=<span class="string">&quot;&lt;320&gt;&quot;</span>  sink_0::starty=<span class="string">&quot;&lt;180&gt;&quot;</span>  sink_0::widths=<span class="string">&quot;&lt;1280&gt;&quot;</span>   sink_0::heights=<span class="string">&quot;&lt;720&gt;&quot;</span></span><br><span class="line">! video/x-raw,format=NV12, width=1920, height=1080 ! kmssink <span class="built_in">sync</span>=<span class="literal">false</span> driver-name=tidss</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/TexasInstruments/edgeai-gst-apps/tree/44f4d44ddcda766d2abb5e89b9b112a1280f99ec">Edge AI application stack</a><br><img data-src='https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai-app-stack.jpg' width='80%'></p>
+<h1 id="TIDL"><a href="#TIDL" class="headerlink" title="TIDL"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html">TIDL</a></h1><img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_import_process.png" >
+
+<h2 id="Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK"><a href="#Demo-使用TIDL实现多种模型的导入、运行-from-RTOS-SDK" class="headerlink" title="Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)"></a>Demo:使用TIDL实现多种模型的导入、运行 (from RTOS SDK)</h2><p>文档教程：<a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_user_model_deployment.html#importing-mobilenetv2-model-for-image-classification">MobileNetV2 Tensorflow，PeleeNet Caffe，JSegNet21V2 Caffe model</a>，下面以PeleeNet为例</p>
+<p><strong>Config</strong> TIDL</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/wyj/SDK/ti-processor-sdk-rtos-j721e-evm-08_06_01_03/tidl_j721e_08_06_00_10</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#optional：tidlModelGraphviz tool 模型可视化工具</span></span><br><span class="line">sudo apt install graphviz-dev</span><br><span class="line"><span class="built_in">export</span> TIDL_GRAPHVIZ_PATH=/usr</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/utils/tidlModelGraphviz</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p><strong>Import</strong>ing PeleeNet model for object detection (caffe)<br><a href="https://drive.google.com/file/d/1KJHKYQ2nChZXlxroZRpg-tRsksTXUhe9/view">下载</a>并提取.caffemodel，deploy.prototxt放入<code>ti_dl/test/testvecs/models/public/caffe/peele/pelee_voc/</code><br>deploy.prototxt中改confidence_threshold: 0.4</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/utils/tidlModelImport</span><br><span class="line">./out/tidl_model_import.out <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test/testvecs/config/import/public/caffe/tidl_import_peeleNet.txt</span><br><span class="line"><span class="comment">#$&#123;TIDL_INSTALL_PATH&#125;/ti_dl/test/下面的配置文件在RTOSsdk8.6中找不到，要从SDK8.5复制！！！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#successful Memory allocation</span></span><br><span class="line"><span class="comment"># Compiled network and I/O .bin files used for inference</span></span><br><span class="line">    <span class="comment"># Compiled network file in ti_dl/test/testvecs/config/tidl_models/caffe/tidl_net_peele_300.bin</span></span><br><span class="line">    <span class="comment"># Compiled I/O file in ti_dl/test/testvecs/config/tidl_models/caffe/tidl_io_peele_300_1.bin</span></span><br><span class="line"><span class="comment"># Performance simulation results for network analysis in ti_dl/utils/perfsim/tidl_import_peeleNet.txt/tidl_import_peeleNet...csv</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#若是tensorflow例程，.pb需要先运行tensorflow的.local/lib/python3.6/site-packages/tensorflow/python/tools/optimize_for_inference.py工具进行模型推理优化，再导入。</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>Run</strong>ning PeleeNet for object detection</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在文件ti_dl/test/testvecs/config/config_list.txt顶部加入:</span></span><br><span class="line">1 testvecs/config/infer/public/caffe/tidl_infer_pelee.txt</span><br><span class="line">0</span><br><span class="line"></span><br><span class="line"><span class="comment">#运行，结果在ti_dl/test/testvecs/output/</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$&#123;TIDL_INSTALL_PATH&#125;</span>/ti_dl/test</span><br><span class="line">./PC_dsp_test_dl_algo.out</span><br><span class="line"><span class="comment">#若标注框尺寸不匹配，需要改deploy.prototxt文件顶部：dim: 512  dim: 1024</span></span><br></pre></td></tr></table></figure>
+<img alt="picture 1" data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/out_ti_lindau_000020.png" width="70%"/>  
+
+
+
+
+
+
+
+<h2 id="TIDL-RT"><a href="#TIDL-RT" class="headerlink" title="TIDL-RT"></a><a href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_dependency_info.html">TIDL-RT</a></h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> TIDL_INSTALL_PATH=/home/ywang85/SDK/RTOSSDK/tidl_j721e_08_06_00_10   <span class="comment">#设置环境变量</span></span><br><span class="line"><span class="comment">#TARGET_PLATFORM=PC make gv失败：../../inc/itidl_ti.h:91:21: fatal error: ivision.h: No such file or directory</span></span><br><span class="line"><span class="comment">#跳过，不修改code暂时不要rebuild</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI TIDL Tools"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools">EdgeAI TIDL Tools</a></h2><p>EdgeAI TIDL Tools是TI提供的深度学习开发工具，后续会多次用到。</p>
+<p>要求：OS——Ubuntu 18.04，Python Version——3.6<br><img alt="图 9" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2onnxruntimeflow.png" width="60%"/>  </p>
+<ol>
+<li>OSRT(Open Source Runtimes:TFLite,ONNX,TVM) 作为用户应用程序的顶级推理 API</li>
+<li>将子图卸载到 C7x&#x2F;MMA 以使用TIDL进行加速执行</li>
+<li>在 ARM 核心上运行优化代码，以支持 TIDL 不支持的层（<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/supported_ops_rts_versions.md">支持情况</a>）</li>
+</ol>
+<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/tree/08_06_00_05#setup">Setup - TexasInstruments&#x2F;edgeai-tidl-tools at 08_06_00_05</a></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libyaml-cpp-dev</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/TexasInstruments/edgeai-tidl-tools.git <span class="comment">#failed：手动安装证书 git config --global http.sslVerify false，export GIT_SSL_NO_VERIFY=1</span></span><br><span class="line"><span class="built_in">cd</span> edgeai-tidl-tools</span><br><span class="line">git checkout 08_06_00_05</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">source</span> ./setup.sh</span><br><span class="line"><span class="comment">#Docker Based X86_PC Setup 跳过，不用docker装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置变量</span></span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">export</span> TIDL_TOOLS_PATH=$(<span class="built_in">pwd</span>)/tidl_tools</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$TIDL_TOOLS_PATH</span></span><br><span class="line"><span class="built_in">export</span> ARM64_GCC_PATH=$(<span class="built_in">pwd</span>)/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu</span><br><span class="line"><span class="comment">#配置永久环境变量更方便，sudo gedit /etc/profile，末尾加入如上代码，然后source /etc/profile加载立即生效</span></span><br><span class="line"><span class="built_in">source</span> ./scripts/run_python_examples.sh <span class="comment">#编译运行</span></span><br><span class="line">python3 ./scripts/gen_test_report.py    <span class="comment">#评估</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Compile and Validate on X86_PC for cpp_example</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake ../examples &amp;&amp; make -j &amp;&amp; <span class="built_in">cd</span> ..</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">Image Classification</th>
+<th align="center">Object detection</th>
+<th align="center">Semantic Segmentation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_cls.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_cls.jpg"></a></td>
+<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_od.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_od.jpg"></a></td>
+<td align="center"><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/docs/out_viz_ss.jpg"><img data-src="https://github.com/TexasInstruments/edgeai-tidl-tools/raw/08_06_00_05/docs/out_viz_ss.jpg"></a></td>
+</tr>
+</tbody></table>
+<h2 id="Edge-AI-Studio"><a href="#Edge-AI-Studio" class="headerlink" title="Edge AI Studio"></a><a href="https://dev.ti.com/edgeaistudio/">Edge AI Studio</a></h2><img data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2studio.png" width="80%"/>  
+
+<p>TI官方提供的云端环境，集成了一系列工具,无需本地搭环境，使用需要申请，提供两个工具：</p>
+<ul>
+<li><a href="https://dev.ti.com/modelcomposer/">Model Composer</a>： 为 TI 嵌入式处理器训练、优化和编译 AI 模型。支持数据采集，标注，模型训练，以及上板编译，<strong>一步到位</strong>。目前仅支持分类和检测任务，只能使用modelzoo中的模型进行训练，比如OD任务只有yolox模型，灵活度不高，主打方便快捷。</li>
+<li><a href="https://dev.ti.com/edgeaisession/">Model Analyzer</a>：远程连接到真实的评估硬件，基于jupyter notebook，在 TI 嵌入式处理器上部署和测试 AI 模型性能，进行多个模型的Benchmark。前身叫做 TI edge AI cloud。</li>
+</ul>
+<h3 id="Model-Analyzer"><a href="#Model-Analyzer" class="headerlink" title="Model Analyzer"></a>Model Analyzer</h3><p>选TDA4VM设备，能使用3h，文件在顶端My Workspace;<br>进入后分两大板块:</p>
+<ul>
+<li>Find your model: Compare model performance, 能查看不同模型在板端的表现，用来选择适合自己需求的模型；<img data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2perform.png" width="70%"/>  </li>
+<li>Get model benchmarks：<ul>
+<li>Model performance 是配置好的jupyter notebook，无需修改一步步运行即可输出结果；</li>
+<li>下面重点使用Custom models：</li>
+</ul>
+</li>
+</ul>
+<p><strong>Custom models</strong>（onnxRT）</p>
+<ul>
+<li>编译模型（在异构模型编译期间，支持的层将被装载到<code>TI-DSP</code>，生成推理所需工件（artifacts））</li>
+<li>使用生成的工件进行推理</li>
+<li><em>执行输入预处理和输出后处理</em></li>
+<li>启用调试日志</li>
+<li>使用deny-layer编译选项来隔离可能有问题的层并创建额外的模型子图</li>
+<li>使用生成的子图工件进行推理</li>
+<li><em>执行输入预处理和输出后处理</em></li>
+</ul>
+<p>Create Onnx runtime with <code>tidl_model_import_onnx</code> library to generate artifacts that offload supported portion of the DL model to the TI DSP.<br>参数配置见<a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md#user-options-for-tidl-acceleration">User options for TIDL Acceleration</a></p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># &#x27;sess&#x27; model compilation options</span></span><br><span class="line">compile_options = &#123;</span><br><span class="line">    <span class="string">&#x27;tidl_tools_path&#x27;</span> : os.environ[<span class="string">&#x27;TIDL_TOOLS_PATH&#x27;</span>], <span class="comment">#tidl tools 路径</span></span><br><span class="line">    <span class="string">&#x27;artifacts_folder&#x27;</span> : output_dir, <span class="comment">#编译输出目录</span></span><br><span class="line">    <span class="string">&#x27;tensor_bits&#x27;</span> : num_bits,    <span class="comment">#量化位数</span></span><br><span class="line">    <span class="string">&#x27;accuracy_level&#x27;</span> : accuracy, <span class="comment">#精度级别，0快但精度低，1慢但精度高</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_frames&#x27;</span> : <span class="built_in">len</span>(calib_images),  <span class="comment">#设置用于校准模型量化参数的图片</span></span><br><span class="line">    <span class="string">&#x27;advanced_options:calibration_iterations&#x27;</span> : <span class="number">3</span>, <span class="comment">#设置校准迭代次数 used if accuracy_level = 1</span></span><br><span class="line">    <span class="string">&#x27;debug_level&#x27;</span> : <span class="number">1</span>, <span class="comment">#设置调试级别，级别越高提供的调试信息越详细</span></span><br><span class="line">    <span class="string">&#x27;deny_list&#x27;</span> : <span class="string">&quot;MaxPool&quot;</span> <span class="comment">#排除ONNXRT不支持的层</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个会话选项对象，可以设置GPU加速、CPU 线程数、精度模式等会话参数</span></span><br><span class="line">so = rt.SessionOptions() <span class="comment">#此处默认参数</span></span><br><span class="line"><span class="comment"># 设置执行提供者列表，包含 TIDLCompilationProvider 和 CPUExecutionProvider</span></span><br><span class="line">EP_list = [<span class="string">&#x27;TIDLCompilationProvider&#x27;</span>, <span class="string">&#x27;CPUExecutionProvider&#x27;</span>]</span><br><span class="line"><span class="comment"># compile the model with TIDL acceleration by passing required compilation options.</span></span><br><span class="line">sess = rt.InferenceSession(onnx_model_path, providers=EP_list, provider_options=[compile_options, &#123;&#125;], sess_options=so)</span><br><span class="line"><span class="comment"># 载入 ONNX 模型并进行推理。可以使用 sess 对象来进行标准化、预处理、推理等操作，还可以获取模型的输入信息、输出信息、元图信息等</span></span><br><span class="line"><span class="comment"># At the end of model compilation step, model-artifacts for inference will be generated in user specified path.</span></span><br><span class="line"></span><br><span class="line">input_details = sess.get_inputs() <span class="comment"># 获取输入数据信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对校准图片进行预处理并进行推理，并将输出结果存储到 output 列表中</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> tqdm.trange(<span class="built_in">len</span>(calib_images)):</span><br><span class="line">    output = <span class="built_in">list</span>(sess.run(<span class="literal">None</span>, &#123;input_details[<span class="number">0</span>].name : preprocess_for_onnx_resent18v2(calib_images[num])&#125;))[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># Create OSRT inference session with TIDL acceleration option for running inference with generated model artifacts in the above step.</span></span><br></pre></td></tr></table></figure>
+
+<p>Then using Onnx with the libtidl_onnxrt_EP inference library we run the model and collect benchmark data.<br><img alt="图 9" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png" width="88%"/>  </p>
+<p><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md">edgeai-tidl-tools:Python Examples</a><br><a href="https://www.ti.com.cn/cn/lit/ug/zhcu546/zhcu546.pdf">适用于嵌入式应用的深度学习推理参考设计</a></p>
+<h1 id="EdgeAI-Benchmark"><a href="#EdgeAI-Benchmark" class="headerlink" title="EdgeAI-Benchmark"></a><a href="https://github.com/TexasInstruments/edgeai-benchmark/tree/master">EdgeAI-Benchmark</a></h1><p>EdgeAI-Benchmark提供了一系列针对不同图像识别任务的脚本，包括分类、分割、检测和关键点检测。（使用<a href="https://github.com/TexasInstruments/edgeai-tidl-tools">edgeai-tidl-tools</a>用于模型编译和推理）</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>文档：<a href="https://github.com/TexasInstruments/edgeai-benchmark/blob/master/docs/setup_instructions.md">setup_instructions</a>，其中<code>pyenv install 3.6</code>可能因为网络原因下载极慢，这时可以先从官网或镜像源下载所需要的包到 ~&#x2F;.pyenv&#x2F;cache 目录下，再执行安装命令<br>此后每次需要激活环境：<code>pyenv activate benchmark</code></p>
+<h2 id="edgeai-tidl-tools-docs-custom-model-evaluation-md"><a href="#edgeai-tidl-tools-docs-custom-model-evaluation-md" class="headerlink" title="edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md"></a><a href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md">edgeai-tidl-tools&#x2F;docs&#x2F;custom_model_evaluation.md</a></h2><blockquote>
 <p>TDA4系列文章：<br><a href="https://wangyujie.site/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br><a href="https://wangyujie.site/TDA4VM2/">TDA4②：环境搭建、模型转换、Demo及Tools</a><br><a href="https://wangyujie.site/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a><br><a href="https://wangyujie.site/TDA4VM4/">TDA4④：部署自定义模型</a></p>
 </blockquote>
 ]]></content>
