@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wangyujie.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"wangyujie.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta property="og:type" content="article">
@@ -104,7 +104,7 @@
       <span class="logo-line-after"><i></i></span>
     </a>
       <a>
-        <img class="custom-logo-image" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Arrow.png" alt="Arrow的笔记本">
+        <img class="custom-logo-image" src="/images/arrow.gif" alt="Arrow的笔记本">
       </a>
   </div>
 
@@ -350,11 +350,11 @@
 <p>标注工具：<a target="_blank" rel="noopener" href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
 <p>开源驾驶员行为数据集：<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
 <p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
-<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png" alt="图 1">  </p>
+<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png" alt="图 1">  </p>
 <h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
 <li>在 <code>models/common.py</code> 加入新的结构代码</li>
 <li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
-<li><code>.yaml</code> 修改网络结构<br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png" alt="图 2"></li>
+<li><code>.yaml</code> 修改网络结构<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png" alt="图 2"></li>
 </ol>
 <h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
 <blockquote>
@@ -610,6 +610,7 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
