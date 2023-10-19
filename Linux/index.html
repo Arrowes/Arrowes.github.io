@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wangyujie.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"wangyujie.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta property="og:type" content="article">
@@ -314,7 +314,7 @@
 <li><code>git pull origin master</code> 再把远端的最新代码拉至本地</li>
 </ol>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19e4y1q7JJ">十分钟学会正确的github工作流，和开源作者们使用同一套流程</a></p>
-<img data-src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" width="100%">
+<img src="https://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png" width="100%">
 
 
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#branch 与 tag：</span></span><br><span class="line">git tag/branch  <span class="comment">#查本地仓库所有的tag或branch -r:远程分支 -a:所有分支</span></span><br><span class="line">git checkout [tag/branch]   <span class="comment">#已有仓库切换 tag/branch</span></span><br><span class="line">git checkout -b [branch]    <span class="comment">#新建一个分支，并切换到该分支</span></span><br><span class="line">git merge [branch]  <span class="comment">#合并指定分支到当前分支</span></span><br><span class="line">git tag [tag]       <span class="comment">#新建一个 tag 在当前 commit</span></span><br><span class="line">git describe --tag  <span class="comment">#查当前tag</span></span><br><span class="line">git show [tag]      <span class="comment">#查看tag信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tag 对应某次 commit, 是一个点，是不可移动的。</span></span><br><span class="line"><span class="comment">#branch 对应一系列 commit，是很多点连成的一根线，有一个HEAD 指针，是可以依靠 HEAD 指针移动的。</span></span><br><span class="line"><span class="comment">#两者的区别决定了使用方式，改动代码用 branch ,不改动只查看用 tag</span></span><br></pre></td></tr></table></figure>
@@ -323,7 +323,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#常用指令：</span></span><br><span class="line">git init [project-name] <span class="comment">#新建一个目录，将其初始化为Git代码库</span></span><br><span class="line">git status  <span class="comment">#显示有变更的文件</span></span><br><span class="line">git <span class="built_in">log</span>     <span class="comment">#显示当前分支的版本历史 commit id</span></span><br><span class="line">git diff    <span class="comment">#显示暂存区和工作区的差异</span></span><br><span class="line">git reset --hard [commitId]  <span class="comment"># 进行回溯</span></span><br><span class="line"></span><br><span class="line">git config --list   <span class="comment">#检查当前配置</span></span><br><span class="line"><span class="comment"># 配置全局信息 无global则是在项目中配置</span></span><br><span class="line">git config --global user.name <span class="string">&quot;[name]&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;[email address]&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux1.png" width="80%"><br><img src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Linux2.png" width="80%"></p>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前运⾏的docker实例状态</span> </span><br><span class="line">sudo docker ps -a </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在上⼀条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Exited，则需要执⾏下⾯这条指令，再次启动</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如为 Up，则跳过下⾯这条指令</span> </span><br><span class="line">sudo docker start openharmony</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进⼊docker编译环境</span> </span><br><span class="line">sudo docker exec -it openharmony bash </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执⾏后，出现类似如下信息，说明再次进⼊成功</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">root@bae85ba0f77c:/home/openharmony<span class="comment">#</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">退出</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
 <p>启动docker的samba服务：<code>service smbd restart</code><br>查看ip：<code>ifconfig</code><br>连接：<code>\\192.168.174.128\docker</code></p>
 <h2 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1、主机拷贝文件到docker编译环境里：</span></span><br><span class="line">sudo docker cp源文件openharmony:/目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">参数解析：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：主机上的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">盘目标文件：docker编译环境里的，通常为目录，表示将文件拷贝到该目录</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2、docker编译环境拷贝文件到主机：</span></span><br><span class="line">sudo docker cp openharmony:/源文件目标文件</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">源文件：docker编译环境里的，可为文件或者目录</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">目标文件：主机上的，通常为目录，表示将文件拷贝到该目录下</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除docker编译环境【谨慎操作，不可恢复】</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看当前运行的docker实例状态</span></span><br><span class="line">sudo docker ps -a</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在上一条指显示结果列表中，查看openharmony的STATUS</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Up，则需要执行下面这条指令，停止其运行</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如为Exited，则跳过下面这条指令</span></span><br><span class="line">sudo docker stop openharmony</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除</span></span><br><span class="line">sudo docker rm openharmony</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">提醒：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除前，请确保该运行环境内的有效数据都已拷贝到主机上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">删除后，该运行环境内的所有数据将被移除，不可恢复</span></span><br></pre></td></tr></table></figure>
@@ -449,7 +449,7 @@
         <a href="https://blog.csdn.net/Arrowes?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Arrowes?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>bilibili</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://oshwhub.com/arrows" title="立创EDA → https:&#x2F;&#x2F;oshwhub.com&#x2F;arrows" rel="noopener" target="_blank"><i class="fa fa-microchip fa-fw"></i>立创EDA</a>
@@ -498,7 +498,7 @@
 
         
 <div class="busuanzi-count">
-  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -531,9 +531,7 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -549,70 +547,11 @@
 
 <script src="/js/bookmark.js"></script>
 
-  <script>
-var pjax = new Pjax({
-  selectors: [
-    'head title',
-    '#page-configurations',
-    '.content-wrap',
-    '.post-toc-wrap',
-    '.languages',
-    '#pjax'
-  ],
-  switches: {
-    '.post-toc-wrap': Pjax.switches.innerHTML
-  },
-  analytics: false,
-  cacheBust: false,
-  scrollTo : !CONFIG.bookmark.enable
-});
-
-window.addEventListener('pjax:success', () => {
-  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
-    var code = element.text || element.textContent || element.innerHTML || '';
-    var parent = element.parentNode;
-    parent.removeChild(element);
-    var script = document.createElement('script');
-    if (element.id) {
-      script.id = element.id;
-    }
-    if (element.className) {
-      script.className = element.className;
-    }
-    if (element.type) {
-      script.type = element.type;
-    }
-    if (element.src) {
-      script.src = element.src;
-      // Force synchronous loading of peripheral JS.
-      script.async = false;
-    }
-    if (element.dataset.pjax !== undefined) {
-      script.dataset.pjax = '';
-    }
-    if (code !== '') {
-      script.appendChild(document.createTextNode(code));
-    }
-    parent.appendChild(script);
-  });
-  NexT.boot.refresh();
-  // Define Motion Sequence & Bootstrap Motion.
-  if (CONFIG.motion.enable) {
-    NexT.motion.integrator
-      .init()
-      .add(NexT.motion.middleWares.subMenu)
-      .add(NexT.motion.middleWares.postList)
-      .bootstrap();
-  }
-  NexT.utils.updateSidebarPosition();
-});
-</script>
-
 
 
 
   
-  <script data-pjax>
+  <script>
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
@@ -654,7 +593,7 @@ window.addEventListener('pjax:success', () => {
 
 
 
-<script data-pjax>
+<script>
 if (document.querySelectorAll('pre.mermaid').length) {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
     mermaid.initialize({
@@ -669,7 +608,6 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 
 
-    <div id="pjax">
   
 
   
@@ -706,6 +644,5 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
 });
 </script>
 
-    </div>
 </body>
 </html>

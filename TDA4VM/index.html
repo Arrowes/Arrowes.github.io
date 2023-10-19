@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wangyujie.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"wangyujie.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta property="og:type" content="article">
@@ -46,8 +46,8 @@
 <meta property="article:published_time" content="2023-05-10T09:00:00.000Z">
 <meta property="article:modified_time" content="2023-09-07T10:44:27.293Z">
 <meta property="article:author" content="Arrow">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg">
 
@@ -269,7 +269,7 @@
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><a target="_blank" rel="noopener" href="https://www.ti.com.cn/product/zh-cn/TDA4VM">TDA4VM官网</a>， <a target="_blank" rel="noopener" href="https://e2e.ti.com/support/processors-group/processors/f/processors-forum">TI e2e论坛</a><br>下一篇：<a href="https://wangyujie.site/TDA4VM2/">TDA4：环境搭建、模型转换及Demo</a></p>
 <h1 id="TDA4VM芯片数据手册研读"><a href="#TDA4VM芯片数据手册研读" class="headerlink" title="TDA4VM芯片数据手册研读"></a>TDA4VM芯片数据手册研读</h1><p><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ds/symlink/tda4vm.pdf">TDA4VM数据手册</a><br>适用于 ADAS 和自动驾驶汽车的TDA4VM Jacinto™ 处理器,具有深度学习、视觉功能和多媒体加速器的双核 Arm® Cortex®-A72 SoC 和 C7x DSP.<br>Jacinto 7系列架构芯片含两款汽车级芯片：TDA4VM 处理器和 DRA829V 处理器，前者应用于 ADAS，后者应用于网关系统，以及加速数据密集型任务的专用加速器，如计算机视觉和深度学习。二者都基于J721E平台开发。</p>
-<h2 id="多核异构"><a href="#多核异构" class="headerlink" title="多核异构"></a>多核异构</h2><img alt="图 3" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg"/>  
+<h2 id="多核异构"><a href="#多核异构" class="headerlink" title="多核异构"></a>多核异构</h2><img alt="图 3" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMedit.jpg"/>  
 
 <h2 id="处理器内核"><a href="#处理器内核" class="headerlink" title="处理器内核"></a>处理器内核</h2><ul>
 <li><strong>C7x 浮点矢量 DSP，性能高达 1.0GHz、 80GFLOPS、256GOPS</strong>：C7x是TI的一款高性能数字信号处理器，其中的浮点矢量 DSP 可以进行高效的信号处理、滤波和计算，大幅提高神经网络模型的计算效率。<br><em>GHz-每秒钟执行10亿次计算，GFLOPS-每秒10亿次浮点运算，GOPS-每秒10亿次通用操作。</em></li>
@@ -299,7 +299,7 @@
 <blockquote>
 <p><em>RTOS and Linux SDK work together as a multi-processor software development kit，用于ADAS领域，更多的外设和驱动放在RTOS端，便于实时处理 ，自定义性更强，开发难度更大<br>Edge AI SDK主要基于Linux开发，用于工业领域，工作量少但实时性差，无法发挥芯片全部性能</em> <sup id="fnref:0"><a href="#fn:0" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[视频：深度学习算法在ADAS处理器TDA4VM的应用与部署](https://www.ti.com.cn/zh-cn/video/6301563648001)">[0]</span></a></sup></p>
 </blockquote>
-<h2 id="Processor-SDK-RTOS-PSDK-RTOS"><a href="#Processor-SDK-RTOS-PSDK-RTOS" class="headerlink" title="Processor SDK RTOS (PSDK RTOS)"></a>Processor SDK RTOS (PSDK RTOS)</h2><p><strong>PSDK RTOS Block Diagram</strong><br><img alt="图 4" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMSDKedit.png" /><br><strong>Hardware</strong><br>Evaluation Module (EVM):Ti 推出的硬件开发板。用于快速原型设计和新产品开发，可以帮助开发人员在短时间内实现复杂的嵌入式系统功能, <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/evm_setup_j721e.html">EVM Setup for J721E</a><br>JTAG:debug execution, load program via JTAG-<em>No Boot Mode</em><br>uart:prints status of the application via the uart terminal.<br><strong>Software</strong><br>Recommend IDE:Code Composer Studio (CCS), <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/ccs_setup_j721e.html#ccs-setup-j721e">CCS Setup for J721E</a><br><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/getting_started_j721e.html#demo-applications"><strong>Demos</strong></a><br>Prebuilt Demos:直装<br>Build Demos from Source: Linux, Windows(很少)</p>
+<h2 id="Processor-SDK-RTOS-PSDK-RTOS"><a href="#Processor-SDK-RTOS-PSDK-RTOS" class="headerlink" title="Processor SDK RTOS (PSDK RTOS)"></a>Processor SDK RTOS (PSDK RTOS)</h2><p><strong>PSDK RTOS Block Diagram</strong><br><img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMSDKedit.png" /><br><strong>Hardware</strong><br>Evaluation Module (EVM):Ti 推出的硬件开发板。用于快速原型设计和新产品开发，可以帮助开发人员在短时间内实现复杂的嵌入式系统功能, <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/evm_setup_j721e.html">EVM Setup for J721E</a><br>JTAG:debug execution, load program via JTAG-<em>No Boot Mode</em><br>uart:prints status of the application via the uart terminal.<br><strong>Software</strong><br>Recommend IDE:Code Composer Studio (CCS), <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/ccs_setup_j721e.html#ccs-setup-j721e">CCS Setup for J721E</a><br><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/getting_started_j721e.html#demo-applications"><strong>Demos</strong></a><br>Prebuilt Demos:直装<br>Build Demos from Source: Linux, Windows(很少)</p>
 <p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/psdk_rtos/docs/user_guide/sdk_components_j721e.html#vxlib"><strong>SDK Components</strong></a><br>The following table lists <em>part</em> of the top-level folders in the SDK package and the component it represents.</p>
 <table>
 <thead>
@@ -341,7 +341,7 @@
 </tr>
 </tbody></table>
 <p>RTOS SDK 中集成了众多的Demo展示TIDL在TDA4处理器上对实时的语义分割和 SSD 目标检测的能力。如下图,	Vision Apps User Guide 中 <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/07_02_00_06/exports/docs/vision_apps/docs/user_guide/group_apps_dl_demos_app_tidl_avp3.html">AVP Demo</a> 的展示了使用TIDL对泊车点、车辆的检测。<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Deep Learning with Jacinto™ 7 SoCs: TDA4x](https://www.ti.com.cn/cn/lit/ml/slyp667/slyp667.pdf?raw=true) | [当深度学习遇上TDA4](https://e2echina.ti.com/blogs_/b/behindthewheel/posts/tda4)">[1]</span></a></sup></p>
-<img alt="图 7" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMAVP.jpg" />  
+<img alt="图 7" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMAVP.jpg" />  
 
 <h2 id="Processor-SDK-Linux"><a href="#Processor-SDK-Linux" class="headerlink" title="Processor SDK Linux"></a>Processor SDK Linux</h2><details>
   <summary>SDK Components</summary>
@@ -405,11 +405,11 @@
 </details>
 
 <p>Linux SDK最主要是用于A72核心上的启动引导、操作系统、文件系统，一般只有在修改到这部分的时候才会使用到Linux SDK。</p>
-<h2 id="PSDK-Linux-for-Edge-AI"><a href="#PSDK-Linux-for-Edge-AI" class="headerlink" title="PSDK Linux for Edge AI"></a>PSDK Linux for Edge AI</h2><p>对于Edge AI，无需对深度学习算法进行深入了解，使用python或C++即可进行部署，不支持的算法可以放在ARM端计算和实施推理，TI会自动生成推理文件，如下图；<br><img alt="图 sdk" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMsdk.png" />  </p>
+<h2 id="PSDK-Linux-for-Edge-AI"><a href="#PSDK-Linux-for-Edge-AI" class="headerlink" title="PSDK Linux for Edge AI"></a>PSDK Linux for Edge AI</h2><p>对于Edge AI，无需对深度学习算法进行深入了解，使用python或C++即可进行部署，不支持的算法可以放在ARM端计算和实施推理，TI会自动生成推理文件，如下图；<br><img alt="图 sdk" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMsdk.png" />  </p>
 <p>而对于ADAS领域，要把深度学习算法都放在TIDL端，最大化利用算力，需要手写加速算子进行自定义层的设计；</p>
-<p>两套SDK部署深度学习算法的区别如下：<br><img alt="图 compare" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMcompare.png" /><br><img alt="图 compare" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMcompare2.png" /> </p>
+<p>两套SDK部署深度学习算法的区别如下：<br><img alt="图 compare" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMcompare.png" /><br><img alt="图 compare" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMcompare2.png" /> </p>
 <h1 id="TDA4VM-SK开发板"><a href="#TDA4VM-SK开发板" class="headerlink" title="TDA4VM-SK开发板"></a>TDA4VM-SK开发板</h1><p>TDA4VM processor starter kit for edge AI vision systems</p>
-<img alt="图 TDA4VM-SK" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM-SK.png" /> 
+<img alt="图 TDA4VM-SK" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VM-SK.png" /> 
 
 <p><a target="_blank" rel="noopener" href="https://www.ti.com/tool/SK-TDA4VM">SK-TDA4VM Evaluation board | TI.com</a><br><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ug/zhcu912c/zhcu912c.pdf?ts=1688968746311">SK-TDA4VM 用户指南</a>, 提供了 SK-TDA4VM 的功能和接口详细信息<br><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/running_simple_demos.html">Processor SDK Linux for Edge AI Documentation</a><br><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/common/inference_models.html">Processor SDK Linux for SK-TDA4VM Documentation</a></p>
 <p>TI 的 TDA4VM SoC 包含双核 A72、高性能视觉加速器、视频编解码器加速器、最新的 C71x 和 C66x DSP、 用于捕获和显示的高带宽实时 IP、GPU、专用安全岛和安全加速器。 SoC 经过功率优化，可为机器人、工业 和汽车应用中的感知、传感器融合、定位和路径规划任务提供一流的性能。</p>
@@ -436,12 +436,12 @@
 <li><strong>Execute the network on PC</strong> using the imported files and validate the results.bin</li>
 <li><strong>Execute the network on TI</strong> Jacinto7 SoC using the imported files and validate the results.bin</li>
 </ul>
-<img alt="图 14" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMTIDLppt.jpg" width="80%"/>  
+<img alt="图 14" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMTIDLppt.jpg" width="80%"/>  
 
 <p>TIDL当前支持的训练框架有Tensorflow、Pytorch、Caffe等，用户可以根据需要选择合适的训练框架进行模型训练。TIDL可以将PC端训练好的模型导入编译生成TIDL可以识别的模型格式，同时在导入编译过程中进行层级合并以及量化等操作，方便导入编译后的模型高效的运行在具有高性能定点数据感知能力TDA4硬件加速器上。</p>
 <h2 id="TIDL-Importer"><a href="#TIDL-Importer" class="headerlink" title="TIDL Importer"></a>TIDL Importer</h2><p>RTOS SDK 中的 ti_dl 提供了 <a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/md_tidl_model_import.html">TIDL Importer</a> 模型导入工具，模型可视化工具等，非常便捷地可以对训练好的模型进行导入。</p>
-<img alt="图 3" data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_blockDiagram.png" />  
-<img alt="图 4" data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/tidl_import_design.jpg" />  
+<img alt="图 3" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_blockDiagram.png" />  
+<img alt="图 4" src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/tidl_import_design.jpg" />  
 
 <p><code>RTOSsdk/tidl_j721e/ti_dl/utils/tidlModelImport</code></p>
 <ol>
@@ -468,7 +468,7 @@
 <li>Quantization options：<ul>
 <li>Post Training Quantization (PTQ, 训练后量化、离线量化)</li>
 <li>Training for Quantization (QAT，训练时量化，伪量化，在线量化)</li>
-<li>Quantization aware Training<img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_Quant_Options.png" width='70%'></li>
+<li>Quantization aware Training<img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_Quant_Options.png" width='70%'></li>
 </ul>
 </li>
 </ul>
@@ -491,9 +491,9 @@
 </ul>
 </li>
 </ol>
-<img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/dnn-workflow.png">
+<img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/dnn-workflow.png">
 
-<p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_overview.html">TIDL Runtime</a>（TIDL-RT）是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。<br><img alt="图 9" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMworkflow.png" width="60%"/>  </p>
+<p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tidl_j721e_08_06_00_10/ti_dl/docs/user_guide_html/md_tidl_overview.html">TIDL Runtime</a>（TIDL-RT）是运行在TDA4端的实时推理单元，同时提供了TIDL的运行环境，对于input tensor，TIDL TIOVX Node 调用TIDL 的深度学习加速库进行感知，并将结果进行输出。<br><img alt="图 9" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMworkflow.png" width="60%"/>  </p>
 <p><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai"><strong>TI’s EdgeAI Tools</strong></a>:Training and quantization tools,make DNNs more suitable for TI devices.</p>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-modelzoo">Model ZOO</a>:A large collection of pre-trained models for data scientists,其中有<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-modelzoo/tree/master/models/vision/detection">YOLO例程</a></p>
@@ -505,17 +505,17 @@
 <li><p><a target="_blank" rel="noopener" href="https://dev.ti.com/edgeai/">Edge AI Studio</a>:Integrated development environment for development of AI applications for edge processors.（需授权）</p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-modelmaker">EdgeAI-ModelMaker</a>: Command line Integrated environment for training &amp; compilation，集成了edgeai-modelzoo, edgeai-torchvision, edgeai-mmdetection, edgeai-benchmark, edgeai-modelmaker</p>
-<img alt="图 9" data-src="https://raw.sevencdn.com/TexasInstruments/edgeai/blob/master/assets/workblocks_tools_software.png?raw=true" width="90%"></li>
+<img alt="图 9" src="https://raw.sevencdn.com/TexasInstruments/edgeai/blob/master/assets/workblocks_tools_software.png?raw=true" width="90%"></li>
 </ul>
 <h2 id="OpenVX"><a href="#OpenVX" class="headerlink" title="OpenVX"></a>OpenVX</h2><p><a target="_blank" rel="noopener" href="https://www.khronos.org/openvx/">OpenVX</a> 视觉加速中间件是芯片内部的硬件加速器与视觉应用间的桥梁(中间件:用于简化编程人员开发复杂度、抽象软硬件平台差异的软件抽象层)，是个由Khronos定义的API框架，包括：宏的定义与含义，结构体的定义与含义，函数的定义与行为。</p>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><code>Vx_context</code>：一个context就是一个运行环境，包含多种不同的功能，在不同场景下被调度。一般很少有使用到多context的场景；<br><code>Vx_graph</code>：一个graph就是一个功能，是由多个步骤连接在一起的完整功能；<br><code>Vx_node</code>：一个node就是一个最小的调度单元，可以是图像预处理算法，可以是边缘检测算法。<br>每个进程内可以有多个context（上下文），每个context内可以有多个graph（图，或连接关系），每个graph内可以有多个node（节点）。<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[TIOVX – TI’s OpenVX Implementation](https://www.ti.com/content/dam/videos/external-videos/2/3816841626001/5624955361001.mp4/subassets/openvx-implementation-on-ti-tda-adas-socs-presentation.pdf)">[4]</span></a></sup></p>
-<img alt="图 4" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMopenvxflow.png" />  
+<img alt="图 4" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMopenvxflow.png" />  
 
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Example Program</span></span><br><span class="line">vx_context context = vxCreateContext(); <span class="comment">//创建 OpenVX 上下文,即整个应用程序的运行环境</span></span><br><span class="line">vx_graph graph = vxCreateGraph( context ); <span class="comment">//在上下文中创建一个图，表示图像处理的流程</span></span><br><span class="line">vx_image input = vxCreateImage( context, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 );</span><br><span class="line">vx_image output = vxCreateImage( context, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 ); <span class="comment">//创建输入和输出图像，分别用于存储输入和处理后的图像。</span></span><br><span class="line">vx_image intermediate = vxCreateVirtualImage( graph, <span class="number">640</span>, <span class="number">480</span>, VX_DF_IMAGE_U8 ); <span class="comment">//创建虚拟图像，用于存储第一次处理后的结果，供下一步处理使用</span></span><br><span class="line">vx_node F1 = vxF1Node( graph, input, intermediate );</span><br><span class="line">vx_node F2 = vxF2Node( graph, intermediate, output ); <span class="comment">//创建两个节点，分别表示两个不同的图像处理操作，并将它们添加到图中</span></span><br><span class="line">vxVerifyGraph( graph ); <span class="comment">//验证图的正确性</span></span><br><span class="line">vxProcessGraph( graph ); <span class="comment">//执行图像处理</span></span><br></pre></td></tr></table></figure>
-<img alt="图 5" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMopenvxexample.png" width="80%"/>  
+<img alt="图 5" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMopenvxexample.png" width="80%"/>  
 
 <h3 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h3><p><code>Vx_image, Vx_tensor, Vx_matrix, Vx_array, Vx_user_object_data</code><br>OpenVX规范了标准化的数据结构，基本满足了嵌入式系统的主要需求，尤其是这种数据结构的描述方法对嵌入式系统非常友好：支持虚拟地址、物理地址等异构内存；提供了数据在多种地址之间映射的接口；提供了统一化的自定义结构体的描述方法。</p>
-<h3 id="TIOVX"><a href="#TIOVX" class="headerlink" title="TIOVX"></a>TIOVX</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a> 是TI公司对OpenVX的实现。<br><img data-src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png" width="80%"></p>
+<h3 id="TIOVX"><a href="#TIOVX" class="headerlink" title="TIOVX"></a>TIOVX</h3><p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/index.html">TIOVX</a> 是TI公司对OpenVX的实现。<br><img src="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/tiovx_block_diagram_j7.png" width="80%"></p>
 <p>TIOVX Platform提供了特定硬件(如TDAx, AM65x)的操作系统(如TI-RTOS, Linux)调用API。TIOVX Framework包含了官方OpenVX的标准API和TI扩展的API，其中包括</p>
 <figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">public</span><span class="operator">:</span> <span class="built_in">Context</span><span class="operator">,</span> <span class="built_in">Parameter</span><span class="operator">,</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Node</span><span class="operator">,</span> <span class="built_in">Graph</span> <span class="built_in">Array</span><span class="operator">,</span> <span class="built_in">Image</span><span class="operator">,</span> <span class="variable">Scalar</span><span class="operator">,</span> <span class="built_in">Pyramid</span><span class="operator">,</span> <span class="variable">ObjectArray</span> ；</span><br><span class="line"><span class="variable">TI</span><span class="operator">:</span> <span class="variable">Target</span><span class="operator">,</span> <span class="variable">Target</span> <span class="variable">Kernel</span><span class="operator">,</span> <span class="variable">Obj</span> <span class="variable">Desc</span>。</span><br></pre></td></tr></table></figure>
 
@@ -523,7 +523,7 @@
 <ul>
 <li>TI官方提供OpenVX的支持，提供标准算法的硬件加速实现，提供各个功能的Demo，能够简化开发调试工作。</li>
 <li>简化多核异构的开发，可以在X86模拟运行，所有的板级开发和调试都位于A72 Linux端，减少了对RTOS调试的工作量。</li>
-<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832) | [TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[5]</span></a></sup><img alt="图 6" data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMtiovx.png" width="80%"/></li>
+<li>OpenVX提供了数据流调度机制，能够支持流水线运行，简化了多线程和并行调度的工作。结合RTOS的实时特性，减少Linux非实时操作系统带来的负面影响<sup id="fnref:5"><a href="#fn:5" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[OpenVX视觉加速中间件与TDA4VM平台上的应用](https://zhuanlan.zhihu.com/p/423179832) | [TDA4横扫行泊一体市场与其背后的OpenVX](https://zhuanlan.zhihu.com/p/606584605)">[5]</span></a></sup><img alt="图 6" src="https://raw.sevencdn.com/Arrowes/Blog/main/images/TDA4VMtiovx.png" width="80%"/></li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/08_06_00_12/exports/docs/tiovx/docs/user_guide/PYTIOVX.html">PyTIOVX</a>: Automated OpenVX “C” Code Generation</p>
 <hr>
@@ -539,8 +539,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
               <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
           </div>
 
         
@@ -654,7 +654,7 @@
         <a href="https://blog.csdn.net/Arrowes?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Arrowes?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>bilibili</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://oshwhub.com/arrows" title="立创EDA → https:&#x2F;&#x2F;oshwhub.com&#x2F;arrows" rel="noopener" target="_blank"><i class="fa fa-microchip fa-fw"></i>立创EDA</a>
@@ -703,7 +703,7 @@
 
         
 <div class="busuanzi-count">
-  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -736,9 +736,7 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -754,70 +752,11 @@
 
 <script src="/js/bookmark.js"></script>
 
-  <script>
-var pjax = new Pjax({
-  selectors: [
-    'head title',
-    '#page-configurations',
-    '.content-wrap',
-    '.post-toc-wrap',
-    '.languages',
-    '#pjax'
-  ],
-  switches: {
-    '.post-toc-wrap': Pjax.switches.innerHTML
-  },
-  analytics: false,
-  cacheBust: false,
-  scrollTo : !CONFIG.bookmark.enable
-});
-
-window.addEventListener('pjax:success', () => {
-  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
-    var code = element.text || element.textContent || element.innerHTML || '';
-    var parent = element.parentNode;
-    parent.removeChild(element);
-    var script = document.createElement('script');
-    if (element.id) {
-      script.id = element.id;
-    }
-    if (element.className) {
-      script.className = element.className;
-    }
-    if (element.type) {
-      script.type = element.type;
-    }
-    if (element.src) {
-      script.src = element.src;
-      // Force synchronous loading of peripheral JS.
-      script.async = false;
-    }
-    if (element.dataset.pjax !== undefined) {
-      script.dataset.pjax = '';
-    }
-    if (code !== '') {
-      script.appendChild(document.createTextNode(code));
-    }
-    parent.appendChild(script);
-  });
-  NexT.boot.refresh();
-  // Define Motion Sequence & Bootstrap Motion.
-  if (CONFIG.motion.enable) {
-    NexT.motion.integrator
-      .init()
-      .add(NexT.motion.middleWares.subMenu)
-      .add(NexT.motion.middleWares.postList)
-      .bootstrap();
-  }
-  NexT.utils.updateSidebarPosition();
-});
-</script>
-
 
 
 
   
-  <script data-pjax>
+  <script>
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
@@ -859,7 +798,7 @@ window.addEventListener('pjax:success', () => {
 
 
 
-<script data-pjax>
+<script>
 if (document.querySelectorAll('pre.mermaid').length) {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
     mermaid.initialize({
@@ -874,7 +813,6 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 
 
-    <div id="pjax">
   
 
   
@@ -911,6 +849,5 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
 });
 </script>
 
-    </div>
 </body>
 </html>
