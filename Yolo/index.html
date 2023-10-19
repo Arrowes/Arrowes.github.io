@@ -25,15 +25,15 @@
 <meta property="og:url" content="https://wangyujie.site/Yolo/index.html">
 <meta property="og:site_name" content="Arrow的笔记本">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png">
-<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png">
+<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/Yolo1.png">
+<meta property="og:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/Yolo2.png">
 <meta property="article:published_time" content="2022-11-27T08:04:02.000Z">
-<meta property="article:modified_time" content="2023-10-19T10:33:13.837Z">
+<meta property="article:modified_time" content="2023-10-19T14:58:06.655Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png">
+<meta name="twitter:image" content="https://raw.sevencdn.com/Arrowes/Blog/main/images/Yolo1.png">
 
 <link rel="canonical" href="https://wangyujie.site/Yolo/">
 
@@ -216,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-19 18:33:13" itemprop="dateModified" datetime="2023-10-19T18:33:13+08:00">2023-10-19</time>
+                <time title="修改时间：2023-10-19 22:58:06" itemprop="dateModified" datetime="2023-10-19T22:58:06+08:00">2023-10-19</time>
               </span>
 
           
@@ -350,11 +350,11 @@
 <p>标注工具：<a target="_blank" rel="noopener" href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
 <p>开源驾驶员行为数据集：<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
 <p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
-<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo1.png" alt="图 1">  </p>
+<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Yolo1.png" alt="图 1">  </p>
 <h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
 <li>在 <code>models/common.py</code> 加入新的结构代码</li>
 <li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
-<li><code>.yaml</code> 修改网络结构<br><img data-src="https://raw.sevencdn.com/Arrowes/Arrowes-Blogbackup/main/images/Yolo2.png" alt="图 2"></li>
+<li><code>.yaml</code> 修改网络结构<br><img data-src="https://raw.sevencdn.com/Arrowes/Blog/main/images/Yolo2.png" alt="图 2"></li>
 </ol>
 <h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
 <blockquote>
