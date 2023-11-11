@@ -1,6 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DL：深度学习相关概念</title>
+    <url>/DL/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>记录深度学习基本概念，不断更新中，项目地址：<a href="https://github.com/Arrowes/DLpractice">DLpractice</a></p>
+<span id="more"></span>
+
+<p>从机器学习到深度学习：<a href="https://www.cnblogs.com/subconscious/p/4107357.html">从机器学习谈起</a>，<a href="https://www.cnblogs.com/subconscious/p/5058741.html">从神经元到深度学习</a><br>什么是卷积讲解视频：<a href="https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a">大白话讲解卷积神经网络工作原理</a></p>
+<h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a>深度学习框架</h1><pre class="mermaid">graph LR
+A[程序框架]-->B[A.黑箱]
+A-->C[B.模块化] -->1.处理数据
+C-->2.构建网络
+C-->3.损失函数
+C-->4.优化函数
+C-->5.模型保存
+A-->E[C.定义]</pre>
+
+<img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL1.png" width = "80%" />
+
+<p>GPU 网络和数据要同时送进GPU</p>
+<h2 id="激活函数-Activate-Function"><a href="#激活函数-Activate-Function" class="headerlink" title="激活函数 Activate Function"></a>激活函数 Activate Function</h2><p>激活函数是深度学习神经网络中的一个重要组成部分，它用来引入<em>非线性性质</em>，使神经网络能够学习复杂的函数关系。激活函数接收神经元的输入，并产生输出作为下一层神经元的输入。在神经网络中，激活函数通常被应用于每个神经元的输出，使神经网络能够进行非线性映射和学习。</p>
+<p>激活函数的主要作用有以下几点：</p>
+<ul>
+<li>非线性映射：激活函数引入非线性性质，使神经网络可以逼近和表示复杂的非线性函数。如果没有激活函数，多层神经网络的组合将等效于单一层的线性变换。</li>
+<li>特征提取：激活函数有助于神经网络从输入数据中提取关键特征，例如边缘、纹理、形状等，以便更好地完成分类、回归和其他任务。</li>
+<li>解决梯度消失问题：某些激活函数（如ReLU）有助于减轻梯度消失问题，使深层网络能够更好地进行反向传播和训练。</li>
+</ul>
+<p>一些常见的激活函数包括：</p>
+<table>
+<thead>
+<tr>
+<th>激活函数</th>
+<th>特点</th>
+<th>图像</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$$softmax(x_i) &#x3D; \frac{e^{x_i}}{\sum_{j&#x3D;0}^{N} e^{x_j}}$$</td>
+<td>将未规范化的预测变换为非负数并且总和为1，同时让模型保持可导的性质;常用在分类网络的最后一层，把网络输出转化为各类别的概率。</td>
+<td>首先对每个未规范化的预测求幂，这样可以确保输出非负。为了确保最终输出的概率值总和为1，再让每个求幂后的结果除以它们的总和</td>
+</tr>
+<tr>
+<td>挤压函数（squashing function）$$sigmoid(x) &#x3D; \frac 1{1 + exp(−x)}$$</td>
+<td>将输入映射到范围(0, 1)，常用于二元分类问题。sigmoid可以视为softmax的特例</td>
+<td><img data-src="https://zh.d2l.ai/_images/output_mlp_76f463_51_0.svg"  /></td>
+</tr>
+<tr>
+<td>双曲正切 $$tanh(x) &#x3D; \frac {1 − exp(−2x)}{1 + exp(−2x)}$$</td>
+<td>将输入映射到范围(-1, 1)，也用于某些分类和回归问题, 当输入在0附近时，tanh函数接近线性变换。形状类似于sigmoid函数，不同的是tanh函数关于坐标系原点中心对称。（LSTM）</td>
+<td><img data-src="https://zh.d2l.ai/_images/output_mlp_76f463_81_0.svg"  /></td>
+</tr>
+<tr>
+<td>修正线性单元（Rectified Linear Unit）$$ReLU(x) &#x3D; max(x, 0)$$  $$LeakyReLU&#x3D;max(αx,x)$$</td>
+<td>求导表现得特别好：要么让参数消失，要么让参数通过。最常用的激活函数，通常能够加速收敛和减轻梯度消失问题（Transfromer）； LeakyReLU中通常设α&#x3D;0.01来调整负值的零梯度，缓解dead ReLU问题（YOLO） 若α为可学习参数，则为PReLU</td>
+<td><img data-src="https://zh.d2l.ai/_images/output_mlp_76f463_21_0.svg"  /></td>
+</tr>
+<tr>
+<td>指数线性单元 (Exponential Linear Units) <img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL_ELU.png"/></td>
+<td>对小于零的情况采用类似指数计算的方式进行输出。与 ReLU 相比，ELU 有负值，这会使激活的平均值接近零。均值激活接近于零可以使学习更快，因为它们使梯度更接近自然梯度。但计算量较大</td>
+<td><img data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMyLnpoaW1nLmNvbS84MC92Mi02MDRiZTExNGZhMDQ3OGYzYTEwNTk5MjNmZDEwMjJkMV9oZC5wbmc?x-oss-process=image/format,png"  /></td>
+</tr>
+</tbody></table>
+<h2 id="感受野-Receptive-field"><a href="#感受野-Receptive-field" class="headerlink" title="感受野(Receptive field)"></a>感受野(Receptive field)</h2><p>感受野是指在卷积神经网络中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。<br><img data-src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  /></p>
+<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL2.png" width = "50%" /><br><img data-src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "50%" /></p>
+<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><img alt="图 37" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL-Conv.jpg" />  
+
+
+<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
+<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL3.gif" width = "60%" />
+
+<p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL4.png" alt="图 4">  </p>
+<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> $^1$（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> $^2$。</p>
+<blockquote>
+<ol>
+<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
+<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
+</ol>
+</blockquote>
+<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
+<blockquote>
+<ol>
+<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
+<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
+<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
+</ol>
+</blockquote>
+<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
+<h3 id="基于距离度量的损失函数"><a href="#基于距离度量的损失函数" class="headerlink" title="基于距离度量的损失函数"></a>基于距离度量的损失函数</h3><p>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。<br><strong>L1范数损失函数（MAE）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；<br><strong>L2损失函数（MSE均方误差损失函数）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
+<h3 id="基于概率分布度量的损失函数"><a href="#基于概率分布度量的损失函数" class="headerlink" title="基于概率分布度量的损失函数"></a>基于概率分布度量的损失函数</h3><p>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。<br><strong>KL散度（ Kullback-Leibler divergence）</strong><br>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。</p>
+<p>交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数</p>
+<p>在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。</p>
+<p>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 </p>
+<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
+<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
+<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL5.png" width = "50%" /></p>
+<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
+<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL6.png" alt="图 6">  </p>
+<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
+<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
+<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL7.png" alt="图 7"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
+<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL8.png" width = "70%" />
+
+<p>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
+<blockquote>
+<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
+</blockquote>
+<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL9.png" alt="图 9">  </p>
+<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
+<p><em><a href="mailto:&#x6d;&#x61;&#112;&#x40;&#x30;&#x2e;&#53;">&#x6d;&#x61;&#112;&#x40;&#x30;&#x2e;&#53;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
+<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL11ROC.jpg" width = "40%" /></p>
+<p><strong>AUC值</strong>：PR曲线下方的面积<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL12AUC.png" width = "70%" /></p>
+<blockquote>
+<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
+</blockquote>
+<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
+<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
+<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
+<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
+<p><strong>换算计算量</strong>,一般一个参数是指一个float，也就是４个字节,1kb&#x3D;1024字节</p>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL13.png" alt="图 13"><br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL14.png" alt="图 14"><br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL15.png" alt="图 15">  </p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C, C++, Cmake</title>
     <url>/C/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>C, C++, Cmake的相关入门学习笔记，项目地址：<a href="https://github.com/Arrowes/C-coding">C-coding</a></p>
@@ -365,131 +490,6 @@
       </tags>
   </entry>
   <entry>
-    <title>DL：深度学习相关概念</title>
-    <url>/DL/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>记录深度学习基本概念，不断更新中，项目地址：<a href="https://github.com/Arrowes/DLpractice">DLpractice</a></p>
-<span id="more"></span>
-
-<p>从机器学习到深度学习：<a href="https://www.cnblogs.com/subconscious/p/4107357.html">从机器学习谈起</a>，<a href="https://www.cnblogs.com/subconscious/p/5058741.html">从神经元到深度学习</a><br>什么是卷积讲解视频：<a href="https://www.bilibili.com/video/BV1sb411P7pQ/?share_source=copy_web&vd_source=b148fb6f311bfe6f3870ad8f4dfda92a">大白话讲解卷积神经网络工作原理</a></p>
-<h1 id="深度学习框架"><a href="#深度学习框架" class="headerlink" title="深度学习框架"></a>深度学习框架</h1><pre class="mermaid">graph LR
-A[程序框架]-->B[A.黑箱]
-A-->C[B.模块化] -->1.处理数据
-C-->2.构建网络
-C-->3.损失函数
-C-->4.优化函数
-C-->5.模型保存
-A-->E[C.定义]</pre>
-
-<img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL1.png" width = "80%" />
-
-<p>GPU 网络和数据要同时送进GPU</p>
-<h2 id="激活函数-Activate-Function"><a href="#激活函数-Activate-Function" class="headerlink" title="激活函数 Activate Function"></a>激活函数 Activate Function</h2><p>激活函数是深度学习神经网络中的一个重要组成部分，它用来引入<em>非线性性质</em>，使神经网络能够学习复杂的函数关系。激活函数接收神经元的输入，并产生输出作为下一层神经元的输入。在神经网络中，激活函数通常被应用于每个神经元的输出，使神经网络能够进行非线性映射和学习。</p>
-<p>激活函数的主要作用有以下几点：</p>
-<ul>
-<li>非线性映射：激活函数引入非线性性质，使神经网络可以逼近和表示复杂的非线性函数。如果没有激活函数，多层神经网络的组合将等效于单一层的线性变换。</li>
-<li>特征提取：激活函数有助于神经网络从输入数据中提取关键特征，例如边缘、纹理、形状等，以便更好地完成分类、回归和其他任务。</li>
-<li>解决梯度消失问题：某些激活函数（如ReLU）有助于减轻梯度消失问题，使深层网络能够更好地进行反向传播和训练。</li>
-</ul>
-<p>一些常见的激活函数包括：</p>
-<table>
-<thead>
-<tr>
-<th>激活函数</th>
-<th>特点</th>
-<th>图像</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>$$softmax(x_i) &#x3D; \frac{e^{x_i}}{\sum_{j&#x3D;0}^{N} e^{x_j}}$$</td>
-<td>将未规范化的预测变换为非负数并且总和为1，同时让模型保持可导的性质;常用在分类网络的最后一层，把网络输出转化为各类别的概率。</td>
-<td>首先对每个未规范化的预测求幂，这样可以确保输出非负。为了确保最终输出的概率值总和为1，再让每个求幂后的结果除以它们的总和</td>
-</tr>
-<tr>
-<td>挤压函数（squashing function）$$sigmoid(x) &#x3D; \frac 1{1 + exp(−x)}$$</td>
-<td>将输入映射到范围(0, 1)，常用于二元分类问题。sigmoid可以视为softmax的特例</td>
-<td><img data-src="https://zh.d2l.ai/_images/output_mlp_76f463_51_0.svg"  /></td>
-</tr>
-<tr>
-<td>双曲正切 $$tanh(x) &#x3D; \frac {1 − exp(−2x)}{1 + exp(−2x)}$$</td>
-<td>将输入映射到范围(-1, 1)，也用于某些分类和回归问题, 当输入在0附近时，tanh函数接近线性变换。形状类似于sigmoid函数，不同的是tanh函数关于坐标系原点中心对称。（LSTM）</td>
-<td><img data-src="https://zh.d2l.ai/_images/output_mlp_76f463_81_0.svg"  /></td>
-</tr>
-<tr>
-<td>修正线性单元（Rectified Linear Unit）$$ReLU(x) &#x3D; max(x, 0)$$  $$LeakyReLU&#x3D;max(αx,x)$$</td>
-<td>求导表现得特别好：要么让参数消失，要么让参数通过。最常用的激活函数，通常能够加速收敛和减轻梯度消失问题（Transfromer）； LeakyReLU中通常设α&#x3D;0.01来调整负值的零梯度，缓解dead ReLU问题（YOLO） 若α为可学习参数，则为PReLU</td>
-<td><img data-src="https://zh.d2l.ai/_images/output_mlp_76f463_21_0.svg"  /></td>
-</tr>
-<tr>
-<td>指数线性单元 (Exponential Linear Units) <img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL_ELU.png"/></td>
-<td>对小于零的情况采用类似指数计算的方式进行输出。与 ReLU 相比，ELU 有负值，这会使激活的平均值接近零。均值激活接近于零可以使学习更快，因为它们使梯度更接近自然梯度。但计算量较大</td>
-<td><img data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMyLnpoaW1nLmNvbS84MC92Mi02MDRiZTExNGZhMDQ3OGYzYTEwNTk5MjNmZDEwMjJkMV9oZC5wbmc?x-oss-process=image/format,png"  /></td>
-</tr>
-</tbody></table>
-<h2 id="感受野-Receptive-field"><a href="#感受野-Receptive-field" class="headerlink" title="感受野(Receptive field)"></a>感受野(Receptive field)</h2><p>感受野是指在卷积神经网络中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。<br><img data-src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  /></p>
-<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL2.png" width = "50%" /><br><img data-src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "50%" /></p>
-<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><img alt="图 37" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL-Conv.jpg" />  
-
-
-<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>待续</p>
-<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL3.gif" width = "60%" />
-
-<p>$$SGD → SGDM → NAG → AdaGrad → AdaDelta → Adam → Nadam$$<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL4.png" alt="图 4">  </p>
-<h2 id="Batch-size"><a href="#Batch-size" class="headerlink" title="Batch size"></a>Batch size</h2><p>batch size的大小影响的是训练过程中的完成<em>每个epoch所需的时间</em> $^1$（假设算力确定了）和每次迭代(iteration)之间<em>梯度的平滑程度</em> $^2$。</p>
-<blockquote>
-<ol>
-<li>假设训练集大小为N，每个epoch中mini-batch大小为b，那么完成每个epoch所需的迭代次数为 N&#x2F;b , 因此完成每个epoch所需的时间会随着迭代次数的增加而增加</li>
-<li>如pytorch\tensorflow等深度学习框架，在进行mini-batch的loss反向传播时，一般都是先将每个mini-batch中每个样本得到的loss求sum后再平均化之后再反求梯度，进行迭代，因此b的大小决定了相邻迭代batch之间的梯度平滑程度。一个batch内所含样本越多，这个batch的梯度应该越能反映真实的梯度，因此这样的大batch间梯度不会跨越太大</li>
-</ol>
-</blockquote>
-<p>因此：大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大 learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛 </p>
-<blockquote>
-<ol>
-<li>若是loss还能降，指标还在升，那说明欠拟合，还没收敛，应该继续train，增大epoch。</li>
-<li>若是loss还能再降，指标也在降，说明过拟合了，那就得采用提前终止（减少epoch）或采用weight_decay等防过拟合措施。</li>
-<li>若是设置epoch&#x3D;16，到第8个epoch，loss也不降了，指标也不动了，说明8个epoch就够了，剩下的白算了。</li>
-</ol>
-</blockquote>
-<h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。</p>
-<h3 id="基于距离度量的损失函数"><a href="#基于距离度量的损失函数" class="headerlink" title="基于距离度量的损失函数"></a>基于距离度量的损失函数</h3><p>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。<br><strong>L1范数损失函数（MAE）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；<br><strong>L2损失函数（MSE均方误差损失函数）</strong><br>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
-<h3 id="基于概率分布度量的损失函数"><a href="#基于概率分布度量的损失函数" class="headerlink" title="基于概率分布度量的损失函数"></a>基于概率分布度量的损失函数</h3><p>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。<br><strong>KL散度（ Kullback-Leibler divergence）</strong><br>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。<br><strong>交叉熵损失函数「Cross Entropy Loss」</strong><br>$$L&#x3D;-[ylog\hat{y}+(1-y)log(1-\hat{y})]$$<br>$$L&#x3D;\sum_{i&#x3D;1}^{N}y^ilog\hat{y}^i+(1-y^i)log(1-\hat{y}^i)$$<br>交叉熵是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。为了使神经网络的每一层输出从线性组合转为非线性逼近，以提高模型的预测精度，在以交叉熵为损失函数的神经网络模型中一般选用tanh、sigmoid、softmax或ReLU作为激活函数。</p>
-<p>交叉熵损失函数刻画了实际输出概率与期望输出概率之间的相似度，也就是交叉熵的值越小，两个概率分布就越接近，特别是在正负样本不均衡的分类问题中，常用交叉熵作为损失函数。目前，交叉熵损失函数是卷积神经网络中最常使用的分类损失函数，它可以有效避免梯度消散。在二分类情况下也叫做对数损失函数</p>
-<p>在多分类任务中，经常采用 softmax 激活函数+交叉熵损失函数，因为交叉熵描述了两个概率分布的差异，然而神经网络输出的是向量，并不是概率分布的形式。所以需要 softmax激活函数将一个向量进行“归一化”成概率分布的形式，再采用交叉熵损失函数计算 loss。</p>
-<p>在Pytorch中，BCELoss和BCEWithLogitsLoss是一组常用的二元交叉熵损失函数，常用于二分类问题。区别在于BCELoss的输入需要先进行Sigmoid处理，而BCEWithLogitsLoss则是将Sigmoid和BCELoss合成一步，也就是说BCEWithLogitsLoss函数内部自动先对output进行Sigmoid处理，再对output 和target进行BCELoss计算。 </p>
-<p>one-hot独热编码：将类别变量转换为机器学习算法易于利用的一种形式的过程。</p>
-<h1 id="注意力机制（Attention-Mechanism）"><a href="#注意力机制（Attention-Mechanism）" class="headerlink" title="注意力机制（Attention Mechanism）"></a>注意力机制（Attention Mechanism）</h1><p>自上而下有意识的聚焦称为<strong>聚焦式注意力</strong>，自下而上无意识、由外界刺激引发的注意力称为<strong>显著式注意力</strong>。<br>神经网络中的注意力机制是在计算能力有限的情况下，将计算资源分配给更重要的任务，同时解决信息超载问题的一种资源分配方案，到2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中将其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制在NLP,CV相关问题的网络设计上被广泛应用。<br>注意力有两种，一种是软注意力(soft attention)，另一种则是强注意力(hard attention)。<br><strong>软注意力</strong>更关注区域或者通道，是确定性的注意力，学习完成后直接可以通过网络生成，最关键的地方是软注意力是可微的，这是一个非常重要的地方。可以微分的注意力就可以通过神经网络算出梯度并且前向传播和后向反馈来学习得到注意力的权重。<br><strong>强注意力</strong>是更加关注点，也就是图像中的每个点都有可能延伸出注意力，同时强注意力是一个随机的预测过程，更强调动态变化。当然，最关键是强注意力是一个不可微的注意力，训练过程往往是通过增强学习(reinforcement learning)来完成的。</p>
-<h2 id="软注意力的注意力域"><a href="#软注意力的注意力域" class="headerlink" title="软注意力的注意力域"></a>软注意力的注意力域</h2><h3 id="空间域（Spatial-Domain）"><a href="#空间域（Spatial-Domain）" class="headerlink" title="空间域（Spatial Domain）"></a>空间域（Spatial Domain）</h3><p>空间域将原始图片中的空间信息变换到另一个空间中并保留了关键信息。<br>普通的卷积神经网络中的池化层（pooling layer）直接用一些max pooling 或者average pooling 的方法，将图片信息压缩，减少运算量提升准确率。<br>发明者认为之前pooling的方法太过于暴力，直接将信息合并会导致关键信息无法识别出来，所以提出了一个叫 <strong>空间转换器（spatial transformer）</strong> 的模块，将图片中的的空间域信息做对应的空间变换，从而能将关键的信息提取出来。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL5.png" width = "50%" /></p>
-<h3 id="通道域（Channel-Domain）"><a href="#通道域（Channel-Domain）" class="headerlink" title="通道域（Channel Domain）"></a>通道域（Channel Domain）</h3><p>通道注意力机制在计算机视觉中，更关注特征图中channel之间的关系，而普通的卷积会对通道做通道融合，这个开山鼻祖是SENet,后面有GSoP-Net，FcaNet 对SENet中的squeeze部分改进，EACNet对SENet中的excitation部分改进，SRM,GCT等对SENet中的scale部分改进。</p>
-<p><a href="https://arxiv.org/abs/1709.01507">SENet</a>,<a href="https://github.com/moskomule/senet.pytorch">pytorch</a><br>SENet《Squeeze-and-Excitation Networks》是CVPR17年的一篇文章，提出SE module。在卷积神经网络中，卷积操作更多的是关注感受野，在通道上默认为是所有通道的融合（深度可分离卷积不对通道进行融合，但是没有学习通道之间的关系，其主要目的是为了减少计算量），SENet提出SE模块，将注意力放到通道之间，希望模型可以学习到不同通道之间的权重：<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL6.png" alt="图 6">  </p>
-<h3 id="时域注意力机制"><a href="#时域注意力机制" class="headerlink" title="时域注意力机制"></a>时域注意力机制</h3><p>时域注意力机制在cv领域主要考虑有时序信息的领域，如视频领域中的动作识别方向，其注意力机制主要是在时序列中，关注某一时序即某一帧的信息。</p>
-<h3 id="通道和空间注意力机制"><a href="#通道和空间注意力机制" class="headerlink" title="通道和空间注意力机制"></a>通道和空间注意力机制</h3><p>通道和空间注意力是基于通道注意力和空间注意力机制，将两者有效的结合在一起，让注意力能关注到两者，又称混合注意力机制，如CBAM,BAM,scSE等，同时基于混合注意力机制的一些关注点，如Triplet Attention 关注各种跨维度的相互作用；Coordinate Attention, DANet关注长距离的依赖；RGA 关注关系感知注意力。还有一种混合注意力机制，为3D的attention :Residual attention,SimAM, Strip Pooling, SCNet等。</p>
-<p><a href="https://arxiv.org/abs/1807.06521">CBAM</a>,<a href="https://github.com/luuuyi/CBAM.PyTorch">github</a><br>CBAM (Convolutional Block Attention Module)是SENet的一种拓展，SENet主要基于通道注意力，CBAM是通道注意力和空间注意力融合的注意力机制。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL7.png" alt="图 7"><br>如上图所示，输入一个h<em>w</em>c的特征图，通过channel Attention Module 生成通道注意力权重对输入特征图在通道层添加权重，再通过spatial Attention Module 生成空间注意力权重，对特征图在空间层添加权重，输出特征图。</p>
-<h1 id="Metrics-评估"><a href="#Metrics-评估" class="headerlink" title="Metrics 评估"></a>Metrics 评估</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL8.png" width = "70%" />
-
-<p>X横坐标为正确的分类（即你用标签所标注的真实分类）<br>Y纵坐标为模型所预测的分类（即图片经过模型推理后模型将其辨别为的分类）</p>
-<blockquote>
-<p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
-</blockquote>
-<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL9.png" alt="图 9">  </p>
-<p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#109;&#97;&#112;&#x40;&#x30;&#x2e;&#53;">&#109;&#97;&#112;&#x40;&#x30;&#x2e;&#53;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
-<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL11ROC.jpg" width = "40%" /></p>
-<p><strong>AUC值</strong>：PR曲线下方的面积<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL12AUC.png" width = "70%" /></p>
-<blockquote>
-<p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
-</blockquote>
-<p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
-<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOP时指浮点运算次数，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
-<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
-<p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
-<p><strong>换算计算量</strong>,一般一个参数是指一个float，也就是４个字节,1kb&#x3D;1024字节</p>
-<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL13.png" alt="图 13"><br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL14.png" alt="图 14"><br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL15.png" alt="图 15">  </p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DL模型转换及部署：torch &gt; onnx &gt; deploy</title>
     <url>/DLdeploy/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>深度学习模型部署相关记录，目前仅开了个头，项目地址：<a href="https://github.com/Arrowes/DLpractice">DLpractice</a></p>
@@ -593,78 +593,6 @@ A-->E[C.定义]</pre>
       <tags>
         <tag>深度学习</tag>
         <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
-    <url>/Hello-blog/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
-[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
-[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
-[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
-[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
-[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>，项目地址：<a href="https://github.com/Arrowes/Blog">Blog</a></p>
-<span id="more"></span>
-<img alt="图 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Hello-blogBlogPhoto.png" width = "30%"/>  
-
-<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
-<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
-<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
-<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
-<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
-<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
-<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
-<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
-<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
-<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>统计人数、阅读次数：&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>统计字数、阅读时间： &#x2F;next&#x2F;_config:设置item_text_total为true</p>
-<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>配置博客链接：_config中<code>permalink: :title/</code></p>
-<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><p>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable改为true</p>
-<h4 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h4><p>创建一个 Github Application 用来授权登录，如果没有 <a href="https://github.com/settings/applications/new">点击这里申请</a>, url都填<code>https://github.com/Arrowes/Arrowes.github.io</code></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"># Gitalk</span><br><span class="line"># For more information: https://gitalk.github.io</span><br><span class="line">gitalk:</span><br><span class="line">  enable: true</span><br><span class="line">  github_id: Arrowes # GitHub repo owner</span><br><span class="line">  repo: Arrowes.github.io # Repository name to store issues</span><br><span class="line">  client_id: <span class="number">0</span>cf14e51c1582cf64289 # GitHub Application Client ID</span><br><span class="line">  client_secret: <span class="number">5</span>e8273d27714e40495267c73e607c******** # GitHub Application Client Secret</span><br><span class="line">  admin_user: Arrowes # GitHub repo owner and collaborators, only these guys can initialize gitHub issues</span><br><span class="line">  distraction_free_mode: true # Facebook-like distraction free mode</span><br><span class="line">  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
-
-<h4 id="首页展示文章数"><a href="#首页展示文章数" class="headerlink" title="首页展示文章数"></a>首页展示文章数</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#Hexo-config</span>文件修改</span><br><span class="line">index_generator:</span><br><span class="line">  path: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">0</span> #不分页</span><br></pre></td></tr></table></figure>
-
-<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
-<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
-</li>
-<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">1</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在主题配置文件theme&#x2F;next&#x2F;_config中 excerpt_description 改为false</p>
-</li>
-</ol>
-<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
-<li>配置：主题配置文件中删掉tags的注释</li>
-<li>文件：新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
-<li>文章：<code>tags: - XXX</code></li>
-</ol>
-<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>主题配置文件：<code>math:   every_page: true   mathjax:  enable: true</code></p>
-<h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
-<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
-<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
-<li>引用时直接 &#x2F;resume&#x2F;</li>
-</ol>
-<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
-<h3 id="markdown插件"><a href="#markdown插件" class="headerlink" title="markdown插件"></a>markdown插件</h3><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
-<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>如果无法正常导出：Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
-<p><strong>Markdown 粘贴插件</strong><br>Markdown paste 右键智能粘贴<br>Paste URL Ctrl+Alt+P快速粘贴链接</p>
-<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.gitmirror.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.gitmirror.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
-<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
-<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
-<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，多试几次</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<em>Download ZIP</em>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
-<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
-<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
-<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
-<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
-<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
-      <tags>
-        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
@@ -795,6 +723,78 @@ A-->E[C.定义]</pre>
 ]]></content>
       <tags>
         <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Blog! 从零开始搭建自己的博客网站</title>
+    <url>/Hello-blog/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>第一篇博客用来记录搭建该网站并成功发表这篇博客的流程，使用Hexo静态博客框架，托管于Github，参考了多篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[知乎：GitHub+Hexo 搭建个人网站详细教程](https://zhuanlan.zhihu.com/p/26625249)|
+[Hexo官方文档](https://hexo.io/zh-cn/docs/)|
+[Next主题官方文档](http://theme-next.iissnan.com/getting-started.html)|
+[知乎：hexo的next主题个性化教程:打造炫酷网站](https://zhuanlan.zhihu.com/p/28128674)|
+[菜鸟教程：Markdown 教程](https://www.runoob.com/markdown/md-tutorial.html)|
+[个人网站：Arrow的笔记本](http://wangyujie.site/)">[1]</span></a></sup>，项目地址：<a href="https://github.com/Arrowes/Blog">Blog</a></p>
+<span id="more"></span>
+<img alt="图 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Hello-blogBlogPhoto.png" width = "30%"/>  
+
+<h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>其中主流程参考<a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>，虽然是老文章，但每一步都非常详细，框架搭建过程存在问题可以看文章的评论区或<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>进行补充；</p>
+<p>域名在<a href="https://dc.console.aliyun.com/next/index?spm=5176.12818093.ProductAndResource--ali--widget-product-recent.dre1.265516d0P13nxv&accounttraceid=b4a1b2c1dcab4588a55aa2f5926041aazltv#/overview">阿里云</a>购买,买的 <em>wangyujie.site</em> 首年6元，这也是唯一的开销，如果愿意使用原网站 <em>&lt;arrowes.github.io&gt;</em> ,这一步甚至可以省略；</p>
+<p>选用了Next主题，主题优化参考了<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>以及<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>（其中访问量、统计功能教程已过期,很多配置next主题已内置），可以把网站搭建的花里胡哨；</p>
+<p>编写博客使用的Markdown语言通过看<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>非常简单，可以边学边写，使用VScode，安装<code>Markdown Preview Enhanced</code>及<code>markdown image</code>插件；</p>
+<p>其他工具有：logo下载：<a href="https://www.iconfont.cn/">iconfont</a>，Next默认的icon网站（灰色为收费图标）：<a href="https://fontawesome.com/icons">Font Awesome</a>，图床url链接生成：<a href="https://sm.ms/">SM.MS</a>，此外，大多数网站需要用到<del>科学上网</del>。</p>
+<p>Github网站项目地址：<a href="https://github.com/Arrowes/Arrowes.github.io">Arrowes.github.io</a></p>
+<p>用关键词在谷歌里搜到自己的网页：<a href="https://zoharandroid.github.io/2019-08-03-%E8%AE%A9%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">让Google搜索到自己的博客</a></p>
+<h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><h4 id="添加动态背景，以动态线条为例："><a href="#添加动态背景，以动态线条为例：" class="headerlink" title="添加动态背景，以动态线条为例："></a>添加动态背景，以动态线条为例：</h4><ol>
+<li>themes&#x2F;next&#x2F;layout&#x2F;_layout 在<code>&lt;/body&gt;</code>末尾添加如下代码：  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>&#x2F;next&#x2F;_config.yml,在里面添加如下代码：(可以放在最后面)  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">#是否打开动态背景</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="统计功能"><a href="#统计功能" class="headerlink" title="统计功能"></a>统计功能</h4><p>统计人数、阅读次数：&#x2F;next&#x2F;_config：找到busuanzi_count进行配置<br>统计字数、阅读时间： &#x2F;next&#x2F;_config:设置item_text_total为true</p>
+<h4 id="配置网站超链接颜色"><a href="#配置网站超链接颜色" class="headerlink" title="配置网站超链接颜色"></a>配置网站超链接颜色</h4><p>打开 <code>Blog\themes\next\source\css\_common\components\post</code> 路径下的post.styl , 并在底部添加如下代码:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.btn</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:; //超链接显示颜色</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#469FF1</span>;  //鼠标移动上去后超链接颜色</span><br><span class="line">	<span class="attribute">font-weight</span>: none;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>配置博客链接：_config中<code>permalink: :title/</code></p>
+<h4 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h4><p>更改主题配置文件 &#x2F;next&#x2F;_config 将local_search下的enable改为true</p>
+<h4 id="评论功能"><a href="#评论功能" class="headerlink" title="评论功能"></a>评论功能</h4><p>创建一个 Github Application 用来授权登录，如果没有 <a href="https://github.com/settings/applications/new">点击这里申请</a>, url都填<code>https://github.com/Arrowes/Arrowes.github.io</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"># Gitalk</span><br><span class="line"># For more information: https://gitalk.github.io</span><br><span class="line">gitalk:</span><br><span class="line">  enable: true</span><br><span class="line">  github_id: Arrowes # GitHub repo owner</span><br><span class="line">  repo: Arrowes.github.io # Repository name to store issues</span><br><span class="line">  client_id: <span class="number">0</span>cf14e51c1582cf64289 # GitHub Application Client ID</span><br><span class="line">  client_secret: <span class="number">5</span>e8273d27714e40495267c73e607c******** # GitHub Application Client Secret</span><br><span class="line">  admin_user: Arrowes # GitHub repo owner and collaborators, only these guys can initialize gitHub issues</span><br><span class="line">  distraction_free_mode: true # Facebook-like distraction free mode</span><br><span class="line">  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address</span><br><span class="line">  language: zh-CN</span><br></pre></td></tr></table></figure>
+
+<h4 id="首页展示文章数"><a href="#首页展示文章数" class="headerlink" title="首页展示文章数"></a>首页展示文章数</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#Hexo-config</span>文件修改</span><br><span class="line">index_generator:</span><br><span class="line">  path: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">0</span> #不分页</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置阅读全文"><a href="#设置阅读全文" class="headerlink" title="设置阅读全文"></a>设置阅读全文</h4><ol>
+<li><p>在项目根目录下执行 <code>npm install hexo-excerpt --save</code></p>
+</li>
+<li><p>在站点配置文件&#x2F;hexo&#x2F;_config.yml添加:</p>
+ <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">excerpt:			# 一定要顶格写，注意格式</span><br><span class="line">  depth: <span class="number">1</span>			# 他的大小就是全文阅读预览长度设置</span><br><span class="line">  excerpt_excludes: []</span><br><span class="line">  more_excludes: []</span><br><span class="line">  hideWholePostExcerpts: true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在主题配置文件theme&#x2F;next&#x2F;_config中 excerpt_description 改为false</p>
+</li>
+</ol>
+<h4 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h4><ol>
+<li>配置：主题配置文件中删掉tags的注释</li>
+<li>文件：新建tags文件 <code>hexo new page &quot;tags&quot;</code></li>
+<li>文章：<code>tags: - XXX</code></li>
+</ol>
+<h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p><a href="https://blog.csdn.net/konglongdanfo1/article/details/85204312">markdown公式符号大全</a><br>主题配置文件：<code>math:   every_page: true   mathjax:  enable: true</code></p>
+<h4 id="hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例"><a href="#hexo-添加自定义单静态页面-跳过hexo渲染，以resume为例" class="headerlink" title="hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:"></a>hexo 添加自定义单静态页面 跳过hexo渲染，以resume为例:</h4><ol>
+<li>将resume文件夹放进Theme主题文件夹下的&#x2F;source</li>
+<li>Hexo-config: skip_render: resume&#x2F;** （可省略）</li>
+<li>引用时直接 &#x2F;resume&#x2F;</li>
+</ol>
+<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><code>npm install hexo-filter-mermaid-diagrams</code><br>主题配置文件：<code>mermaid:  enable: true</code></p>
+<h3 id="markdown插件"><a href="#markdown插件" class="headerlink" title="markdown插件"></a>markdown插件</h3><p><code>npm install hexo-reference --save</code> 支持Markdown脚注<br><code>npm install hexo-wordcount --save</code> 字数统计</p>
+<p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>如果无法正常导出：Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
+<p><strong>Markdown 粘贴插件</strong><br>Markdown paste 右键智能粘贴<br>Paste URL Ctrl+Alt+P快速粘贴链接</p>
+<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">github_pat_11AV245NA0ZkjSgYjmtK5T_fyxLh1yhNVlT13FFsC <span class="comment">#TokenMjaEB4LKd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.gitmirror.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.gitmirror.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: Cdn</span></span><br><span class="line">q3mbRZwwnnKUXHcibZg6UN8ulCHE2UDXMjaEB4LKd</span><br></pre></td></tr></table></figure></p>
+<h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
+<p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
+<h3 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h3><p>√ 网站底部的图标不显示:Font Awesome部分图标收费<br>√ 访客数、文章字数没有数据：busuanzi链接过期<br>√ 生成的文章目录结构混乱：避免写跨级结构<br>部署经常超时 error：spawn failed，多试几次</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>熟悉了搭建网站流程，想起本科打电子商务比赛花钱请人做网站，还是本地的静态网站，有点冤种；<br>对Github的工作流有了一定了解，比一键<em>Download ZIP</em>有所进步；<br>看了很多人写的教程才完成，花了整整两天，还是有点费时间的，除了瞎折腾，更多的其实是想搭建一个<strong>输出</strong>的平台，锻炼一下自己的表达、总结能力，改善一下自己学了就忘，忘了就废的情况，希望自己能继续坚持，多写几篇！</p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://zhuanlan.zhihu.com/p/26625249">知乎：GitHub+Hexo 搭建个人网站详细教程</a>|
+<a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>|
+<a href="http://theme-next.iissnan.com/getting-started.html">Next主题官方文档</a>|
+<a href="https://zhuanlan.zhihu.com/p/28128674">知乎：hexo的next主题个性化教程:打造炫酷网站</a>|
+<a href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程：Markdown 教程</a>|
+<a href="http://wangyujie.site/">个人网站：Arrow的笔记本</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>]]></content>
+      <tags>
+        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
@@ -1900,170 +1900,6 @@ B-->C</pre>
       </tags>
   </entry>
   <entry>
-    <title>Yolo：Code，Config，Ideas</title>
-    <url>/Yolo/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>记录了YOLO的环境配置、资料代码、魔改记录、炼丹经验、论文想法。</p>
-<span id="more"></span>
-
-<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>详细使用见 <a href="https://wangyujie.site/Pytorch/">Anaconda，Pycharm，Jupyter，Pytorch</a></p>
-<p><strong>Windows环境配置</strong></p>
-<ol>
-<li><p>安装<a href="https://www.anaconda.com/"><strong>Anaconda</strong></a>，<br>防止环境装在C盘占空间：修改user目录下.condarc文件里的默认地址，或执行<code>conda config --add D:\Anaconda3\envs </code>,然后<code>conda info</code> 检查envs directories<br>（若报错 The channel is not accessible or is invalid 运行<code>conda config --remove-key channels</code>）</p>
-</li>
-<li><p><strong>配置环境</strong>：打开Anaconda Prompt<br>创建环境<code>conda create -n pytorch python=3.8</code><br>激活环境<code>conda activate pytorch</code></p>
-</li>
-<li><p>安装显卡驱动对应的<strong>CUDA</strong>：<code>nvidia-smi</code> 查询支持CUDA版本，<br>再到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装, 如：<br><code>conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</code><br>（验证torch能否使用GPU：<code>python -c &quot;import torch;print(torch.cuda.is_available())&quot;</code>   返回True说明GPU可以被使用）</p>
-</li>
-<li><p>安装<a href="https://www.jetbrains.com/pycharm/"><strong>Pychram</strong></a>, 用pycharm打开YOLO项目文件夹，配置编辑器<code>D:P\Anaconda3\envs\pytorch\python.exe</code>，在pycharm的terminal中打开pytorch环境</p>
-</li>
-<li><p>安装各种<strong>包</strong>：<code>pip install -r requirements.txt</code>,<br>换源补装失败的包<code>pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple/</code></p>
-</li>
-</ol>
-<p><strong>Linux 环境配置</strong></p>
-<ol>
-<li><p>安装miniconda，相较Anaconda更小巧快捷，功能一样</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="comment">#一路Enter + Yes，最后使修改的PATH环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">conda   <span class="comment">#验证是否成功</span></span><br><span class="line">conda create -n pytorch python=3.6  <span class="comment">#创建一个名为pytorch的环境</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>（若要安装：<a href="https://www.anaconda.com/">Anaconda</a>，执行下载的.sh文件，输入<code>bash XXX.sh</code>，然后一路enter和yes；激活：<code>cd ///root/anaconda3/bin</code>,输入：<code>source ./activate</code>，终端前出现<code>(base)</code>则激活成功）</p>
-</blockquote>
-</li>
-<li><p>下载pycharm，解压，进入bin文件夹，运行<code>./pycharm.sh</code>以打开pycharm（更简单且能生成图标的方法：<code>sudo snap install pycharm-community --classic</code>）<br>在项目中导入环境<code>.conda/envs/pytorch/bin/python3.6</code></p>
-</li>
-<li><p>安装CUDA</p>
-<ul>
-<li><strong>pytorch</strong><br> <code>conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia</code></li>
-<li><strong>tensorflow</strong><br> cuda:<code>conda install cudatoolkit=10.0</code><br> cuDNN:<code>conda install cudnn=7.6</code><br> tf:<code>pip install tensorflow-gpu==1.15.0</code>(注意版本匹配)</li>
-</ul>
-</li>
-</ol>
-<p>如果requirements中有包实在安不上，手动装包：进<a href="https://pypi.org/">网站</a>搜索包，下载.whl，在包所在位置激活环境运行<code>pip install [].whl</code>(包名中cp38代表python3.8版本)</p>
-<h1 id="资料与代码"><a href="#资料与代码" class="headerlink" title="资料与代码"></a>资料与代码</h1><table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Paper</th>
-<th>Code</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>YOLOv1</td>
-<td><a href="https://arxiv.org/pdf/1506.02640.pdf">You Only Look Once:Unified, Real-Time Object Detection</a></td>
-<td><a href="https://pjreddie.com/darknet/yolov1/">Code</a></td>
-</tr>
-<tr>
-<td>YOLOv2</td>
-<td><a href="https://arxiv.org/pdf/1612.08242.pdf">YOLO9000:Better, Faster, Stronger</a></td>
-<td><a href="https://pjreddie.com/darknet/yolo/">Code</a></td>
-</tr>
-<tr>
-<td>YOLOv3</td>
-<td><a href="https://arxiv.org/pdf/1804.02767.pdf">YOLOv3: An Incremental Improvement</a></td>
-<td><a href="https://github.com/ultralytics/yolov3">Code</a></td>
-</tr>
-<tr>
-<td>YOLOv4</td>
-<td><a href="https://arxiv.org/pdf/2004.10934.pdf">YOLOv4: Optimal Speed and Accuracy of Object Detection</a></td>
-<td><a href="https://github.com/Tianxiaomo/pytorch-YOLOv4">Code</a></td>
-</tr>
-<tr>
-<td>YOLOv5</td>
-<td>&#x2F;</td>
-<td><a href="https://github.com/ultralytics/yolov5">Code</a></td>
-</tr>
-<tr>
-<td>YOLOv6</td>
-<td><a href="https://arxiv.org/pdf/2209.02976.pdf">YOLOv6: A Single-Stage Object Detection Framework for Industrial Applications</a></td>
-<td><a href="https://github.com/meituan/YOLOv6">Code</a></td>
-</tr>
-<tr>
-<td>YOLOv7</td>
-<td><a href="https://arxiv.org/abs/2207.02696">YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors</a></td>
-<td><a href="https://github.com/WongKinYiu/yolov7">Code</a></td>
-</tr>
-<tr>
-<td>YOLOv8</td>
-<td>&#x2F;</td>
-<td><a href="https://github.com/ultralytics/ultralytics">Code</a></td>
-</tr>
-<tr>
-<td>CEAM-YOLOv7</td>
-<td><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></td>
-<td><a href="https://github.com/Arrowes/CEAM-YOLOv7">Code</a></td>
-</tr>
-<tr>
-<td>FEY-YOLOv7</td>
-<td><a href="https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=">A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7</a></td>
-<td><a href="https://github.com/Arrowes/FEY-YOLOv7">Code</a></td>
-</tr>
-</tbody></table>
-<p>YOLOv1 - v5历程：<a href="https://blog.csdn.net/wjinjie/article/details/107509243">从yolov1至yolov5的进阶之路</a><br>YOLOv3论文精读视频：<a href="https://www.bilibili.com/video/BV1Vg411V7bJ/">同济子豪兄YOLOV3目标检测</a><br>YOLOv5知识精讲：<a href="https://zhuanlan.zhihu.com/p/172121380">Yolov5核心基础知识完整讲解</a>，<a href="https://blog.csdn.net/qq_38253797/article/details/119043919">YOLOV5-5.x 源码讲解</a><br>YOLOv7网络结构：<a href="https://blog.csdn.net/athrunsunny/article/details/125951001">理解yolov7网络结构</a> ,<a href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a><br>全流程指导视频：<a href="https://www.bilibili.com/video/BV1tf4y1t7ru/">目标检测 YOLOv5 开源代码项目调试与讲解实战-土堆</a></p>
-<p>算法精品仓库：<a href="https://github.com/bubbliiiing">Bubbliiiing</a><br><a href="https://github.com/iscyy/yoloair">YOLO Air</a>，<a href="https://github.com/iscyy/yoloair2">YOLO Air2</a><br><a href="https://github.com/positive666/yolov5_research">yolov5_research</a></p>
-<h1 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><blockquote>
-<p><a href="https://www.kaggle.com/datasets">Kaggle数据集</a><br><a href="https://gas.graviti.cn/open-datasets">格物钛数据集</a><br><a href="https://universe.roboflow.com/roboflow-100">Roboflow数据集</a><br><a href="https://ieee-dataport.org/datasets">IEEE DataPort</a></p>
-</blockquote>
-<p>标注工具：<a href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
-<p>开源驾驶员行为数据集：<a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
-<p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
-<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo1.png" alt="图 1">  </p>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
-<li>在 <code>models/common.py</code> 加入新的结构代码</li>
-<li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
-<li><code>.yaml</code> 修改网络结构<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo2.png" alt="图 2"></li>
-</ol>
-<h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
-<blockquote>
-<p>位置：<br>在上采样+concat之后接一个注意力机制可能会更好？<br>backbone结尾使用一个注意力机制？<br>每个block（如residual block）结尾使用比每个Conv里使用更好？</p>
-</blockquote>
-<p>transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块</p>
-<h2 id="激活函数-activations-py"><a href="#激活函数-activations-py" class="headerlink" title="激活函数 activations.py"></a>激活函数 activations.py</h2><p><a href="https://blog.csdn.net/m0_70388905/article/details/128753641">改进激活函数为ReLU、RReLU、Hardtanh、ReLU6、Sigmoid、Tanh、Mish、Hardswish、ELU、CELU等</a></p>
-<blockquote>
-<p>activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数<br>common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面</p>
-</blockquote>
-<p>例：插入激活函数：Mish<br>1.在utils&#x2F;activation.py中定义Mish激活函数<br>2.重构Conv模块，改激活函数：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Conv</span>(nn.Module):</span><br><span class="line">    <span class="comment"># Standard convolution</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, c1, c2, k=<span class="number">1</span>, s=<span class="number">1</span>, p=<span class="literal">None</span>, g=<span class="number">1</span>, act=<span class="literal">True</span></span>):  <span class="comment"># ch_in, ch_out, kernel, stride, padding, groups</span></span><br><span class="line">        <span class="built_in">super</span>(Conv, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(c1, c2, k, s, autopad(k, p), groups=g, bias=<span class="literal">False</span>)</span><br><span class="line">        self.bn = nn.BatchNorm2d(c2)</span><br><span class="line">        <span class="comment">#self.act = nn.SiLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())</span></span><br><span class="line">        self.act = nn.Mish() <span class="keyword">if</span> act <span class="keyword">is</span> <span class="literal">True</span> <span class="keyword">else</span> (act <span class="keyword">if</span> <span class="built_in">isinstance</span>(act, nn.Module) <span class="keyword">else</span> nn.Identity())</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ReLU</span>(nn.Module):</span><br><span class="line">    __constants__ = [<span class="string">&#x27;inplace&#x27;</span>]</span><br><span class="line">    inplace: <span class="built_in">bool</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, inplace: <span class="built_in">bool</span> = <span class="literal">False</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(ReLU, self).__init__()</span><br><span class="line">        self.inplace = inplace</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> F.relu(x, inplace=self.inplace)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">extra_repr</span>(<span class="params">self</span>):</span><br><span class="line">        inplace_str = <span class="string">&#x27;inplace=True&#x27;</span> <span class="keyword">if</span> self.inplace <span class="keyword">else</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> inplace_str</span><br></pre></td></tr></table></figure>
-
-<h2 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h2><p>例：改 EIOU loss</p>
-<ol>
-<li>修改 general.py，增加EIOU。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">elif</span> EIoU:</span><br><span class="line">                w=(w1-w2)*(w1-w2)</span><br><span class="line">                h=(h1-h2)*(h1-h2)</span><br><span class="line">                <span class="keyword">return</span> iou-(rho2/c2+w/(cw**<span class="number">2</span>)+h/(ch**<span class="number">2</span>))<span class="comment">#EIOU  2021.12.29</span></span><br></pre></td></tr></table></figure></li>
-<li>将loss.py中边框位置回归损失函数改为eiou。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=<span class="literal">False</span>, EIoU=<span class="literal">True</span>)  <span class="comment"># iou(prediction, target)</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="参数配置（YOLOv5）"><a href="#参数配置（YOLOv5）" class="headerlink" title="参数配置（YOLOv5）"></a>参数配置（YOLOv5）</h2><p><strong>Detect参数</strong><br>调用电脑摄像头:<br>右上角py配置 &gt; Edit Configurations &gt; Parameters<br><code>--view-img --source 0</code></p>
-<p>调用手机摄像头：<br>下载 <a href="https://www.123pan.com/s/goS7Vv-QeKbd.html">IP摄像头</a> App，关闭代理，连同一个网，Parameters配置为：<br><code>--source http://admin:admin@192.168.43.1:8081</code> 具体地址见 APP</p>
-<p><strong>Train参数</strong><br><code>action=&#39;store_true&#39;</code> 触发了为true，否则为false 和 default&#x3D;False 效果一样</p>
-<p><strong>YOLOv8（没搞懂）</strong><br>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
-<blockquote>
-<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
-</blockquote>
-<p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
-<h1 id="炼丹经验"><a href="#炼丹经验" class="headerlink" title="炼丹经验"></a>炼丹经验</h1><ul>
-<li><p><strong>数据集</strong>：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度</p>
-</li>
-<li><p><strong>配置</strong>：mosic有时没用可删；删卷积层可减少计算量；若显存不足需要调小batchsize或数据集分辨率；可以从小模型中学到的权重开始，对更大模型进行训练</p>
-<ul>
-<li>大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛</li>
-<li>参数调优过程一般要反复多次进行<code>微调&lt;—&gt;训练&lt;—&gt;测试</code>，最终得出符合需求&#x2F;较优的HyperPara，应用在项目中	<code>data/hyps/hyp.finetune.yaml</code></li>
-</ul>
-</li>
-</ul>
-<p><strong>小目标检测</strong>：小目标检测效果不好主要原因为小目标尺寸问题。<br>以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608&#x2F;76&#x3D;8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。<br>另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。<br>这种情况可以使用<strong>分割</strong>的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： </p>
-<blockquote>
-<p>优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。<br>比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。<br>缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。<br><a href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别-CSDN博客</a></p>
-</blockquote>
-<p>此外，也可以增加一个小目标检测层：<a href="https://blog.csdn.net/m0_70388905/article/details/125392908">增加小目标检测层-CSDN博客</a></p>
-<p>使用云服务器快速训练（收费）：<a href="https://www.autodl.com/home">AutoDL算力云 | 弹性、好用、省钱</a><br><a href="https://www.autodl.com/docs/gpu/">AutoDL帮助文档-GPU选型</a></p>
-<h1 id="其他未实现的想法"><a href="#其他未实现的想法" class="headerlink" title="其他未实现的想法"></a>其他未实现的想法</h1><p>剪枝：<a href="https://blog.csdn.net/m0_70388905/article/details/128222629">模型剪枝、蒸馏、压缩-CSDN博客</a><br><a href="https://github.com/VainF/Torch-Pruning">GitHub - Torch-Pruning: [CVPR 2023] Towards Any Structural Pruning; </a></p>
-<p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
-<p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
-<p>用5折交叉验证<br>双流网络<br>矩形训练<br>PERCLOS值怎么显示？<br>把图像增强工作流加入算法？</p>
-<p>The author uses ArcFace loss to measure the error of prediction. This loss was proposed for facial recognition in 2018. Other sophisticated approaches have also been published in recent years, such as <a href="https://openaccess.thecvf.com/content/CVPR2022W/Biometrics/papers/Boutros_ElasticFace_Elastic_Margin_Loss_for_Deep_Face_Recognition_CVPRW_2022_paper.pdf">ElasticFace</a>. author can compare the proposed loss with this approach.</p>
-<p><a href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别</a></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TDA4③：YOLOX的模型转换与SK板端运行</title>
     <url>/TDA4VM3/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以目标检测算法YOLOX为例，记录模型从权重文件转换为ONNX，再使用TIDL(Importer&#x2F;Tolls)编译为可执行文件，最后于SK板运行及评估的开发流程。</p>
@@ -2913,6 +2749,170 @@ B-->C</pre>
       <tags>
         <tag>深度学习</tag>
         <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Yolo：Code，Config，Ideas</title>
+    <url>/Yolo/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>记录了YOLO的环境配置、资料代码、魔改记录、炼丹经验、论文想法。</p>
+<span id="more"></span>
+
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>详细使用见 <a href="https://wangyujie.site/Pytorch/">Anaconda，Pycharm，Jupyter，Pytorch</a></p>
+<p><strong>Windows环境配置</strong></p>
+<ol>
+<li><p>安装<a href="https://www.anaconda.com/"><strong>Anaconda</strong></a>，<br>防止环境装在C盘占空间：修改user目录下.condarc文件里的默认地址，或执行<code>conda config --add D:\Anaconda3\envs </code>,然后<code>conda info</code> 检查envs directories<br>（若报错 The channel is not accessible or is invalid 运行<code>conda config --remove-key channels</code>）</p>
+</li>
+<li><p><strong>配置环境</strong>：打开Anaconda Prompt<br>创建环境<code>conda create -n pytorch python=3.8</code><br>激活环境<code>conda activate pytorch</code></p>
+</li>
+<li><p>安装显卡驱动对应的<strong>CUDA</strong>：<code>nvidia-smi</code> 查询支持CUDA版本，<br>再到<a href="https://pytorch.org/get-started/locally/">Pytorch官网</a>复制对应code进行安装, 如：<br><code>conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</code><br>（验证torch能否使用GPU：<code>python -c &quot;import torch;print(torch.cuda.is_available())&quot;</code>   返回True说明GPU可以被使用）</p>
+</li>
+<li><p>安装<a href="https://www.jetbrains.com/pycharm/"><strong>Pychram</strong></a>, 用pycharm打开YOLO项目文件夹，配置编辑器<code>D:P\Anaconda3\envs\pytorch\python.exe</code>，在pycharm的terminal中打开pytorch环境</p>
+</li>
+<li><p>安装各种<strong>包</strong>：<code>pip install -r requirements.txt</code>,<br>换源补装失败的包<code>pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple/</code></p>
+</li>
+</ol>
+<p><strong>Linux 环境配置</strong></p>
+<ol>
+<li><p>安装miniconda，相较Anaconda更小巧快捷，功能一样</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="comment">#一路Enter + Yes，最后使修改的PATH环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">conda   <span class="comment">#验证是否成功</span></span><br><span class="line">conda create -n pytorch python=3.6  <span class="comment">#创建一个名为pytorch的环境</span></span><br><span class="line">conda activate pytorch  <span class="comment">#激活环境</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>（若要安装：<a href="https://www.anaconda.com/">Anaconda</a>，执行下载的.sh文件，输入<code>bash XXX.sh</code>，然后一路enter和yes；激活：<code>cd ///root/anaconda3/bin</code>,输入：<code>source ./activate</code>，终端前出现<code>(base)</code>则激活成功）</p>
+</blockquote>
+</li>
+<li><p>下载pycharm，解压，进入bin文件夹，运行<code>./pycharm.sh</code>以打开pycharm（更简单且能生成图标的方法：<code>sudo snap install pycharm-community --classic</code>）<br>在项目中导入环境<code>.conda/envs/pytorch/bin/python3.6</code></p>
+</li>
+<li><p>安装CUDA</p>
+<ul>
+<li><strong>pytorch</strong><br> <code>conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia</code></li>
+<li><strong>tensorflow</strong><br> cuda:<code>conda install cudatoolkit=10.0</code><br> cuDNN:<code>conda install cudnn=7.6</code><br> tf:<code>pip install tensorflow-gpu==1.15.0</code>(注意版本匹配)</li>
+</ul>
+</li>
+</ol>
+<p>如果requirements中有包实在安不上，手动装包：进<a href="https://pypi.org/">网站</a>搜索包，下载.whl，在包所在位置激活环境运行<code>pip install [].whl</code>(包名中cp38代表python3.8版本)</p>
+<h1 id="资料与代码"><a href="#资料与代码" class="headerlink" title="资料与代码"></a>资料与代码</h1><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Paper</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>YOLOv1</td>
+<td><a href="https://arxiv.org/pdf/1506.02640.pdf">You Only Look Once:Unified, Real-Time Object Detection</a></td>
+<td><a href="https://pjreddie.com/darknet/yolov1/">Code</a></td>
+</tr>
+<tr>
+<td>YOLOv2</td>
+<td><a href="https://arxiv.org/pdf/1612.08242.pdf">YOLO9000:Better, Faster, Stronger</a></td>
+<td><a href="https://pjreddie.com/darknet/yolo/">Code</a></td>
+</tr>
+<tr>
+<td>YOLOv3</td>
+<td><a href="https://arxiv.org/pdf/1804.02767.pdf">YOLOv3: An Incremental Improvement</a></td>
+<td><a href="https://github.com/ultralytics/yolov3">Code</a></td>
+</tr>
+<tr>
+<td>YOLOv4</td>
+<td><a href="https://arxiv.org/pdf/2004.10934.pdf">YOLOv4: Optimal Speed and Accuracy of Object Detection</a></td>
+<td><a href="https://github.com/Tianxiaomo/pytorch-YOLOv4">Code</a></td>
+</tr>
+<tr>
+<td>YOLOv5</td>
+<td>&#x2F;</td>
+<td><a href="https://github.com/ultralytics/yolov5">Code</a></td>
+</tr>
+<tr>
+<td>YOLOv6</td>
+<td><a href="https://arxiv.org/pdf/2209.02976.pdf">YOLOv6: A Single-Stage Object Detection Framework for Industrial Applications</a></td>
+<td><a href="https://github.com/meituan/YOLOv6">Code</a></td>
+</tr>
+<tr>
+<td>YOLOv7</td>
+<td><a href="https://arxiv.org/abs/2207.02696">YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors</a></td>
+<td><a href="https://github.com/WongKinYiu/yolov7">Code</a></td>
+</tr>
+<tr>
+<td>YOLOv8</td>
+<td>&#x2F;</td>
+<td><a href="https://github.com/ultralytics/ultralytics">Code</a></td>
+</tr>
+<tr>
+<td>CEAM-YOLOv7</td>
+<td><a href="https://ieeexplore.ieee.org/document/9980374/metrics">CEAM-YOLOv7:Improved YOLOv7 Based on Channel Expansion Attention Mechanism for Driver behavior detection</a></td>
+<td><a href="https://github.com/Arrowes/CEAM-YOLOv7">Code</a></td>
+</tr>
+<tr>
+<td>FEY-YOLOv7</td>
+<td><a href="https://search.ieice.org/bin/summary_advpub.php?id=2023EDP7093&category=D&lang=E&abst=">A Driver Fatigue Detection Algorithm Based on Dynamic Tracking of Small Facial Targets Using YOLOv7</a></td>
+<td><a href="https://github.com/Arrowes/FEY-YOLOv7">Code</a></td>
+</tr>
+</tbody></table>
+<p>YOLOv1 - v5历程：<a href="https://blog.csdn.net/wjinjie/article/details/107509243">从yolov1至yolov5的进阶之路</a><br>YOLOv3论文精读视频：<a href="https://www.bilibili.com/video/BV1Vg411V7bJ/">同济子豪兄YOLOV3目标检测</a><br>YOLOv5知识精讲：<a href="https://zhuanlan.zhihu.com/p/172121380">Yolov5核心基础知识完整讲解</a>，<a href="https://blog.csdn.net/qq_38253797/article/details/119043919">YOLOV5-5.x 源码讲解</a><br>YOLOv7网络结构：<a href="https://blog.csdn.net/athrunsunny/article/details/125951001">理解yolov7网络结构</a> ,<a href="https://blog.csdn.net/u010899190/article/details/125883770">Yolov7 基础网络结构详解</a><br>全流程指导视频：<a href="https://www.bilibili.com/video/BV1tf4y1t7ru/">目标检测 YOLOv5 开源代码项目调试与讲解实战-土堆</a></p>
+<p>算法精品仓库：<a href="https://github.com/bubbliiiing">Bubbliiiing</a><br><a href="https://github.com/iscyy/yoloair">YOLO Air</a>，<a href="https://github.com/iscyy/yoloair2">YOLO Air2</a><br><a href="https://github.com/positive666/yolov5_research">yolov5_research</a></p>
+<h1 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><blockquote>
+<p><a href="https://www.kaggle.com/datasets">Kaggle数据集</a><br><a href="https://gas.graviti.cn/open-datasets">格物钛数据集</a><br><a href="https://universe.roboflow.com/roboflow-100">Roboflow数据集</a><br><a href="https://ieee-dataport.org/datasets">IEEE DataPort</a></p>
+</blockquote>
+<p>标注工具：<a href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
+<p>开源驾驶员行为数据集：<a href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
+<p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
+<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo1.png" alt="图 1">  </p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
+<li>在 <code>models/common.py</code> 加入新的结构代码</li>
+<li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
+<li><code>.yaml</code> 修改网络结构<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo2.png" alt="图 2"></li>
+</ol>
+<h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
+<blockquote>
+<p>位置：<br>在上采样+concat之后接一个注意力机制可能会更好？<br>backbone结尾使用一个注意力机制？<br>每个block（如residual block）结尾使用比每个Conv里使用更好？</p>
+</blockquote>
+<p>transformer自注意力模块 CBAM注意力模块 CA注意力模块 SE注意力模块</p>
+<h2 id="激活函数-activations-py"><a href="#激活函数-activations-py" class="headerlink" title="激活函数 activations.py"></a>激活函数 activations.py</h2><p><a href="https://blog.csdn.net/m0_70388905/article/details/128753641">改进激活函数为ReLU、RReLU、Hardtanh、ReLU6、Sigmoid、Tanh、Mish、Hardswish、ELU、CELU等</a></p>
+<blockquote>
+<p>activations.py：激活函数代码写在了activations.py文件里，可引入新的激活函数<br>common.py：替换激活函数，很多卷积组都涉及到了激活函数（Conv，BottleneckCSP），所以改的时候要全面</p>
+</blockquote>
+<p>例：插入激活函数：Mish<br>1.在utils&#x2F;activation.py中定义Mish激活函数<br>2.重构Conv模块，改激活函数：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Conv</span>(nn.Module):</span><br><span class="line">    <span class="comment"># Standard convolution</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, c1, c2, k=<span class="number">1</span>, s=<span class="number">1</span>, p=<span class="literal">None</span>, g=<span class="number">1</span>, act=<span class="literal">True</span></span>):  <span class="comment"># ch_in, ch_out, kernel, stride, padding, groups</span></span><br><span class="line">        <span class="built_in">super</span>(Conv, self).__init__()</span><br><span class="line">        self.conv = nn.Conv2d(c1, c2, k, s, autopad(k, p), groups=g, bias=<span class="literal">False</span>)</span><br><span class="line">        self.bn = nn.BatchNorm2d(c2)</span><br><span class="line">        <span class="comment">#self.act = nn.SiLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())</span></span><br><span class="line">        self.act = nn.Mish() <span class="keyword">if</span> act <span class="keyword">is</span> <span class="literal">True</span> <span class="keyword">else</span> (act <span class="keyword">if</span> <span class="built_in">isinstance</span>(act, nn.Module) <span class="keyword">else</span> nn.Identity())</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ReLU</span>(nn.Module):</span><br><span class="line">    __constants__ = [<span class="string">&#x27;inplace&#x27;</span>]</span><br><span class="line">    inplace: <span class="built_in">bool</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, inplace: <span class="built_in">bool</span> = <span class="literal">False</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(ReLU, self).__init__()</span><br><span class="line">        self.inplace = inplace</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">return</span> F.relu(x, inplace=self.inplace)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">extra_repr</span>(<span class="params">self</span>):</span><br><span class="line">        inplace_str = <span class="string">&#x27;inplace=True&#x27;</span> <span class="keyword">if</span> self.inplace <span class="keyword">else</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> inplace_str</span><br></pre></td></tr></table></figure>
+
+<h2 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h2><p>例：改 EIOU loss</p>
+<ol>
+<li>修改 general.py，增加EIOU。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">elif</span> EIoU:</span><br><span class="line">                w=(w1-w2)*(w1-w2)</span><br><span class="line">                h=(h1-h2)*(h1-h2)</span><br><span class="line">                <span class="keyword">return</span> iou-(rho2/c2+w/(cw**<span class="number">2</span>)+h/(ch**<span class="number">2</span>))<span class="comment">#EIOU  2021.12.29</span></span><br></pre></td></tr></table></figure></li>
+<li>将loss.py中边框位置回归损失函数改为eiou。<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">iou = bbox_iou(pbox.T, tbox[i], x1y1x2y2=<span class="literal">False</span>, EIoU=<span class="literal">True</span>)  <span class="comment"># iou(prediction, target)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="参数配置（YOLOv5）"><a href="#参数配置（YOLOv5）" class="headerlink" title="参数配置（YOLOv5）"></a>参数配置（YOLOv5）</h2><p><strong>Detect参数</strong><br>调用电脑摄像头:<br>右上角py配置 &gt; Edit Configurations &gt; Parameters<br><code>--view-img --source 0</code></p>
+<p>调用手机摄像头：<br>下载 <a href="https://www.123pan.com/s/goS7Vv-QeKbd.html">IP摄像头</a> App，关闭代理，连同一个网，Parameters配置为：<br><code>--source http://admin:admin@192.168.43.1:8081</code> 具体地址见 APP</p>
+<p><strong>Train参数</strong><br><code>action=&#39;store_true&#39;</code> 触发了为true，否则为false 和 default&#x3D;False 效果一样</p>
+<p><strong>YOLOv8（没搞懂）</strong><br>该版本参数集中配置ultralytics&#x2F;yolo&#x2F;configs&#x2F;default.yaml<br>model参数可以是pt也可以是yaml。</p>
+<blockquote>
+<p>pt:相当于使用预训练权重进行训练，比如选择为yolov8n.pt，就是训练一个yolov8n模型，并且训练前导入这个pt的权重。<br>yaml:相当于直接初始化一个模型进行训练，比如选择为yolov8n.yaml，就是训练一个yolov8n模型，权重是随机初始化。</p>
+</blockquote>
+<p>data.yaml数据只能用绝对地址<br>要修改代码先卸ultralytics包，利用setup.py</p>
+<h1 id="炼丹经验"><a href="#炼丹经验" class="headerlink" title="炼丹经验"></a>炼丹经验</h1><ul>
+<li><p><strong>数据集</strong>：输入图像的大小要求必须是32的倍数；Resize保持原始图像比例调整大小更安全；标注时标注框的设计影响精度</p>
+</li>
+<li><p><strong>配置</strong>：mosic有时没用可删；删卷积层可减少计算量；若显存不足需要调小batchsize或数据集分辨率；可以从小模型中学到的权重开始，对更大模型进行训练</p>
+<ul>
+<li>大的batch_size往往建议可以相应取大点learning_rate, 因为梯度震荡小，大learning_rate可以加速收敛过程，也可以防止陷入到局部最小值，而小batch_size用小learning_rate迭代，防止错过最优点，一直上下震荡没法收敛</li>
+<li>参数调优过程一般要反复多次进行<code>微调&lt;—&gt;训练&lt;—&gt;测试</code>，最终得出符合需求&#x2F;较优的HyperPara，应用在项目中	<code>data/hyps/hyp.finetune.yaml</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>小目标检测</strong>：小目标检测效果不好主要原因为小目标尺寸问题。<br>以网络的输入608×608为例，yolov5中下采样使用了5次，因此最后的特征图大小是19×19，38×38，76×76。三个特征图中，最大的76×76负责检测小目标，而对应到608×608上，每格特征图的感受野是608&#x2F;76&#x3D;8×8大小。即如果原始图像中目标的宽或高小于8像素，网络很难学习到目标的特征信息。<br>另外很多图像分辨率很大，如果简单的进行下采样，下采样的倍数太大，容易丢失数据信息。但是倍数太小，网络前向传播需要在内存中保存大量的特征图，极大耗尽GPU资源,很容易发生显存爆炸，无法正常的训练及推理。<br>这种情况可以使用<strong>分割</strong>的方式，将大图先分割成小图，再对每个小图检测，不过这样方式有优点也有缺点： </p>
+<blockquote>
+<p>优点：准确性 分割后的小图，再输入目标检测网络中，对于最小目标像素的下限会大大降低。<br>比如分割成608×608大小，送入输入图像大小608×608的网络中，按照上面的计算方式，原始图片上，长宽大于8个像素的小目标都可以学习到特征。<br>缺点：增加计算量 比如原本1920×1080的图像，如果使用直接大图检测的方式，一次即可检测完。但采用分割的方式，切分成4张912×608大小的图像，再进行N次检测，会大大增加检测时间。<br><a href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别-CSDN博客</a></p>
+</blockquote>
+<p>此外，也可以增加一个小目标检测层：<a href="https://blog.csdn.net/m0_70388905/article/details/125392908">增加小目标检测层-CSDN博客</a></p>
+<p>使用云服务器快速训练（收费）：<a href="https://www.autodl.com/home">AutoDL算力云 | 弹性、好用、省钱</a><br><a href="https://www.autodl.com/docs/gpu/">AutoDL帮助文档-GPU选型</a></p>
+<h1 id="其他未实现的想法"><a href="#其他未实现的想法" class="headerlink" title="其他未实现的想法"></a>其他未实现的想法</h1><p>剪枝：<a href="https://blog.csdn.net/m0_70388905/article/details/128222629">模型剪枝、蒸馏、压缩-CSDN博客</a><br><a href="https://github.com/VainF/Torch-Pruning">GitHub - Torch-Pruning: [CVPR 2023] Towards Any Structural Pruning; </a></p>
+<p>融合EfficientNet和YoloV5：主要思想是训练一个图像分类模型(EfficientNet)，它可以实现非常高的AUC(约0.99)，并找到一种方法将其与目标检测模型融合。这被称为“2 class filter”</p>
+<p>加权框融合(WBF)后处理：对目标检测模型产生的框进行过滤，从而使结果更加准确和正确的技术。它的性能超过了现有的类似方法，如NMS和soft-NMS。</p>
+<p>用5折交叉验证<br>双流网络<br>矩形训练<br>PERCLOS值怎么显示？<br>把图像增强工作流加入算法？</p>
+<p>The author uses ArcFace loss to measure the error of prediction. This loss was proposed for facial recognition in 2018. Other sophisticated approaches have also been published in recent years, such as <a href="https://openaccess.thecvf.com/content/CVPR2022W/Biometrics/papers/Boutros_ElasticFace_Elastic_Margin_Loss_for_Deep_Face_Recognition_CVPRW_2022_paper.pdf">ElasticFace</a>. author can compare the proposed loss with this approach.</p>
+<p><a href="https://blog.csdn.net/weixin_56184890/article/details/119840555">YOLOV5 模型和代码修改——针对小目标识别</a></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>
