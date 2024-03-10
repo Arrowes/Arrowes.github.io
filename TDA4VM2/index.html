@@ -27,8 +27,7 @@
 <meta property="og:site_name" content="Arrow的笔记本">
 <meta property="og:description" content="TDA4的SDK环境搭建，SK开发板配置，TIDL demo运行，TIDL Tools与Edge AI Studio工具的介绍。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM2-SKtop.png">
-<meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM2-SKup.png">
+<meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM-SK.png">
 <meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai_object_detection.png">
 <meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/_images/edgeai-app-stack.jpg">
 <meta property="og:image" content="https://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/06_01_01_12/exports/docs/tidl_j7_01_00_01_00/ti_dl/docs/user_guide_html/TIDL_import_process.png">
@@ -41,12 +40,12 @@
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM2perform.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM2benchmark.png">
 <meta property="article:published_time" content="2023-05-18T08:28:00.000Z">
-<meta property="article:modified_time" content="2024-03-08T02:52:38.701Z">
+<meta property="article:modified_time" content="2024-03-10T07:34:15.408Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM2-SKtop.png">
+<meta name="twitter:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM-SK.png">
 
 <link rel="canonical" href="https://wangyujie.space/TDA4VM2/">
 
@@ -229,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-08 10:52:38" itemprop="dateModified" datetime="2024-03-08T10:52:38+08:00">2024-03-08</time>
+                <time title="修改时间：2024-03-10 15:34:15" itemprop="dateModified" datetime="2024-03-10T15:34:15+08:00">2024-03-10</time>
               </span>
 
           
@@ -267,8 +266,8 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>TDA4的SDK环境搭建，SK开发板配置，TIDL demo运行，TIDL Tools与Edge AI Studio工具的介绍。</p>
 <span id="more"></span>
 
-<p>相关前置知识见上一篇：<a href="https://wangyujie.space/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>环境搭建需要下载SDK：<a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a></p>
-<p>以下两节是EVM板的PSDK RTOS与PSDK Linux的环境搭建，因为暂时没有EVM板所以<em>没有上板测试</em>，只有SK板可以跳到第三节 TDA4VM-SK 配置。</p>
+<p>相关前置知识见上一篇：<a href="https://wangyujie.space/TDA4VM/">TDA4①：SDK, TIDL, OpenVX</a><br>下一篇：<a href="https://wangyujie.space/TDA4VM3/">TDA4③：YOLOX的模型转换与SK板端运行</a></p>
+<p>环境搭建需要下载SDK：<a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/PROCESSOR-SDK-J721E">PROCESSOR-SDK-J721E</a><br>以下两节是EVM板的PSDK RTOS与PSDK Linux的环境搭建，因为暂时没有EVM板所以<em>没有上板测试</em>，只有SK板可以跳到第三节 TDA4VM-SK 配置。</p>
 <h1 id="Linux-SDK-环境搭建"><a href="#Linux-SDK-环境搭建" class="headerlink" title="Linux SDK 环境搭建"></a><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-rt-jacinto7/08_06_00_11/exports/docs/devices/J7/linux/index.html">Linux SDK</a> 环境搭建</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加执行文件并执行</span></span><br><span class="line">chmod +x ./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin </span><br><span class="line">./ti-processor-sdk-linux-j7-evm-08_06_01_02-Linux-x86-Install.bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装依赖的系统软件包和工具，安装过程中跳过需要连EVM的NFS、minicom、TFTP</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">(若Ubuntu版本不匹配 &gt; bin/setup-host-check.sh &gt; <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;bionic&quot;</span> ] 改为 <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$host</span>&quot;</span> != <span class="string">&quot;focal&quot;</span> ] )</span></span><br><span class="line">sudo ./setup.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TISDK setup completed!</span></span><br></pre></td></tr></table></figure>
 <p>通过在根目录下make linux或u-boot等各种命令，可以快速的让SDK编译出你所需要的产物。注意需要手工修改Rules.mak文件中的DESTDIR变量为你的TF卡挂载路径。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ti-processor-sdk-linux-j7-evm*/board-support/</span></span><br><span class="line">Make linux        <span class="comment">#编译Linux kernel代码和dtb，主要用于内核驱动的修改和裁剪。安装命令可以将内核和驱动模块自动拷贝到TF卡中。</span></span><br><span class="line">Make linux_install  <span class="comment">#生成built-images</span></span><br><span class="line">Make u-boot       <span class="comment">#编译u-boot代码，主要分为两部分：运行在MCU上的r5f部分和运行在A72上的a53部分。此处A72兼容A53指令集。</span></span><br><span class="line">Make sysfw-image  <span class="comment">#生成sysfw固件，主要在修改MSMC大小的时候会用到。</span></span><br></pre></td></tr></table></figure>
@@ -313,8 +312,7 @@
 
 <hr>
 <p>上面都是EVM板的相关环境配置，后面只拿到了SK板，因此转为SK板的相关配置。</p>
-<h1 id="TDA4VM-SK-配置"><a href="#TDA4VM-SK-配置" class="headerlink" title="TDA4VM-SK 配置"></a><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">TDA4VM-SK</a> 配置</h1><img alt="picture 0" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM2-SKtop.png" />  
-<img alt="picture 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM2-SKup.png" />  
+<h1 id="TDA4VM-SK-配置"><a href="#TDA4VM-SK-配置" class="headerlink" title="TDA4VM-SK 配置"></a><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">TDA4VM-SK</a> 配置</h1><img alt="picture 0" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VM-SK.png" /> 
 
 
 <p>硬件信息：<a target="_blank" rel="noopener" href="https://www.ti.com.cn/tool/cn/SK-TDA4VM">SK-TDA4VM 官网</a><br><a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-sk-tda4vm/latest/exports/docs/running_simple_demos.html">Processor SDK Linux for Edge AI Documentation</a><br>配置文档：<a target="_blank" rel="noopener" href="https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-edgeai/TDA4VM/08_06_01/exports/docs/devices/TDA4VM/linux/getting_started.html">Processor SDK Linux for SK-TDA4VM Documentation - getting_started</a>，详细说明了如何配置，下面是简要步骤：</p>
