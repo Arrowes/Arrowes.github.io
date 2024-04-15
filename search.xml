@@ -1,52 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Computer：电脑及服务器折腾记录</title>
-    <url>/Computer/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>PC折腾及服务器相关搭建记录</p>
-<span id="more"></span>
-
-<h1 id="实验室服务器配置"><a href="#实验室服务器配置" class="headerlink" title="实验室服务器配置"></a>实验室服务器配置</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">型号: DELL R730XD 12盘3.5寸</span><br><span class="line">处理器: E5-2683V4*2 2.1G主频 32核心/64线程</span><br><span class="line">内存: 96G内存（16G*6）</span><br><span class="line">硬盘: 3T SAS*4</span><br><span class="line">阵列卡: H730卡</span><br><span class="line">电源: 750W*1</span><br></pre></td></tr></table></figure>
-<img alt="picture 0" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r730xd.jpg" />  
-
-<h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#更新软件</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade</span><br><span class="line"><span class="comment">#安装openssh-server</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment">#check，其中 active(running) 是高亮的，则成功，若未运行：sudo systemctl enable --now ssh</span></span><br><span class="line">service ssh status</span><br><span class="line"><span class="comment">#允许 SSH 通过防火墙</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line"><span class="comment">#查ip，10.99.1.55</span></span><br><span class="line">ip a</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用SSH远程访问服务器"><a href="#使用SSH远程访问服务器" class="headerlink" title="使用SSH远程访问服务器"></a>使用SSH远程访问服务器</h2><p>vscode安装插件：Remote - SSH<br>登录ubuntu用户：ssh <a href="mailto:&#x75;&#115;&#x65;&#x72;&#110;&#x61;&#109;&#101;&#64;&#49;&#x30;&#46;&#x39;&#x39;&#x2e;&#x31;&#x2e;&#53;&#53;">&#x75;&#115;&#x65;&#x72;&#110;&#x61;&#109;&#101;&#64;&#49;&#x30;&#46;&#x39;&#x39;&#x2e;&#x31;&#x2e;&#53;&#53;</a></p>
-<blockquote>
-<p>例如主用户XXX：<br>ssh <a href="mailto:&#x58;&#88;&#x58;&#x40;&#x31;&#48;&#x2e;&#57;&#57;&#46;&#49;&#46;&#x35;&#53;">&#x58;&#88;&#x58;&#x40;&#x31;&#48;&#x2e;&#57;&#57;&#46;&#49;&#46;&#x35;&#53;</a><br>密码：XXX204</p>
-</blockquote>
-<h1 id="拯救者R720-15IKBN"><a href="#拯救者R720-15IKBN" class="headerlink" title="拯救者R720-15IKBN"></a>拯救者R720-15IKBN</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">制造商: LENOVO </span><br><span class="line">设备型号: Lenovo R720-15IKBN</span><br><span class="line">设备代号: 80WW</span><br><span class="line">序列号: PF0S8CHZ</span><br><span class="line">BIOS版本: 4KCN45WW</span><br></pre></td></tr></table></figure>
-<p>高中毕业17年暑假购入的拯救者R720-15IKBN，21年加过一条和原装同款的8G内存条组成双通道（155），网卡换成了Intel AX200（108），22年把原装的128g固态换成了闪迪的1T（619，现在价格都降一半了），硅脂换了2-3次，研一拿来跑深度学习，现在还用c口转dp连着一台2k144显示器，属实难为这个1050ti了；现在外壳都好几处开裂，屏幕好几条黑线，但是嫌换屏幕麻烦且贵，凑合着再用最后一年陪我写完毕业论文吧.</p>
-<p>工具：<br><a href="https://pan.leekarl.com/LLT">拯救者工具箱 Lenovo Legion Toolkit</a><br><a href="https://www.bilibili.com/read/cv17598773/?spm_id_from=333.999.collection.opus.click">拯救者R720如何恢复原厂系统</a></p>
-<img alt="picture 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r720.jpg" />  
-<img alt="picture 2" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r7202.jpg" />  
-
-<h1 id="一些偶尔用到的电脑功能"><a href="#一些偶尔用到的电脑功能" class="headerlink" title="一些偶尔用到的电脑功能"></a>一些偶尔用到的电脑功能</h1><ul>
-<li><p>win10定时任务<br>win+r打开运行框，输入<code>taskschd.msc</code>,回车进入任务计划程序<br>例如打开特定的网页：<br>程序&#x2F;脚本：<code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code><br>添加参数（可选）：<code>https://live.douyin.com/473159801229?camera_id=0</code></p>
-</li>
-<li><p>开机启动<br>win+r 输入<code>shell:startup</code><br>例如开机即打开校园网：右键空白处——新建快捷方式，输入<code>http://login.hnust.cn/</code>,命名随意</p>
-</li>
-</ul>
-<h1 id="学术加速"><a href="#学术加速" class="headerlink" title="学术加速"></a>学术加速</h1><h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><ol>
-<li>找一个合适的梯子，建议直接买付费的，稳定快速，推荐 <a href="https://front.spaport.cc/#/dashboard">SpaPort</a>, 购买后会得到一个订阅地址，类似于<code>https://.../.../.ini</code>，之后把这个地址填进软件，即可成功挂上梯子</li>
-<li>下载软件：<a href="https://github.com/Z-Siqi/Clash-for-Windows_Chinese/releases/download/CFW-V0.20.39_CN/Clash.for.Windows-0.20.39-win.7z">Clash.for.Windows</a>，解压后双击<code>Clash for Windows.exe</code>打开软件 (备用下载链接：<a href="https://www.123pan.com/s/goS7Vv-fWSbd.html">Clash</a>，解压密码12345)</li>
-<li>点击左侧的 <code>配置</code>，在顶部的输入栏中粘贴你复制的Clash订阅地址后点击 <code>下载</code>, 显示绿色的成功之后，点击你刚导入的配置（名字一般是梯子的名称，如SpaPort）</li>
-<li>点击左侧的<code>代理</code>，点击上方的<code>Rule</code>，一般选择<code>手动选择</code>内的节点即可，不同的节点名称代表不同地区的服务器，可以点右上方的WiFi图标进行测速，哪个延迟低选哪个节点（用ChatGPT不能选香港），超时就是那个节点挂了，节点随时有失效可能，注意切换</li>
-<li>点击左侧的<code>主页</code>，打开下面<code>系统代理</code>的开关，即<strong>成功加速</strong>，左上角会显示实时流量，建议在<code>设置&gt;快捷键</code>中将系统代理设为<code>Ctrl+W</code>, 按需随时开关，节约流量<br>（注意：在<code>系统代理</code>的开关打开的情况下关闭软件，将会<em>出现电脑连不上网的情况</em>，此时重新打开Clash即可解决，因此，建议也打开<code>开机自启动</code>的开关，保持Clash后台常驻）</li>
-</ol>
-<p>至此，即可流畅登录Github上传或下载代码，以及在终端中安装各种工具包，避免了换源等繁琐操作</p>
-<h2 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h2><p>下载<a href="https://sockboomdownload.com/ssr-download/clashforandroid.apk">ClashforAndroid</a><br>配置 &gt; 右上角＋号 &gt; URL &gt; 填入订阅链接 &gt; 保存 &gt; 回主界面点<em>启动</em><br>选代理，点一下右上角的⚡将进行测速，数字越小的节点延迟越低</p>
-<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p><a href="https://dl.gtk.pw/proxy/linux/">Clash.for.Windows-x64-linux.tar.gz </a>可用于Ubuntu，<br>解压缩，进入文件夹终端，运行<code>./cfw</code>,即可打开软件<br>Ubuntu设置-网络代理设为手动，将http&#x2F;https代理指向clash默认端口7890：<code>HTTP代理：127.0.0.1 7890</code> <code>HTTPS代理：127.0.0.1 7890</code></p>
-<p>创建软件快捷方式(Optional)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://github.com/Z-Siqi/Clash-for-Windows_Chinese/blob/main/image/image_clash.png    <span class="comment"># 下载clash icon做为桌面图标</span></span><br><span class="line">vim clash.desktop</span><br><span class="line"><span class="comment"># 输入下面的内容(注意用户名和路径)</span></span><br><span class="line">[Desktop Entry]</span><br><span class="line"> Name=clash</span><br><span class="line"> Comment=Clash</span><br><span class="line"> Exec=/home/arrow/clash/cfw</span><br><span class="line"> Icon=/home/arrow/clash/image_clash.png</span><br><span class="line"> Type=Application</span><br><span class="line"> Categories=Development;</span><br><span class="line"> StartupNotify=<span class="literal">true</span></span><br><span class="line"> NoDisplay=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">mv</span> clash.desktop /usr/share/applications/</span><br></pre></td></tr></table></figure>
-<p>最终就能实现通过图标打开</p>
-<h1 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h1><p>桌面闪烁，底部任务栏跟着刷新，造成的因素有许多可能，硬件显卡驱动的问题，以及刷新率,explorer资源管理器,注册列表问题,病毒问题<br>初步测试：win+R一直在闪烁，输入一个字母，然后又不能输入了，需要重新在下次刷新前点击，抢在刷新前，点击接着输入。意味着只要点的快，还是可以打开点东西的。Ctrl键+Alt键+Delete键，可以进入管控，打开任务资源管理器，重启explorer资源管理器，毫无效果。<br>打开任务资源管理器 &gt; 运行新任务 &gt; 输入<code>cmd</code> &gt; <code>sfc /scannow</code>（扫描修复系统文件）解决</p>
-]]></content>
-      <tags>
-        <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C, C++, Cmake</title>
     <url>/C/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>C, C++, Cmake的相关入门学习笔记，项目地址：<a href="https://github.com/Arrowes/C-coding">C-coding</a></p>
@@ -424,6 +378,55 @@
       </tags>
   </entry>
   <entry>
+    <title>Computer：电脑及服务器折腾记录</title>
+    <url>/Computer/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>PC折腾及服务器相关搭建记录</p>
+<span id="more"></span>
+
+<h1 id="实验室服务器配置"><a href="#实验室服务器配置" class="headerlink" title="实验室服务器配置"></a>实验室服务器配置</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">型号: DELL R730XD 12盘3.5寸</span><br><span class="line">处理器: E5-2683V4*2 2.1G主频 32核心/64线程</span><br><span class="line">内存: 96G内存（16G*6）</span><br><span class="line">硬盘: 3T SAS*4</span><br><span class="line">阵列卡: H730卡</span><br><span class="line">电源: 750W*1</span><br></pre></td></tr></table></figure>
+<img alt="picture 0" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r730xd.jpg" />  
+
+<h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#更新软件</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade</span><br><span class="line"><span class="comment">#安装openssh-server</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment">#check，其中 active(running) 是高亮的，则成功，若未运行：sudo systemctl enable --now ssh</span></span><br><span class="line">service ssh status</span><br><span class="line"><span class="comment">#允许 SSH 通过防火墙</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line"><span class="comment">#查ip，10.99.1.55</span></span><br><span class="line">ip a</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用SSH远程访问服务器"><a href="#使用SSH远程访问服务器" class="headerlink" title="使用SSH远程访问服务器"></a>使用SSH远程访问服务器</h2><p>vscode安装插件：Remote - SSH<br>登录ubuntu用户：ssh <a href="mailto:&#117;&#115;&#x65;&#x72;&#x6e;&#x61;&#109;&#101;&#64;&#49;&#48;&#46;&#57;&#57;&#x2e;&#49;&#46;&#x35;&#53;">&#117;&#115;&#x65;&#x72;&#x6e;&#x61;&#109;&#101;&#64;&#49;&#48;&#46;&#57;&#57;&#x2e;&#49;&#46;&#x35;&#53;</a></p>
+<blockquote>
+<p>例如主用户XXX：<br>ssh <a href="mailto:&#x58;&#88;&#x58;&#x40;&#x31;&#48;&#46;&#57;&#x39;&#x2e;&#49;&#x2e;&#x35;&#x35;">&#x58;&#88;&#x58;&#x40;&#x31;&#48;&#46;&#57;&#x39;&#x2e;&#49;&#x2e;&#x35;&#x35;</a><br>密码：XXX204</p>
+</blockquote>
+<h1 id="拯救者R720-15IKBN"><a href="#拯救者R720-15IKBN" class="headerlink" title="拯救者R720-15IKBN"></a>拯救者R720-15IKBN</h1><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">制造商: LENOVO </span><br><span class="line">设备型号: Lenovo R720-15IKBN</span><br><span class="line">设备代号: 80WW</span><br><span class="line">序列号: PF0S8CHZ</span><br><span class="line">BIOS版本: 4KCN45WW</span><br></pre></td></tr></table></figure>
+<p>高中毕业17年暑假购入的拯救者R720-15IKBN，21年加过一条和原装同款的8G内存条组成双通道（155），网卡换成了Intel AX200（108），22年把原装的128g固态换成了闪迪的1T（619，现在价格都降一半了），硅脂换了2-3次，研一拿来跑深度学习，现在还用c口转dp连着一台2k144显示器，属实难为这个1050ti了；现在外壳都好几处开裂，屏幕好几条黑线，但是嫌换屏幕麻烦且贵，凑合着再用最后一年陪我写完毕业论文吧.</p>
+<p>工具：<br><a href="https://pan.leekarl.com/LLT">拯救者工具箱 Lenovo Legion Toolkit</a><br><a href="https://www.bilibili.com/read/cv17598773/?spm_id_from=333.999.collection.opus.click">拯救者R720如何恢复原厂系统</a></p>
+<img alt="picture 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r720.jpg" />  
+<img alt="picture 2" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r7202.jpg" />  
+
+<p><a href="http://www.kzzi.com/media/files/20220825/20220825161014_9187.pdf">珂芝863(K75)说明书中文-更新7-28 (kzzi.com)</a></p>
+<h1 id="电脑小技巧"><a href="#电脑小技巧" class="headerlink" title="电脑小技巧"></a>电脑小技巧</h1><ul>
+<li><p>win10定时任务<br>win+r打开运行框，输入<code>taskschd.msc</code>,回车进入任务计划程序<br>例如打开特定的网页：<br>程序&#x2F;脚本：<code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code><br>添加参数（可选）：<code>https://live.douyin.com/473159801229?camera_id=0</code></p>
+</li>
+<li><p>开机启动<br>win+r 输入<code>shell:startup</code><br>例如开机即打开校园网：右键空白处——新建快捷方式，输入<code>http://login.hnust.cn/</code>,命名随意</p>
+</li>
+</ul>
+<h1 id="学术加速"><a href="#学术加速" class="headerlink" title="学术加速"></a>学术加速</h1><h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><ol>
+<li>找一个合适的梯子，建议直接买付费的，稳定快速，推荐 <a href="https://front.spaport.cc/#/dashboard">SpaPort</a>, 购买后会得到一个订阅地址，类似于<code>https://.../.../.ini</code>，之后把这个地址填进软件，即可成功挂上梯子</li>
+<li>下载软件：<a href="https://github.com/Z-Siqi/Clash-for-Windows_Chinese/releases/download/CFW-V0.20.39_CN/Clash.for.Windows-0.20.39-win.7z">Clash.for.Windows</a>，解压后双击<code>Clash for Windows.exe</code>打开软件 (备用下载链接：<a href="https://www.123pan.com/s/goS7Vv-fWSbd.html">Clash</a>，解压密码12345)</li>
+<li>点击左侧的 <code>配置</code>，在顶部的输入栏中粘贴你复制的Clash订阅地址后点击 <code>下载</code>, 显示绿色的成功之后，点击你刚导入的配置（名字一般是梯子的名称，如SpaPort）</li>
+<li>点击左侧的<code>代理</code>，点击上方的<code>Rule</code>，一般选择<code>手动选择</code>内的节点即可，不同的节点名称代表不同地区的服务器，可以点右上方的WiFi图标进行测速，哪个延迟低选哪个节点（用ChatGPT不能选香港），超时就是那个节点挂了，节点随时有失效可能，注意切换</li>
+<li>点击左侧的<code>主页</code>，打开下面<code>系统代理</code>的开关，即<strong>成功加速</strong>，左上角会显示实时流量，建议在<code>设置&gt;快捷键</code>中将系统代理设为<code>Ctrl+W</code>, 按需随时开关，节约流量<br>（注意：在<code>系统代理</code>的开关打开的情况下关闭软件，将会<em>出现电脑连不上网的情况</em>，此时重新打开Clash即可解决，因此，建议也打开<code>开机自启动</code>的开关，保持Clash后台常驻）</li>
+</ol>
+<p>至此，即可流畅登录Github上传或下载代码，以及在终端中安装各种工具包，避免了换源等繁琐操作</p>
+<h2 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h2><p>下载<a href="https://sockboomdownload.com/ssr-download/clashforandroid.apk">ClashforAndroid</a><br>配置 &gt; 右上角＋号 &gt; URL &gt; 填入订阅链接 &gt; 保存 &gt; 回主界面点<em>启动</em><br>选代理，点一下右上角的⚡将进行测速，数字越小的节点延迟越低</p>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p><a href="https://dl.gtk.pw/proxy/linux/">Clash.for.Windows-x64-linux.tar.gz </a>可用于Ubuntu，<br>解压缩，进入文件夹终端，运行<code>./cfw</code>,即可打开软件<br>Ubuntu设置-网络代理设为手动，将http&#x2F;https代理指向clash默认端口7890：<code>HTTP代理：127.0.0.1 7890</code> <code>HTTPS代理：127.0.0.1 7890</code></p>
+<p>创建软件快捷方式(Optional)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">wget https://github.com/Z-Siqi/Clash-for-Windows_Chinese/blob/main/image/image_clash.png    <span class="comment"># 下载clash icon做为桌面图标</span></span><br><span class="line">vim clash.desktop</span><br><span class="line"><span class="comment"># 输入下面的内容(注意用户名和路径)</span></span><br><span class="line">[Desktop Entry]</span><br><span class="line"> Name=clash</span><br><span class="line"> Comment=Clash</span><br><span class="line"> Exec=/home/arrow/clash/cfw</span><br><span class="line"> Icon=/home/arrow/clash/image_clash.png</span><br><span class="line"> Type=Application</span><br><span class="line"> Categories=Development;</span><br><span class="line"> StartupNotify=<span class="literal">true</span></span><br><span class="line"> NoDisplay=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">mv</span> clash.desktop /usr/share/applications/</span><br></pre></td></tr></table></figure>
+<p>最终就能实现通过图标打开</p>
+<h1 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h1><blockquote>
+<p>桌面闪烁，底部任务栏跟着刷新，造成的因素有许多可能，硬件显卡驱动的问题，以及刷新率,explorer资源管理器,注册列表问题,病毒问题<br>初步测试：win+R一直在闪烁，输入一个字母，然后又不能输入了，需要重新在下次刷新前点击，抢在刷新前，点击接着输入。意味着只要点的快，还是可以打开点东西的。Ctrl键+Alt键+Delete键，可以进入管控，打开任务资源管理器，重启explorer资源管理器，毫无效果。<br>打开任务资源管理器 &gt; 运行新任务 &gt; 输入<code>cmd</code> &gt; <code>sfc /scannow</code>（扫描修复系统文件）解决</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DL：深度学习相关概念</title>
     <url>/DL/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>记录深度学习基本概念，不断更新中，项目地址：<a href="https://github.com/Arrowes/DLpractice">DLpractice</a></p>
@@ -531,7 +534,7 @@ A-->E[C.定义]</pre>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL9.png" alt="图 9">  </p>
 <p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#x6d;&#97;&#x70;&#64;&#48;&#46;&#53;">&#x6d;&#97;&#x70;&#64;&#48;&#46;&#53;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
+<p><em><a href="mailto:&#109;&#x61;&#x70;&#64;&#48;&#x2e;&#x35;">&#109;&#x61;&#x70;&#64;&#48;&#x2e;&#x35;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -1374,7 +1377,7 @@ return ids.length + &quot; item(s) updated&quot;;
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>包括读《摄影笔记》的总结，专题拍摄笔记，摄影名词解释及相机知识，调色笔记更新中。</p>
 <span id="more"></span>
 
-<h1 id="调色笔记"><a href="#调色笔记" class="headerlink" title="调色笔记"></a>调色笔记</h1><img alt="图 7" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Photograph-rrl.png" width=50%/>  
+<h1 id="调色笔记"><a href="#调色笔记" class="headerlink" title="调色笔记"></a>调色笔记</h1><img alt="图 7" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Photograph-rrl.png" width=30%/>  
 右右左，适当降低饱和度
 
 <h1 id="摄影笔记"><a href="#摄影笔记" class="headerlink" title="摄影笔记"></a>摄影笔记</h1><p>四要素：<code>取景，曝光，虚实，构图</code></p>
