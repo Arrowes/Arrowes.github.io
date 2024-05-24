@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL14.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL15.png">
 <meta property="article:published_time" content="2022-12-28T12:22:05.000Z">
-<meta property="article:modified_time" content="2023-12-01T10:45:06.287Z">
+<meta property="article:modified_time" content="2024-04-25T14:04:28.767Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -238,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-01 18:45:06" itemprop="dateModified" datetime="2023-12-01T18:45:06+08:00">2023-12-01</time>
+                <time title="修改时间：2024-04-25 22:04:28" itemprop="dateModified" datetime="2024-04-25T22:04:28+08:00">2024-04-25</time>
               </span>
 
           
@@ -333,7 +333,9 @@ A-->E[C.定义]</pre>
 </tr>
 </tbody></table>
 <h2 id="感受野-Receptive-field"><a href="#感受野-Receptive-field" class="headerlink" title="感受野(Receptive field)"></a>感受野(Receptive field)</h2><p>感受野是指在卷积神经网络中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。<br><img data-src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  /></p>
-<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL2.png" width = "50%" /><br><img data-src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "50%" /></p>
+<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL2.png" width = "50%" /></p>
+<img data-src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "40%" />
+
 <h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><img alt="图 37" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL-Conv.jpg" />  
 
 
@@ -378,7 +380,7 @@ A-->E[C.定义]</pre>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL9.png" alt="图 9">  </p>
 <p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#109;&#97;&#x70;&#x40;&#x30;&#x2e;&#53;">&#109;&#97;&#x70;&#x40;&#x30;&#x2e;&#53;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
+<p><em><a href="mailto:&#109;&#97;&#x70;&#64;&#x30;&#46;&#x35;">&#109;&#97;&#x70;&#64;&#x30;&#46;&#x35;</a></em>即IoU&#x3D;0.5，预测框和标注框的交集与非交集占比相同，都为50%；<br><em>mAP@.5:.95</em>表示在不同IoU阈值（从0.5到0.95，步长0.05）（0.5、0.55、0.6、0.65、0.7、0.75、0.8、0.85、0.9、0.95）上的平均mAP。<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -558,7 +560,7 @@ A-->E[C.定义]</pre>
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:35</span>
+    <span title="站点阅读时长">4:36</span>
 </div>
 
         
