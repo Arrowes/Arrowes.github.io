@@ -61,7 +61,7 @@
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Embedded21.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Embedded22.png">
 <meta property="article:published_time" content="2022-12-11T12:54:34.000Z">
-<meta property="article:modified_time" content="2023-11-29T10:39:22.564Z">
+<meta property="article:modified_time" content="2024-06-06T02:45:29.580Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="嵌入式">
 <meta name="twitter:card" content="summary">
@@ -248,7 +248,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-29 18:39:22" itemprop="dateModified" datetime="2023-11-29T18:39:22+08:00">2023-11-29</time>
+                <time title="修改时间：2024-06-06 10:45:29" itemprop="dateModified" datetime="2024-06-06T10:45:29+08:00">2024-06-06</time>
               </span>
 
           
@@ -297,7 +297,8 @@
 <p>输入信号由低向高跳变时，经过缓冲1后输入RC电路。<br>电容充电的特性使B点的信号并不会跟随输入信号立即跳变，而是有一个逐渐变大的过程。<br>当变大到一定程度时，缓冲2翻转，在输出端得到了一个延迟的由低向高的跳变。<br><strong>时间常数</strong>：以常见的 RC 串联构成积分电路为例，当输入信号电压加在输入端时，电容上的电压逐渐上升。<br>而其充电电流则随着电压的上升而减小，电阻R和电容C串联接入输入信号VI，由电容C输出信号V0，当RC (τ)数值与输入方波宽度tW之间满足：τ》》tW，这种电路称为积分电路。<br><strong>调谐</strong>：对与频率相关的电路进行系统调谐，比如手机、收音机、电视机。<br><img alt="图 32" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Embedded32.png" width = "50%"/>  </p>
 <p>因为lc调谐的振荡电路的谐振频率是lc的函数，我们发现振荡电路的最大与最小谐振频率之比随着电容比的平方根变化。<br>此处电容比是指反偏电压最小时的电容与反偏电压最大时的电容之比。<br>因而，电路的调谐特征曲线（偏压一谐振频率）基本上是一条抛物线。<br><strong>整流</strong>：在预定的时间开或者关半闭导体开关元件。<br><img alt="图 44" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Embedded33.png" width = "70%"/>  </p>
 <p><strong>储能</strong>：储存电能，用于必须要的时候释放。<br>例如相机闪光灯，加热设备等等．（如今某些电容的储能水平己经接近锂电池的水准，一个电容储存的电能可以供一个手机使用一天。<br>一般地，电解电容都会有储能的作用，对于专门的储能作用的电容，电容储能的机理为双电层电容以及法拉第电容。<br>其主要形式为超级电容储能，其中超级电容器是利用双电层原理的电容器。<br>当外加电压加到超级电容器的两个极板上时，与普通电容器一样，极板的正电极存储正电荷，负极板存储负电荷。<br>在超级电容器的两极板上电荷产生的电场作用下，在电解液与电极间的界面上形成相反的电荷，以平衡电解液的内电场。<br>这种正电荷与负电荷在两个不同相之间的接触面上，以正负电荷之间极短间隙排列在相反的位置上，这个电荷分布层叫做双电层，因此电容量非常大。</p>
-<h1 id="PCB布局布线"><a href="#PCB布局布线" class="headerlink" title="PCB布局布线"></a>PCB布局布线</h1><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>元器件布局的10条规则：</p>
+<h1 id="PCB布局布线"><a href="#PCB布局布线" class="headerlink" title="PCB布局布线"></a>PCB布局布线</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36347513/article/details/121873555">立创EDA PCB设计笔记</a></p>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>元器件布局的10条规则：</p>
 <ol>
 <li>遵照<strong>先大后小，先难后易</strong>的布置原则，即重要的单元电路、核心元器件应当优先布局。</li>
 <li>布局中应参考原理框图，根据单板的主信号流向规律安排主要元器件。</li>
@@ -382,7 +383,6 @@
 </ol>
 <h3 id="（4）其他"><a href="#（4）其他" class="headerlink" title="（4）其他"></a>（4）其他</h3><p>对于单双层板电源线应尽量粗而短。电源线和地线的宽度要求可以根据1mm的线宽最大对应1A 的电流来计算，电源和地构成的环路尽量小。<br> <img alt="图 21" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Embedded21.png" width = "60%"/>  </p>
 <p>为了防止电源线较长时，电源线上的耦合杂讯直接进入负载器件，应在进入每个器件之前，先对电源去耦。且为了防止它们彼此间的相互干扰，对每个负载的电源独立去耦，并做到先滤波再进入负载。<br>在布线中应保持接地良好。如下图。<br><img alt="图 22" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Embedded22.png" width = "60%"/>  </p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36347513/article/details/121873555">立创EDA PCB设计</a></p>
 <h1 id="RTOS"><a href="#RTOS" class="headerlink" title="RTOS"></a>RTOS</h1><p>应用程序是一个无限的循环，循环中调用相应的函数完成相应的操作,这部分可以看成后台行为。前台程序通过中断来处理事件；后台程序则掌管整个嵌入式系统软、硬件资源的分配、管理以及任务的调度，是一个系统管理调度程序。这就是通常所说的前后台系统。<br>前后台系统的优点：  </p>
 <ol>
 <li>上手简单， 2. 资源消耗少。</li>
