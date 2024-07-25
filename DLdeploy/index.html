@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-5618bc32c6018dbe6b7419555c373445_1440w.webp">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/DLdeploynetron.png">
 <meta property="article:published_time" content="2023-06-09T03:36:00.000Z">
-<meta property="article:modified_time" content="2024-07-23T14:01:09.382Z">
+<meta property="article:modified_time" content="2024-07-25T14:19:59.859Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-23 22:01:09" itemprop="dateModified" datetime="2024-07-23T22:01:09+08:00">2024-07-23</time>
+                <time title="修改时间：2024-07-25 22:19:59" itemprop="dateModified" datetime="2024-07-25T22:19:59+08:00">2024-07-25</time>
               </span>
 
           
@@ -239,14 +239,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.9k</span>
+              <span>7.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>25 分钟</span>
+              <span>26 分钟</span>
             </span>
 
         </div>
@@ -376,14 +376,14 @@
 <p><strong>模型量化压缩</strong>：终端场景中，一般会有内存和速度的考虑，因此会要求模型尽量小，同时保证较高的吞吐率。除了人工针对嵌入式设备设计合适的模型，如 MobileNet 系列，通过 NAS(Neural Architecture Search) 自动搜索小模型，以及通过蒸馏&#x2F;剪枝的方式压缩模型外，一般还会使用量化来达到减小模型规模和加速的目的。</p>
 <p>量化的过程主要是将原始浮点 FP32 训练出来的模型压缩到定点 INT8(或者 INT4&#x2F;INT1) 的模型，由于 INT8 只需要 8 比特来表示，因此相对于 32 比特的浮点，其模型规模理论上可以直接降为原来的 1&#x2F;4，这种压缩率是非常直观的。<br>另外，大部分终端设备都会有专用的定点计算单元，通过低比特指令实现的低精度算子，速度上会有很大的提升，当然，这部分还依赖协同体系结构和算法来获得更大的加速。</p>
 <ul>
-<li>量化训练（QAT, Quantization Aware Training）：通过对模型插入伪量化算子（这些算子用来模拟低精度运算的逻辑），通过梯度下降等优化方式在原始浮点模型上进行微调，从来调整参数得到精度符合预期的模型。量化训练基于原始浮点模型的训练逻辑进行训练，理论上更能保证收敛到原始模型的精度，但需要精细调参且生产周期较长；</li>
-<li>离线量化：主要是通过少量校准数据集（从原始数据集中挑选 100-1000 张图，不需要训练样本的标签）获得网络的 activation 分布，通过统计手段或者优化浮点和定点输出的分布来获得量化参数，从而获取最终部署的模型。离线量化只需要基于少量校准数据，因此生产周期短且更加灵活，缺点是精度可能略逊于量化训练。<br> 实际落地过程中，发现大部分模型通过离线量化就可以获得不错的模型精度（1% 以内的精度损失，当然这部分精度的提升也得益于优化策略的加持），剩下少部分模型可能需要通过量化训练来弥补精度损失，因此实际业务中会结合两者的优劣来应用。</li>
+<li>量化训练（QAT, Quantization Aware Training）：即量化感知训练方案，在浮点训练的时候，就先对浮点模型结构进行干预，使得模型能够感知到量化带来的损失，减少量化损失精度的方案。通过对模型插入伪量化算子（这些算子用来模拟低精度运算的逻辑），通过梯度下降等优化方式在原始浮点模型上进行微调，从来调整参数得到精度符合预期的模型。量化训练基于原始浮点模型的训练逻辑进行训练，理论上更能保证收敛到原始模型的精度，但需要精细调参且生产周期较长；</li>
+<li>离线量化（PTQ）：即训练后量化方案，先训练浮点模型，然后使用校准图片计算量化参数，将浮点模型转为量化模型的量化方法。主要是通过少量校准数据集（从原始数据集中挑选 100-1000 张图，不需要训练样本的标签）获得网络的 activation 分布，通过统计手段或者优化浮点和定点输出的分布来获得量化参数，从而获取最终部署的模型。离线量化只需要基于少量校准数据，因此生产周期短且更加灵活，缺点是精度可能略逊于量化训练。<br> 实际落地过程中，发现大部分模型通过离线量化就可以获得不错的模型精度（1% 以内的精度损失，当然这部分精度的提升也得益于优化策略的加持），剩下少部分模型可能需要通过量化训练来弥补精度损失，因此实际业务中会结合两者的优劣来应用。</li>
 </ul>
 <p>两大难点：一是如何平衡模型的吞吐率和精度，二是如何结合推理引擎充分挖掘芯片的能力。 比特数越低其吞吐率可能会越大，但其精度损失可能也会越大，因此，如何通过算法提升精度至关重要，这也是组内的主要工作之一。另外，压缩到低比特，某些情况下吞吐率未必会提升，还需要结合推理引擎优化一起对模型进行图优化，甚至有时候会反馈如何进行网络设计，因此会是一个算法与工程迭代的过程。</p>
 <p><strong>模型打包封装 SDK</strong>：实际业务落地过程中，模型可能只是产品流程中的一环，用于实现某些特定功能，其输出可能会用于流程的下一环。因此，模型打包会将模型的前后处理，一个或者多个模型整合到一起，再加入描述性的文件（前后处理的参数、模型相关参数、模型格式和版本等）来实现一个完整的功能。因此，SDK 除了需要一些通用前后处理的高效实现，对齐训练时的前后处理逻辑，还需要具有足够好的扩展性来应对不同的场景，方便业务线扩展新的功能。可以看到，模型打包过程更多是模型的进一步组装，将不同模型组装在一起，当需要使用的时候将这些内容解析成整个流程（pipeline）的不同阶段（stage），从而实现整个产品功能。</p>
 <p>另外，考虑到模型很大程度是研究员的研究成果，对外涉及保密问题，因此会对模型进行加密，以保证其安全性。加密算法的选择需要根据实际业务需求来决定，诸如不同加密算法其加解密效率不一样，加解密是否有中心验证服务器，其核心都是为了保护研究成果。</p>
 <hr>
-<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
+<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。是目前工业界最有效的模型优化方法之一，<br>量化是指定点与浮点等数据之间建立一种数据映射关系，使得以较小的精度损失代价获得了推理性能收益，可简单理解为用“低比特”数字表示FP32等数值，如FP32–&gt;INT8可以实现4倍的参数压缩，在压缩内存的同时可以实现更快速的计算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
 <p>浮点数格式 (float32)：$$V &#x3D; (-1)^s×M×2^E$$</p>
 <table>
 <thead>
@@ -464,7 +464,8 @@
 <li>核心层<br>核心层是 SDK 的基石，定义了 SDK 最基础、最核心的数据结构。</li>
 </ul>
 <h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p>Open Neural Network Exchange 开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是深度学习框架到推理引擎的桥梁<br>链接：<a target="_blank" rel="noopener" href="https://onnx.ai/">ONNX</a>，<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx">Github</a>，<a target="_blank" rel="noopener" href="https://onnxruntime.ai/">ONNX Runtime</a>，<a target="_blank" rel="noopener" href="https://onnx.coderai.cn/">ONNX Runtime Web</a></p>
-<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/onnx.html">TORCH.ONNX</a>，<a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">Github</a><br>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code></p>
+<p>算子：深度学习算法由计算单元组成，我们称这些计算单元为算子（Operator，也称op）。 算子是一个函数空间到函数空间上的映射，同一模型中算子名称是唯一的，但是同一类型的算子可以存在多个。 如：Conv1、Conv2，是两个算子类型相同的不同算子。<br> PyTorch 转 ONNX，实际上就是把每个 PyTorch 的操作<strong>映射</strong>成了 ONNX 定义的<strong>算子</strong>。PyTorch 对 ONNX 的算子支持:<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a></p>
 <p>在转换普通的torch.nn.Module模型时，PyTorch 一方面会用跟踪法执行前向推理，把遇到的算子整合成计算图；另一方面，PyTorch 还会把遇到的每个算子翻译成 ONNX 中定义的算子。要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证：</p>
 <blockquote>
 <p>1.算子在 PyTorch 中有实现<br>2.有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法<br>3.ONNX 有相应的算子</p>
@@ -672,13 +673,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">78k</span>
+    <span title="站点总字数">79k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:42</span>
+    <span title="站点阅读时长">4:46</span>
 </div>
 
         
