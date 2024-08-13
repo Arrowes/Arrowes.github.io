@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-Loop.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-NCHW.png">
 <meta property="article:published_time" content="2024-07-23T14:12:00.000Z">
-<meta property="article:modified_time" content="2024-08-01T14:49:41.309Z">
+<meta property="article:modified_time" content="2024-08-13T15:28:16.355Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="技术">
 <meta property="article:tag" content="深度学习">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-01 22:49:41" itemprop="dateModified" datetime="2024-08-01T22:49:41+08:00">2024-08-01</time>
+                <time title="修改时间：2024-08-13 23:28:16" itemprop="dateModified" datetime="2024-08-13T23:28:16+08:00">2024-08-13</time>
               </span>
 
           
@@ -235,14 +235,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
+              <span>2.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>11 分钟</span>
             </span>
 
         </div>
@@ -257,6 +257,15 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关笔记</p>
 <span id="more"></span>
 
+<h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><h2 id="Bootloader-UDS"><a href="#Bootloader-UDS" class="headerlink" title="Bootloader &amp; UDS"></a>Bootloader &amp; UDS</h2><p>单片机正常运行时总是从固定地方取指令，顺序运行，这将对编写程序的人产生巨大的挑战，程序更新时需要使用烧录器等工具烧录，于是有人将程序设计成，由一个程序跳转到另一个程序，这个程序通常称作<strong>Bootloader</strong>，另一个叫做APP。<br>Bootloader程序常常具有通信接口和擦写内部存储空间的功能，可将需要更新的APP擦除，写入新的APP。有时会设计成相互跳转，技术也是可以实现的。有些为了保证程序不丢失，单独预留出备份区和出厂版本，出现某些错误时可以恢复到出厂版本或使用其他APP均可。<br>ECU是MCU的一种，专门用在汽车上。ECU经常会用在汽车零部件中，零部件密封性等要求都比较苛刻，并且装车，如果想取下零部件可能需要将车拆解才可以做到，这种行为是不被允许的，成本极高，操作复杂，因此大多主机厂（厂商）要求ECU具有升级功能，并且通过多年的积淀制定了行业标准<strong>UDS</strong>。<br>UDS（Unified Diagnostic Services，统一诊断服务）诊断协议是用于汽车行业诊断通信的需求规范，由ISO 14229系列标准定义。UDS诊断通信用于建立诊断仪与ECU之间的通信连接，并负责将ECU中的诊断结果输送到诊断仪中。UDS的作用非常广泛，几乎跟随ECU软件开发的全过程。<br>ECU开发过程要用到它来构建bootloader，上传和下载数据，即软件刷写，控制器Reset；测试时要用它来读写存储，控制外设；产线上，要用它来校准机械件，控制例程，进行下线执行器测试，刷新软件，配置防盗，读取号码，下线配置等。在行驶过程中，要用它来监测各种故障，并记下故障码；4S店里，技师需要读取当前故障、历史故障，读取故障发生时刻环境信息状态，清除故障，判断故障发生点，还可以用来升级ECU程序。<br>汽车明确规定通过UDS进行更新程序，主机厂要求擦写内部存储的代码不可写入正常代码中。汽车电子中ECU一旦设计完成，装车量产就很难再拆卸并返回零部件供应商完成功能升级或补丁修复。一旦出现售后质量问题，如果召回的话，零部件供应商和整车厂将面临严重的经济损失，因此设计基于CAN总线的ECU在线程序更新Bootloader可以很好的解决这一问题，将零部件供应商和整车厂的损失降低到最小。目前大部分汽车整机厂（主机厂）都要求在其设计的ECU实现Bootloader功能。</p>
+<h2 id="ASPICE"><a href="#ASPICE" class="headerlink" title="ASPICE"></a>ASPICE</h2><p>Automotive SPICE（Software Process Improvement and Capability dEtermination） 是由欧洲的主要汽车制造商共同策定的面向汽车行业的流程评估模型， 旨在改善和评估汽车电子控制器的系统和软件开发质量。0. Incomplete process</p>
+<ol>
+<li>Performed process</li>
+<li>Managed process</li>
+<li>Established process</li>
+<li>Predicatable process</li>
+<li>Innovating process</li>
+</ol>
 <h2 id="相机标定"><a href="#相机标定" class="headerlink" title="相机标定"></a>相机标定</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/389653208">一文带你搞懂相机内参外参(Intrinsics &amp; Extrinsics)</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_38172402/article/details/81949447">相机标定（Camera calibration）原理、步骤</a><br>相机标定：求出相机的内、外参数，以及畸变参数。<br>在图像测量过程以及机器视觉应用中，为确定空间物体表面某点的三维几何位置与其在图像中对应点之间的相互关系，必须建立相机成像的几何模型，这些几何模型参数就是相机参数。</p>
 <ol>
 <li>由于每个镜头的畸变程度各不相同，通过相机标定可以校正这种镜头畸变矫正畸变，生成矫正后的图像；</li>
@@ -387,7 +396,7 @@ save 和 load 使用 NumPy 的 .npy 格式，保存和加载时会包括数组�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">1.</span> <span class="nav-text">相机标定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEV-bird%E2%80%99s-eye-view-%E9%B8%9F%E7%9E%B0%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">BEV bird’s-eye-view 鸟瞰图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">3.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95-2-%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">车载测试[2]：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number"></span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy"><span class="nav-number">1.</span> <span class="nav-text">numpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">数据类型</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bootloader-UDS"><span class="nav-number">1.1.</span> <span class="nav-text">Bootloader &amp; UDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.2.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">1.3.</span> <span class="nav-text">相机标定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEV-bird%E2%80%99s-eye-view-%E9%B8%9F%E7%9E%B0%E5%9B%BE"><span class="nav-number">1.4.</span> <span class="nav-text">BEV bird’s-eye-view 鸟瞰图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.5.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95-2-%EF%BC%9A"><span class="nav-number">1.6.</span> <span class="nav-text">车载测试[2]：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy"><span class="nav-number">2.1.</span> <span class="nav-text">numpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">数据类型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -464,13 +473,13 @@ save 和 load 使用 NumPy 的 .npy 格式，保存和加载时会包括数组�
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">80k</span>
+    <span title="站点总字数">81k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:50</span>
+    <span title="站点阅读时长">4:53</span>
 </div>
 
         
