@@ -20,23 +20,24 @@
     var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="相关笔记">
+  <meta name="description" content="汽车技术相关笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Car：相关笔记">
+<meta property="og:title" content="Car：Automobiles">
 <meta property="og:url" content="https://wangyujie.space/Car/index.html">
 <meta property="og:site_name" content="Arrow的笔记本">
-<meta property="og:description" content="相关笔记">
+<meta property="og:description" content="汽车技术相关笔记">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-CAN.png">
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/489c65e0ae105cc930f09b778e0ea26e.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-Loop.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-NCHW.png">
 <meta property="article:published_time" content="2024-07-23T14:12:00.000Z">
-<meta property="article:modified_time" content="2024-08-13T15:28:16.355Z">
+<meta property="article:modified_time" content="2024-08-24T11:24:37.019Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="技术">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/489c65e0ae105cc930f09b778e0ea26e.png">
+<meta name="twitter:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-CAN.png">
 
 <link rel="canonical" href="https://wangyujie.space/Car/">
 
@@ -51,7 +52,7 @@
   };
 </script>
 
-  <title>Car：相关笔记 | Arrow的笔记本</title>
+  <title>Car：Automobiles | Arrow的笔记本</title>
   
 
 
@@ -202,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Car：相关笔记
+          Car：Automobiles
         </h1>
 
         <div class="post-meta">
@@ -219,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-13 23:28:16" itemprop="dateModified" datetime="2024-08-13T23:28:16+08:00">2024-08-13</time>
+                <time title="修改时间：2024-08-24 19:24:37" itemprop="dateModified" datetime="2024-08-24T19:24:37+08:00">2024-08-24</time>
               </span>
 
           
@@ -235,14 +236,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.9k</span>
+              <span>3.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
+              <span>14 分钟</span>
             </span>
 
         </div>
@@ -254,10 +255,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>相关笔记</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>汽车技术相关笔记</p>
 <span id="more"></span>
 
-<h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><h2 id="Bootloader-UDS"><a href="#Bootloader-UDS" class="headerlink" title="Bootloader &amp; UDS"></a>Bootloader &amp; UDS</h2><p>单片机正常运行时总是从固定地方取指令，顺序运行，这将对编写程序的人产生巨大的挑战，程序更新时需要使用烧录器等工具烧录，于是有人将程序设计成，由一个程序跳转到另一个程序，这个程序通常称作<strong>Bootloader</strong>，另一个叫做APP。<br>Bootloader程序常常具有通信接口和擦写内部存储空间的功能，可将需要更新的APP擦除，写入新的APP。有时会设计成相互跳转，技术也是可以实现的。有些为了保证程序不丢失，单独预留出备份区和出厂版本，出现某些错误时可以恢复到出厂版本或使用其他APP均可。<br>ECU是MCU的一种，专门用在汽车上。ECU经常会用在汽车零部件中，零部件密封性等要求都比较苛刻，并且装车，如果想取下零部件可能需要将车拆解才可以做到，这种行为是不被允许的，成本极高，操作复杂，因此大多主机厂（厂商）要求ECU具有升级功能，并且通过多年的积淀制定了行业标准<strong>UDS</strong>。<br>UDS（Unified Diagnostic Services，统一诊断服务）诊断协议是用于汽车行业诊断通信的需求规范，由ISO 14229系列标准定义。UDS诊断通信用于建立诊断仪与ECU之间的通信连接，并负责将ECU中的诊断结果输送到诊断仪中。UDS的作用非常广泛，几乎跟随ECU软件开发的全过程。<br>ECU开发过程要用到它来构建bootloader，上传和下载数据，即软件刷写，控制器Reset；测试时要用它来读写存储，控制外设；产线上，要用它来校准机械件，控制例程，进行下线执行器测试，刷新软件，配置防盗，读取号码，下线配置等。在行驶过程中，要用它来监测各种故障，并记下故障码；4S店里，技师需要读取当前故障、历史故障，读取故障发生时刻环境信息状态，清除故障，判断故障发生点，还可以用来升级ECU程序。<br>汽车明确规定通过UDS进行更新程序，主机厂要求擦写内部存储的代码不可写入正常代码中。汽车电子中ECU一旦设计完成，装车量产就很难再拆卸并返回零部件供应商完成功能升级或补丁修复。一旦出现售后质量问题，如果召回的话，零部件供应商和整车厂将面临严重的经济损失，因此设计基于CAN总线的ECU在线程序更新Bootloader可以很好的解决这一问题，将零部件供应商和整车厂的损失降低到最小。目前大部分汽车整机厂（主机厂）都要求在其设计的ECU实现Bootloader功能。</p>
+<h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><h2 id="CAN-CANoe"><a href="#CAN-CANoe" class="headerlink" title="CAN &amp; CANoe"></a>CAN &amp; CANoe</h2><p>CAN（Controller Area Network, 控制器局域网络）是一种用于嵌入式系统的多主机局部网络串行通信协议，广泛应用于汽车、工业自动化、医疗设备等领域。由博世公司在1980年代为汽车应用开发，目的是使车辆内的电子控制单元（ECU）之间能够以高可靠性和低成本进行通信。</p>
+<ol>
+<li>数据传输速度相对较高，可达到1 Mbit&#x2F;s。</li>
+<li>采用差分数据线，抗干扰能力强；</li>
+<li>多主通信模式，减少单点通信线束成本；</li>
+<li>具有错误侦听的自我诊断功能，通信可靠信较高。<img alt="picture 2" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-CAN.png" width=50%/>  
+两根线CAN-H、CAN-L，所有的CAN节点连接到上面。每个CAN节点包含CAN收发器、CAN控制器、MCU、MCU应用电路(如控制电机)四大部分。
+在发送数据时，CAN控制器把要发送的二进制编码通过CAN_Tx线发送到CAN收发器，然后由收发器把这个普通的逻辑电平信号转化成差分信号，通过差分线CAN_High和CAN_Low输出到CAN总线网络。接收数据过程则相反。采用双线差分信号，用两根信号线的电压差来表示逻辑0和逻辑1的传输方式，可以有效地抑制共模干扰
+CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分高速CAN和低速CAN，收发器也分为高速CAN收发器（1Mbps）和低速CAN收发器（125Kbps）。低速CAN也叫Fault Tolerance CAN，指的是即使总线上一根线失效，总线依然可以通信。</li>
+</ol>
+<p>CANoe是由德国公司Vector Informatik开发的一款强大的开发、测试和仿真工具，主要用于基于CAN总线的系统开发。它支持从早期设计到最终测试的整个开发过程。</p>
+<ul>
+<li><strong>仿真与测试</strong>：CANoe可以仿真整个CAN网络，帮助开发者在实际硬件出来之前进行开发和调试。此外，它还支持实时测试，可以连接到物理总线，进行实际环境中的测试。</li>
+<li><strong>分析与诊断</strong>：CANoe内置了丰富的分析工具，能够捕捉和分析总线上所有的消息，有助于开发者理解系统行为并排除故障。</li>
+<li><strong>扩展性</strong>：CANoe不仅支持CAN，还支持其他总线协议如LIN、FlexRay、MOST以及Ethernet等。这使得它非常适合用于复杂的多总线系统开发。</li>
+<li><strong>自动化</strong>：CANoe支持脚本编写和自动化测试，可以通过CAPL（CAN Access Programming Language）语言编写复杂的测试和仿真脚本，提高开发效率。</li>
+</ul>
+<p>CAN和CANoe通常用于汽车电子系统的开发与测试。典型的应用包括ECU之间的通信测试、网络负载分析、故障诊断以及对系统行为的仿真验证。CANoe的强大功能使得它在汽车行业内非常受欢迎，特别是在复杂的电子系统开发中扮演着重要角色。</p>
+<h2 id="Bootloader-UDS"><a href="#Bootloader-UDS" class="headerlink" title="Bootloader &amp; UDS"></a>Bootloader &amp; UDS</h2><p>单片机正常运行时总是从固定地方取指令，顺序运行，这将对编写程序的人产生巨大的挑战，程序更新时需要使用烧录器等工具烧录，于是有人将程序设计成，由一个程序跳转到另一个程序，这个程序通常称作<strong>Bootloader</strong>，另一个叫做APP。<br>Bootloader程序常常具有通信接口和擦写内部存储空间的功能，可将需要更新的APP擦除，写入新的APP。有时会设计成相互跳转，技术也是可以实现的。有些为了保证程序不丢失，单独预留出备份区和出厂版本，出现某些错误时可以恢复到出厂版本或使用其他APP均可。<br>ECU是MCU的一种，专门用在汽车上。ECU经常会用在汽车零部件中，零部件密封性等要求都比较苛刻，并且装车，如果想取下零部件可能需要将车拆解才可以做到，这种行为是不被允许的，成本极高，操作复杂，因此大多主机厂（厂商）要求ECU具有升级功能，并且通过多年的积淀制定了行业标准<strong>UDS</strong>。</p>
+<p>UDS（Unified Diagnostic Services，统一诊断服务）诊断协议是用于汽车行业诊断通信的需求规范，由ISO 14229系列标准定义。UDS诊断通信用于建立诊断仪与ECU之间的通信连接，并负责将ECU中的诊断结果输送到诊断仪中。UDS的作用非常广泛，几乎跟随ECU软件开发的全过程。<br>ECU开发过程要用到它来构建bootloader，上传和下载数据，即软件刷写，控制器Reset；测试时要用它来读写存储，控制外设；产线上，要用它来校准机械件，控制例程，进行下线执行器测试，刷新软件，配置防盗，读取号码，下线配置等。在行驶过程中，要用它来监测各种故障，并记下故障码；4S店里，技师需要读取当前故障、历史故障，读取故障发生时刻环境信息状态，清除故障，判断故障发生点，还可以用来升级ECU程序。<br>汽车明确规定通过UDS进行更新程序，主机厂要求擦写内部存储的代码不可写入正常代码中。汽车电子中ECU一旦设计完成，装车量产就很难再拆卸并返回零部件供应商完成功能升级或补丁修复。一旦出现售后质量问题，如果召回的话，零部件供应商和整车厂将面临严重的经济损失，因此设计基于CAN总线的ECU在线程序更新Bootloader可以很好的解决这一问题，将零部件供应商和整车厂的损失降低到最小。目前大部分汽车整机厂（主机厂）都要求在其设计的ECU实现Bootloader功能。</p>
 <h2 id="ASPICE"><a href="#ASPICE" class="headerlink" title="ASPICE"></a>ASPICE</h2><p>Automotive SPICE（Software Process Improvement and Capability dEtermination） 是由欧洲的主要汽车制造商共同策定的面向汽车行业的流程评估模型， 旨在改善和评估汽车电子控制器的系统和软件开发质量。0. Incomplete process</p>
 <ol>
 <li>Performed process</li>
@@ -396,7 +416,7 @@ save 和 load 使用 NumPy 的 .npy 格式，保存和加载时会包括数组�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bootloader-UDS"><span class="nav-number">1.1.</span> <span class="nav-text">Bootloader &amp; UDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.2.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">1.3.</span> <span class="nav-text">相机标定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEV-bird%E2%80%99s-eye-view-%E9%B8%9F%E7%9E%B0%E5%9B%BE"><span class="nav-number">1.4.</span> <span class="nav-text">BEV bird’s-eye-view 鸟瞰图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.5.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95-2-%EF%BC%9A"><span class="nav-number">1.6.</span> <span class="nav-text">车载测试[2]：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy"><span class="nav-number">2.1.</span> <span class="nav-text">numpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">数据类型</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAN-CANoe"><span class="nav-number">1.1.</span> <span class="nav-text">CAN &amp; CANoe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bootloader-UDS"><span class="nav-number">1.2.</span> <span class="nav-text">Bootloader &amp; UDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.3.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">1.4.</span> <span class="nav-text">相机标定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEV-bird%E2%80%99s-eye-view-%E9%B8%9F%E7%9E%B0%E5%9B%BE"><span class="nav-number">1.5.</span> <span class="nav-text">BEV bird’s-eye-view 鸟瞰图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.6.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95-2-%EF%BC%9A"><span class="nav-number">1.7.</span> <span class="nav-text">车载测试[2]：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy"><span class="nav-number">2.1.</span> <span class="nav-text">numpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">数据类型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -473,13 +493,13 @@ save 和 load 使用 NumPy 的 .npy 格式，保存和加载时会包括数组�
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">81k</span>
+    <span title="站点总字数">82k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:53</span>
+    <span title="站点阅读时长">4:56</span>
 </div>
 
         
