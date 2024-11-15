@@ -33,10 +33,10 @@
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0cefa13089cdae70056b909a0b32a7fc.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-NCHW.png">
 <meta property="article:published_time" content="2024-07-23T14:12:00.000Z">
-<meta property="article:modified_time" content="2024-10-19T11:09:51.530Z">
+<meta property="article:modified_time" content="2024-11-15T13:51:18.987Z">
 <meta property="article:author" content="Arrow">
-<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="技术">
+<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-CAN.png">
 
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-10-19 19:09:51" itemprop="dateModified" datetime="2024-10-19T19:09:51+08:00">2024-10-19</time>
+                <time title="修改时间：2024-11-15 21:51:18" itemprop="dateModified" datetime="2024-11-15T21:51:18+08:00">2024-11-15</time>
               </span>
 
           
@@ -242,14 +242,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
+              <span>5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>15 分钟</span>
+              <span>18 分钟</span>
             </span>
 
         </div>
@@ -305,13 +305,28 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
 <li>由于每个镜头的畸变程度各不相同，通过相机标定可以校正这种镜头畸变矫正畸变，生成矫正后的图像；</li>
 <li>根据获得的图像重构三维场景。</li>
 </ol>
+<ul>
+<li>内参（Intrinsic Parameters）： 内参是描述相机内部属性的参数，包括焦距、主点（光学中心）坐标、畸变系数等。内参通常在相机标定时确定，因为它们通常对于特定相机型号是固定的，不随时间变化。一旦相机内参被确定，它们在相机的使用过程中通常是保持不变的。下图为标准的内参矩阵。</li>
+<li>外参（Extrinsic Parameters）： 外参是描述相机在世界坐标系中的位置和姿态的参数，通常包括旋转矩阵和平移向量。外参在不同的相机位置或拍摄时刻可能会发生变化。</li>
+</ul>
 <p>摄像机标定过程，可以简单的描述为通过标定板，得到n个对应的世界坐标三维点Xi和对应的图像坐标二维点xi，这些三维点到二维点的转换都可以通过相机内参K ，相机外参 R 和t，以及畸变参数 D ，经过一系列的矩阵变换得到。<br>相机标定方法有：传统相机标定法、主动视觉相机标定方法、相机自标定法。</p>
 <blockquote>
 <p>常用术语<br>内参矩阵: Intrinsic Matrix<br>焦距: Focal Length<br>主点: Principal Point<br>径向畸变: Radial Distortion<br>切向畸变: Tangential Distortion<br>旋转矩阵: Rotation Matrices<br>平移向量: Translation Vectors<br>平均重投影误差: Mean Reprojection Error<br>重投影误差: Reprojection Errors<br>重投影点: Reprojected Points</p>
 </blockquote>
 <p><img data-src="https://i-blog.csdnimg.cn/blog_migrate/489c65e0ae105cc930f09b778e0ea26e.png" alt="alt text"></p>
 <p>世界坐标系—(外参)—&gt;相机坐标系—(内参)—&gt;像素坐标系</p>
-<h2 id="BEV-bird’s-eye-view-鸟瞰图"><a href="#BEV-bird’s-eye-view-鸟瞰图" class="headerlink" title="BEV bird’s-eye-view 鸟瞰图"></a>BEV bird’s-eye-view 鸟瞰图</h2><p>在自动驾驶领域，BEV 是指从车辆上方俯瞰的场景视图。BEV 图像可以提供车辆周围环境的完整视图，包括车辆前方、后方、两侧和顶部。<br>BEV 图像可以通过多种方式生成，包括：</p>
+<ol>
+<li>世界坐标系就是物体在真实世界中的坐标（参考坐标系，车辆坐标系）；</li>
+<li>相机坐标系以光心为相机坐标系的原点，以平行于图像的x和y方向为Xc轴和Yc轴，Zc轴和光轴平行，Xc，Yc，Zc互相垂直，单位是长度单位。</li>
+<li>图像物理坐标系以主光轴和图像平面交点为坐标原点，x和y方向如图所示，单位是长度单位。</li>
+<li>图像像素坐标系以图像的顶点为坐标原点，u和v方向平行于x和y方向，单位是以像素计。</li>
+</ol>
+<p>（U,V,W）是世界坐标系，经过刚体变换（如：旋转、平移）后变为了相机坐标系，再次经过透视投影转变为了图像坐标系，最后经仿射变换转换为了像素坐标系（u,v）。转换关系如下(Z是尺度因子)：</p>
+<h3 id="相机模型"><a href="#相机模型" class="headerlink" title="相机模型"></a>相机模型</h3><h4 id="针孔相机模型"><a href="#针孔相机模型" class="headerlink" title="针孔相机模型"></a>针孔相机模型</h4><p>相机将三维世界中的坐标点（单位为米）映射到二维图像平面（单位为像素）的过程能够用一个几何模型进行描述，这个几何模型就是所谓的相机模型。模型有很多种，其中一种最简单有效的模型称为针孔模型。它描述了一束光线通过针孔之后，在针孔背面投影成像的关系。同时，由于相机镜头上的透镜的存在，会使得光线投影到成像平面的过程中会产生畸变。</p>
+<h4 id="鱼眼相机模型"><a href="#鱼眼相机模型" class="headerlink" title="鱼眼相机模型"></a>鱼眼相机模型</h4><p>由于相机镜头上的透镜的存在，会使得光线投影到成像平面的过程中会产生畸变。这一点在鱼眼相机中表现尤其明显，如图。</p>
+<p>经过P点的入射光线没有透镜的话，本应交于相机成像平面的e点。然而，经过鱼眼相机的折射，光线会交于相机成像平面的d点，就产生了畸变，因此畸变图像整体上呈现出像素朝图像中心点聚集的态势。<br>去畸变，就是将折射到d点的点，重新映射回到e点，因此去畸变之后的图像与原始的鱼眼图像相比，仿佛是把向心聚集的像素又重新向四周铺展开来。下表中的两幅图分别为鱼眼图和去畸变之后的展开图：</p>
+<p>鱼眼相机的投影方式有很多种假设，例如等距投影、等立体角投影、正交投影、体视投影、线性投影。但是真实的鱼眼相机镜头并不完全遵循上述的这些模型假设。因此Kannala-Brandt提出了一种一般形式的估计，适用于不同类型的鱼眼相机：<br>这个也是纳入opencv中的鱼眼相机畸变模型。现在基本上默认鱼眼相机模型遵循上述公式。公式中的θ为光线入射角，r(θ)为上图中od的长度。</p>
+<h3 id="AVM-BEV-TOPVIEW"><a href="#AVM-BEV-TOPVIEW" class="headerlink" title="AVM BEV TOPVIEW"></a>AVM BEV TOPVIEW</h3><h2 id="BEV-bird’s-eye-view-鸟瞰图"><a href="#BEV-bird’s-eye-view-鸟瞰图" class="headerlink" title="BEV bird’s-eye-view 鸟瞰图"></a>BEV bird’s-eye-view 鸟瞰图</h2><p>在自动驾驶领域，BEV 是指从车辆上方俯瞰的场景视图。BEV 图像可以提供车辆周围环境的完整视图，包括车辆前方、后方、两侧和顶部。<br>BEV 图像可以通过多种方式生成，包括：</p>
 <ul>
 <li>使用激光雷达：激光雷达可以直接测量物体在三维空间中的位置，然后将这些数据转换为 BEV 图像。</li>
 <li>使用摄像头：摄像头可以通过计算图像的透视投影来生成 BEV 图像。</li>
@@ -384,8 +399,8 @@ save 和 load 使用 NumPy 的 .npy 格式，保存和加载时会包括数组�
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
               <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
           </div>
 
         
@@ -457,7 +472,7 @@ save 和 load 使用 NumPy 的 .npy 格式，保存和加载时会包括数组�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAN-CANoe"><span class="nav-number">1.1.</span> <span class="nav-text">CAN &amp; CANoe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GHS"><span class="nav-number">1.2.</span> <span class="nav-text">GHS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.3.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">1.4.</span> <span class="nav-text">相机标定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEV-bird%E2%80%99s-eye-view-%E9%B8%9F%E7%9E%B0%E5%9B%BE"><span class="nav-number">1.5.</span> <span class="nav-text">BEV bird’s-eye-view 鸟瞰图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.6.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95-2-%EF%BC%9A"><span class="nav-number">1.7.</span> <span class="nav-text">车载测试[2]：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy"><span class="nav-number">2.1.</span> <span class="nav-text">numpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">数据类型</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAN-CANoe"><span class="nav-number">1.1.</span> <span class="nav-text">CAN &amp; CANoe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GHS"><span class="nav-number">1.2.</span> <span class="nav-text">GHS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.3.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">1.4.</span> <span class="nav-text">相机标定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">相机模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%92%88%E5%AD%94%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">针孔相机模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%B1%BC%E7%9C%BC%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">鱼眼相机模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AVM-BEV-TOPVIEW"><span class="nav-number">1.4.2.</span> <span class="nav-text">AVM BEV TOPVIEW</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEV-bird%E2%80%99s-eye-view-%E9%B8%9F%E7%9E%B0%E5%9B%BE"><span class="nav-number">1.5.</span> <span class="nav-text">BEV bird’s-eye-view 鸟瞰图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.6.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95-2-%EF%BC%9A"><span class="nav-number">1.7.</span> <span class="nav-text">车载测试[2]：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy"><span class="nav-number">2.1.</span> <span class="nav-text">numpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">数据类型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -534,13 +549,13 @@ save 和 load 使用 NumPy 的 .npy 格式，保存和加载时会包括数组�
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">85k</span>
+    <span title="站点总字数">86k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:10</span>
+    <span title="站点阅读时长">5:14</span>
 </div>
 
         
