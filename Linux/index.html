@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Linux1.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Linux2.png">
 <meta property="article:published_time" content="2022-11-28T02:32:42.000Z">
-<meta property="article:modified_time" content="2025-06-01T15:14:49.500Z">
+<meta property="article:modified_time" content="2025-06-24T14:57:04.933Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-06-01 23:14:49" itemprop="dateModified" datetime="2025-06-01T23:14:49+08:00">2025-06-01</time>
+                <time title="修改时间：2025-06-24 22:57:04" itemprop="dateModified" datetime="2025-06-24T22:57:04+08:00">2025-06-24</time>
               </span>
 
           
@@ -239,7 +239,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.8k</span>
+              <span>4.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -344,7 +344,8 @@
 <ol>
 <li>在 <a target="_blank" rel="noopener" href="https://www.ipaddress.com/">https://www.ipaddress.com/</a> 查询 <code>github.com</code>与<code>github.global.ssl.fastly.net</code>的IP</li>
 <li>打开hosts文件:<code>C:\Windows\System32\drivers\etc</code></li>
-<li>配置Host,在文件最后加入查到的IP, 如：<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#github地址</span></span><br><span class="line">140.82.114.4 github.com</span><br><span class="line">151.101.1.194 github.global.ssl.fastly.net</span><br></pre></td></tr></table></figure></li>
+<li>配置Host,在文件最后加入查到的IP, 如：<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#github地址</span></span><br><span class="line">140.82.114.4 github.com</span><br><span class="line">151.101.1.194 github.global.ssl.fastly.net</span><br></pre></td></tr></table></figure>
+git仓全部显示changes修改问题，需要git windows 和linux 统一换行符和权限，<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf <span class="literal">true</span></span><br><span class="line">git config core.fileMode <span class="literal">false</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p><code>Docker</code>是一种开源的容器化平台，可以帮助开发者更高效地打包、部署和运行应用程序。它基于 <code>Linux</code> 容器（LXC）技术，通过将应用程序及其所有依赖项打包到一个容器中，从而消除了应用程序在不同环境之间迁移所面临的问题。使用Docker，开发者可以快速构建、测试和部署应用程序，减少了与操作系统和基础设施相关的问题，从而提高了开发、测试和发布的速度。</p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MR4y1Q738/">🐳Docker概念，工作流和实践</a><br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Linux1.png" width="80%"><br><img data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Linux2.png" width="80%"></p>
