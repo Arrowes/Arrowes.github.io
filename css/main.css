@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffacff;
+  background: #ff0bff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2898,4 +2898,10 @@ mjx-container + br {
 .highlight-container .js_unfold_code_btn:hover,
 .highlight-container .js_retract_code_btn:hover {
   border-bottom-color: none !important;
+}
+.post-body .search-keyword {
+  background-color: #ffec3d;
+  color: #333;
+  padding: 2px 5px;
+  border-radius: 4px;
 }
