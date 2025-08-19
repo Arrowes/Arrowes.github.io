@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"manual"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="汽车技术相关笔记">
@@ -38,8 +38,8 @@
 <meta property="article:published_time" content="2024-07-23T14:12:00.000Z">
 <meta property="article:modified_time" content="2025-08-18T11:16:54.397Z">
 <meta property="article:author" content="Arrow">
-<meta property="article:tag" content="技术">
 <meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="技术">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-CAN.png">
 
@@ -184,7 +184,6 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -272,7 +271,7 @@
 <li>数据传输速度相对较高，可达到1 Mbit&#x2F;s。</li>
 <li>采用差分数据线，抗干扰能力强；</li>
 <li>多主通信模式，减少单点通信线束成本；</li>
-<li>具有错误侦听的自我诊断功能，通信可靠信较高。<img alt="picture 2" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-CAN.png" width=50%/>  
+<li>具有错误侦听的自我诊断功能，通信可靠信较高。<img alt="picture 2" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-CAN.png" width=50%/>  
 两根线CAN-H、CAN-L，所有的CAN节点连接到上面。每个CAN节点包含CAN收发器、CAN控制器、MCU、MCU应用电路(如控制电机)四大部分。
 在发送数据时，CAN控制器把要发送的二进制编码通过CAN_Tx线发送到CAN收发器，然后由收发器把这个普通的逻辑电平信号转化成差分信号，通过差分线CAN_High和CAN_Low输出到CAN总线网络。接收数据过程则相反。采用双线差分信号，用两根信号线的电压差来表示逻辑0和逻辑1的传输方式，可以有效地抑制共模干扰
 CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分高速CAN和低速CAN，收发器也分为高速CAN收发器（1Mbps）和低速CAN收发器（125Kbps）。低速CAN也叫Fault Tolerance CAN，指的是即使总线上一根线失效，总线依然可以通信。</li>
@@ -309,9 +308,9 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
 <li>MIL（Hardware-in-the-Loop模型在环）：主要用于在模拟环境中评估控制算法的功能性，确认模型是否能实现设计的需求。这通常在早期开发阶段进行，有助于及早发现设计问题。</li>
 <li>SIL（Software-in-the-Loop软件在环）：在PC上验证代码实现的功能是否与模型一致。</li>
 <li>PIL（Processer-in-the-Loop处理器在环）：在目标处理器上验证代码实现的功能是否与模型一致。</li>
-<li>HIL（Hardware-in-the-Loop硬件在环）：在ECU&#x2F;EPP&#x2F;整套系统上验证代码实现的功能是否与需求定义一致。<img alt="picture 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-Loop.png" /></li>
+<li>HIL（Hardware-in-the-Loop硬件在环）：在ECU&#x2F;EPP&#x2F;整套系统上验证代码实现的功能是否与需求定义一致。<img alt="picture 1" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-Loop.png" /></li>
 </ul>
-<h1 id="相机模型"><a href="#相机模型" class="headerlink" title="相机模型"></a>相机模型</h1><p><strong>针孔相机模型</strong><br>相机将三维世界中的坐标点（单位为米）映射到二维图像平面（单位为像素）的过程能够用一个几何模型进行描述，这个几何模型就是所谓的相机模型。模型有很多种，其中一种最简单有效的模型称为针孔模型。它描述了一束光线通过针孔之后，在针孔背面投影成像的关系。同时，由于相机镜头上的透镜的存在，会使得光线投影到成像平面的过程中会产生畸变。<br><strong>鱼眼相机模型</strong><br>由于相机镜头上的透镜的存在，会使得光线投影到成像平面的过程中会产生畸变。这一点在鱼眼相机中表现尤其明显，如图。<br><img data-src="https://pic2.zhimg.com/v2-1d0445ee5d322dbd845a4976d600f6f1_1440w.jpg" width = "30%" /><br>经过P点的入射光线没有透镜的话，本应交于相机成像平面的e点。然而，经过鱼眼相机的折射，光线会交于相机成像平面的d点，就产生了畸变，因此畸变图像整体上呈现出像素朝图像中心点聚集的态势。<br>去畸变，就是将折射到d点的点，重新映射回到e点，因此去畸变之后的图像与原始的鱼眼图像相比，仿佛是把向心聚集的像素又重新向四周铺展开来。下表中的两幅图分别为鱼眼图和去畸变之后的展开图：</p>
+<h1 id="相机模型"><a href="#相机模型" class="headerlink" title="相机模型"></a>相机模型</h1><p><strong>针孔相机模型</strong><br>相机将三维世界中的坐标点（单位为米）映射到二维图像平面（单位为像素）的过程能够用一个几何模型进行描述，这个几何模型就是所谓的相机模型。模型有很多种，其中一种最简单有效的模型称为针孔模型。它描述了一束光线通过针孔之后，在针孔背面投影成像的关系。同时，由于相机镜头上的透镜的存在，会使得光线投影到成像平面的过程中会产生畸变。<br><strong>鱼眼相机模型</strong><br>由于相机镜头上的透镜的存在，会使得光线投影到成像平面的过程中会产生畸变。这一点在鱼眼相机中表现尤其明显，如图。<br><img src="https://pic2.zhimg.com/v2-1d0445ee5d322dbd845a4976d600f6f1_1440w.jpg" width = "30%" /><br>经过P点的入射光线没有透镜的话，本应交于相机成像平面的e点。然而，经过鱼眼相机的折射，光线会交于相机成像平面的d点，就产生了畸变，因此畸变图像整体上呈现出像素朝图像中心点聚集的态势。<br>去畸变，就是将折射到d点的点，重新映射回到e点，因此去畸变之后的图像与原始的鱼眼图像相比，仿佛是把向心聚集的像素又重新向四周铺展开来。下表中的两幅图分别为鱼眼图和去畸变之后的展开图：</p>
 <p>鱼眼相机的投影方式有很多种假设，例如等距投影、等立体角投影、正交投影、体视投影、线性投影。但是真实的鱼眼相机镜头并不完全遵循上述的这些模型假设。因此Kannala-Brandt提出了一种一般形式的估计，适用于不同类型的鱼眼相机：<br>这个也是纳入opencv中的鱼眼相机畸变模型。现在基本上默认鱼眼相机模型遵循上述公式。公式中的θ为光线入射角，r(θ)为上图中od的长度。</p>
 <h2 id="相机标定"><a href="#相机标定" class="headerlink" title="相机标定"></a>相机标定</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/389653208">一文带你搞懂相机内参外参(Intrinsics &amp; Extrinsics)</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_38172402/article/details/81949447">相机标定（Camera calibration）原理、步骤</a><br>相机标定：求出相机的内、外参数，以及畸变参数。<br>在图像测量过程以及机器视觉应用中，为确定空间物体表面某点的三维几何位置与其在图像中对应点之间的相互关系，必须建立相机成像的几何模型，这些几何模型参数就是相机参数。</p>
 <ol>
@@ -344,7 +343,7 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
 <blockquote>
 <p>常用术语<br>内参矩阵: Intrinsic Matrix<br>焦距: Focal Length<br>主点: Principal Point<br>径向畸变: Radial Distortion<br>切向畸变: Tangential Distortion<br>旋转矩阵: Rotation Matrices<br>平移向量: Translation Vectors<br>平均重投影误差: Mean Reprojection Error<br>重投影误差: Reprojection Errors<br>重投影点: Reprojected Points</p>
 </blockquote>
-<p><img data-src="https://i-blog.csdnimg.cn/blog_migrate/489c65e0ae105cc930f09b778e0ea26e.png" alt="alt text"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/489c65e0ae105cc930f09b778e0ea26e.png" alt="alt text"></p>
 <p>世界坐标系—(外参)—&gt;相机坐标系—(内参)—&gt;像素坐标系</p>
 <ol>
 <li>世界坐标系就是物体在真实世界中的坐标（参考坐标系，车辆坐标系）；</li>
@@ -396,7 +395,7 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
 </ul>
 </li>
 </ul>
-<p><img data-src="https://i-blog.csdnimg.cn/blog_migrate/0cefa13089cdae70056b909a0b32a7fc.png" alt="alt text"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/0cefa13089cdae70056b909a0b32a7fc.png" alt="alt text"></p>
 </li>
 </ul>
 <p>( R, G, B ) 的范围是 [0, 255]，(Y)通常在[0, 255]之间，而(U, V)一般在[-128, 127]之间。</p>
@@ -410,7 +409,7 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
 <blockquote>
 <p>N：Batch数量，如图片的数量。<br>H：Height，图片的高度。<br>W：Width，图片的宽度。<br>C：Channel，图片的通道数。</p>
 </blockquote>
-<p>但是数据只能线性存储，因此四个维度有对应的顺序，不同的数据排布（format）方式，会显著影响计算性能。 常见的数据存储格式有NCHW和NHWC两种,是流行的深度学习框架不同的数据格式<a target="_blank" rel="noopener" href="https://blog.csdn.net/thl789/article/details/109037433?spm=1001.2014.3001.5506">[1]</a>：<br>NCHW：将同一通道的所有像素值按顺序进行存储。<br>NHWC：将不同通道的同一位置的像素值按顺序进行存储。<br><img alt="picture 0" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-NCHW.png" />  </p>
+<p>但是数据只能线性存储，因此四个维度有对应的顺序，不同的数据排布（format）方式，会显著影响计算性能。 常见的数据存储格式有NCHW和NHWC两种,是流行的深度学习框架不同的数据格式<a target="_blank" rel="noopener" href="https://blog.csdn.net/thl789/article/details/109037433?spm=1001.2014.3001.5506">[1]</a>：<br>NCHW：将同一通道的所有像素值按顺序进行存储。<br>NHWC：将不同通道的同一位置的像素值按顺序进行存储。<br><img alt="picture 0" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-NCHW.png" />  </p>
 <h2 id="BEV感知"><a href="#BEV感知" class="headerlink" title="BEV感知"></a>BEV感知</h2><p>在自动驾驶领域，BEV 是指从车辆上方俯瞰的场景视图。BEV 图像可以提供车辆周围环境的完整视图，包括车辆前方、后方、两侧和顶部。<br>BEV 图像可以通过多种方式生成，包括：</p>
 <ul>
 <li>使用激光雷达：激光雷达可以直接测量物体在三维空间中的位置，然后将这些数据转换为 BEV 图像。</li>
@@ -465,8 +464,8 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
               <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
           </div>
 
         
@@ -682,7 +681,6 @@ setInterval("createtime()",250);
   <script src="/lib/anime.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -695,8 +693,6 @@ setInterval("createtime()",250);
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
   <script>
 var pjax = new Pjax({

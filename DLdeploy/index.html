@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"manual"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="深度学习模型部署相关记录，目前仅开了个头，项目地址：DLpractice">
@@ -188,7 +188,6 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -275,7 +274,7 @@
 <ul>
 <li>Network selection：</li>
 <li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
-<li>Deployment：<img alt="图 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
+<li>Deployment：<img alt="图 1" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
 </ul>
 <p>Netron神经网络可视化: <a target="_blank" rel="noopener" href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a target="_blank" rel="noopener" href="https://netron.app/">在线网站</a></p>
 <p><a target="_blank" rel="noopener" href="https://mmdeploy.readthedocs.io/zh-cn/latest/">MMDeploy中文文档</a></p>
@@ -319,7 +318,7 @@
 <td>利用引擎已有训练优化能力</td>
 </tr>
 </tbody></table>
-<img alt="图 3" data-src="https://pic2.zhimg.com/80/v2-ffd5625be23ba4fa8a56f5232a3f9c95_720w.webp" width="80%"/>  
+<img alt="图 3" src="https://pic2.zhimg.com/80/v2-ffd5625be23ba4fa8a56f5232a3f9c95_720w.webp" width="80%"/>  
 
 <h2 id="部署优化指标"><a href="#部署优化指标" class="headerlink" title="部署优化指标"></a>部署优化指标</h2><p>成本、功耗、性价比</p>
 <p>AI 模型部署到硬件上的成本将极大限制用户的业务承受能力。<br>成本问题主要聚焦于芯片的选型，比如，对比<strong>寒武纪 MLU220</strong> 和 MLU270，MLU270 主要用作数据中心级的加速卡，其算力和功耗都相对于边缘端的人工智能加速卡MLU220要高。至于 Nvida 推出的 Jetson 和 Tesla T4 也是类似思路，Tesla T4 是主打数据中心的推理加速卡，而 Jetson 则是嵌入式设备的加速卡。对于终端场景，还会根据对算力的需求进一步细分，比如表中给出的高通骁龙芯片，除 GPU 的浮点算力外，还会增加 DSP 以增加定点算力</p>
@@ -429,12 +428,12 @@
 <blockquote>
 <p>8位和16位是指量化的位深度，表示用多少个二进制位来表示每个权重或激活值。在量化时，8位会将每个权重或激活值分成256个不同的离散值，而16位则分为65536个离散值，因此16位的表示范围更广，可以更精确地表示模型中的参数和激活值。但是，使用较高的位深度会增加存储要求和计算成本，因此需要在预测精度和计算开销之间进行权衡。</p>
 </blockquote>
-<img alt="picture 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DLdeploy-16to8bit.png" width="70%"/>  
+<img alt="picture 1" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DLdeploy-16to8bit.png" width="70%"/>  
 
 
 
 <p>乘一个系数把float类型的小数部分转换成整数部分，然后用这个转换出来的整数进行计算，计算结果再还原成float</p>
-<img alt="图 3" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
+<img alt="图 3" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DLdeployquantized.png" width="80%"/>  
 
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.08295.pdf">A White Paper on Neural Network Quantization</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/354921065">AI 框架部署方案之模型量化概述</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/400927037">AI 框架部署方案之模型量化的损失分析</a></p>
@@ -445,8 +444,8 @@
 
 
 <h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p><a target="_blank" rel="noopener" href="https://mmdeploy.readthedocs.io/zh-cn/latest/tutorial/01_introduction_to_model_deployment.html">模型部署简介 — mmdeploy 1.3.1 文档</a></p>
-<p>神经网络实际上只是描述了数据计算的过程，其结构可以用计算图表示。比如 <code>a+b</code> 可以用下面的计算图来表示：<br><img data-src="https://user-images.githubusercontent.com/4560679/156558717-96bbe544-4dc7-4460-8850-3cb1790e39ec.png" alt="a+b"></p>
-<p>为了加速计算，一些框架会使用对神经网络“先编译，后执行”的静态图来描述网络。静态图的缺点是难以描述控制流（比如 if-else 分支语句和 for 循环语句），直接对其引入控制语句会导致产生不同的计算图。比如循环执行 n 次 <code>a=a+b</code>，对于不同的 n，会生成不同的计算图：<br><img data-src="https://user-images.githubusercontent.com/4560679/156558606-6ff18e19-f3b1-463f-8f83-60bf6f7ef64b.png" alt="n=2"></p>
+<p>神经网络实际上只是描述了数据计算的过程，其结构可以用计算图表示。比如 <code>a+b</code> 可以用下面的计算图来表示：<br><img src="https://user-images.githubusercontent.com/4560679/156558717-96bbe544-4dc7-4460-8850-3cb1790e39ec.png" alt="a+b"></p>
+<p>为了加速计算，一些框架会使用对神经网络“先编译，后执行”的静态图来描述网络。静态图的缺点是难以描述控制流（比如 if-else 分支语句和 for 循环语句），直接对其引入控制语句会导致产生不同的计算图。比如循环执行 n 次 <code>a=a+b</code>，对于不同的 n，会生成不同的计算图：<br><img src="https://user-images.githubusercontent.com/4560679/156558606-6ff18e19-f3b1-463f-8f83-60bf6f7ef64b.png" alt="n=2"></p>
 <p>ONNX（Open Neural Network Exchange）开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是 Facebook 和微软在 2017 年共同发布的，用于标准描述计算图的一种格式。目前，在数家机构的共同维护下，ONNX 已经对接了多种深度学习框架和多种推理引擎。因此，ONNX 被当成了深度学习框架到推理引擎的桥梁，就像编译器的中间语言一样。</p>
 <blockquote>
 <p>链接：<a target="_blank" rel="noopener" href="https://onnx.ai/">ONNX</a>，<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx">Github</a>，<a target="_blank" rel="noopener" href="https://onnxruntime.ai/">ONNX Runtime</a>，<a target="_blank" rel="noopener" href="https://onnx.coderai.cn/">ONNX Runtime Web</a><br><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/onnx.html">torch.onnx 文档</a>， <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/tree/main/torch/onnx">torch.onnx Github</a><br>PyTorch 对 ONNX 的算子支持:<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">官方算子文档</a><br><a target="_blank" rel="noopener" href="https://github.com/onnx/onnx/blob/main/docs/Versioning.md#released-versions">opset_version版本对应关系</a></p>
@@ -459,7 +458,7 @@
 <h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
 
-<p><img data-src="https://user-images.githubusercontent.com/4560679/157627349-10ed5483-8bde-47d0-b190-a7a4d0ca2c03.png" alt="alt text"></p>
+<p><img src="https://user-images.githubusercontent.com/4560679/157627349-10ed5483-8bde-47d0-b190-a7a4d0ca2c03.png" alt="alt text"></p>
 <details>
     <summary>SRCNN超分辨率代码</summary>
 
@@ -469,7 +468,7 @@
 <hr>
 <p>模型转换为ONNX，验证正确性，运行推理：</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
-<img alt="picture 0" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
+<img alt="picture 0" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
 
 <h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br><code>torch.onnx.export(model,x,onnx_file,opset_version=11)</code><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
 <ul>
@@ -498,7 +497,7 @@
 </li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
-<h1 id="模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）"><a href="#模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）" class="headerlink" title="模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）"></a>模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）</h1><h2 id="模型转换器设计"><a href="#模型转换器设计" class="headerlink" title="模型转换器设计"></a>模型转换器设计</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/450342651">千行百业智能化落地，MMDeploy 助你一”部”到位 - 知乎 (zhihu.com)</a><br><img alt="图 3" data-src="https://pic1.zhimg.com/80/v2-a076d9317d2167d9d6d8898e0db0fd7c_1440w.webp" width="80%"/><br>模型转换器的具体步骤为：</p>
+<h1 id="模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）"><a href="#模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）" class="headerlink" title="模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）"></a>模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）</h1><h2 id="模型转换器设计"><a href="#模型转换器设计" class="headerlink" title="模型转换器设计"></a>模型转换器设计</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/450342651">千行百业智能化落地，MMDeploy 助你一”部”到位 - 知乎 (zhihu.com)</a><br><img alt="图 3" src="https://pic1.zhimg.com/80/v2-a076d9317d2167d9d6d8898e0db0fd7c_1440w.webp" width="80%"/><br>模型转换器的具体步骤为：</p>
 <ol>
 <li>把 PyTorch 转换成 ONNX 模型；</li>
 <li>对 ONNX 模型进行优化；</li>
@@ -511,7 +510,7 @@
 <li>模型分块——精准切除冗余<br>针对部分模型的逻辑过于复杂，在后端里无法支持的问题，MMDeploy 使用了模型分块机制，能像手术刀一样精准切除掉模型中难以转换的部分，把原模型分成多个子模型，分别转换。这些被去掉的逻辑会在 SDK 中实现。</li>
 <li>自定义算子——扩展引擎能力<br>OpenMMLab 实现了一些新算子，这些算子在 ONNX 或者后端中没有支持。针对这个问题，MMDeploy 把自定义算子在多个后端上进行了实现，扩充了推理引擎的表达能力。</li>
 </ul>
-<h2 id="应用开发工具包-SDK"><a href="#应用开发工具包-SDK" class="headerlink" title="应用开发工具包 SDK"></a>应用开发工具包 SDK</h2><img alt="图 3" data-src="https://pic2.zhimg.com/80/v2-5618bc32c6018dbe6b7419555c373445_1440w.webp" width="80%"/>  
+<h2 id="应用开发工具包-SDK"><a href="#应用开发工具包-SDK" class="headerlink" title="应用开发工具包 SDK"></a>应用开发工具包 SDK</h2><img alt="图 3" src="https://pic2.zhimg.com/80/v2-5618bc32c6018dbe6b7419555c373445_1440w.webp" width="80%"/>  
 
 <ul>
 <li>接口层<br>SDK 为每种视觉任务均提供一组 C API。目前开放了分类、检测、分割、超分、文字检测、文字识别等几类任务的接口。 SDK 充分考虑了接口的易用性和友好性。每组接口均只由 ‘创建句柄’、‘应用句柄’、‘销毁数据’ 和 ‘销毁句柄’ 等函数组成。用法简单、便于集成。</li>
@@ -755,7 +754,6 @@ setInterval("createtime()",250);
   <script src="/lib/anime.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -768,8 +766,6 @@ setInterval("createtime()",250);
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
   <script>
 var pjax = new Pjax({

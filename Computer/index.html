@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"manual"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="PC折腾及服务器相关搭建记录">
@@ -180,7 +180,6 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -287,15 +286,15 @@
 <h2 id="远程串流"><a href="#远程串流" class="headerlink" title="远程串流"></a>远程串流</h2><p>使用Sunshine + Moonlight 来实现毫秒级延迟的远程串流<br>PC端安装<a target="_blank" rel="noopener" href="https://github.com/LizardByte/Sunshine/releases">Sunshine</a><br>远控端安装<a target="_blank" rel="noopener" href="https://github.com/moonlight-stream/moonlight-android/releases">MoonLight</a> (安卓)<br>然后连接同一个网络即可</p>
 <h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#更新软件</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade</span><br><span class="line"><span class="comment">#安装openssh-server</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment">#check，其中 active(running) 是高亮的，则成功，若未运行：sudo systemctl enable --now ssh</span></span><br><span class="line">service ssh status</span><br><span class="line"><span class="comment">#允许 SSH 通过防火墙</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line"><span class="comment">#查ip，10.99.1.55</span></span><br><span class="line">ip a</span><br></pre></td></tr></table></figure>
 
-<p>vscode安装插件：Remote - SSH<br>登录ubuntu用户：ssh <a href="mailto:&#x75;&#x73;&#x65;&#114;&#x6e;&#x61;&#109;&#x65;&#64;&#x31;&#48;&#46;&#x39;&#57;&#x2e;&#x31;&#x2e;&#53;&#53;">&#x75;&#x73;&#x65;&#114;&#x6e;&#x61;&#109;&#x65;&#64;&#x31;&#48;&#46;&#x39;&#57;&#x2e;&#x31;&#x2e;&#53;&#53;</a></p>
+<p>vscode安装插件：Remote - SSH<br>登录ubuntu用户：ssh <a href="mailto:&#x75;&#115;&#101;&#114;&#110;&#97;&#109;&#x65;&#64;&#x31;&#x30;&#x2e;&#57;&#57;&#x2e;&#49;&#46;&#53;&#x35;">&#x75;&#115;&#101;&#114;&#110;&#97;&#109;&#x65;&#64;&#x31;&#x30;&#x2e;&#57;&#57;&#x2e;&#49;&#46;&#53;&#x35;</a></p>
 <blockquote>
-<p>例如主用户XXX：<br>ssh <a href="mailto:&#x58;&#x58;&#88;&#64;&#x31;&#48;&#46;&#57;&#57;&#46;&#x31;&#46;&#53;&#53;">&#x58;&#x58;&#88;&#64;&#x31;&#48;&#46;&#57;&#57;&#46;&#x31;&#46;&#53;&#53;</a><br>密码：XXX204</p>
+<p>例如主用户XXX：<br>ssh <a href="mailto:&#88;&#x58;&#x58;&#64;&#x31;&#48;&#46;&#57;&#57;&#46;&#49;&#46;&#x35;&#x35;">&#88;&#x58;&#x58;&#64;&#x31;&#48;&#46;&#57;&#57;&#46;&#49;&#46;&#x35;&#x35;</a><br>密码：XXX204</p>
 </blockquote>
 <h1 id="拯救者R720-15IKBN"><a href="#拯救者R720-15IKBN" class="headerlink" title="拯救者R720-15IKBN"></a>拯救者R720-15IKBN</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">制造商: LENOVO </span><br><span class="line">设备型号: Lenovo R720-15IKBN</span><br><span class="line">设备代号: 80WW</span><br><span class="line">序列号: PF0S8CHZ</span><br><span class="line">BIOS版本: 4KCN45WW</span><br></pre></td></tr></table></figure>
 <p>高中毕业17年暑假购入的拯救者R720-15IKBN，21年加过一条和原装同款的8G内存条组成双通道（155），网卡换成了Intel AX200（108），22年把原装的128g固态换成了闪迪的1T（619，现在价格都降一半了），硅脂换了2-3次，研一拿来跑深度学习，现在还用c口转dp连着一台2k144显示器，属实难为这个1050ti了；现在外壳都好几处开裂，屏幕好几条黑线，但是嫌换屏幕麻烦且贵，凑合着再用最后一年陪我写完毕业论文吧.</p>
 <p>工具：<br><a target="_blank" rel="noopener" href="https://pan.leekarl.com/LLT">拯救者工具箱 Lenovo Legion Toolkit</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv17598773/?spm_id_from=333.999.collection.opus.click">拯救者R720如何恢复原厂系统</a></p>
-<img alt="picture 1" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r720.jpg" />  
-<img alt="picture 2" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r7202.jpg" />  
+<img alt="picture 1" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r720.jpg" />  
+<img alt="picture 2" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer-r7202.jpg" />  
 
 <p><a target="_blank" rel="noopener" href="http://www.kzzi.com/media/files/20220825/20220825161014_9187.pdf">珂芝863(K75)说明书中文-更新7-28 (kzzi.com)</a></p>
 <h1 id="电脑小技巧"><a href="#电脑小技巧" class="headerlink" title="电脑小技巧"></a>电脑小技巧</h1><ul>
@@ -311,7 +310,7 @@
 <h1 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h1><blockquote>
 <p>桌面闪烁，底部任务栏跟着刷新，造成的因素有许多可能，硬件显卡驱动的问题，以及刷新率,explorer资源管理器,注册列表问题,病毒问题<br>初步测试：win+R一直在闪烁，输入一个字母，然后又不能输入了，需要重新在下次刷新前点击，抢在刷新前，点击接着输入。意味着只要点的快，还是可以打开点东西的。Ctrl键+Alt键+Delete键，可以进入管控，打开任务资源管理器，重启explorer资源管理器，毫无效果。<br>打开任务资源管理器 &gt; 运行新任务 &gt; 输入<code>cmd</code> &gt; <code>sfc /scannow</code>（扫描修复系统文件）解决</p>
 </blockquote>
-<h1 id="Windows使用VoiceMeeter实现音频多路输出"><a href="#Windows使用VoiceMeeter实现音频多路输出" class="headerlink" title="Windows使用VoiceMeeter实现音频多路输出"></a>Windows使用VoiceMeeter实现音频多路输出</h1><p>如果有多组音箱，可以用VoiceMeeter的虚拟输出实现多声道输出<br>下载：<a target="_blank" rel="noopener" href="https://vb-audio.com/Voicemeeter/banana.htm">Voicemeeter-banana</a><br>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Hj421d7j3/?p=1">VoiceMeeter组多设备详细教程</a><br>我的配置：<img alt="图 0" data-src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer_VoiceMeeter.png" width="80%"/>  </p>
+<h1 id="Windows使用VoiceMeeter实现音频多路输出"><a href="#Windows使用VoiceMeeter实现音频多路输出" class="headerlink" title="Windows使用VoiceMeeter实现音频多路输出"></a>Windows使用VoiceMeeter实现音频多路输出</h1><p>如果有多组音箱，可以用VoiceMeeter的虚拟输出实现多声道输出<br>下载：<a target="_blank" rel="noopener" href="https://vb-audio.com/Voicemeeter/banana.htm">Voicemeeter-banana</a><br>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Hj421d7j3/?p=1">VoiceMeeter组多设备详细教程</a><br>我的配置：<img alt="图 0" src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Computer_VoiceMeeter.png" width="80%"/>  </p>
 
     </div>
 
@@ -537,7 +536,6 @@ setInterval("createtime()",250);
   <script src="/lib/anime.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -550,8 +548,6 @@ setInterval("createtime()",250);
 
 
 <script src="/js/next-boot.js"></script>
-
-<script src="/js/bookmark.js"></script>
 
   <script>
 var pjax = new Pjax({
