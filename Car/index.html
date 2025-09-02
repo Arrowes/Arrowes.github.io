@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0cefa13089cdae70056b909a0b32a7fc.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Car-NCHW.png">
 <meta property="article:published_time" content="2024-07-23T14:12:00.000Z">
-<meta property="article:modified_time" content="2025-08-18T11:16:54.397Z">
+<meta property="article:modified_time" content="2025-09-02T14:53:39.827Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="技术">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-08-18 19:16:54" itemprop="dateModified" datetime="2025-08-18T19:16:54+08:00">2025-08-18</time>
+                <time title="修改时间：2025-09-02 22:53:39" itemprop="dateModified" datetime="2025-09-02T22:53:39+08:00">2025-09-02</time>
               </span>
 
           
@@ -244,14 +244,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.6k</span>
+              <span>6.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>20 分钟</span>
+              <span>22 分钟</span>
             </span>
 
         </div>
@@ -455,6 +455,19 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
 <li>特征融合、目标检测。</li>
 <li>在 BEV 视角下进行目标检测、语义分割、路径规划等任务。</li>
 </ul>
+<h2 id="余弦相似度-Cosine-Similarity"><a href="#余弦相似度-Cosine-Similarity" class="headerlink" title="余弦相似度 (Cosine Similarity)"></a>余弦相似度 (Cosine Similarity)</h2><p>余弦相似度是一种衡量两个非零向量之间<strong>方向</strong>相似性的指标。它通过计算两个向量夹角的余弦值来评估它们的相似程度。</p>
+<p>在向量空间中，每个向量都有两个属性：<strong>方向</strong>和<strong>大小（或模长）</strong>。余弦相似度完全忽略了向量的大小，只关注它们的方向。如果两个向量指向完全相同的方向，它们的余弦相似度为1；如果它们相互垂直，余弦相似度为0；如果它们指向完全相反的方向，余弦相似度为-1。</p>
+<p>给定两个向量 $\vec{A}$ 和 $\vec{B}$，它们之间的余弦相似度 $\cos(\theta)$ 计算如下：<br>$$\cos(\theta) &#x3D; \frac{\vec{A} \cdot \vec{B}}{|\vec{A}| |\vec{B}|} &#x3D; \frac{\sum_{i&#x3D;1}^{n} A_i B_i}{\sqrt{\sum_{i&#x3D;1}^{n} A_i^2} \sqrt{\sum_{i&#x3D;1}^{n} B_i^2}}$$</p>
+<p>其中：</p>
+<ul>
+<li>$\vec{A} \cdot \vec{B}$ 是向量 $\vec{A}$ 和 $\vec{B}$ 的**点积 (Dot Product)**。</li>
+<li>$|\vec{A}|$ 和 $|\vec{B}|$ 分别是向量 $\vec{A}$ 和 $\vec{B}$ 的**模长 (Magnitude or L2 Norm)**。</li>
+</ul>
+<p>通过将点积除以两个向量模长的乘积，这个过程被称为 **“归一化” (Normalization)**，它有效地消除了向量大小对结果的影响。</p>
+<p>通过<strong>余弦定理</strong>建立余弦相似度和欧式距离的联系：对于两个向量 $\vec{A}$ 和 $\vec{B}$，它们终点之间的欧氏距离的平方等于：</p>
+<p>$$|\vec{A} - \vec{B}|^2 &#x3D; |\vec{A}|^2 + |\vec{B}|^2 - 2|\vec{A}||\vec{B}|\cos(\theta)$$</p>
+<p>当两个向量都经过<strong>单位化 (Unit Normalization)</strong> 处理后（即它们的模长都为1），这个关系会变得非常简单：<br>$$|\vec{A} - \vec{B}|^2 &#x3D; 1^2 + 1^2 - 2(1)(1)\cos(\theta) &#x3D; 2 - 2\cos(\theta)$$</p>
+<p>在这种情况下，<strong>最大化余弦相似度等价于最小化欧氏距离</strong>。因此，对于单位向量而言，这两种度量方式是等价的，可以互相转换。</p>
 
     </div>
 
@@ -539,7 +552,7 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAN-CANoe"><span class="nav-number">1.1.</span> <span class="nav-text">CAN &amp; CANoe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GHS"><span class="nav-number">1.2.</span> <span class="nav-text">GHS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.3.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.4.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95-2-%EF%BC%9A"><span class="nav-number">1.5.</span> <span class="nav-text">车载测试[2]：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">相机模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">2.1.</span> <span class="nav-text">相机标定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%8F%82%EF%BC%88Intrinsic-Parameters%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">内参（Intrinsic Parameters）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E5%8F%82%EF%BC%88Extrinsic-Parameters%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">外参（Extrinsic Parameters）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Note"><span class="nav-number">3.</span> <span class="nav-text">Note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">图像数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEV%E6%84%9F%E7%9F%A5"><span class="nav-number">3.2.</span> <span class="nav-text">BEV感知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LSS%EF%BC%88Lift-Splat-Shoot%EF%BC%89"><span class="nav-number">3.2.1.</span> <span class="nav-text">LSS（Lift-Splat-Shoot）</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAN-CANoe"><span class="nav-number">1.1.</span> <span class="nav-text">CAN &amp; CANoe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GHS"><span class="nav-number">1.2.</span> <span class="nav-text">GHS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.3.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.4.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95-2-%EF%BC%9A"><span class="nav-number">1.5.</span> <span class="nav-text">车载测试[2]：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">相机模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">2.1.</span> <span class="nav-text">相机标定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%8F%82%EF%BC%88Intrinsic-Parameters%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">内参（Intrinsic Parameters）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E5%8F%82%EF%BC%88Extrinsic-Parameters%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">外参（Extrinsic Parameters）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Note"><span class="nav-number">3.</span> <span class="nav-text">Note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">图像数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEV%E6%84%9F%E7%9F%A5"><span class="nav-number">3.2.</span> <span class="nav-text">BEV感知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LSS%EF%BC%88Lift-Splat-Shoot%EF%BC%89"><span class="nav-number">3.2.1.</span> <span class="nav-text">LSS（Lift-Splat-Shoot）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6-Cosine-Similarity"><span class="nav-number">3.3.</span> <span class="nav-text">余弦相似度 (Cosine Similarity)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -622,7 +635,7 @@ CAN收发器的作用则是把逻辑信号转换为差分信号。 CAN总线分�
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:02</span>
+    <span title="站点阅读时长">6:05</span>
 </div>
 
 <div>
