@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Pytorch4.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Network1.png">
 <meta property="article:published_time" content="2022-11-24T13:26:44.000Z">
-<meta property="article:modified_time" content="2025-09-02T14:47:00.321Z">
+<meta property="article:modified_time" content="2025-09-22T14:17:24.216Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-09-02 22:47:00" itemprop="dateModified" datetime="2025-09-02T22:47:00+08:00">2025-09-02</time>
+                <time title="修改时间：2025-09-22 22:17:24" itemprop="dateModified" datetime="2025-09-22T22:17:24+08:00">2025-09-22</time>
               </span>
 
           
@@ -242,14 +242,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.4k</span>
+              <span>5.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>20 分钟</span>
+              <span>21 分钟</span>
             </span>
 
         </div>
@@ -334,9 +334,12 @@
 <p><strong>查GPU</strong></p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">&quot;import torch;print(torch.cuda.is_available())&quot;</span>   <span class="comment">#返回True说明GPU可以被使用</span></span><br><span class="line">torch.__version__ <span class="comment">#查pytorch版本</span></span><br><span class="line">nvidia-smi -l <span class="number">2</span>   <span class="comment">#查GPU CUDA, &#x27;-l 2&#x27;:每2s更新一次</span></span><br><span class="line">python –-version  <span class="comment">#查python版本</span></span><br><span class="line">conda install python=<span class="number">3.8</span>  <span class="comment">#升级(覆盖安装)python</span></span><br><span class="line">python -c <span class="string">&#x27;import torch;print(torch.__version__);print(torch.version.cuda)&#x27;</span>   <span class="comment">#查torch和cuda版本</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><p><strong>两大查询函数</strong>：<br>dir() 函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help() 函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查 <a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
+<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><p>常用张量操作函数汇总（适合分类、回归、图像任务）</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 🎯 分类相关</span></span><br><span class="line">torch.argmax()          <span class="comment">#获取最大值的索引 分类预测</span></span><br><span class="line">torch.gather()          <span class="comment">#按索引提取值 提取预测概率</span></span><br><span class="line">torch.nn.functional.one_hot() <span class="comment">#转换为独热编码 标签处理</span></span><br><span class="line">torch.nn.functional.cross_entropy() <span class="comment">#计算交叉熵损失 多分类任务</span></span><br><span class="line"><span class="comment"># 📐 张量维度操作</span></span><br><span class="line">torch.unsqueeze()       <span class="comment">#增加维度 [B, C, H, W] 构造</span></span><br><span class="line">torch.squeeze()         <span class="comment">#去除维度 去掉 [1] 维度</span></span><br><span class="line">torch.permute()         <span class="comment">#改变维度顺序 [B, H, W, C] → [B, C, H, W]</span></span><br><span class="line">torch.transpose()       <span class="comment">#转置两个维度 图像翻转或矩阵转置</span></span><br><span class="line">torch.reshape() / view()<span class="comment">#改变形状 展平、重构张量</span></span><br><span class="line"><span class="comment"># 🔍 索引与掩码</span></span><br><span class="line">torch.where()           <span class="comment">#条件选择 mask = torch.where(x &gt; 0)</span></span><br><span class="line">torch.masked_select()   <span class="comment">#按掩码提取元素 x[mask]</span></span><br><span class="line">torch.nonzero()         <span class="comment">#获取非零元素索引 torch.nonzero(mask)</span></span><br><span class="line">torch.index_select()    <span class="comment">#按索引提取子张量 select rows/cols</span></span><br><span class="line"><span class="comment"># 🔧 数值计算</span></span><br><span class="line">torch.mean() / <span class="built_in">sum</span>()    <span class="comment">#求均值 / 求和  loss.mean()</span></span><br><span class="line">torch.<span class="built_in">max</span>() / <span class="built_in">min</span>()     <span class="comment">#最大 / 最小值  torch.max(x)</span></span><br><span class="line">torch.clamp()           <span class="comment">#限制数值范围 clamp(x, 0, 1)</span></span><br><span class="line">torch.norm()            <span class="comment">#求范数 向量长度计算</span></span><br><span class="line">torch.<span class="built_in">round</span>() / floor() / ceil()  <span class="comment">#四舍五入 / 向下 / 向上取整 数据处理</span></span><br><span class="line"><span class="comment"># 🧠 模型训练辅助</span></span><br><span class="line">torch.nn.Parameter()    <span class="comment">#可训练参数 自定义模型</span></span><br><span class="line">torch.nn.ModuleList() / Sequential()  <span class="comment">#模块容器 多层网络</span></span><br><span class="line">torch.no_grad()         <span class="comment">#禁用梯度 推理阶段</span></span><br><span class="line">model.<span class="built_in">eval</span>() / model.train()  <span class="comment">#切换模式 训练 vs 推理</span></span><br><span class="line"><span class="comment"># 🖼️ 图像处理常用</span></span><br><span class="line">torch.nn.functional.interpolate() <span class="comment">#上采样 / 下采样  图像缩放</span></span><br><span class="line">torch.nn.functional.pad() <span class="comment">#边缘填充 卷积前处理</span></span><br><span class="line">torch.flip()            <span class="comment">#翻转图像	数据增强</span></span><br><span class="line">torch.rot90()           <span class="comment">#旋转图像	数据增强</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>两大查询函数</strong>：<br>dir() 函数，能让我们知道工具箱以及工具箱中的分隔区有什么东西。<br>help() 函数，能让我们知道每个工具是如何使用的，工具的使用方法。<br><code>Jupyter&gt;XX??</code><br><code>Pycharm&gt;ctrl+左键(查原函数)	ctrl+p(查询输入参数，有等号的可忽略)</code><br>多查 <a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/index.html">pytorch官方文档</a></p>
 <ul>
-<li>文件<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">../XXX <span class="comment">#上一层</span></span><br><span class="line">root=“D:\\desktop”  <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:\\desktop” <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure></li>
+<li>文件<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root=“D:\\desktop”  <span class="comment">#window下绝对路径使用双斜杠\\避免转义：</span></span><br><span class="line">root=r“D:\\desktop” <span class="comment">#或统一加上r取消转义</span></span><br></pre></td></tr></table></figure></li>
 <li>计时		<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time 	</span><br><span class="line">start=time.time()     end=time.time()     <span class="built_in">print</span>(start-end)</span><br></pre></td></tr></table></figure></li>
 <li>组 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = (<span class="number">1</span>, <span class="number">2</span>)    <span class="comment"># 元组 tuple</span></span><br><span class="line">b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] <span class="comment"># 数组 list</span></span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;wyj&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="string">&#x27;23&#x27;</span>&#125;  <span class="comment"># 字典 dict</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(c[<span class="string">&#x27;name&#x27;</span>])</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -622,13 +625,13 @@ Python的多进程multiprocessing 适用于CPU密集型任务，每个进程都�
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:06</span>
+    <span title="站点阅读时长">6:10</span>
 </div>
 
 <div>
