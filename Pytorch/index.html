@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Pytorch4.png">
 <meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Network1.png">
 <meta property="article:published_time" content="2022-11-24T13:26:44.000Z">
-<meta property="article:modified_time" content="2025-09-22T14:17:24.216Z">
+<meta property="article:modified_time" content="2025-10-10T13:53:29.502Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-09-22 22:17:24" itemprop="dateModified" datetime="2025-09-22T22:17:24+08:00">2025-09-22</time>
+                <time title="修改时间：2025-10-10 21:53:29" itemprop="dateModified" datetime="2025-10-10T21:53:29+08:00">2025-10-10</time>
               </span>
 
           
@@ -242,14 +242,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.7k</span>
+              <span>6.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>21 分钟</span>
+              <span>24 分钟</span>
             </span>
 
         </div>
@@ -465,6 +465,106 @@ Python的多进程multiprocessing 适用于CPU密集型任务，每个进程都�
 <p>hook: hook编程是一种编程模式，是指在程序的一个或者多个位置设置位点（挂载点），当程序运行至某个位点时，会自动调用运行时注册到位点的所有方法。</p>
 <p>断言: assert 用于测试一个表达式是否为真。如果表达式为假，程序会抛出 AssertionError 异常，并终止程序运行。它通常用于调试和检查程序中某些假设是否成立。</p>
 <p>super() 函数: super() 是 Python 中的一个内置函数，用于调用父类（也称为超类）的方法。<br>在 Python 中，super(LSS, self).<strong>init</strong>() 用于 调用父类 (BaseModule) 的构造函数，确保 LSS 继承 BaseModule 的所有初始化逻辑。</p>
+<h2 id="PEP8规范"><a href="#PEP8规范" class="headerlink" title="PEP8规范"></a>PEP8规范</h2><p>PEP 8 是 Python 的官方代码风格指南，它为 Python 代码的格式化提供了一套约定，以增强代码的可读性和一致性。遵循 PEP 8 规范是成为一名专业 Python 开发者的基本要求。<br>PEP 8 的核心在于“可读性至关重要”（Readability counts）。当代码易于阅读时，也更容易理解、调试和维护。</p>
+<h3 id="1-命名规范-Naming-Conventions"><a href="#1-命名规范-Naming-Conventions" class="headerlink" title="1. 命名规范 (Naming Conventions)"></a>1. 命名规范 (Naming Conventions)</h3><ul>
+<li><strong>变量名 (Variables):</strong> 使用小写字母，并用下划线分隔单词，即蛇形命名法 (snake_case)。<ul>
+<li>正确: <code>my_variable</code>, <code>user_name</code></li>
+<li>错误: <code>myVariable</code>, <code>UserName</code></li>
+</ul>
+</li>
+<li><strong>函数名 (Functions):</strong> 与变量名相同，使用蛇形命名法。<ul>
+<li>正确: <code>def calculate_sum():</code></li>
+<li>错误: <code>def CalculateSum():</code></li>
+</ul>
+</li>
+<li><strong>常量 (Constants):</strong> 使用全部大写字母，并用下划线分隔。<ul>
+<li>正确: <code>MAX_OVERFLOW</code>, <code>PI</code></li>
+<li>错误: <code>max_overflow</code>, <code>pi</code></li>
+</ul>
+</li>
+<li><strong>类名 (Classes):</strong> 使用首字母大写的驼峰命名法 (CapWords or PascalCase)。<ul>
+<li>正确: <code>class MyClass:</code></li>
+<li>错误: <code>class my_class:</code></li>
+</ul>
+</li>
+<li><strong>模块名 (Modules):</strong> 应该是简短的、全小写的名字。如果需要，可以使用下划线。<ul>
+<li>正确: <code>my_module.py</code></li>
+<li>错误: <code>MyModule.py</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-代码布局-Code-Layout"><a href="#2-代码布局-Code-Layout" class="headerlink" title="2. 代码布局 (Code Layout)"></a>2. 代码布局 (Code Layout)</h3><ul>
+<li><p><strong>缩进 (Indentation):</strong> 使用 4 个空格作为一级缩进。这是 Python 中最严格的规则之一。绝对不要混用制表符和空格。</p>
+</li>
+<li><p><strong>每行最大长度 (Maximum Line Length):</strong> 每行代码的长度不应超过 79 个字符。这有助于在小屏幕上并排查看多个文件。</p>
+</li>
+<li><p><strong>空行 (Blank Lines):</strong></p>
+<ul>
+<li>顶级函数和类定义之间应有两个空行。</li>
+<li>类中的方法定义之间应有一个空行。</li>
+<li>在函数内部，可以使用空行来分隔逻辑上独立的代码块。</li>
+</ul>
+</li>
+<li><p><strong>换行 (Line Breaks):</strong> 当一行代码过长时，需要进行换行。Python 推荐在括号、方括号和花括号内换行。如果不能，可以在操作符前换行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 推荐的换行方式</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_function</span>(<span class="params"></span></span><br><span class="line"><span class="params">        param_one, param_two,</span></span><br><span class="line"><span class="params">        param_three, param_four</span>):</span><br><span class="line">    <span class="keyword">return</span> param_one + param_two</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-导入-Imports"><a href="#3-导入-Imports" class="headerlink" title="3. 导入 (Imports)"></a>3. 导入 (Imports)</h3><ul>
+<li><p><code>import</code> 语句应该放在文件的顶部，仅在模块注释和文档字符串之后。</p>
+</li>
+<li><p><code>import</code> 应该按照以下顺序分组：</p>
+<ol>
+<li>标准库导入 (e.g., <code>os</code>, <code>sys</code>)</li>
+<li>第三方库导入 (e.g., <code>numpy</code>, <code>pandas</code>)</li>
+<li>本地应用程序&#x2F;库的特定导入</li>
+</ol>
+</li>
+<li><p>在每个组之间留一个空行。</p>
+</li>
+<li><p>避免使用通配符导入 (<code>from module import *</code>)，因为它会使命名空间变得不清晰。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正确的导入顺序</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> my_project <span class="keyword">import</span> my_module</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-空格的使用-Whitespace-in-Expressions-and-Statements"><a href="#4-空格的使用-Whitespace-in-Expressions-and-Statements" class="headerlink" title="4. 空格的使用 (Whitespace in Expressions and Statements)"></a>4. 空格的使用 (Whitespace in Expressions and Statements)</h3><ul>
+<li><strong>二元操作符:</strong> 在二元操作符（如 <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>=</code>, <code>==</code>, <code>&lt;</code>）的两侧各留一个空格。<ul>
+<li>正确: <code>x = 1</code></li>
+<li>错误: <code>x=1</code></li>
+</ul>
+</li>
+<li><strong>函数调用和定义:</strong> 函数名和左括号之间不应有空格。<ul>
+<li>正确: <code>print(&#39;hello&#39;)</code></li>
+<li>错误: <code>print (&#39;hello&#39;)</code></li>
+</ul>
+</li>
+<li><strong>逗号:</strong> 逗号后面应该有一个空格，但前面不应该有。<ul>
+<li>正确: <code>[1, 2, 3]</code></li>
+<li>错误: <code>[1,2,3]</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="5-注释-Comments"><a href="#5-注释-Comments" class="headerlink" title="5. 注释 (Comments)"></a>5. 注释 (Comments)</h3><ul>
+<li><p>注释应该与代码保持同步，当代码更改时，注释也应相应更新。</p>
+</li>
+<li><p><strong>块注释 (Block Comments):</strong> 用于注释一段代码。每行都以 <code>#</code> 和一个空格开头。</p>
+</li>
+<li><p><strong>行内注释 (Inline Comments):</strong> 在代码行的末尾，应至少与代码隔开两个空格，并以 <code>#</code> 和一个空格开头。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = x + <span class="number">1</span>  <span class="comment"># 这是一个行内注释</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>文档字符串 (Docstrings):</strong> 为所有公共模块、函数、类和方法编写文档字符串。文档字符串以 <code>&quot;&quot;&quot;</code> 开头和结尾。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_sum</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;这是一个计算两个数之和的函数。&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> a + b</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="自动化地符合-PEP-8"><a href="#自动化地符合-PEP-8" class="headerlink" title="自动化地符合 PEP 8"></a>自动化地符合 PEP 8</h3><ul>
+<li><p><strong><code>flake8</code></strong>: 这是一个非常流行的工具，它整合了 <code>PyFlakes</code> (检查代码错误)、<code>pycodestyle</code> (检查代码风格) 和 <code>McCabe</code> (检查代码复杂度)。</p>
+<ul>
+<li><strong>安装</strong>: <code>pip install flake8</code></li>
+<li><strong>使用</strong>: <code>flake8 your_script.py</code>。</li>
+</ul>
+</li>
+<li><p><strong><code>autopep8</code></strong>: 这个工具会自动将代码格式化为符合 PEP 8 风格。它比 <code>black</code> 更灵活，但也意味着在不同开发者之间可能存在细微的风格差异。</p>
+<ul>
+<li><strong>安装</strong>: <code>pip install autopep8</code></li>
+<li><strong>使用</strong>: <code>autopep8 --in-place your_script.py</code></li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -548,7 +648,7 @@ Python的多进程multiprocessing 适用于CPU密集型任务，每个进程都�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Anaconda"><span class="nav-number">1.</span> <span class="nav-text">Anaconda</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pycharm"><span class="nav-number">2.</span> <span class="nav-text">Pycharm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jupyter-notebook"><span class="nav-number">3.</span> <span class="nav-text">Jupyter notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Google-Colab"><span class="nav-number">4.</span> <span class="nav-text">Google Colab</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%BC%E4%B8%B9%E7%AC%94%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">炼丹笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E8%AE%AD%E7%BB%83%E4%BB%BB%E5%8A%A1%E5%B7%A5%E5%85%B7"><span class="nav-number">5.1.</span> <span class="nav-text">后台运行训练任务工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataLoader%E7%9A%84num-works%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">5.2.</span> <span class="nav-text">DataLoader的num_works参数设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch"><span class="nav-number">6.</span> <span class="nav-text">Pytorch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%93"><span class="nav-number">6.2.</span> <span class="nav-text">库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorboard%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">6.2.1.</span> <span class="nav-text">Tensorboard可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transform"><span class="nav-number">6.2.2.</span> <span class="nav-text">Transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ToTensor"><span class="nav-number">6.2.3.</span> <span class="nav-text">ToTensor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#torchvision"><span class="nav-number">6.2.4.</span> <span class="nav-text">torchvision</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dataloader"><span class="nav-number">6.2.5.</span> <span class="nav-text">Dataloader</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TORCH-NN"><span class="nav-number">6.3.</span> <span class="nav-text">TORCH.NN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CIFAR-10-model%E7%BB%93%E6%9E%84"><span class="nav-number">6.4.</span> <span class="nav-text">CIFAR 10 model结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">6.5.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%99%A8-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">6.6.</span> <span class="nav-text">优化器(梯度下降)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.7.</span> <span class="nav-text">网络模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU%E8%AE%AD%E7%BB%83"><span class="nav-number">6.8.</span> <span class="nav-text">CPU训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU%E8%AE%AD%E7%BB%83"><span class="nav-number">6.9.</span> <span class="nav-text">GPU训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">6.10.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python"><span class="nav-number">7.</span> <span class="nav-text">Python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#self"><span class="nav-number">7.1.</span> <span class="nav-text">self</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">7.2.</span> <span class="nav-text">call 回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with"><span class="nav-number">7.3.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">7.4.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.4.1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#numpy"><span class="nav-number">7.4.2.</span> <span class="nav-text">numpy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pdb"><span class="nav-number">7.5.</span> <span class="nav-text">pdb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">7.6.</span> <span class="nav-text">Python的多进程和多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">7.7.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Anaconda"><span class="nav-number">1.</span> <span class="nav-text">Anaconda</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pycharm"><span class="nav-number">2.</span> <span class="nav-text">Pycharm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jupyter-notebook"><span class="nav-number">3.</span> <span class="nav-text">Jupyter notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Google-Colab"><span class="nav-number">4.</span> <span class="nav-text">Google Colab</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%BC%E4%B8%B9%E7%AC%94%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">炼丹笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E8%AE%AD%E7%BB%83%E4%BB%BB%E5%8A%A1%E5%B7%A5%E5%85%B7"><span class="nav-number">5.1.</span> <span class="nav-text">后台运行训练任务工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataLoader%E7%9A%84num-works%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">5.2.</span> <span class="nav-text">DataLoader的num_works参数设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch"><span class="nav-number">6.</span> <span class="nav-text">Pytorch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%93"><span class="nav-number">6.2.</span> <span class="nav-text">库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorboard%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">6.2.1.</span> <span class="nav-text">Tensorboard可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transform"><span class="nav-number">6.2.2.</span> <span class="nav-text">Transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ToTensor"><span class="nav-number">6.2.3.</span> <span class="nav-text">ToTensor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#torchvision"><span class="nav-number">6.2.4.</span> <span class="nav-text">torchvision</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dataloader"><span class="nav-number">6.2.5.</span> <span class="nav-text">Dataloader</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TORCH-NN"><span class="nav-number">6.3.</span> <span class="nav-text">TORCH.NN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CIFAR-10-model%E7%BB%93%E6%9E%84"><span class="nav-number">6.4.</span> <span class="nav-text">CIFAR 10 model结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">6.5.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%99%A8-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">6.6.</span> <span class="nav-text">优化器(梯度下降)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.7.</span> <span class="nav-text">网络模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU%E8%AE%AD%E7%BB%83"><span class="nav-number">6.8.</span> <span class="nav-text">CPU训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU%E8%AE%AD%E7%BB%83"><span class="nav-number">6.9.</span> <span class="nav-text">GPU训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">6.10.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python"><span class="nav-number">7.</span> <span class="nav-text">Python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#self"><span class="nav-number">7.1.</span> <span class="nav-text">self</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">7.2.</span> <span class="nav-text">call 回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with"><span class="nav-number">7.3.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">7.4.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.4.1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#numpy"><span class="nav-number">7.4.2.</span> <span class="nav-text">numpy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pdb"><span class="nav-number">7.5.</span> <span class="nav-text">pdb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">7.6.</span> <span class="nav-text">Python的多进程和多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">7.7.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PEP8%E8%A7%84%E8%8C%83"><span class="nav-number">7.8.</span> <span class="nav-text">PEP8规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83-Naming-Conventions"><span class="nav-number">7.8.1.</span> <span class="nav-text">1. 命名规范 (Naming Conventions)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%A3%E7%A0%81%E5%B8%83%E5%B1%80-Code-Layout"><span class="nav-number">7.8.2.</span> <span class="nav-text">2. 代码布局 (Code Layout)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AF%BC%E5%85%A5-Imports"><span class="nav-number">7.8.3.</span> <span class="nav-text">3. 导入 (Imports)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%A9%BA%E6%A0%BC%E7%9A%84%E4%BD%BF%E7%94%A8-Whitespace-in-Expressions-and-Statements"><span class="nav-number">7.8.4.</span> <span class="nav-text">4. 空格的使用 (Whitespace in Expressions and Statements)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%B3%A8%E9%87%8A-Comments"><span class="nav-number">7.8.5.</span> <span class="nav-text">5. 注释 (Comments)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E5%9C%B0%E7%AC%A6%E5%90%88-PEP-8"><span class="nav-number">7.8.6.</span> <span class="nav-text">自动化地符合 PEP 8</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -625,13 +725,13 @@ Python的多进程multiprocessing 适用于CPU密集型任务，每个进程都�
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">102k</span>
+    <span title="站点总字数">103k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:10</span>
+    <span title="站点阅读时长">6:14</span>
 </div>
 
 <div>
