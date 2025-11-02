@@ -638,7 +638,7 @@ A-->E[C.定义]</pre>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。F1-score最常用于数据集的类别不平衡的情况。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL9.png" alt="图 9">  </p>
 <p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#109;&#65;&#x50;&#64;&#48;&#x2e;&#53;">&#109;&#65;&#x50;&#64;&#48;&#x2e;&#53;</a></em>：IoU阈值设为 0.5，即预测框与真实框的重叠面积占比 ≥ 50% 就算正确。对每个类别计算 AP，再取平均值得到 mAP。评估标准较宽松，适合快速验证模型是否具备基本检测能力。<br><em><a href="mailto:&#109;&#65;&#80;&#x40;&#48;&#46;&#x35;">&#109;&#65;&#80;&#x40;&#48;&#46;&#x35;</a>:0.95</em>：在 IoU 阈值从 0.5 到 0.95（步长为 0.05） 的 10 个点上分别计算 AP，然后取平均。更严格地评估模型在不同定位精度要求下的表现。全面衡量模型稳定性和定位能力，常用于学术论文和高精度场景（如自动驾驶）。<br>如果一个模型在 <a href="mailto:&#x6d;&#65;&#x50;&#x40;&#x30;&#46;&#53;">&#x6d;&#65;&#x50;&#x40;&#x30;&#46;&#53;</a> 上表现很好，但在 <a href="mailto:&#109;&#x41;&#x50;&#x40;&#x30;&#x2e;&#53;">&#109;&#x41;&#x50;&#x40;&#x30;&#x2e;&#53;</a>:0.95 上得分低，说明它能大致定位目标，但在精确定位方面表现不佳。<br><img src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
+<p><em><a href="mailto:&#x6d;&#65;&#x50;&#64;&#48;&#46;&#53;">&#x6d;&#65;&#x50;&#64;&#48;&#46;&#53;</a></em>：IoU阈值设为 0.5，即预测框与真实框的重叠面积占比 ≥ 50% 就算正确。对每个类别计算 AP，再取平均值得到 mAP。评估标准较宽松，适合快速验证模型是否具备基本检测能力。<br><em><a href="mailto:&#x6d;&#x41;&#x50;&#64;&#x30;&#46;&#x35;">&#x6d;&#x41;&#x50;&#64;&#x30;&#46;&#x35;</a>:0.95</em>：在 IoU 阈值从 0.5 到 0.95（步长为 0.05） 的 10 个点上分别计算 AP，然后取平均。更严格地评估模型在不同定位精度要求下的表现。全面衡量模型稳定性和定位能力，常用于学术论文和高精度场景（如自动驾驶）。<br>如果一个模型在 <a href="mailto:&#109;&#x41;&#x50;&#64;&#48;&#46;&#53;">&#109;&#x41;&#x50;&#64;&#48;&#46;&#53;</a> 上表现很好，但在 <a href="mailto:&#109;&#x41;&#80;&#64;&#x30;&#x2e;&#x35;">&#109;&#x41;&#80;&#64;&#x30;&#x2e;&#x35;</a>:0.95 上得分低，说明它能大致定位目标，但在精确定位方面表现不佳。<br><img src="https://raw.gitmirror.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
 <p><strong>NMS</strong>（Non-Maximum Suppression，非极大值抑制）<br>一种用于目标检测任务的后处理技术，主要用于消除冗余的检测框，保留最可能准确的预测结果。<br>在目标检测中，模型（如YOLO、Faster R-CNN等）通常会对同一目标生成多个重叠的预测框（Bounding Box），每个框带有置信度分数。NMS通过筛选，保留置信度最高且位置最合理的框，抑制其他冗余的框，从而避免重复检测。</p>
 <ol>
 <li>按置信度排序：将所有预测框按置信度从高到低排序。选择最高置信度的框：取出当前列表中置信度最高的框，加入最终保留列表。</li>
@@ -995,7 +995,7 @@ A-->E[C.定义]</pre>
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:18</span>
+    <span title="站点阅读时长">6:19</span>
 </div>
 
 <div>
