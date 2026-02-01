@@ -29,15 +29,15 @@
 <meta property="og:site_name" content="Arrow的笔记本">
 <meta property="og:description" content="记录了YOLO的环境配置、资料代码、魔改记录、炼丹经验、论文想法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo1.png">
-<meta property="og:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo2.png">
+<meta property="og:image" content="https://raw.github.com/Arrowes/Blog/main/images/Yolo1.png">
+<meta property="og:image" content="https://raw.github.com/Arrowes/Blog/main/images/Yolo2.png">
 <meta property="article:published_time" content="2022-11-27T08:04:02.000Z">
-<meta property="article:modified_time" content="2025-11-29T08:14:51.240Z">
+<meta property="article:modified_time" content="2026-02-01T05:13:10.768Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo1.png">
+<meta name="twitter:image" content="https://raw.github.com/Arrowes/Blog/main/images/Yolo1.png">
 
 <link rel="canonical" href="https://wangyujie.space/Yolo/">
 
@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-11-29 16:14:51" itemprop="dateModified" datetime="2025-11-29T16:14:51+08:00">2025-11-29</time>
+                <time title="修改时间：2026-02-01 13:13:10" itemprop="dateModified" datetime="2026-02-01T13:13:10+08:00">2026-02-01</time>
               </span>
 
           
@@ -240,14 +240,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
+              <span>12 分钟</span>
             </span>
 
         </div>
@@ -364,15 +364,15 @@
 </blockquote>
 <p>标注工具：<a target="_blank" rel="noopener" href="https://app.roboflow.com/395841716-qq-com">Roboflow</a></p>
 <h3 id="CVAT"><a href="#CVAT" class="headerlink" title="CVAT"></a>CVAT</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/cvat-ai/cvat</span><br><span class="line"><span class="comment"># 在docker-compose.yml配置端口号   traefik:   - 5000:8080 - 5001:8090</span></span><br><span class="line"><span class="comment"># 改数据目录  cvat_server:   volumes: - cvat_data:/home/django/data</span></span><br><span class="line"><span class="comment"># 配置IP</span></span><br><span class="line">export CVAT_HOST=FQDN_or_YOUR-IP-ADDRESS</span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">docker compose up -d</span><br><span class="line"><span class="comment"># 添加用户</span></span><br><span class="line">docker <span class="built_in">exec</span> -it cvat_server bash -ic <span class="string">&#x27;python3 ~/manage.py createsuperuser&#x27;</span></span><br><span class="line"><span class="comment"># 改数据目录</span></span><br><span class="line">docker run --name cvat-server -v /my/cvat_data_dir:/home/django/data -d cvat/server</span><br><span class="line"><span class="comment"># 关闭</span></span><br><span class="line">docker compose down</span><br></pre></td></tr></table></figure>
-
+<h3 id="webdataset"><a href="#webdataset" class="headerlink" title="webdataset"></a>webdataset</h3><p>WebDataset 是一种基于 TAR 文件的高效数据集存储与加载方式，专为深度学习任务设计，能够将大规模图像、音频、视频等数据以分片形式流式传输到训练管道中，从而显著提升 I&#x2F;O 性能。<br>import webdataset as wds<br>将数据打包成 TAR 分片文件（每个分片包含图像、标签等）。<br>使用 WebDataset 库读取这些分片。<br>配合 torch.utils.data.DataLoader 进行批量加载和训练。</p>
 <p>开源驾驶员行为数据集：<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/state-farm-distracted-driver-detection/data">StateFarm-distracted-driver-detection</a></p>
 <p>数据增强：抖动模糊；三种不同的数据增强方法合成三通道；针对红外图像优化<br>扩大数据集：旋转 偏移（首先要保证原始数据量够）；混合数据集——彩色+红外<br>各集种类分配不均，测试集要用不同的人</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Arrowes/article/details/130020241?spm=1001.2014.3001.5501">红外图像通道扩展特征增强算法</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Arrowes/article/details/130020426?spm=1001.2014.3001.5501">Guided image filtering 引导滤波算法实现图像细节增强</a></p>
-<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo1.png" alt="图 1">  </p>
+<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>设计——anchor的计算函数Autoanchor<br><img src="https://raw.github.com/Arrowes/Blog/main/images/Yolo1.png" alt="图 1">  </p>
 <h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ol>
 <li>在 <code>models/common.py</code> 加入新的结构代码</li>
 <li>在<code>models/yolo.py</code> 的parse_model函数中引入上面新写的结构名称</li>
-<li><code>.yaml</code> 修改网络结构<br><img src="https://raw.gitmirror.com/Arrowes/Blog/main/images/Yolo2.png" alt="图 2"></li>
+<li><code>.yaml</code> 修改网络结构<br><img src="https://raw.github.com/Arrowes/Blog/main/images/Yolo2.png" alt="图 2"></li>
 </ol>
 <h2 id="注意力模块"><a href="#注意力模块" class="headerlink" title="注意力模块"></a>注意力模块</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/330535757">CV中即插即用的注意力模块</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43694096/article/details/124443059?spm=1001.2014.3001.5502">手把手带你YOLOv5 (v6.1)添加注意力机制</a></p>
 <blockquote>
@@ -515,7 +515,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%84%E6%96%99%E4%B8%8E%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">资料与代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ideas"><span class="nav-number">3.</span> <span class="nav-text">Ideas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CVAT"><span class="nav-number">3.1.1.</span> <span class="nav-text">CVAT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anchor"><span class="nav-number">3.2.</span> <span class="nav-text">Anchor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">3.3.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%A8%A1%E5%9D%97"><span class="nav-number">3.4.</span> <span class="nav-text">注意力模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0-activations-py"><span class="nav-number">3.5.</span> <span class="nav-text">激活函数 activations.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss-Function"><span class="nav-number">3.6.</span> <span class="nav-text">Loss Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%EF%BC%88YOLOv5%EF%BC%89"><span class="nav-number">3.7.</span> <span class="nav-text">参数配置（YOLOv5）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%BC%E4%B8%B9%E7%BB%8F%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">炼丹经验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageNet-%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="nav-number">4.1.</span> <span class="nav-text">ImageNet 预训练</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%9C%AA%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%83%B3%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">其他未实现的想法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%84%E6%96%99%E4%B8%8E%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">资料与代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ideas"><span class="nav-number">3.</span> <span class="nav-text">Ideas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CVAT"><span class="nav-number">3.1.1.</span> <span class="nav-text">CVAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webdataset"><span class="nav-number">3.1.2.</span> <span class="nav-text">webdataset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anchor"><span class="nav-number">3.2.</span> <span class="nav-text">Anchor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">3.3.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%A8%A1%E5%9D%97"><span class="nav-number">3.4.</span> <span class="nav-text">注意力模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0-activations-py"><span class="nav-number">3.5.</span> <span class="nav-text">激活函数 activations.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss-Function"><span class="nav-number">3.6.</span> <span class="nav-text">Loss Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%EF%BC%88YOLOv5%EF%BC%89"><span class="nav-number">3.7.</span> <span class="nav-text">参数配置（YOLOv5）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%BC%E4%B8%B9%E7%BB%8F%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">炼丹经验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ImageNet-%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="nav-number">4.1.</span> <span class="nav-text">ImageNet 预训练</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%9C%AA%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%83%B3%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">其他未实现的想法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -582,7 +582,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class=""></i>
   </span>
@@ -592,13 +592,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">105k</span>
+    <span title="站点总字数">106k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:21</span>
+    <span title="站点阅读时长">6:26</span>
 </div>
 
 <div>
