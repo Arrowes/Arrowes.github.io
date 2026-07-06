@@ -260,14 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const ensurePersistentSearchTrigger = () => {
     if (document.querySelector('.persistent-search-trigger-mobile')) return;
 
-    const menu = document.querySelector('#menu');
-    if (menu && !menu.querySelector('.menu-item-search')) {
-      const menuItem = document.createElement('li');
-      menuItem.className = 'menu-item menu-item-search';
-      menuItem.innerHTML = '<a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索</a>';
-      menu.appendChild(menuItem);
-    }
-
     const mobileTrigger = document.createElement('button');
     mobileTrigger.type = 'button';
     mobileTrigger.className = 'persistent-search-trigger persistent-search-trigger-mobile popup-trigger';
