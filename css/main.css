@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #90d6ab;
+  background: #d7b36a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2903,4 +2903,174 @@ mjx-container + br {
   color: #ff2a2a;
   font-weight: bold;
   border-bottom: 1px dashed #ff2a2a;
+}
+.post-body .search-keyword-current {
+  background: rgba(255,214,64,0.35);
+  border-bottom-color: #ffb300;
+  border-radius: 2px;
+}
+.persistent-search-trigger {
+  align-items: center;
+  background: var(--card-bg-color);
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  gap: 6px;
+  line-height: 1;
+  padding: 10px 12px;
+  position: fixed;
+  right: 24px;
+  transition: color 0.2s, transform 0.2s;
+  z-index: 1300;
+}
+.persistent-search-trigger:hover {
+  color: var(--link-hover-color);
+  transform: translateY(-1px);
+}
+.persistent-search-trigger-mobile {
+  bottom: 72px;
+  display: none;
+  position: fixed;
+  right: 24px;
+}
+.menu-item-search-fixed {
+  background: var(--content-bg-color);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
+  left: var(--search-fixed-left);
+  margin: 0;
+  position: fixed;
+  top: 12px;
+  width: var(--search-fixed-width);
+  z-index: 1300;
+}
+.menu-item-search-fixed a {
+  background: var(--menu-item-bg-color);
+}
+.search-menu-fixed .sidebar-inner.affix {
+  top: 64px;
+}
+.search-hit-nav {
+  align-items: center;
+  background: var(--card-bg-color);
+  border-radius: 4px;
+  bottom: 24px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
+  color: var(--text-color);
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  position: fixed;
+  right: 24px;
+  z-index: 1300;
+}
+.search-hit-nav button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  min-width: 24px;
+  padding: 2px 4px;
+}
+.search-hit-nav button:hover {
+  color: var(--link-hover-color);
+}
+.search-hit-count {
+  color: #999;
+  font-size: 12px;
+  min-width: 42px;
+  text-align: center;
+}
+@media (max-width: 991px) {
+  .persistent-search-trigger {
+    border-radius: 0;
+    bottom: 68px;
+    padding: 6px;
+  }
+  .persistent-search-trigger span {
+    display: none;
+  }
+  .persistent-search-trigger-mobile {
+    display: flex;
+    right: 20px;
+  }
+  .search-hit-nav {
+    bottom: 18px;
+    right: 14px;
+  }
+}
+.index.posts-expand {
+  background: var(--content-bg-color);
+  border-radius: initial;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
+  padding: 16px 28px 4px;
+}
+.index.posts-expand .post-block {
+  background: transparent;
+  border-bottom: 1px solid var(--body-bg-color);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 16px 0 14px;
+}
+.index.posts-expand .post-block + .post-block {
+  margin-top: 0;
+}
+.index.posts-expand .post-block:last-of-type {
+  border-bottom: 0;
+}
+.index.posts-expand .post-header {
+  margin-bottom: 6px;
+  text-align: left;
+}
+.index.posts-expand .post-title {
+  font-size: 1.22em;
+  line-height: 1.35;
+  margin: 0;
+  text-align: left;
+}
+.index.posts-expand .post-meta {
+  margin: 5px 0 0;
+  line-height: 1.7;
+  text-align: left;
+}
+.index.posts-expand .post-meta br {
+  display: none;
+}
+.index.posts-expand .post-meta-item {
+  display: inline-block;
+  margin-right: 1em;
+}
+.index.posts-expand .post-body {
+  color: #999;
+  font-size: 0.875em;
+  line-height: 1.7;
+  margin-top: 6px;
+}
+.index.posts-expand .post-body > :first-child {
+  margin-top: 0;
+}
+.index.posts-expand .post-body > :last-child {
+  margin-bottom: 0;
+}
+.index.posts-expand .post-button {
+  margin-top: 8px;
+}
+.index.posts-expand .post-footer {
+  display: none;
+}
+@media (max-width: 991px) {
+  .index.posts-expand {
+    padding: 6px 18px 2px;
+  }
+  .index.posts-expand .post-block {
+    padding: 14px 0 12px;
+  }
+  .index.posts-expand .post-title {
+    font-size: 1.12em;
+  }
 }
