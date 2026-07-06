@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f4112b;
+  background: #2aba05;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2986,6 +2986,9 @@ mjx-container + br {
   min-width: 42px;
   text-align: center;
 }
+.search-result-list li > a {
+  display: block;
+}
 @media (max-width: 991px) {
   .persistent-search-trigger {
     border-radius: 0;
@@ -3000,8 +3003,9 @@ mjx-container + br {
     right: 20px;
   }
   .search-hit-nav {
-    bottom: 18px;
+    bottom: 106px;
     right: 14px;
+    padding: 8px 10px;
   }
 }
 .index.posts-expand {
