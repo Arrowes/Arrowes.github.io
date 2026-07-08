@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://pic4.zhimg.com/v2-e40165c7c4d059db8c913daecf337d85_b.webp">
 <meta property="og:image" content="https://picx.zhimg.com/v2-45d35cb4e1b446501fcefac07b3dab55_b.webp">
 <meta property="article:published_time" content="2024-07-23T14:12:00.000Z">
-<meta property="article:modified_time" content="2026-06-29T15:23:30.191Z">
+<meta property="article:modified_time" content="2026-07-08T12:17:02.986Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="技术">
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-29 23:23:30" itemprop="dateModified" datetime="2026-06-29T23:23:30+08:00">2026-06-29</time>
+                <time title="修改时间：2026-07-08 20:17:02" itemprop="dateModified" datetime="2026-07-08T20:17:02+08:00">2026-07-08</time>
               </span>
 
           
@@ -247,14 +247,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>15k</span>
+              <span>16k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>54 分钟</span>
+              <span>58 分钟</span>
             </span>
 
         </div>
@@ -406,6 +406,9 @@ $$</p>
 <li>深度学习方法：</li>
 </ol>
 <h2 id="鱼眼环视-Fast-BEV-Uniform-depth-LSS"><a href="#鱼眼环视-Fast-BEV-Uniform-depth-LSS" class="headerlink" title="鱼眼环视 Fast-BEV &#x2F; Uniform-depth LSS"></a>鱼眼环视 Fast-BEV &#x2F; Uniform-depth LSS</h2><p>项目里的 LSS 变体面向 4 路鱼眼环视输入，目标是把多视角 2D 图像特征高效投影到 Ego 坐标系下的 BEV 网格。它和经典 LSS 最大的区别是：不再预测显式深度分布，而是使用均匀深度采样、离线鱼眼 LUT 和稀疏矩阵乘法完成部署友好的 BEV 转换。</p>
+<blockquote>
+<p>LSS 可以概括为 Lift、Splat、Shoot。首先图像经过 backbone 提取 2D 特征，Lift 阶段结合深度分布或离散深度 bin，把每个像素特征扩展到 3D 视锥；然后根据相机内参、外参和数据增强矩阵，把视锥点转换到车体坐标系，并聚合到 BEV 网格，这一步就是 Splat 或 BEV pooling；最后 Shoot 阶段在 BEV 特征图上接检测、分割、height map 等任务头。FastBEV 更强调工程效率，会减少显式深度预测或复杂投影计算，常通过离散深度、预计算索引、LUT、简化 pooling 等方式提升速度，更适合 TDA4 这类低算力平台。</p>
+</blockquote>
 <p>整体链路如下：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">4 路鱼眼 YUV 图像</span><br><span class="line">  -&gt; Backbone(EfficientNet-Lite) 提取 2D 特征</span><br><span class="line">  -&gt; Neck/Lift 仅做 1x1 降维，不做深度概率预测</span><br><span class="line">  -&gt; CamGeometry 根据鱼眼 LUT 与外参生成 Ego 3D 点</span><br><span class="line">  -&gt; PointsToVoxels 生成 3D 点到 BEV 网格的 mapper</span><br><span class="line">  -&gt; VoxelPooling 用 Sparse MatMul 完成 Splat + Pooling</span><br><span class="line">  -&gt; BevEncoder 平滑融合，输出给下游 shared heads</span><br></pre></td></tr></table></figure>
 
@@ -464,6 +467,27 @@ $$</p>
 <blockquote>
 <p>将连续的高度回归问题，在评估时离散化为了 5cm 一个区间的分类问题。模型在两端（Bin 0 平地，Bin 7 极高障碍物）准确率极高，中间微小高度（如50-100mm）存在一定挑战，这也客观反映了纯视觉测高的难点。</p>
 </blockquote>
+<p>自动泊车视觉感知算法，场景主要是低速泊车和环视鱼眼相机。<br>工作内容包括三部分：</p>
+<ol>
+<li>数据侧: 参与标注规范制定、数据大模型预标注，数据处理工具栏搭建， 生成式AI模型数据增强；</li>
+<li>模型侧:</li>
+</ol>
+<ul>
+<li>2.1 TopView车位检测模型：实习阶段的车位线检测 Demo，目标是在 TI TDA4 这类低算力平台上实现可用的车位线检测。我基于 YOLOX 做了轻量化改造，用车位脚点来表征车位线结构，负责数据准备、模型训练、ONNX 转换和开发板验证，重点解决低算力下精度和速度的平衡。</li>
+<li>2.2 BEV&#x2F;LSS感知模型：输入是四路鱼眼图像，核心是FastBEV 特征转换，目标检测头在 BEV 空间输出车辆、行人、柱子、锥桶、骑行者等目标，同时还有多个检测头： FreeSpace实例分割、height map高度预测，车道线检测任务，其中我主要负责多任务目标检测、以及车道线检测。<ul>
+<li>针对行人KPI偏低的问题，通过行人重采样、AI合成数据、loss 调整(PIOU)、LSS架构调整，将KPI从recall 从60提升到80，precison从50提升到75</li>
+<li>针对车道线检测，对于泊车场景车道线形态复杂的问题，借助GANet的算法思想，将车道线检测建模为关键点估计和全局关联 (Global Association) 任务。不依赖传统的逐点聚类或启发式后处理。通过预测鱼眼图像中每个关键点到其对应车道起点的偏移量来实现的。显著提升了算法的运行效率和推理速度。focal loss</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>工程侧: 参与 PyTorch 到 ONNX、量化、算子适配和平台部署问题定位。<ul>
+<li>ONNX: MatMul换ScatterND: ONNX 标准规范虽然支持稀疏格式，但是几乎所有量产芯片标配的硬件编译器都不支持编译 SparseTensor 以及 torch.sparse.mm 算子。MatMul（矩阵乘法算子）：将映射索引转换为稠密&#x2F;稀疏矩阵，与特征做矩阵相乘。对于支持大尺寸 2D&#x2F;3D 矩阵相乘（GEMM 硬件加速器）的芯片，这是执行投影的最快途径。ScatterND（散布写入算子）：根据索引，将一个特征张量中的数据直接“分发并写入”到目标全景 BEV 零张量的对应物理槽位中；由于硬件编译器的局限性：某些老一代车载 NPU 芯片，其 GEMM 乘法加速器内存极度受限（无法一次性载入巨大的静态映射矩阵），但是它的片上 DMA 控制器却支持高速的数据多路写入（即 Scatter 硬件支持）。</li>
+<li>PTQ量化: 在量产落地中，我们发现有些任务头（如用来做微距高精度定位的车位角点回归检测头）对定点数极其敏感。因为回归任务需要极其平滑、高分辨率的特征差值，在 INT8下会因为分辨率不够产生严重的“像素级跳跃”和台阶效应。混合精度部署（Mixed-Precision）：INT8 全速运行（占 95% 算力）：Backbone、Neck、LSS Projection、BevEncoder 等占据模型 95% 以上算力和计算瓶颈的特征提取干线，全量进行 INT8 全速量化。FP16 精度保障（占 5% 算力）：对于最后的 PolygonObjectDetectionHead 检测头，在部署编译时指定为 FP16（半精度浮点数） 运行。</li>
+</ul>
+</li>
+</ol>
+<hr>
 <h2 id="1-Bottom-Up-LSS-架构"><a href="#1-Bottom-Up-LSS-架构" class="headerlink" title="1.Bottom-Up &#x2F; LSS 架构"></a>1.Bottom-Up &#x2F; LSS 架构</h2><p><strong>核心技术路线</strong>：提取 2D 图像特征 $\to$ 预测离散深度概率分布 $\to$ 外积生成视锥特征量 (Frustum Volume) $\to$ 结合相机内外参投影至 3D 空间 $\to$ Voxel Pooling (体素池化) 展平为 BEV 特征。</p>
 <h3 id="1-LSS-Lift-Splat-Shoot"><a href="#1-LSS-Lift-Splat-Shoot" class="headerlink" title="1. LSS (Lift, Splat, Shoot)"></a>1. LSS (Lift, Splat, Shoot)</h3><p>LSS 的核心思想是：先把多视角 2D 图像特征 Lift 到相机视锥体中的 3D 采样点，再 Splat 到自车坐标系下的 BEV 网格，最后在 BEV 视角执行检测、分割、规划等任务。</p>
 <ul>
@@ -582,6 +606,41 @@ $$</p>
 <td>密集多模态 BEV</td>
 <td>融合模块自带时序缓冲</td>
 <td>双模态同步推理要求极高的系统带宽和算力</td>
+</tr>
+<tr>
+<td>BEVDet：基于 LSS 思路的纯视觉 BEV 检测框架。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BEVDepth：引入更强的深度监督，改善纯视觉 BEV 中深度估计不准的问题。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BEVFormer：使用 transformer 和时序信息，在 BEV query 上融合多视角多帧特征。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BEVFusion：融合相机和激光雷达 BEV 特征，利用相机语义和点云几何互补。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Occupancy Network：预测 3D 空间中每个 voxel 是否被占据，比检测框更细粒度，近年自动驾驶感知常见。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody></table>
 <hr>
@@ -1628,13 +1687,13 @@ B & = Y + 2.03211U
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">126k</span>
+    <span title="站点总字数">127k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:37</span>
+    <span title="站点阅读时长">7:41</span>
 </div>
 
 <div>
