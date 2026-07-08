@@ -171,6 +171,7 @@
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
+<div class="search-history" aria-label="最近搜索"></div>
 <div id="search-result">
   <div id="no-result">
     <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
@@ -188,6 +189,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
@@ -1073,6 +1075,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
       gantt    : { axisFormat: '%m/%d/%Y' },
       sequence : { actorMargin: 50 }
     });
+    mermaid.init(undefined, document.querySelectorAll('pre.mermaid'));
   }, window.mermaid);
 }
 </script>
