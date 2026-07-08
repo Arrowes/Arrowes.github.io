@@ -339,7 +339,7 @@
 <p><strong>Markdown All in One</strong> markdown编辑插件（vs code）</p>
 <p><strong>Markdown Preview Enhanced</strong> markdown预览插件（vs code）<br>如果无法正常导出：Chrome Puppeteer导出PDF &gt; 搜索“chrome”，在相应选项中填入你的浏览器的“chrome.exe”文件的地址即可<br><code>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</code></p>
 <p><strong>Markdown 粘贴插件</strong><br>Markdown paste 右键智能粘贴<br>Paste URL Ctrl+Alt+P快速粘贴链接</p>
-<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">ghp_xxAlc6Mt96IBuszy <span class="comment">#Token</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.github.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.github.com<span class="regexp">/$&#123;username&#125;/</span><span class="variable">$&#123;repository&#125;</span><span class="regexp">/$&#123;branch&#125;/</span><span class="variable">$&#123;filepath&#125;</span> <span class="comment">#Github: CdnstHHTfuz79M8SY0k0cEU</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># File Name Format</span></span><br><span class="line"><span class="variable">$&#123;mdname&#125;</span>-<span class="variable">$&#123;prompt&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>markdown image</strong> 图片插件（vs code）<br> <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Local</span><br><span class="line">E:\Github\Blog\blog\node_modules\hexo-theme-<span class="keyword">next</span>\source\images\ <span class="comment">#Path</span></span><br><span class="line"><span class="regexp">/images/</span> <span class="comment">#Reference Path</span></span><br><span class="line"></span><br><span class="line">Github</span><br><span class="line">main <span class="comment">#Branch</span></span><br><span class="line">/images <span class="comment">#Path</span></span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Arrowes/</span>Blog <span class="comment">#Repository</span></span><br><span class="line">ghp_xxAlc6Mt96IBuszy <span class="comment">#Token</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用raw.github.com代替raw.githubusercontent.com,实现github图片加速</span></span><br><span class="line">https:<span class="regexp">//</span>raw.github.com<span class="regexp">/${username}/$&#123;repository&#125;/</span>${branch}/$&#123;filepath&#125; <span class="comment">#Github: CdnstHHTfuz79M8SY0k0cEU</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># File Name Format</span></span><br><span class="line">${mdname}-$&#123;prompt&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="常用Hexo指令"><a href="#常用Hexo指令" class="headerlink" title="常用Hexo指令"></a>常用<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/commands">Hexo指令</a></h3><p><code>hexo init [folder]</code> 新建一个网站<br><code>hexo new &quot;title&quot;</code> 新建一篇文章<br><code>hexo clean</code> 清除缓存文件 (db.json) 和已生成的静态文件 (public)<br><code>hexo g</code> 生成静态文件<br><code>hexo s</code> 生成本地预览 <a href="localhost:4000">localhost:4000</a><br><code>hexo d</code> 部署网站</p>
 <p><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> 快速预览<br><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code> 快速部署</p>
 <p>VScode终端中使用：<br><code>bash -c &quot;cd blog &amp;&amp; hexo clean &amp;&amp; hexo g &amp;&amp; hexo d&quot;</code></p>
@@ -485,6 +485,103 @@
   <div id="sidebar-dimmer"></div>
 
 
+          <aside class="right-posts-card">
+            <div class="right-posts-title">
+              <i class="fa fa-list-ul fa-fw"></i>文章
+            </div>
+            <ol class="right-posts-list">
+                <li class="right-posts-item">
+                  <a href="/AI/" title="AI：Deepseek,DeepLive,sd,chat-on-wechat">
+                    AI：Deepseek,DeepLive,sd,chat-on-wechat
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Car/" title="Car：Automobiles">
+                    Car：Automobiles
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Computer/" title="Computer：电脑及服务器折腾记录">
+                    Computer：电脑及服务器折腾记录
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM4/" title="TDA4④：部署自定义深度学习模型">
+                    TDA4④：部署自定义深度学习模型
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM3/" title="TDA4③：YOLOX的模型转换与SK板端运行">
+                    TDA4③：YOLOX的模型转换与SK板端运行
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLdeploy/" title="DL模型转换及部署：torch > onnx > deploy">
+                    DL模型转换及部署：torch > onnx > deploy
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM2/" title="TDA4②：环境搭建，模型转换，Demo及Tools">
+                    TDA4②：环境搭建，模型转换，Demo及Tools
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM/" title="TDA4①：SDK, TIDL, OpenVX">
+                    TDA4①：SDK, TIDL, OpenVX
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/C/" title="C, C++, Cmake">
+                    C, C++, Cmake
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Paper/" title="Paper：科研方法总结">
+                    Paper：科研方法总结
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Project/" title="Project：多个项目汇总">
+                    Project：多个项目汇总
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DL/" title="DL：深度学习相关概念">
+                    DL：深度学习相关概念
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Embedded/" title="Embedded：嵌入式应用知识">
+                    Embedded：嵌入式应用知识
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Photograph/" title="Photograph：个人摄影笔记">
+                    Photograph：个人摄影笔记
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Linux/" title="Linux：Ubuntu，Git，Docker">
+                    Linux：Ubuntu，Git，Docker
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLtrain/" title="DL train：Code, Ideas, Workflow">
+                    DL train：Code, Ideas, Workflow
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Pytorch/" title="Py：conda，Pycharm，Pytorch">
+                    Py：conda，Pycharm，Pytorch
+                  </a>
+                </li>
+                <li class="right-posts-item right-posts-item-active">
+                  <a href="/Blog/" title="Hello Blog! 从零开始搭建自己的博客网站">
+                    Hello Blog! 从零开始搭建自己的博客网站
+                  </a>
+                </li>
+            </ol>
+          </aside>
       </div>
     </main>
 

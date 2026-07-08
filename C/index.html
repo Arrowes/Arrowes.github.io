@@ -587,7 +587,7 @@
 <h1 id="Cmake"><a href="#Cmake" class="headerlink" title="Cmake"></a>Cmake</h1><p><a href="www.cmake.org">CMake</a> 是一个跨平台的开源构建管理系统，用于自动化应用程序的构建、测试和打包过程。它使用类似于Makefile的文本文件来描述构建过程中所需的所有组件和依赖项，并将其转换为适合各种不同编译器和操作系统的本地构建系统的配置文件。总之，CMake就是一个将多个cpp,hpp文件组合构建为一个大工程的语言。<br><a target="_blank" rel="noopener" href="https://cmake.org/download/">CMake下载</a> (Linux无需下载)<br><a target="_blank" rel="noopener" href="https://github.com/gavinliu6/CMake-Practice-zh-CN">Cmake 实践</a> 在实践中上手的教程<br><a target="_blank" rel="noopener" href="https://github.com/SFUMECJF/cmake-examples-Chinese">cmake-examples-Chinese</a> 例程</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/Arrowes/C-coding/tree/main/Cmake">C-coding&#x2F;Cmake at main · Arrowes&#x2F;C-coding</a></p>
 <h2 id="Cmake-实践"><a href="#Cmake-实践" class="headerlink" title="Cmake 实践"></a><a target="_blank" rel="noopener" href="https://gavinliu6.github.io/CMake-Practice-zh-CN/#/">Cmake 实践</a></h2><h3 id="t1-创建Hello-world"><a href="#t1-创建Hello-world" class="headerlink" title="t1 创建Hello world"></a>t1 <a target="_blank" rel="noopener" href="https://github.com/gavinliu6/CMake-Practice-zh-CN/blob/master/hello-world.md">创建Hello world</a></h3><p>建立main.c与CMakeLists.txt并编译（需要为每一个子目录建立一个CMakeLists.txt）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">PROJECT (HELLO)     <span class="comment">#PROJECT(projectname [CXX] [C] [Java])</span></span><br><span class="line">SET(SRC_LIST main.c)    <span class="comment">#提供要编译的源代码文件列表，可定义多个源文件main.c 1.c</span></span><br><span class="line">MESSAGE([SEND_ERROR|STATUS|FATAL_ERROR] <span class="string">&quot;message to display&quot;</span>)</span><br><span class="line">ADD_EXECUTABLE(hello <span class="variable">$&#123;SRC_LIST&#125;</span>)   <span class="comment">#创建名为hello的可执行文件，IF不用$&#123;&#125;引用变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#内部编译(在文件夹中产生文件太多)</span></span><br><span class="line">cmake . <span class="comment">#构建工程，生成makefile</span></span><br><span class="line">make    <span class="comment">#构建目标文件hello二进制</span></span><br><span class="line">./hello <span class="comment">#运行目标文件</span></span><br><span class="line"><span class="comment">#外部编译(out of source build,推荐)</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build <span class="comment">#新建并进入build文件夹</span></span><br><span class="line">cmake ..    <span class="comment">#在父目录找到cmakelists构建工程</span></span><br><span class="line">make    <span class="comment">#在build编译目录中获得目标文件，不影响原有工程</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">PROJECT (HELLO)     <span class="comment">#PROJECT(projectname [CXX] [C] [Java])</span></span><br><span class="line">SET(SRC_LIST main.c)    <span class="comment">#提供要编译的源代码文件列表，可定义多个源文件main.c 1.c</span></span><br><span class="line">MESSAGE([SEND_ERROR|STATUS|FATAL_ERROR] <span class="string">&quot;message to display&quot;</span>)</span><br><span class="line">ADD_EXECUTABLE(hello ${SRC_LIST})   #创建名为hello的可执行文件，IF不用$&#123;&#125;引用变量</span><br><span class="line"></span><br><span class="line"><span class="comment">#内部编译(在文件夹中产生文件太多)</span></span><br><span class="line">cmake . <span class="comment">#构建工程，生成makefile</span></span><br><span class="line">make    <span class="comment">#构建目标文件hello二进制</span></span><br><span class="line">./hello <span class="comment">#运行目标文件</span></span><br><span class="line"><span class="comment">#外部编译(out of source build,推荐)</span></span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build <span class="comment">#新建并进入build文件夹</span></span><br><span class="line">cmake ..    <span class="comment">#在父目录找到cmakelists构建工程</span></span><br><span class="line">make    <span class="comment">#在build编译目录中获得目标文件，不影响原有工程</span></span><br></pre></td></tr></table></figure>
 <p>目标文件:在linux下，是ELF格式（Executable Linkable Format，可执行可链接格式），而在windows下是PE（Portable Executable，可移植可执行）。通常有三种形式：</p>
 <ul>
 <li>可执行目标文件。即我们通常所认识的，可直接运行的二进制文件。</li>
@@ -765,6 +765,103 @@
   <div id="sidebar-dimmer"></div>
 
 
+          <aside class="right-posts-card">
+            <div class="right-posts-title">
+              <i class="fa fa-list-ul fa-fw"></i>文章
+            </div>
+            <ol class="right-posts-list">
+                <li class="right-posts-item">
+                  <a href="/AI/" title="AI：Deepseek,DeepLive,sd,chat-on-wechat">
+                    AI：Deepseek,DeepLive,sd,chat-on-wechat
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Car/" title="Car：Automobiles">
+                    Car：Automobiles
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Computer/" title="Computer：电脑及服务器折腾记录">
+                    Computer：电脑及服务器折腾记录
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM4/" title="TDA4④：部署自定义深度学习模型">
+                    TDA4④：部署自定义深度学习模型
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM3/" title="TDA4③：YOLOX的模型转换与SK板端运行">
+                    TDA4③：YOLOX的模型转换与SK板端运行
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLdeploy/" title="DL模型转换及部署：torch > onnx > deploy">
+                    DL模型转换及部署：torch > onnx > deploy
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM2/" title="TDA4②：环境搭建，模型转换，Demo及Tools">
+                    TDA4②：环境搭建，模型转换，Demo及Tools
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM/" title="TDA4①：SDK, TIDL, OpenVX">
+                    TDA4①：SDK, TIDL, OpenVX
+                  </a>
+                </li>
+                <li class="right-posts-item right-posts-item-active">
+                  <a href="/C/" title="C, C++, Cmake">
+                    C, C++, Cmake
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Paper/" title="Paper：科研方法总结">
+                    Paper：科研方法总结
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Project/" title="Project：多个项目汇总">
+                    Project：多个项目汇总
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DL/" title="DL：深度学习相关概念">
+                    DL：深度学习相关概念
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Embedded/" title="Embedded：嵌入式应用知识">
+                    Embedded：嵌入式应用知识
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Photograph/" title="Photograph：个人摄影笔记">
+                    Photograph：个人摄影笔记
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Linux/" title="Linux：Ubuntu，Git，Docker">
+                    Linux：Ubuntu，Git，Docker
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLtrain/" title="DL train：Code, Ideas, Workflow">
+                    DL train：Code, Ideas, Workflow
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Pytorch/" title="Py：conda，Pycharm，Pytorch">
+                    Py：conda，Pycharm，Pytorch
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Blog/" title="Hello Blog! 从零开始搭建自己的博客网站">
+                    Hello Blog! 从零开始搭建自己的博客网站
+                  </a>
+                </li>
+            </ol>
+          </aside>
       </div>
     </main>
 

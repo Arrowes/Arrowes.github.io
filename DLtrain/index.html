@@ -273,27 +273,27 @@
 <p>在多任务模型中，不同任务的损失函数量级、收敛速度和对共享层参数梯度的影响往往差异巨大。这会导致“任务主导（Task Domination）”现象：某个任务的梯度过大，完全主导了模型权重的更新，导致其他任务学不到东西。</p>
 <p><strong>GradNorm</strong>（由 Chen 等人在 ICML 2018 提出）是解决这一问题的经典算法，核心思想是：<strong>动态调整每个任务的损失权重，使得所有任务在最后一个共享层上产生的梯度大小（Gradient Norm）保持相近，同时强制让训练较慢的任务产生更大的梯度。</strong></p>
 <p>假设模型有 $T$ 个任务，每个任务对应一个动态变化的损失权重 $w_i(t)$，模型的总损失为：</p>
-<p>$$L(t) &#x3D; \sum_{i&#x3D;1}^{T} w_i(t) L_i(t)$$</p>
+<p>$$L(t) = \sum_{i=1}^{T} w_i(t) L_i(t)$$</p>
 <p>GradNorm 并不直接优化总损失来更新 $w_i(t)$，而是专门为 $w_i(t)$ 设计了一个<strong>梯度损失函数（GradNorm Loss）</strong>：</p>
 <ul>
-<li><strong>当前梯度范数 $G_i(t)$：</strong> 任务 $i$ 在当前步骤对<strong>最后一个共享层</strong>权重 $W$ 的梯度 L2 范数：</li>
+<li><strong>当前梯度范数 $G_i(t)$：</strong> 任务 $i$ 在当前步骤对**最后一个共享层**权重 $W$ 的梯度 L2 范数：</li>
 </ul>
-<p>$$G_i(t) &#x3D; |\nabla_W (w_i(t) L_i(t))|_2$$</p>
+<p>$$G_i(t) = \|\nabla_W (w_i(t) L_i(t))\|_2$$</p>
 <ul>
 <li><strong>平均梯度范数 $\bar{G}(t)$：</strong> 所有任务梯度范数的平均值，作为基准：</li>
 </ul>
-<p>$$\bar{G}(t) &#x3D; \frac{1}{T} \sum_{i&#x3D;1}^{T} G_i(t)$$</p>
+<p>$$\bar{G}(t) = \frac{1}{T} \sum_{i=1}^{T} G_i(t)$$</p>
 <ul>
 <li><strong>相对训练速率 $\tilde{r}_i(t)$：</strong> 衡量任务 $i$ 当前的训练进度。首先计算当前损失与初始损失的比值 $r_i(t) &#x3D; L_i(t) &#x2F; L_i(0)$，然后求相对值：</li>
 </ul>
-<p>$$\tilde{r}<em>i(t) &#x3D; \frac{r_i(t)}{\frac{1}{T}\sum</em>{j} r_j(t)}$$</p>
-<p>如果 $\tilde{r}_i(t) &gt; 1$，说明任务 $i$ 训练得比平均水平慢。</p>
+<p>$$\tilde{r}_i(t) = \frac{r_i(t)}{\frac{1}{T}\sum_{j} r_j(t)}$$</p>
+<p>如果 $\tilde{r}_i(t) > 1$，说明任务 $i$ 训练得比平均水平慢。</p>
 <ul>
 <li><strong>目标梯度范数 $G_i^{target}(t)$：</strong> 结合平均梯度和训练速率，计算任务 $i$ 应该达到的理想梯度大小（$\alpha$ 是调节不平衡程度的超参数，通常设为 0.1 到 1.5 之间）：</li>
 </ul>
-<p>$$G_i^{target}(t) &#x3D; \bar{G}(t) \times [\tilde{r}_i(t)]^\alpha$$</p>
+<p>$$G_i^{target}(t) = \bar{G}(t) \times [\tilde{r}_i(t)]^\alpha$$</p>
 <p>最后，构建关于权重 $w_i(t)$ 的损失函数（通常用 L1 损失），并对其进行反向传播来更新 $w_i(t)$：</p>
-<p>$$L_{grad}(t) &#x3D; \sum_{i&#x3D;1}^{T} |G_i(t) - G_i^{target}(t)|$$</p>
+<p>$$L_{grad}(t) = \sum_{i=1}^{T} |G_i(t) - G_i^{target}(t)|$$</p>
 <p>在代码实现中，需要两套优化器：一套用于更新网络模型的参数，另一套专门用于更新任务权重 $w_i$。</p>
 <ol>
 <li><strong>前向传播：</strong> 将数据输入网络，得到每个任务的预测结果，计算各任务的初始损失 $L_i(0)$（仅在第一步计算并保存）和当前步骤的损失 $L_i(t)$。</li>
@@ -313,13 +313,13 @@
 <p>在机器学习中，不确定性主要分几种。这里用到的是<strong>同方差不确定性</strong>，通俗理解就是“任务级别的固有难度或噪音”。<br>如果直接把多任务加起来训练，如带有高噪音的“深度预测”任务产生的杂乱梯度，就会干扰模型学习简单的分割等任务。</p>
 <p>Uncertainty Loss 通过让模型<strong>自己学习</strong>每个任务的不确定性（用方差 $\sigma^2$ 表示），来动态调整权重。</p>
 <p>对于有 $T$ 个任务的模型，假设任务 $i$ 的原始损失为 $L_i$，模型会为每个任务额外学习一个可训练的参数 $\sigma_i$。总的 Uncertainty Loss 公式如下：</p>
-<p>$$L_{total} &#x3D; \sum_{i&#x3D;1}^{T} \left( \frac{1}{2\sigma_i^2} L_i + \log \sigma_i \right)$$</p>
+<p>$$L_{total} = \sum_{i=1}^{T} \left( \frac{1}{2\sigma_i^2} L_i + \log \sigma_i \right)$$</p>
 <ul>
-<li><strong>前半部分（$\frac{1}{2\sigma_i^2} L_i$）：权重惩罚。</strong><br>$\frac{1}{2\sigma_i^2}$ 就相当于任务 $i$ 的权重 $w_i$。如果任务 $i$ 的 Loss 很大（任务很难），为了让总 $L_{total}$ 降下来，模型会倾向于把 $\sigma_i$ 变得<strong>很大</strong>。$\sigma_i$ 变大，权重就变小了，相当于模型在说：“这个任务太难&#x2F;太吵了，我不想学了，把它权重降下来吧。”</li>
+<li><strong>前半部分（$\frac{1}{2\sigma_i^2} L_i$）：权重惩罚。</strong><br>$\frac{1}{2\sigma_i^2}$ 就相当于任务 $i$ 的权重 $w_i$。如果任务 $i$ 的 Loss 很大（任务很难），为了让总 $L_{total}$ 降下来，模型会倾向于把 $\sigma_i$ 变得**很大**。$\sigma_i$ 变大，权重就变小了，相当于模型在说：“这个任务太难&#x2F;太吵了，我不想学了，把它权重降下来吧。”</li>
 <li><strong>后半部分（$\log \sigma_i$）：正则化约束。</strong><br>如果只有前半部分，模型会耍小聪明，把所有任务的 $\sigma_i$ 都无限放大，这样总 Loss 就变成 0 了。为了防止这种作弊，加入了 $\log \sigma_i$。当你把 $\sigma_i$ 变大时，$\log \sigma_i$ 也会变大，从而对模型进行惩罚。</li>
 </ul>
-<p>工业界标准的做法是定义对数方差：$s_i &#x3D; \log(\sigma_i^2)$。此时损失函数可以等价转换为没有除法和对数惩罚的稳定形态：</p>
-<p>$$L_{total} &#x3D; \sum_{i&#x3D;1}^{T} \left( \exp(-s_i) \cdot L_i + \frac{1}{2} s_i \right)$$</p>
+<p>工业界标准的做法是定义对数方差：$s_i = \log(\sigma_i^2)$。此时损失函数可以等价转换为没有除法和对数惩罚的稳定形态：</p>
+<p>$$L_{total} = \sum_{i=1}^{T} \left( \exp(-s_i) \cdot L_i + \frac{1}{2} s_i \right)$$</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设有 2 个任务，初始化对数方差 s_i 为 0</span></span><br><span class="line"><span class="comment"># 必须设置 requires_grad=True，让优化器去更新它</span></span><br><span class="line">log_vars = nn.Parameter(torch.zeros(<span class="number">2</span>, requires_grad=<span class="literal">True</span>)) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 在前向传播计算出 task1_loss 和 task2_loss 后</span></span><br><span class="line">loss_1 = torch.exp(-log_vars[<span class="number">0</span>]) * task1_loss + <span class="number">0.5</span> * log_vars[<span class="number">0</span>]</span><br><span class="line">loss_2 = torch.exp(-log_vars[<span class="number">1</span>]) * task2_loss + <span class="number">0.5</span> * log_vars[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">total_loss = loss_1 + loss_2</span><br><span class="line"><span class="comment"># 然后直接 total_loss.backward() 即可</span></span><br></pre></td></tr></table></figure>
 
 <table>
@@ -444,7 +444,7 @@
 </li>
 <li><p>下载COCO数据集：<code>python tools/misc/download_dataset.py --dataset-name coco2017</code></p>
 </li>
-<li><p>测试：<code>python tools/test.py $&#123;CONFIG_FILE&#125; $&#123;CHECKPOINT_FILE&#125; [--out $&#123;RESULT_FILE&#125;] [--show]</code></p>
+<li><p>测试：<code>python tools/test.py ${CONFIG_FILE} $&#123;CHECKPOINT_FILE&#125; [--out $&#123;RESULT_FILE&#125;] [--show]</code></p>
   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python tools/test.py configs/rtmdet/rtmdet_l_8xb32-300e_coco.py checkpoints/rtmdet_l_8xb32-300e_coco_20220719_112030-5a0be7c4.pth --show-dir rtmdet_l_8xb32-300e_coco_results</span><br></pre></td></tr></table></figure></li>
 <li><p>训练：</p>
   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python tools/train.py &#123;CONFIG_FILE&#125; [optional arguments]</span><br><span class="line">python tools/train.py configs/retinanet/retinanet_r50_fpn_1x_coco.py</span><br></pre></td></tr></table></figure></li>
@@ -798,6 +798,103 @@
   <div id="sidebar-dimmer"></div>
 
 
+          <aside class="right-posts-card">
+            <div class="right-posts-title">
+              <i class="fa fa-list-ul fa-fw"></i>文章
+            </div>
+            <ol class="right-posts-list">
+                <li class="right-posts-item">
+                  <a href="/AI/" title="AI：Deepseek,DeepLive,sd,chat-on-wechat">
+                    AI：Deepseek,DeepLive,sd,chat-on-wechat
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Car/" title="Car：Automobiles">
+                    Car：Automobiles
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Computer/" title="Computer：电脑及服务器折腾记录">
+                    Computer：电脑及服务器折腾记录
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM4/" title="TDA4④：部署自定义深度学习模型">
+                    TDA4④：部署自定义深度学习模型
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM3/" title="TDA4③：YOLOX的模型转换与SK板端运行">
+                    TDA4③：YOLOX的模型转换与SK板端运行
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLdeploy/" title="DL模型转换及部署：torch > onnx > deploy">
+                    DL模型转换及部署：torch > onnx > deploy
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM2/" title="TDA4②：环境搭建，模型转换，Demo及Tools">
+                    TDA4②：环境搭建，模型转换，Demo及Tools
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM/" title="TDA4①：SDK, TIDL, OpenVX">
+                    TDA4①：SDK, TIDL, OpenVX
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/C/" title="C, C++, Cmake">
+                    C, C++, Cmake
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Paper/" title="Paper：科研方法总结">
+                    Paper：科研方法总结
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Project/" title="Project：多个项目汇总">
+                    Project：多个项目汇总
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DL/" title="DL：深度学习相关概念">
+                    DL：深度学习相关概念
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Embedded/" title="Embedded：嵌入式应用知识">
+                    Embedded：嵌入式应用知识
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Photograph/" title="Photograph：个人摄影笔记">
+                    Photograph：个人摄影笔记
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Linux/" title="Linux：Ubuntu，Git，Docker">
+                    Linux：Ubuntu，Git，Docker
+                  </a>
+                </li>
+                <li class="right-posts-item right-posts-item-active">
+                  <a href="/DLtrain/" title="DL train：Code, Ideas, Workflow">
+                    DL train：Code, Ideas, Workflow
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Pytorch/" title="Py：conda，Pycharm，Pytorch">
+                    Py：conda，Pycharm，Pytorch
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Blog/" title="Hello Blog! 从零开始搭建自己的博客网站">
+                    Hello Blog! 从零开始搭建自己的博客网站
+                  </a>
+                </li>
+            </ol>
+          </aside>
       </div>
     </main>
 

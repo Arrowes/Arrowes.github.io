@@ -336,7 +336,7 @@
 <h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><img alt="picture 2" src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/ProjectFEY-network.png" />  
 
 <h3 id="CA注意力机制"><a href="#CA注意力机制" class="headerlink" title="CA注意力机制"></a>CA注意力机制</h3><p>CA模块在空间维度上自适应地对不同位置的特征进行加权，从而使得模型更加关注重要的空间位置，不仅捕获跨通道信息，还捕获方向感知和位置敏感信息，这有助于模型更准确地定位和识别感兴趣的对象。<br>具体来说，Coordinate Attention引入了一个全局自注意力模块，该模块可以对输入特征图的每个位置进行自适应的加权。该加权由两个步骤完成：Coordinate信息嵌入和Coordinate Attention生成。<br>1.	通过两个全局平均池化操作，分别计算输入特征图在通道维度上和空间维度上的均值。这两个均值分别表示了输入特征图在每个通道和每个空间位置的重要性。<br>2.	将通道维度上的均值与空间维度上的均值进行相乘，得到一个权重矩阵，该权重矩阵表示了每个位置在通道和空间维度上的重要性，并将其应用于输入特征图中。最终，每个位置的特征将与其在通道和空间维度上的重要性相关联，从而使得模型更加关注重要的空间位置。<br><img alt="图 43" src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/Project-CA.png" width='38%'/>  </p>
-<h3 id="PERYAWN疲劳评估算法"><a href="#PERYAWN疲劳评估算法" class="headerlink" title="PERYAWN疲劳评估算法"></a>PERYAWN疲劳评估算法</h3><p>$PERYAWN &#x3D; E&#x2F;(N - w · M)$</p>
+<h3 id="PERYAWN疲劳评估算法"><a href="#PERYAWN疲劳评估算法" class="headerlink" title="PERYAWN疲劳评估算法"></a>PERYAWN疲劳评估算法</h3><p>$PERYAWN = E/(N - w · M)$</p>
 <p>其中，E是闭眼帧数，N是单位时间内总帧数，M代表“张嘴”的帧数，w是加权因子。为了量化四个驾驶员特征（睁眼、闭眼、张嘴和闭嘴）的检测结果，我们采用公式4和5，并将权重w设置为0.15。基于本研究中数据集标签的实际情况，我们确定当单位时间内的PERYAWN值超过0.20时，驾驶员处于疲劳状态。</p>
 <p>为了更直观地评估该算法在检测驾驶员状态方面的有效性，我们使用提出的PERYAWN参数作为定量指标来评估多个10秒的测试视频（每秒24帧）。如下图所示，如果PERYAWN值超过0.2，则将驾驶员分类为疲劳状态。如果该值超过0.5，则认为驾驶员处于严重疲劳状态。我们将检测到的状态与驾驶员的实际状态进行比较，并计算准确性。除了一些视频检测结果出现偏差外，所有结果都能够准确检测到三种状态：’正常’，’疲劳’和’严重疲劳’。<br><img alt="图 44" src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/Project-PERYAWN.png" width='60%'/>  </p>
 <h3 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h3><ul>
@@ -536,6 +536,103 @@
   <div id="sidebar-dimmer"></div>
 
 
+          <aside class="right-posts-card">
+            <div class="right-posts-title">
+              <i class="fa fa-list-ul fa-fw"></i>文章
+            </div>
+            <ol class="right-posts-list">
+                <li class="right-posts-item">
+                  <a href="/AI/" title="AI：Deepseek,DeepLive,sd,chat-on-wechat">
+                    AI：Deepseek,DeepLive,sd,chat-on-wechat
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Car/" title="Car：Automobiles">
+                    Car：Automobiles
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Computer/" title="Computer：电脑及服务器折腾记录">
+                    Computer：电脑及服务器折腾记录
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM4/" title="TDA4④：部署自定义深度学习模型">
+                    TDA4④：部署自定义深度学习模型
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM3/" title="TDA4③：YOLOX的模型转换与SK板端运行">
+                    TDA4③：YOLOX的模型转换与SK板端运行
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLdeploy/" title="DL模型转换及部署：torch > onnx > deploy">
+                    DL模型转换及部署：torch > onnx > deploy
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM2/" title="TDA4②：环境搭建，模型转换，Demo及Tools">
+                    TDA4②：环境搭建，模型转换，Demo及Tools
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM/" title="TDA4①：SDK, TIDL, OpenVX">
+                    TDA4①：SDK, TIDL, OpenVX
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/C/" title="C, C++, Cmake">
+                    C, C++, Cmake
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Paper/" title="Paper：科研方法总结">
+                    Paper：科研方法总结
+                  </a>
+                </li>
+                <li class="right-posts-item right-posts-item-active">
+                  <a href="/Project/" title="Project：多个项目汇总">
+                    Project：多个项目汇总
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DL/" title="DL：深度学习相关概念">
+                    DL：深度学习相关概念
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Embedded/" title="Embedded：嵌入式应用知识">
+                    Embedded：嵌入式应用知识
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Photograph/" title="Photograph：个人摄影笔记">
+                    Photograph：个人摄影笔记
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Linux/" title="Linux：Ubuntu，Git，Docker">
+                    Linux：Ubuntu，Git，Docker
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLtrain/" title="DL train：Code, Ideas, Workflow">
+                    DL train：Code, Ideas, Workflow
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Pytorch/" title="Py：conda，Pycharm，Pytorch">
+                    Py：conda，Pycharm，Pytorch
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Blog/" title="Hello Blog! 从零开始搭建自己的博客网站">
+                    Hello Blog! 从零开始搭建自己的博客网站
+                  </a>
+                </li>
+            </ol>
+          </aside>
       </div>
     </main>
 

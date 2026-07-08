@@ -318,22 +318,22 @@ A-->E[C.定义]</pre>
 </tr>
 </thead>
 <tbody><tr>
-<td>$$softmax(x_i) &#x3D; \frac{e^{x_i}}{\sum_{j&#x3D;0}^{N} e^{x_j}}$$</td>
+<td>$$softmax(x_i) = \frac{e^{x_i}}{\sum_{j=0}^{N} e^{x_j}}$$</td>
 <td>将未规范化的预测变换为非负数并且总和为1，同时让模型保持可导的性质;常用在分类网络的最后一层，把网络输出转化为各类别的概率。</td>
 <td>首先对每个未规范化的预测求幂，这样可以确保输出非负。为了确保最终输出的概率值总和为1，再让每个求幂后的结果除以它们的总和</td>
 </tr>
 <tr>
-<td>挤压函数（squashing function）$$sigmoid(x) &#x3D; \frac 1{1 + exp(−x)}$$</td>
+<td>挤压函数（squashing function）$$sigmoid(x) = \frac 1{1 + exp(−x)}$$</td>
 <td>将输入映射到范围(0, 1)，常用于二元分类问题。sigmoid可以视为softmax的特例</td>
 <td><img src="https://zh.d2l.ai/_images/output_mlp_76f463_51_0.svg"  /></td>
 </tr>
 <tr>
-<td>双曲正切 $$tanh(x) &#x3D; \frac {1 − exp(−2x)}{1 + exp(−2x)}$$</td>
+<td>双曲正切 $$tanh(x) = \frac {1 − exp(−2x)}{1 + exp(−2x)}$$</td>
 <td>将输入映射到范围(-1, 1)，也用于某些分类和回归问题, 当输入在0附近时，tanh函数接近线性变换。形状类似于sigmoid函数，不同的是tanh函数关于坐标系原点中心对称。（LSTM）</td>
 <td><img src="https://zh.d2l.ai/_images/output_mlp_76f463_81_0.svg"  /></td>
 </tr>
 <tr>
-<td>修正线性单元（Rectified Linear Unit）$$ReLU(x) &#x3D; max(x, 0)$$  $$LeakyReLU&#x3D;max(αx,x)$$</td>
+<td>修正线性单元（Rectified Linear Unit）$$ReLU(x) = max(x, 0)$$  $$LeakyReLU=max(αx,x)$$</td>
 <td>求导表现得特别好：要么让参数消失，要么让参数通过。最常用的激活函数，通常能够加速收敛和减轻梯度消失问题（Transfromer）； LeakyReLU中通常设α&#x3D;0.01来调整负值的零梯度，缓解dead ReLU问题（YOLO） 若α为可学习参数，则为PReLU</td>
 <td><img src="https://zh.d2l.ai/_images/output_mlp_76f463_21_0.svg"  /></td>
 </tr>
@@ -344,7 +344,7 @@ A-->E[C.定义]</pre>
 </tr>
 </tbody></table>
 <h2 id="感受野-Receptive-field"><a href="#感受野-Receptive-field" class="headerlink" title="感受野(Receptive field)"></a>感受野(Receptive field)</h2><p>感受野是指在卷积神经网络中，输出特征图上的一个像素点对应于输入图像上的感受区域大小。感受野的大小可以用来衡量网络在某一层上能够“看到”输入图像的范围，从而影响网络对局部和全局信息的感知能力。<br><img src="https://pic1.zhimg.com/80/v2-93a99cd695aeb1b8edf0c4b4eac8b7a9_1440w.webp?source=1940ef5c"  /></p>
-<p>$   n_{output.features}&#x3D;[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL2.png" width = "50%" /></p>
+<p>$   n_{output.features}=[\frac{n_{input.features}+2p_{adding.size}-k_{ernel.size}}{s_{tride.size}}+1]   $<br>较小的感受野通常用于捕获局部特征，而较大的感受野则有助于捕获全局信息。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL2.png" width = "50%" /></p>
 <h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p>一个卷积核（kernel）为3×3、步长（stride）为1、填充（padding）为1的二维卷积：<br><img src="https://pic1.zhimg.com/50/v2-d552433faa8363df84c53b905443a556_720w.webp?source=1940ef5c" width = "40%" /></p>
 <table>
 <thead>
@@ -366,7 +366,7 @@ A-->E[C.定义]</pre>
 <tr>
 <td></td>
 <td><strong>全连接层</strong><br><br>(Linear)</td>
-<td>全局特征组合，执行矩阵乘法 <br>$$y &#x3D; xA^T + b$$<br></td>
+<td>全局特征组合，执行矩阵乘法 <br>$$y = xA^T + b$$<br></td>
 <td>分类器末端输出、MLP（多层感知机）</td>
 <td><code>nn.Linear(in_features, out_features, bias=True)</code></td>
 </tr>
@@ -408,7 +408,7 @@ A-->E[C.定义]</pre>
 <tr>
 <td></td>
 <td><strong>残差连接</strong><br><br>(Skip Connection)</td>
-<td>将输入直接加到输出上 (<br>$$y&#x3D;f(x)+x$$<br>)，解决梯度消失。</td>
+<td>将输入直接加到输出上 (<br>$$y=f(x)+x$$<br>)，解决梯度消失。</td>
 <td>支撑深层网络（如 ResNet、Transformer）</td>
 <td><em>无现成 API，需在 <code>forward</code> 中手动实现</em>：<br><br><code>out = self.layer(x) + x</code></td>
 </tr>
@@ -450,11 +450,19 @@ A-->E[C.定义]</pre>
 <blockquote>
 <p>|$Q_{11}(x_1,y_1)$—$Q_{21}(x_2,y_1)$|<br>|————–(x,y)————–|<br>|$Q_{12}(x_1,y_2)$—$Q_{22}(x_2,y_2)$|</p>
 </blockquote>
-<p>则双线性插值结果为：<br>$$<br>f(x,y)&#x3D;\frac{1}{(x_2-x_1)(y_2-y_1)}<br>\begin{bmatrix}x_2-x &amp; x-x_1\end{bmatrix}<br>\begin{bmatrix}<br>f(Q_{11}) &amp; f(Q_{12})\<br>f(Q_{21}) &amp; f(Q_{22})<br>\end{bmatrix}<br>\begin{bmatrix}y_2-y\y-y_1\end{bmatrix}<br>$$</p>
+<p>则双线性插值结果为：<br>$$
+f(x,y)=\frac{1}{(x_2-x_1)(y_2-y_1)}
+\begin{bmatrix}x_2-x & x-x_1\end{bmatrix}
+\begin{bmatrix}
+f(Q_{11}) & f(Q_{12})\\
+f(Q_{21}) & f(Q_{22})
+\end{bmatrix}
+\begin{bmatrix}y_2-y\\y-y_1\end{bmatrix}
+$$</p>
 <p>更直观地看，可以拆成两次一维插值：</p>
 <ol>
-<li>在 $y&#x3D;y_1$ 上，对 $Q_{11}$ 和 $Q_{21}$ 线性插值，得到 $R_1$</li>
-<li>在 $y&#x3D;y_2$ 上，对 $Q_{12}$ 和 $Q_{22}$ 线性插值，得到 $R_2$</li>
+<li>在 $y=y_1$ 上，对 $Q_{11}$ 和 $Q_{21}$ 线性插值，得到 $R_1$</li>
+<li>在 $y=y_2$ 上，对 $Q_{12}$ 和 $Q_{22}$ 线性插值，得到 $R_2$</li>
 <li>在 $x$ 固定处，对 $R_1$ 和 $R_2$ 再做一次线性插值，得到最终值</li>
 </ol>
 <ul>
@@ -620,25 +628,31 @@ A-->E[C.定义]</pre>
 </ol>
 </blockquote>
 <h2 id="损失函数「loss-function」"><a href="#损失函数「loss-function」" class="headerlink" title="损失函数「loss function」"></a>损失函数「loss function」</h2><p>来度量模型的预测值$\hat{y}$与真实值$y$的差异程度的运算函数，它是一个非负实值函数，通常使用$L(y, \hat{y})$来表示，损失函数越小，模型的鲁棒性就越好。<br><strong>基于距离度量的损失函数</strong><br>基于距离度量的损失函数通常将输入数据映射到基于距离度量的特征空间上，如欧氏空间、汉明空间等，将映射后的样本看作空间上的点，采用合适的损失函数度量特征空间上样本真实值和模型预测值之间的距离。特征空间上两个点的距离越小，模型的预测性能越好。</p>
-<h3 id="L1范数损失函数（MAE）"><a href="#L1范数损失函数（MAE）" class="headerlink" title="L1范数损失函数（MAE）"></a>L1范数损失函数（MAE）</h3><p>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；</p>
-<h3 id="L2损失函数（MSE均方误差损失函数）"><a href="#L2损失函数（MSE均方误差损失函数）" class="headerlink" title="L2损失函数（MSE均方误差损失函数）"></a>L2损失函数（MSE均方误差损失函数）</h3><p>$$L_{MSE}&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
+<h3 id="L1范数损失函数（MAE）"><a href="#L1范数损失函数（MAE）" class="headerlink" title="L1范数损失函数（MAE）"></a>L1范数损失函数（MAE）</h3><p>$$L_{MSE}=\frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y_i}|$$<br>又称为曼哈顿距离，表示残差的绝对值之和。L1损失函数对离群点有很好的鲁棒性，但它在残差为零处却不可导,且更新的梯度始终相同；</p>
+<h3 id="L2损失函数（MSE均方误差损失函数）"><a href="#L2损失函数（MSE均方误差损失函数）" class="headerlink" title="L2损失函数（MSE均方误差损失函数）"></a>L2损失函数（MSE均方误差损失函数）</h3><p>$$L_{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y_i})^2$$<br>在回归问题中，均方误差损失函数用于度量样本点到回归曲线的距离，通过最小化平方损失使样本点可以更好地拟合回归曲线。（L2损失又被称为欧氏距离，是一种常用的距离度量方法，通常用于度量数据点之间的相似度。）</p>
 <h3 id="Wing-Loss"><a href="#Wing-Loss" class="headerlink" title="Wing Loss"></a>Wing Loss</h3><p><code>Wing Loss</code> 常用于关键点回归（如人脸关键点、姿态估计），核心思路是：</p>
 <ul>
 <li>小误差区域放大梯度，推动关键点更精细地对齐</li>
 <li>大误差区域保持近似线性，避免异常点主导训练</li>
 </ul>
-<p>设误差 $x&#x3D;\hat{y}-y$，其常见形式为：</p>
-<p>$$<br>L(x)&#x3D;<br>\begin{cases}<br>w\ln(1+\frac{|x|}{\epsilon}), &amp; |x|&lt;w \<br>|x|-C, &amp; |x|\ge w<br>\end{cases}<br>$$</p>
+<p>设误差 $x=\hat{y}-y$，其常见形式为：</p>
+<p>$$
+L(x)=
+\begin{cases}
+w\ln(1+\frac{|x|}{\epsilon}), & |x|<w \\
+|x|-C, & |x|\ge w
+\end{cases}
+$$</p>
 <p>其中：</p>
 <ul>
 <li>$w$：控制“非线性放大区间”的阈值</li>
 <li>$\epsilon$：控制曲线弯曲程度</li>
-<li>$C&#x3D;w-w\ln(1+\frac{w}{\epsilon})$，用于保证分段处连续</li>
+<li>$C=w-w\ln(1+\frac{w}{\epsilon})$，用于保证分段处连续</li>
 </ul>
 <p>与 L1&#x2F;L2 相比，Wing Loss 在小误差区间更敏感，通常能提升关键点定位精度；在遮挡或噪声样本存在时，也比纯 L2 更稳。<br><strong>基于概率分布度量的损失函数</strong><br>基于概率分布度量的损失函数是将样本间的相似性转化为随机事件出现的可能性，即通过度量样本的真实分布与它估计的分布之间的距离，判断两者的相似度，一般用于涉及概率分布或预测类别出现的概率的应用问题中，在分类问题中尤为常用。</p>
-<h3 id="KL散度（-Kullback-Leibler-divergence）"><a href="#KL散度（-Kullback-Leibler-divergence）" class="headerlink" title="KL散度（ Kullback-Leibler divergence）"></a>KL散度（ Kullback-Leibler divergence）</h3><p>$$L_{MSE}&#x3D;\sum_{i&#x3D;1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。</p>
+<h3 id="KL散度（-Kullback-Leibler-divergence）"><a href="#KL散度（-Kullback-Leibler-divergence）" class="headerlink" title="KL散度（ Kullback-Leibler divergence）"></a>KL散度（ Kullback-Leibler divergence）</h3><p>$$L_{MSE}=\sum_{i=1}^{n}\hat{y_i}log(\frac{y_i}{\hat{y_i}})$$<br>也被称为相对熵，是一种非对称度量方法，常用于度量两个概率分布之间的距离。KL散度也可以衡量两个随机分布之间的距离，两个随机分布的相似度越高的，它们的KL散度越小，可以用于比较文本标签或图像的相似性。</p>
 <h3 id="交叉熵损失函数"><a href="#交叉熵损失函数" class="headerlink" title="交叉熵损失函数"></a>交叉熵损失函数</h3><p><a target="_blank" rel="noopener" href="https://www.bbbdata.com/text/337">https://www.bbbdata.com/text/337</a></p>
-<h4 id="香农信息量（Shannon-Information）"><a href="#香农信息量（Shannon-Information）" class="headerlink" title="香农信息量（Shannon Information）"></a>香农信息量（Shannon Information）</h4><p>表示某个事件发生时所携带的信息量：<br>$$I(x) &#x3D; -\log_b P(x) &#x3D; -\ln P(x)$$</p>
+<h4 id="香农信息量（Shannon-Information）"><a href="#香农信息量（Shannon-Information）" class="headerlink" title="香农信息量（Shannon Information）"></a>香农信息量（Shannon Information）</h4><p>表示某个事件发生时所携带的信息量：<br>$$I(x) = -\log_b P(x) = -\ln P(x)$$</p>
 <ul>
 <li>$ P(x) $：事件 $ x $ 的概率  </li>
 <li>$ b $：对数底，通常取 2（单位为 bit）或 $ e $（单位为 nat）  </li>
@@ -646,13 +660,13 @@ A-->E[C.定义]</pre>
 </ul>
 <h4 id="CE"><a href="#CE" class="headerlink" title="CE"></a>CE</h4><p>交叉熵（Cross Entropy）是信息论中的一个概念，最初用于估算平均编码长度，引入机器学习后，用于评估当前训练得到的概率分布与真实分布的差异情况。是在不知道真实分布、仅有猜测的概率时，我们知道真相时所获得的信息量期望；交叉熵的意义是，它可用于评估我们认知概率的准确性，在认知概率与真实概率一致，交叉熵是最小的，反过来说，交叉熵越小则说明预测越准确</p>
 <p>衡量两个概率分布之间（交叉）的差异，真实分布 $ y $ 与预测分布 $ \hat{y} $：</p>
-<p>$$H(y, \hat{y}) &#x3D; - \sum_{i&#x3D;1}^{n} y_i \ln(\hat{y}_i)$$</p>
+<p>$$H(y, \hat{y}) = - \sum_{i=1}^{n} y_i \ln(\hat{y}_i)$$</p>
 <ul>
 <li>$ y_i $：真实标签（通常是 one-hot）  </li>
 <li>$ \hat{y}_i $：模型预测的概率（通常是 softmax 输出）</li>
 </ul>
 <p>交叉熵是模型对正确类别预测概率的负对数期望</p>
-<h4 id="CE-loss"><a href="#CE-loss" class="headerlink" title="CE loss"></a>CE loss</h4><p>交叉熵损失函数(Cross-Entropy Loss)是一种常用于概率预测模型的损失函数。交叉熵损失函数是指，基于模型的预测概率，在知道真实标签时的交叉熵<br>$$CE Loss &#x3D;- \frac{1}{m} \sum_{i&#x3D;1}^{m}\sum_{j&#x3D;1}^{C}y_i,_j · \ln(\hat{y}<em>i,<em>j) &#x3D; - \frac{1}{m} \sum</em>{i&#x3D;1}^{m}\sum</em>{i(y_i&#x3D;k)} · \ln(\hat{y}_i,<em>k) &#x3D; - \frac{1}{m} \sum</em>{i&#x3D;1}^{m}· \ln(\hat{y}_i,_k)$$</p>
+<h4 id="CE-loss"><a href="#CE-loss" class="headerlink" title="CE loss"></a>CE loss</h4><p>交叉熵损失函数(Cross-Entropy Loss)是一种常用于概率预测模型的损失函数。交叉熵损失函数是指，基于模型的预测概率，在知道真实标签时的交叉熵<br>$$CE Loss =- \frac{1}{m} \sum_{i=1}^{m}\sum_{j=1}^{C}y_i,_j · \ln(\hat{y}_i,_j) = - \frac{1}{m} \sum_{i=1}^{m}\sum_{i(y_i=k)} · \ln(\hat{y}_i,_k) = - \frac{1}{m} \sum_{i=1}^{m}· \ln(\hat{y}_i,_k)$$</p>
 <ul>
 <li>$m$： 样本的总数（一个 batch 的大小）。求平均就是期望</li>
 <li>$ C $：类别数 </li>
@@ -660,12 +674,12 @@ A-->E[C.定义]</pre>
 <li>j：类别的索引（从 1 到 C）。</li>
 <li>如果是One-Hot 编码，y_i,k&#x3D;1,其他为0，可以得到简化的第3个公式</li>
 </ul>
-<p>C&#x3D;2时，得到二元交叉熵损失<strong>BCE loss</strong> (Binary Cross-Entropy Loss)公式:<br>$$BCE Loss &#x3D;- \frac{1}{m} \sum_{i&#x3D;1}^{m} [y_i \cdot \ln(\hat{y}_i) + (1 - y_i) \cdot \ln(1 - \hat{y}_i)]$$</p>
+<p>C&#x3D;2时，得到二元交叉熵损失<strong>BCE loss</strong> (Binary Cross-Entropy Loss)公式:<br>$$BCE Loss =- \frac{1}{m} \sum_{i=1}^{m} [y_i \cdot \ln(\hat{y}_i) + (1 - y_i) \cdot \ln(1 - \hat{y}_i)]$$</p>
 <ul>
 <li>$y_i$：第 $i$ 个样本的真实标签，在二分类中 $y_i$ 的值通常是 1（代表正类）或 0（代表负类）。</li>
 <li>$\hat{y}_i$：模型对第 $i$ 个样本预测为正类 (类别 1) 的概率。 (这通常是 Sigmoid 函数的输出，值在 0 和 1 之间)。</li>
 <li>$(1 - \hat{y}_i)$：模型对第 $i$ 个样本预测为负类 (类别 0) 的概率。</li>
-<li>$\hat{y} &#x3D; \sigma(x) &#x3D; \frac{1}{1 + e^{-x}}$ 时，即$\hat{y}_i$为 Sigmoid 函数的输出，则为<strong>BCEWithLogitsLoss</strong>，意思是这个Loss可以直接输入原始Logits值，而不需要是概率，因为集成了Sigmoid（二分类）或Softmax（多分类）</li>
+<li>$\hat{y} = \sigma(x) = \frac{1}{1 + e^{-x}}$ 时，即$\hat{y}_i$为 Sigmoid 函数的输出，则为<strong>BCEWithLogitsLoss</strong>，意思是这个Loss可以直接输入原始Logits值，而不需要是概率，因为集成了Sigmoid（二分类）或Softmax（多分类）</li>
 </ul>
 <p>交叉熵越小，期望获得的信息量就越小，说明我们对本身事物越掌握，也即模型的预测概率越准确<br>所以交叉熵损失函数的目的，就是最小化期望信息量，也即最大化模型概率预测的准确程度</p>
 <h4 id="Focal-loss"><a href="#Focal-loss" class="headerlink" title="Focal loss"></a>Focal loss</h4><p><code>Focal Loss</code> 是一种专门为解决<strong>类别不平衡问题</strong>而设计的损失函数，尤其在目标检测（如 RetinaNet）和语义分割中非常有效<br>Focal Loss 是对传统的 CE Loss 的一种改进。它的核心思想是： <strong>降低容易分类样本的损失权重，聚焦在难分类样本上。</strong>。它是一个动态缩放的交叉熵损失，通过一个动态缩放因子，可以动态降低训练过程中易区分样本的权重，从而将重心快速聚焦在那些难区分的样本（有可能是正样本，也有可能是负样本，但都是对训练网络有帮助的样本）。<br>这对于数据集中<strong>正负样本极度不平衡</strong>的情况非常有用，比如：</p>
@@ -674,7 +688,7 @@ A-->E[C.定义]</pre>
 <li>分割稀疏区域（如车道线、肿瘤）</li>
 </ul>
 <p>以二分类为例，Focal Loss 的公式如下：</p>
-<p>$$\text{FL}(p_t) &#x3D;- [\alpha_i y_i (1 - \hat{y}_i)^\gamma \cdot \ln(\hat{y}_i) + (1 - \alpha_i)(1 - y_i) \hat{y}_i^\gamma \cdot \ln(1 - \hat{y}_i)]&#x3D; -\alpha_t (1 - p_t)^\gamma \log(p_t)$$</p>
+<p>$$\text{FL}(p_t) =- [\alpha_i y_i (1 - \hat{y}_i)^\gamma \cdot \ln(\hat{y}_i) + (1 - \alpha_i)(1 - y_i) \hat{y}_i^\gamma \cdot \ln(1 - \hat{y}_i)]= -\alpha_t (1 - p_t)^\gamma \log(p_t)$$</p>
 <p>其中：</p>
 <ul>
 <li>$ p_t $：模型对真实类别的预测概率</li>
@@ -682,7 +696,7 @@ A-->E[C.定义]</pre>
 <li>$ \gamma $：聚焦因子，控制对易分类样本的抑制程度，通常设为 2<ul>
 <li>如果样本<strong>易分类</strong>（模型很有把握，$\hat{y}_i \to 1$），那么 $(1 - \hat{y}_i)^\gamma \to 0$。这个因子的值会变得非常小，从而<strong>极大地降低</strong>了这个“简单”样本对总损失的贡献。</li>
 <li>如果样本<strong>难分类</strong>（模型预测错误，$\hat{y}_i \to 0$），那么 $(1 - \hat{y}_i)^\gamma \to 1$。损失几乎不受影响，模型会<strong>重点关注</strong>它。</li>
-<li>$\gamma &#x3D; 0$ 时，Focal Loss 就退化为了标准的（加权）BCE Loss。</li>
+<li>$\gamma = 0$ 时，Focal Loss 就退化为了标准的（加权）BCE Loss。</li>
 </ul>
 </li>
 </ul>
@@ -697,7 +711,9 @@ A-->E[C.定义]</pre>
 <li>最大化预测与标签的互信息（或最小化其负值）</li>
 </ul>
 <p>常见组合写法：</p>
-<p>$$<br>L &#x3D; L_{BCE&#x2F;CE} + \lambda L_{RMI}<br>$$</p>
+<p>$$
+L = L_{BCE/CE} + \lambda L_{RMI}
+$$</p>
 <p>其中 $\lambda$ 用于平衡像素级分类监督和区域结构监督。</p>
 <p>实践经验：</p>
 <ul>
@@ -741,11 +757,11 @@ A-->E[C.定义]</pre>
 </tr>
 </tbody></table>
 <ul>
-<li><strong>IoU</strong>：<br>$$IoU &#x3D; \frac{\text{Area of Overlap}}{\text{Area of Union}}$$</li>
+<li><strong>IoU</strong>：<br>$$IoU = \frac{\text{Area of Overlap}}{\text{Area of Union}}$$</li>
 </ul>
 <h4 id="GIoU-Loss"><a href="#GIoU-Loss" class="headerlink" title="GIoU Loss"></a>GIoU Loss</h4><p>GIOU Loss 是传统 IoU Loss 的改进版，它在 IoU 的基础上增加了一个惩罚项，解决了当预测框与真实框<strong>不相交</strong>时 IoU Loss&#x3D;0, 梯度为零、无法优化的问题，使得模型能够学习如何将分离的框相互靠近。</p>
-<p>$$L_{GIoU} &#x3D; 1 - GIOU$$</p>
-<p>$$GIOU &#x3D; IoU - \frac{|C| - |A \cup B|}{|C|}$$</p>
+<p>$$L_{GIoU} = 1 - GIOU$$</p>
+<p>$$GIOU = IoU - \frac{|C| - |A \cup B|}{|C|}$$</p>
 <ul>
 <li><strong>IoU</strong>: 预测框 A 和真实框 B 的交并比。</li>
 <li><strong>C</strong>: 能同时包含 A 和 B 的<strong>最小闭包矩形</strong>（Smallest Enclosing Box）。</li>
@@ -754,7 +770,7 @@ A-->E[C.定义]</pre>
 <p><strong>取值范围</strong>：GIOU 的值域为 $[-1, 1]$。<strong>1</strong>: 完美重合。<strong>趋近 -1</strong>: 不重叠且相距非常远。<br><strong>既是度量也是损失</strong>：不仅可以像 IoU 一样作为评估指标，其 $1 - GIOU$ 的形式更是一个优秀的损失函数。<br><strong>关注非重叠区域</strong>：通过闭包区域 C，它不仅仅关心重叠部分，还关心两个框的<strong>相对位置关系</strong>。</p>
 <p><strong>收敛速度问题</strong>：在训练后期，当预测框与真实框重叠方式比较特殊时（如一个框完全包含另一个框），GIOU 会退化成 IoU，无法进一步区分对齐的好坏，可能导致收敛较慢。<br><strong>对齐方式不敏感</strong>：当两个框的 IoU 和 GIOU 值相同时，它们中心点的距离和长宽比可能差异很大，GIOU 并未考虑这些因素。这也催生了后续的 DIOU 和 CIOU 等更优的损失函数。</p>
 <ul>
-<li><p><strong>DIoU Loss</strong>：<br>$$DIoU &#x3D; IoU - \frac{\rho^2(b, b^{gt})}{c^2}$$<br>其中 $ \rho $ 是中心距离，$ c $ 是对角线长度。</p>
+<li><p><strong>DIoU Loss</strong>：<br>$$DIoU = IoU - \frac{\rho^2(b, b^{gt})}{c^2}$$<br>其中 $ \rho $ 是中心距离，$ c $ 是对角线长度。</p>
 </li>
 <li><p><strong>CIoU Loss</strong>：<br>在 DIoU 基础上增加形状约束项，综合角度与纵横比。</p>
 </li>
@@ -769,8 +785,8 @@ A-->E[C.定义]</pre>
 <li><strong>连续可导化</strong>：由于“点是否在框内”是不可导的阶跃函数，PIoU 引入了<strong>贡献度函数（Contribution Function）</strong>，使用类似 Sigmoid 的软阈值函数，将像素点的归属度转化为 $[0, 1]$ 之间的连续值，使得整个过程端到端可导。</li>
 <li><strong>IoU 计算</strong>：通过对所有像素点的交集和并集进行加权求和，直接算得交并比：</li>
 </ul>
-<p>$$\text{PIoU} &#x3D; \frac{\sum p_{\text{intersection}}}{\sum p_{\text{union}}}$$</p>
-<p>$$\text{PIoU Loss} &#x3D; 1 - \text{PIoU}$$</p>
+<p>$$\text{PIoU} = \frac{\sum p_{\text{intersection}}}{\sum p_{\text{union}}}$$</p>
+<p>$$\text{PIoU Loss} = 1 - \text{PIoU}$$</p>
 <ul>
 <li><strong>对长宽比敏感</strong>：完美解决了细长物体（如零售货架商品、遥感图像中的船舶、桥梁）稍微偏转导致 IoU 暴跌、而损失函数不敏感的问题。</li>
 <li><strong>通用性强</strong>：同时适用于基于锚框（Anchor-based）和无锚框（Anchor-free）的检测框架。</li>
@@ -789,27 +805,27 @@ A-->E[C.定义]</pre>
 <blockquote>
 <p>True positives (TP): 猫🐱的图片被正确识别成了猫🐱。（猫🐱的正确分类预测）<br>True negatives(TN): 背景的图片被正确识别为背景。（非猫🐱被预测为其他动物或背景）<br>False positives(FP): 背景的图片被错误识别为猫🐱。（非猫🐱被预测为猫🐱）<br>False negatives(FN): 猫🐱的图片被错误识别为背景。（猫🐱被预测为其他动物或者背景）</p>
 </blockquote>
-<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy&#x3D;\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)&#x3D;\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)&#x3D;\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。F1-score最常用于数据集的类别不平衡的情况。<br>$$F_1 score&#x3D;2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i&#x3D;\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP&#x3D;\frac1n\sum_{i &#x3D; 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL9.png" alt="图 9">  </p>
+<h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy=\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)=\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)=\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。F1-score最常用于数据集的类别不平衡的情况。<br>$$F_1 score=2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i=\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP=\frac1n\sum_{i = 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL9.png" alt="图 9">  </p>
 <p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#109;&#65;&#80;&#64;&#48;&#x2e;&#x35;">&#109;&#65;&#80;&#64;&#48;&#x2e;&#x35;</a></em>：IoU阈值设为 0.5，即预测框与真实框的重叠面积占比 ≥ 50% 就算正确。对每个类别计算 AP，再取平均值得到 mAP。评估标准较宽松，适合快速验证模型是否具备基本检测能力。<br><em><a href="mailto:&#x6d;&#65;&#x50;&#64;&#48;&#x2e;&#53;">&#x6d;&#65;&#x50;&#64;&#48;&#x2e;&#53;</a>:0.95</em>：在 IoU 阈值从 0.5 到 0.95（步长为 0.05） 的 10 个点上分别计算 AP，然后取平均。更严格地评估模型在不同定位精度要求下的表现。全面衡量模型稳定性和定位能力，常用于学术论文和高精度场景（如自动驾驶）。<br>如果一个模型在 <a href="mailto:&#x6d;&#x41;&#x50;&#x40;&#48;&#46;&#53;">&#x6d;&#x41;&#x50;&#x40;&#48;&#46;&#53;</a> 上表现很好，但在 <a href="mailto:&#109;&#x41;&#x50;&#64;&#x30;&#x2e;&#x35;">&#109;&#x41;&#x50;&#64;&#x30;&#x2e;&#x35;</a>:0.95 上得分低，说明它能大致定位目标，但在精确定位方面表现不佳。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
+<p><em><a href="mailto:&#x6d;&#x41;&#80;&#64;&#48;&#46;&#x35;">&#x6d;&#x41;&#80;&#64;&#48;&#46;&#x35;</a></em>：IoU阈值设为 0.5，即预测框与真实框的重叠面积占比 ≥ 50% 就算正确。对每个类别计算 AP，再取平均值得到 mAP。评估标准较宽松，适合快速验证模型是否具备基本检测能力。<br><em><a href="mailto:&#x6d;&#x41;&#x50;&#x40;&#x30;&#46;&#x35;">&#x6d;&#x41;&#x50;&#x40;&#x30;&#46;&#x35;</a>:0.95</em>：在 IoU 阈值从 0.5 到 0.95（步长为 0.05） 的 10 个点上分别计算 AP，然后取平均。更严格地评估模型在不同定位精度要求下的表现。全面衡量模型稳定性和定位能力，常用于学术论文和高精度场景（如自动驾驶）。<br>如果一个模型在 <a href="mailto:&#109;&#x41;&#x50;&#64;&#x30;&#x2e;&#x35;">&#109;&#x41;&#x50;&#64;&#x30;&#x2e;&#x35;</a> 上表现很好，但在 <a href="mailto:&#x6d;&#x41;&#80;&#x40;&#x30;&#46;&#53;">&#x6d;&#x41;&#80;&#x40;&#x30;&#46;&#53;</a>:0.95 上得分低，说明它能大致定位目标，但在精确定位方面表现不佳。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
 <p><strong>NMS</strong>（Non-Maximum Suppression，非极大值抑制）<br>一种用于目标检测任务的后处理技术，主要用于消除冗余的检测框，保留最可能准确的预测结果。<br>在目标检测中，模型（如YOLO、Faster R-CNN等）通常会对同一目标生成多个重叠的预测框（Bounding Box），每个框带有置信度分数。NMS通过筛选，保留置信度最高且位置最合理的框，抑制其他冗余的框，从而避免重复检测。</p>
 <ol>
 <li>按置信度排序：将所有预测框按置信度从高到低排序。选择最高置信度的框：取出当前列表中置信度最高的框，加入最终保留列表。</li>
 <li>计算IoU并抑制重叠框：计算该框与剩余所有框的交并比（IoU，Intersection over Union）。若某框与当前框的IoU超过设定的阈值（如0.5），则认为它们是同一目标，直接删除。</li>
 <li>重复步骤2~3：对剩余框重复上述过程，直到所有框被处理。<br>IoU阈值：通常设为0.3~0.7，控制框的重叠容忍度。阈值越低，抑制越严格。<br>置信度阈值：预过滤掉低置信度的框（例如只保留置信度≥0.5的框）。</li>
 </ol>
-<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR&#x3D;\frac{TP}{TP+FN},FPR&#x3D;\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL11ROC.jpg" width = "40%" /></p>
+<p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR=\frac{TP}{TP+FN},FPR=\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
 <p>1.AUC &#x3D; 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>2.0.5 &lt; AUC &lt; 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>3.AUC &#x3D; 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。<br>4.AUC &lt; 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。</p>
 </blockquote>
 <p>ROC曲线图中，越靠近(0,1)的点对应的模型分类性能越好。而且可以明确的一点是，ROC曲线图中的点对应的模型，它们的不同之处仅仅是在分类时选用的阈值(Threshold)不同，每个点所选用的阈值都对应某个样本被预测为正类的概率值。</p>
-<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOPs指浮点运算次数，Floating-point Operations Per Second，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br>FLOPS：（全部大写），每秒所执行的浮点运算次数，理解为计算速度, 是一个衡量硬件性能&#x2F;模型速度的指标，即一个芯片的算力。<br>MACCs：multiply-accumulate operations，乘-加操作次数，MACCs 大约是 FLOPs 的一半。将 w[0]∗x[0]+… 视为一个乘法累加或 1 个 MACC。<br>MAC: Memory Access Cost 内存访问代价。指的是输入单个样本（一张图像），模型&#x2F;卷积层完成一次前向传播所发生的内存交换总量，即模型的空间复杂度，单位是 Byte。<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l&#x3D;1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
-<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l&#x3D;1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l&#x3D;1}^D M^2\cdot C_l)$$</p>
+<h2 id="模型计算量-FLOPs-和参数量-Params"><a href="#模型计算量-FLOPs-和参数量-Params" class="headerlink" title="模型计算量(FLOPs)和参数量(Params)"></a>模型计算量(FLOPs)和参数量(Params)</h2><p><strong>计算量 FLOPs</strong>：FLOPs指浮点运算次数，Floating-point Operations Per Second，s是指秒，即每秒浮点运算次数的意思，考量一个网络模型的计算量的标准。硬件要求是在于芯片的floaps（指的是gpu的运算能力）<br>FLOPS：（全部大写），每秒所执行的浮点运算次数，理解为计算速度, 是一个衡量硬件性能&#x2F;模型速度的指标，即一个芯片的算力。<br>MACCs：multiply-accumulate operations，乘-加操作次数，MACCs 大约是 FLOPs 的一半。将 w[0]∗x[0]+… 视为一个乘法累加或 1 个 MACC。<br>MAC: Memory Access Cost 内存访问代价。指的是输入单个样本（一张图像），模型&#x2F;卷积层完成一次前向传播所发生的内存交换总量，即模型的空间复杂度，单位是 Byte。<br><strong>参数量 Params</strong>：是指网络模型中需要训练的参数总数。硬件要求在于显存大小<br>1.<strong>卷积层</strong><br>计算时间复杂度(计算量)<br>$$Time\sim O(\sum_{l=1}^D M_l^2\cdot K_l^2\cdot C_{l-1}\cdot C_l)$$</p>
+<p>计算空间复杂度(参数量)<br>$$Space\sim O(\sum_{l=1}^D K_l^2\cdot C_{l-1}\cdot C_l+\sum_{l=1}^D M^2\cdot C_l)$$</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
 <p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
 <p><strong>换算计算量</strong>,一般一个参数是指一个float，也就是４个字节,1kb&#x3D;1024字节</p>
-<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p>Transformer 的核心在于注意力机制（Attention Mechanism），注意力机制由三个字母构建：Q (Query)、K (Key)、V (Value)。<br>用经典的“图书馆检索”类比来解释 Q、K、V：<br>Query (Q - 查询)：相当于你走到图书馆系统前，输入的“搜索词”（例如：“机器学习入门”）。它是你带着的目的或问题。<br>Key (K - 键)：相当于图书馆里每一本书背面的“标签或书名”。系统会用你的 Q 去和所有的 K 进行比对，计算相似度。<br>Value (V - 值)：相当于这本“书的具体内容”。当系统发现某本书的 K 和你的 Q 高度匹配时，它就会把这本书的 V（内容）提取出来交给你。<br>数学表达如下：<br>$$Attention(Q, K, V) &#x3D; \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$<br>公式的物理意义是：用 Q 和 K 算点积（计算相似度打分），然后把分数作为权重，去对 V 进行加权求和。</p>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p>Transformer 的核心在于注意力机制（Attention Mechanism），注意力机制由三个字母构建：Q (Query)、K (Key)、V (Value)。<br>用经典的“图书馆检索”类比来解释 Q、K、V：<br>Query (Q - 查询)：相当于你走到图书馆系统前，输入的“搜索词”（例如：“机器学习入门”）。它是你带着的目的或问题。<br>Key (K - 键)：相当于图书馆里每一本书背面的“标签或书名”。系统会用你的 Q 去和所有的 K 进行比对，计算相似度。<br>Value (V - 值)：相当于这本“书的具体内容”。当系统发现某本书的 K 和你的 Q 高度匹配时，它就会把这本书的 V（内容）提取出来交给你。<br>数学表达如下：<br>$$Attention(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$<br>公式的物理意义是：用 Q 和 K 算点积（计算相似度打分），然后把分数作为权重，去对 V 进行加权求和。</p>
 <p>在自动驾驶感知中，图像特征图（BEV 特征）本身充当了浩如烟海的图书馆（它提供了 Keys 和 Values）。<br>Q: Object Query（对象查询&#x2F;可学习查询）。<br>在 PivotNet 中提到的 Point Query 和 Line Query，本质上就是这种 Object Query。它们具有以下极其特殊的性质：</p>
 <ul>
 <li>无中生有的“参数”：在网络刚开始训练时，Point Query 可能只是一组随机生成的、没有任何意义的数字向量。</li>
@@ -1012,6 +1028,103 @@ A-->E[C.定义]</pre>
   <div id="sidebar-dimmer"></div>
 
 
+          <aside class="right-posts-card">
+            <div class="right-posts-title">
+              <i class="fa fa-list-ul fa-fw"></i>文章
+            </div>
+            <ol class="right-posts-list">
+                <li class="right-posts-item">
+                  <a href="/AI/" title="AI：Deepseek,DeepLive,sd,chat-on-wechat">
+                    AI：Deepseek,DeepLive,sd,chat-on-wechat
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Car/" title="Car：Automobiles">
+                    Car：Automobiles
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Computer/" title="Computer：电脑及服务器折腾记录">
+                    Computer：电脑及服务器折腾记录
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM4/" title="TDA4④：部署自定义深度学习模型">
+                    TDA4④：部署自定义深度学习模型
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM3/" title="TDA4③：YOLOX的模型转换与SK板端运行">
+                    TDA4③：YOLOX的模型转换与SK板端运行
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLdeploy/" title="DL模型转换及部署：torch > onnx > deploy">
+                    DL模型转换及部署：torch > onnx > deploy
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM2/" title="TDA4②：环境搭建，模型转换，Demo及Tools">
+                    TDA4②：环境搭建，模型转换，Demo及Tools
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM/" title="TDA4①：SDK, TIDL, OpenVX">
+                    TDA4①：SDK, TIDL, OpenVX
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/C/" title="C, C++, Cmake">
+                    C, C++, Cmake
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Paper/" title="Paper：科研方法总结">
+                    Paper：科研方法总结
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Project/" title="Project：多个项目汇总">
+                    Project：多个项目汇总
+                  </a>
+                </li>
+                <li class="right-posts-item right-posts-item-active">
+                  <a href="/DL/" title="DL：深度学习相关概念">
+                    DL：深度学习相关概念
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Embedded/" title="Embedded：嵌入式应用知识">
+                    Embedded：嵌入式应用知识
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Photograph/" title="Photograph：个人摄影笔记">
+                    Photograph：个人摄影笔记
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Linux/" title="Linux：Ubuntu，Git，Docker">
+                    Linux：Ubuntu，Git，Docker
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLtrain/" title="DL train：Code, Ideas, Workflow">
+                    DL train：Code, Ideas, Workflow
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Pytorch/" title="Py：conda，Pycharm，Pytorch">
+                    Py：conda，Pycharm，Pytorch
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Blog/" title="Hello Blog! 从零开始搭建自己的博客网站">
+                    Hello Blog! 从零开始搭建自己的博客网站
+                  </a>
+                </li>
+            </ol>
+          </aside>
       </div>
     </main>
 

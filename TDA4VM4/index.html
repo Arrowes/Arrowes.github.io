@@ -346,7 +346,7 @@
 
 <h2 id="EdgeAI-TIDL-Tools"><a href="#EdgeAI-TIDL-Tools" class="headerlink" title="EdgeAI-TIDL-Tools"></a><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/TexasInstruments/edgeai-tidl-tools/08_06_00_05/docs/custom_model_evaluation.md">EdgeAI-TIDL-Tools</a></h2><p>环境搭建见：<a href="https://wangyujie.space/TDA4VM2/#EdgeAI-TIDL-Tools">TDA4②</a></p>
 <p>研读 <a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/08_06_00_05/examples/osrt_python/ort/onnxrt_ep.py">edgeai-tidl-tools&#x2F;examples&#x2F;osrt_python&#x2F;ort&#x2F;onnxrt_ep.py</a>:<br>进入搭建好的环境：（例）<code>pyenv activate benchmark</code> 或 <code>conda activate tidl</code><br>运行：<code>./scripts/run_python_examples.sh</code><br>下面基于例程进行基本的修改以编译运行自定义模型, 至少需要修改四个文件，源码见：<a target="_blank" rel="noopener" href="https://github.com/Arrowes/DMS-YOLOv8/tree/main/TI/tidl_tools">Arrowes&#x2F;DMS-YOLOv8&#x2F;tree&#x2F;main&#x2F;TI&#x2F;tidl_tools</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#新建运行脚本./script/run.sh</span></span><br><span class="line">CURDIR=`<span class="built_in">pwd</span>`</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">export</span> TIDL_TOOLS_PATH=$(<span class="built_in">pwd</span>)/tidl_tools</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$TIDL_TOOLS_PATH</span></span><br><span class="line"><span class="built_in">export</span> ARM64_GCC_PATH=$(<span class="built_in">pwd</span>)/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu</span><br><span class="line">    <span class="built_in">cd</span> <span class="variable">$CURDIR</span>/examples/osrt_python/ort</span><br><span class="line">    <span class="comment">#编译：</span></span><br><span class="line">    <span class="comment">#python3 onnxrt_ep.py -c</span></span><br><span class="line">    <span class="comment">#推理：</span></span><br><span class="line">    python3 onnxrt_ep.py</span><br><span class="line">    <span class="comment">#关闭TIDL加速：</span></span><br><span class="line">    <span class="comment">#python3 onnxrt_ep.py -d</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#修改examples/osrt_python/ort/onnxrt_ep.py</span></span><br><span class="line">def infer_image(sess, image_files, config): <span class="comment">#此处修改模型输入数据格式</span></span><br><span class="line">models = [<span class="string">&#x27;custom_model_name&#x27;</span>]  <span class="comment">#修改为下面配置的对应的模型名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在examples/osrt_python/model_configs.py 配置模型名称与路径与模型参数</span></span><br><span class="line">    <span class="string">&#x27;custom_model_name&#x27;</span> : &#123;</span><br><span class="line">        <span class="string">&#x27;model_path&#x27;</span> : os.path.join(models_base_path, <span class="string">&#x27;custom_model_name.onnx&#x27;</span>),</span><br><span class="line">        <span class="string">&#x27;source&#x27;</span> : &#123;<span class="string">&#x27;model_url&#x27;</span>: <span class="string">&#x27;https..XXX./.onnx&#x27;</span>, <span class="string">&#x27;opt&#x27;</span>: True,  <span class="string">&#x27;infer_shape&#x27;</span> : True&#125;,</span><br><span class="line">        <span class="string">&#x27;mean&#x27;</span>: [123.675, 116.28, 103.53],</span><br><span class="line">        <span class="string">&#x27;scale&#x27;</span> : [0.017125, 0.017507, 0.017429],</span><br><span class="line">        <span class="string">&#x27;num_images&#x27;</span> : numImages,</span><br><span class="line">        <span class="string">&#x27;num_classes&#x27;</span>: 1000,</span><br><span class="line">        <span class="string">&#x27;session_name&#x27;</span> : <span class="string">&#x27;onnxrt&#x27;</span> ,</span><br><span class="line">        <span class="string">&#x27;model_type&#x27;</span>: <span class="string">&#x27;classification&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line"><span class="comment">#custom_model_name.onnx文件移入model/public文件夹</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#examples/osrt_python/common_utils.py 配置编译选项（一般不需要修改）</span></span><br><span class="line">tensor_bits = 8</span><br><span class="line">debug_level = 0</span><br><span class="line">max_num_subgraphs =16   <span class="comment">#16</span></span><br><span class="line">accuracy_level = 1</span><br><span class="line">calibration_frames = 3  <span class="comment">#3</span></span><br><span class="line">calibration_iterations = 5  <span class="comment">#10</span></span><br><span class="line">output_feature_16bit_names_list = <span class="string">&quot;&quot;</span><span class="comment">#&quot;conv1_2, fire9/concat_1&quot;</span></span><br><span class="line">params_16bit_names_list = <span class="string">&quot;&quot;</span> <span class="comment">#&quot;fire3/squeeze1x1_2&quot;</span></span><br><span class="line">mixed_precision_factor = -1</span><br><span class="line">quantization_scale_type = 0</span><br><span class="line">high_resolution_optimization = 0</span><br><span class="line">pre_batchnorm_fold = 1</span><br><span class="line">ti_internal_nc_flag = 1601</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;deny_list&quot;</span>:<span class="string">&quot;Slice&quot;</span>, <span class="comment">#&quot;MaxPool&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#运行编译</span></span><br><span class="line">./scripts/run.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#新建运行脚本./script/run.sh</span></span><br><span class="line">CURDIR=`<span class="built_in">pwd</span>`</span><br><span class="line"><span class="built_in">export</span> SOC=am68pa</span><br><span class="line"><span class="built_in">export</span> TIDL_TOOLS_PATH=$(<span class="built_in">pwd</span>)/tidl_tools</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TIDL_TOOLS_PATH</span><br><span class="line"><span class="built_in">export</span> ARM64_GCC_PATH=$(<span class="built_in">pwd</span>)/gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu</span><br><span class="line">    <span class="built_in">cd</span> <span class="variable">$CURDIR</span>/examples/osrt_python/ort</span><br><span class="line">    <span class="comment">#编译：</span></span><br><span class="line">    <span class="comment">#python3 onnxrt_ep.py -c</span></span><br><span class="line">    <span class="comment">#推理：</span></span><br><span class="line">    python3 onnxrt_ep.py</span><br><span class="line">    <span class="comment">#关闭TIDL加速：</span></span><br><span class="line">    <span class="comment">#python3 onnxrt_ep.py -d</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#修改examples/osrt_python/ort/onnxrt_ep.py</span></span><br><span class="line">def infer_image(sess, image_files, config): <span class="comment">#此处修改模型输入数据格式</span></span><br><span class="line">models = [<span class="string">&#x27;custom_model_name&#x27;</span>]  <span class="comment">#修改为下面配置的对应的模型名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在examples/osrt_python/model_configs.py 配置模型名称与路径与模型参数</span></span><br><span class="line">    <span class="string">&#x27;custom_model_name&#x27;</span> : &#123;</span><br><span class="line">        <span class="string">&#x27;model_path&#x27;</span> : os.path.join(models_base_path, <span class="string">&#x27;custom_model_name.onnx&#x27;</span>),</span><br><span class="line">        <span class="string">&#x27;source&#x27;</span> : &#123;<span class="string">&#x27;model_url&#x27;</span>: <span class="string">&#x27;https..XXX./.onnx&#x27;</span>, <span class="string">&#x27;opt&#x27;</span>: True,  <span class="string">&#x27;infer_shape&#x27;</span> : True&#125;,</span><br><span class="line">        <span class="string">&#x27;mean&#x27;</span>: [123.675, 116.28, 103.53],</span><br><span class="line">        <span class="string">&#x27;scale&#x27;</span> : [0.017125, 0.017507, 0.017429],</span><br><span class="line">        <span class="string">&#x27;num_images&#x27;</span> : numImages,</span><br><span class="line">        <span class="string">&#x27;num_classes&#x27;</span>: 1000,</span><br><span class="line">        <span class="string">&#x27;session_name&#x27;</span> : <span class="string">&#x27;onnxrt&#x27;</span> ,</span><br><span class="line">        <span class="string">&#x27;model_type&#x27;</span>: <span class="string">&#x27;classification&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line"><span class="comment">#custom_model_name.onnx文件移入model/public文件夹</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#examples/osrt_python/common_utils.py 配置编译选项（一般不需要修改）</span></span><br><span class="line">tensor_bits = 8</span><br><span class="line">debug_level = 0</span><br><span class="line">max_num_subgraphs =16   <span class="comment">#16</span></span><br><span class="line">accuracy_level = 1</span><br><span class="line">calibration_frames = 3  <span class="comment">#3</span></span><br><span class="line">calibration_iterations = 5  <span class="comment">#10</span></span><br><span class="line">output_feature_16bit_names_list = <span class="string">&quot;&quot;</span><span class="comment">#&quot;conv1_2, fire9/concat_1&quot;</span></span><br><span class="line">params_16bit_names_list = <span class="string">&quot;&quot;</span> <span class="comment">#&quot;fire3/squeeze1x1_2&quot;</span></span><br><span class="line">mixed_precision_factor = -1</span><br><span class="line">quantization_scale_type = 0</span><br><span class="line">high_resolution_optimization = 0</span><br><span class="line">pre_batchnorm_fold = 1</span><br><span class="line">ti_internal_nc_flag = 1601</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;deny_list&quot;</span>:<span class="string">&quot;Slice&quot;</span>, <span class="comment">#&quot;MaxPool&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#运行编译</span></span><br><span class="line">./scripts/run.sh</span><br></pre></td></tr></table></figure>
 <p>配置编译选项文档：<a target="_blank" rel="noopener" href="https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/examples/osrt_python/README.md#optional-options">edgeai-tidl-tools&#x2F;examples&#x2F;osrt_python&#x2F;README.md</a></p>
 <blockquote>
 <p><strong>Debug:</strong><br>有些模型下载会卡住，要到model_configs中找到链接手动下载放入models&#x2F;public</p>
@@ -529,6 +529,103 @@
   <div id="sidebar-dimmer"></div>
 
 
+          <aside class="right-posts-card">
+            <div class="right-posts-title">
+              <i class="fa fa-list-ul fa-fw"></i>文章
+            </div>
+            <ol class="right-posts-list">
+                <li class="right-posts-item">
+                  <a href="/AI/" title="AI：Deepseek,DeepLive,sd,chat-on-wechat">
+                    AI：Deepseek,DeepLive,sd,chat-on-wechat
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Car/" title="Car：Automobiles">
+                    Car：Automobiles
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Computer/" title="Computer：电脑及服务器折腾记录">
+                    Computer：电脑及服务器折腾记录
+                  </a>
+                </li>
+                <li class="right-posts-item right-posts-item-active">
+                  <a href="/TDA4VM4/" title="TDA4④：部署自定义深度学习模型">
+                    TDA4④：部署自定义深度学习模型
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM3/" title="TDA4③：YOLOX的模型转换与SK板端运行">
+                    TDA4③：YOLOX的模型转换与SK板端运行
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLdeploy/" title="DL模型转换及部署：torch > onnx > deploy">
+                    DL模型转换及部署：torch > onnx > deploy
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM2/" title="TDA4②：环境搭建，模型转换，Demo及Tools">
+                    TDA4②：环境搭建，模型转换，Demo及Tools
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM/" title="TDA4①：SDK, TIDL, OpenVX">
+                    TDA4①：SDK, TIDL, OpenVX
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/C/" title="C, C++, Cmake">
+                    C, C++, Cmake
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Paper/" title="Paper：科研方法总结">
+                    Paper：科研方法总结
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Project/" title="Project：多个项目汇总">
+                    Project：多个项目汇总
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DL/" title="DL：深度学习相关概念">
+                    DL：深度学习相关概念
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Embedded/" title="Embedded：嵌入式应用知识">
+                    Embedded：嵌入式应用知识
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Photograph/" title="Photograph：个人摄影笔记">
+                    Photograph：个人摄影笔记
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Linux/" title="Linux：Ubuntu，Git，Docker">
+                    Linux：Ubuntu，Git，Docker
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLtrain/" title="DL train：Code, Ideas, Workflow">
+                    DL train：Code, Ideas, Workflow
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Pytorch/" title="Py：conda，Pycharm，Pytorch">
+                    Py：conda，Pycharm，Pytorch
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Blog/" title="Hello Blog! 从零开始搭建自己的博客网站">
+                    Hello Blog! 从零开始搭建自己的博客网站
+                  </a>
+                </li>
+            </ol>
+          </aside>
       </div>
     </main>
 
