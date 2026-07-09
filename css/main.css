@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #a2b05d;
+  background: #e9f6ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3090,6 +3090,11 @@ mjx-container + br {
   background: var(--body-bg-color);
   border-radius: 4px;
   color: var(--link-hover-color);
+}
+@media (min-width: 1501px) and (max-width: 1700px) {
+  .main-inner {
+    transform: translateX(-120px);
+  }
 }
 @media (max-width: 1500px) {
   .right-posts-card {
