@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #6a99ff;
+  background: #df1bb0;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2368,6 +2368,33 @@ ul.breadcrumb li + li:last-child {
 }
 .search-popup input.search-input::-webkit-search-cancel-button {
   display: none;
+}
+.search-popup .search-options {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+}
+.search-popup .search-option {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #999;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  height: 24px;
+  line-height: 24px;
+  padding: 0;
+  text-align: center;
+  width: 24px;
+}
+.search-popup .search-option:hover,
+.search-popup .search-option.search-option-active {
+  color: #ff2a2a;
+}
+.search-popup .search-option.search-option-active {
+  background: rgba(255,0,0,0.08);
+  border-color: #ff2a2a;
 }
 .search-popup .search-input-container {
   flex-grow: 1;
