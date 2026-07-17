@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #45d0ff;
+  background: #a7ed2d;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2408,6 +2408,7 @@ ul.breadcrumb li + li:last-child {
 .search-popup p.search-result {
   border-bottom: 1px dashed #ccc;
   padding: 5px 0;
+  white-space: pre-line;
 }
 .search-popup a.search-result-title {
   font-weight: bold;
