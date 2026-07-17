@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #df1bb0;
+  background: #aac3aa;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2388,13 +2388,13 @@ ul.breadcrumb li + li:last-child {
   text-align: center;
   width: 24px;
 }
-.search-popup .search-option:hover,
-.search-popup .search-option.search-option-active {
-  color: #ff2a2a;
+.search-popup .search-option:hover {
+  color: #222;
 }
 .search-popup .search-option.search-option-active {
-  background: rgba(255,0,0,0.08);
-  border-color: #ff2a2a;
+  color: #222;
+  font-weight: bold;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.28);
 }
 .search-popup .search-input-container {
   flex-grow: 1;
