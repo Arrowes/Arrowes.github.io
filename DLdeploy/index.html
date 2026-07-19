@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-a076d9317d2167d9d6d8898e0db0fd7c_1440w.webp?source=1940ef5c">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-5618bc32c6018dbe6b7419555c373445_1440w.webp">
 <meta property="article:published_time" content="2023-06-09T03:36:00.000Z">
-<meta property="article:modified_time" content="2026-06-29T14:30:20.818Z">
+<meta property="article:modified_time" content="2026-07-19T03:27:29.482Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
@@ -243,7 +243,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-29 22:30:20" itemprop="dateModified" datetime="2026-06-29T22:30:20+08:00">2026-06-29</time>
+                <time title="修改时间：2026-07-19 11:27:29" itemprop="dateModified" datetime="2026-07-19T11:27:29+08:00">2026-07-19</time>
               </span>
 
           
@@ -259,14 +259,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>11k</span>
+              <span>12k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>40 分钟</span>
+              <span>43 分钟</span>
             </span>
 
         </div>
@@ -402,6 +402,36 @@
 <p>两大难点：一是如何平衡模型的吞吐率和精度，二是如何结合推理引擎充分挖掘芯片的能力。 比特数越低其吞吐率可能会越大，但其精度损失可能也会越大，因此，如何通过算法提升精度至关重要，这也是组内的主要工作之一。另外，压缩到低比特，某些情况下吞吐率未必会提升，还需要结合推理引擎优化一起对模型进行图优化，甚至有时候会反馈如何进行网络设计，因此会是一个算法与工程迭代的过程。</p>
 <p><strong>模型打包封装 SDK</strong>：实际业务落地过程中，模型可能只是产品流程中的一环，用于实现某些特定功能，其输出可能会用于流程的下一环。因此，模型打包会将模型的前后处理，一个或者多个模型整合到一起，再加入描述性的文件（前后处理的参数、模型相关参数、模型格式和版本等）来实现一个完整的功能。因此，SDK 除了需要一些通用前后处理的高效实现，对齐训练时的前后处理逻辑，还需要具有足够好的扩展性来应对不同的场景，方便业务线扩展新的功能。可以看到，模型打包过程更多是模型的进一步组装，将不同模型组装在一起，当需要使用的时候将这些内容解析成整个流程（pipeline）的不同阶段（stage），从而实现整个产品功能。</p>
 <p>另外，考虑到模型很大程度是研究员的研究成果，对外涉及保密问题，因此会对模型进行加密，以保证其安全性。加密算法的选择需要根据实际业务需求来决定，诸如不同加密算法其加解密效率不一样，加解密是否有中心验证服务器，其核心都是为了保护研究成果。</p>
+<h2 id="GPU-CPU-NPU"><a href="#GPU-CPU-NPU" class="headerlink" title="GPU CPU NPU"></a>GPU CPU NPU</h2><p>CPU 是通用处理器，控制能力强，适合复杂逻辑、分支判断、系统调度和少量串行计算，但大规模矩阵并行计算效率不如 GPU&#x2F;NPU。</p>
+<p>GPU 是通用并行计算处理器，核心数量多，擅长大规模浮点矩阵运算、卷积、图形渲染和深度学习训练&#x2F;推理。优点是灵活、生态成熟，支持算子多；缺点是功耗和成本较高。</p>
+<p>NPU 是面向神经网络推理的专用加速器，通常对 INT8&#x2F;FP16 卷积、矩阵乘法等算子做硬件优化，能效比高，适合边缘端部署。缺点是灵活性较弱，算子支持受平台工具链限制，遇到 scatter、grid_sample、动态 shape、复杂 attention 等算子时可能不支持，需要改网络或 CPU fallback。</p>
+<p>工程上常见分工是：CPU 做前后处理和调度，NPU&#x2F;GPU 做模型推理，ISP 做图像信号处理，DSP 有时做传统视觉或部分前处理</p>
+<p>产生这些区别的根本原因在于<strong>芯片架构设计上的取舍（Trade-off）</strong>，即硅片面积（晶体管）的分配策略和最初的设计目标不同：</p>
+<ol>
+<li>CPU：低延迟与通用性优先</li>
+</ol>
+<ul>
+<li><strong>设计初衷：</strong> 尽可能快地执行单一、复杂的线程，应对极其多变的通用任务。</li>
+<li><strong>架构取舍：</strong> 芯片上绝大部分面积被分配给了<strong>控制单元（Control Unit）</strong>和<strong>大容量缓存（Cache）</strong>。通过复杂的乱序执行、分支预测和数据预取来降低延迟。</li>
+<li><strong>结果：</strong> 真正用于算术运算的单元（ALU）占比较小。这解释了为什么它控制能力极强、能处理各种复杂逻辑，但在面对需要海量并发的矩阵计算时显得力不从心。</li>
+</ul>
+<ol start="2">
+<li>GPU：高吞吐量与数据并行优先</li>
+</ol>
+<ul>
+<li><strong>设计初衷：</strong> 最初为图形渲染设计，这类任务需要同时对几百万个像素执行相同的简单计算（单指令多数据流，SIMD&#x2F;SIMT）。</li>
+<li><strong>架构取舍：</strong> 砍掉了 CPU 那种复杂的控制单元和庞大的缓存结构，将绝大部分硅片面积全部用来堆砌<strong>成百上千个运算单元（ALU）</strong>。</li>
+<li><strong>结果：</strong> 并行计算能力极强，非常契合深度学习中的大规模矩阵乘法。但也正是因为缺乏复杂的控制电路，一旦遇到复杂的逻辑分支（If-Else），它的并行效率就会大幅衰减。</li>
+</ul>
+<ol start="3">
+<li>NPU：领域定制架构（DSA）与极致能效</li>
+</ol>
+<ul>
+<li><strong>设计初衷：</strong> 深度学习爆发后，为了解决 GPU 功耗过高和数据搬运瓶颈，专门为神经网络定制的加速架构。</li>
+<li><strong>架构取舍：</strong> 彻底放弃了通用计算的灵活性。NPU 直接在物理硬件级别设计了针对矩阵乘加运算（MAC）的专用电路（如脉动阵列 Systolic Array）。</li>
+<li><strong>结果：</strong> 因为算子是“硬连线”在物理电路上的，数据流动路径极短，所以它在处理常规卷积和矩阵运算时能效比极高、功耗极低。但代价是灵活性被锁死在硬件层面——一旦遇到芯片设计之初没有预料到的新算子或动态结构，硬件就无法直接处理，只能交回给 CPU（Fallback）或重新进行硬件迭代。</li>
+</ul>
+<p>CPU 将空间用来做<strong>复杂控制</strong>，GPU 将空间用来堆砌<strong>通用计算核心</strong>，而 NPU 将空间用来打造执行特定数学公式的<strong>专用物理电路</strong>。</p>
 <hr>
 <h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。是目前工业界最有效的模型优化方法之一，<br>量化是指定点与浮点等数据之间建立一种数据映射关系，使得以较小的精度损失代价获得了推理性能收益，可简单理解为用“低比特”数字表示FP32等数值，如FP32–&gt;INT8可以实现4倍的参数压缩，在压缩内存的同时可以实现更快速的计算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
 <p>浮点数格式 (float32)：$$V = (-1)^s×M×2^E$$</p>
@@ -704,7 +734,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2"><span class="nav-number">1.</span> <span class="nav-text">模型部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">模型部署场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">模型部署方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96%E6%8C%87%E6%A0%87"><span class="nav-number">1.3.</span> <span class="nav-text">部署优化指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">部署流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">量化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%A1%E5%87%86"><span class="nav-number">2.1.</span> <span class="nav-text">校准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E6%A0%A1%E5%87%86%E7%AE%97%E6%B3%95%EF%BC%88MSE-Calibration%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">均方误差校准算法（MSE Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E6%9C%80%E5%A4%A7%E5%80%BC%E6%A0%A1%E5%87%86%EF%BC%88MinMax-Calibration%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">绝对最大值校准（MinMax Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KL-%E6%95%A3%E5%BA%A6-%E4%BF%A1%E6%81%AF%E7%86%B5%E6%A0%A1%E5%87%86%EF%BC%88Kullback-Leibler-Divergence-Entropy-Calibration%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">KL 散度&#x2F;信息熵校准（Kullback-Leibler Divergence &#x2F; Entropy Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%88%86%E6%AF%94%E6%A0%A1%E5%87%86%EF%BC%88Percentile-Calibration%EF%BC%89"><span class="nav-number">2.1.4.</span> <span class="nav-text">百分比校准（Percentile Calibration）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QAT%E9%87%8F%E5%8C%96%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">QAT量化优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E7%89%B9%E5%BE%81%E7%B4%AF%E5%8A%A0%E5%AF%BC%E8%87%B4%E7%9A%84%E5%AE%9A%E7%82%B9%E6%95%B0%E6%BA%A2%E5%87%BA-Integer-Overflow"><span class="nav-number">2.2.1.</span> <span class="nav-text">空间特征累加导致的定点数溢出 (Integer Overflow)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YUV-%E8%BE%93%E5%85%A5%E7%AB%AF%E5%AE%9A%E7%82%B9%E5%8C%96%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1"><span class="nav-number">2.2.2.</span> <span class="nav-text">YUV 输入端定点化精度丢失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BEV-%E7%89%B9%E5%BE%81%E5%9B%BE%E8%BE%B9%E7%95%8C%E7%9A%84%E9%87%8F%E5%8C%96%E5%8C%BA%E9%97%B4%E6%A0%A1%E5%87%86%E4%B8%8E%E6%88%AA%E6%96%AD%EF%BC%88Quant-Clamping-Calibration%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">BEV 特征图边界的量化区间校准与截断（Quant Clamping &amp; Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E9%83%A8%E7%BD%B2%E7%AD%96%E7%95%A5%EF%BC%88Mixed-Precision-Policy%EF%BC%89"><span class="nav-number">2.2.4.</span> <span class="nav-text">混合精度部署策略（Mixed-Precision Policy）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%AA%E6%9E%9D"><span class="nav-number">3.</span> <span class="nav-text">剪枝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ONNX"><span class="nav-number">4.</span> <span class="nav-text">ONNX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ONNX-%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">4.1.</span> <span class="nav-text">ONNX 算子优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Slice%E6%9B%BF%E6%8D%A2Gather-%E6%9B%BF%E6%8D%A2%E7%B4%A2%E5%BC%95%E5%8F%96%E5%80%BC"><span class="nav-number">4.1.1.</span> <span class="nav-text">Slice替换Gather, 替换索引取值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MatMul%E6%8D%A2ScatterND"><span class="nav-number">4.1.2.</span> <span class="nav-text">MatMul换ScatterND</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E8%B6%85%E5%88%86%E8%BE%A8%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%BA%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">以超分辨率模型为例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#torch-onnx-export%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.3.</span> <span class="nav-text">torch.onnx.export模型转换接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%97%E5%AD%90"><span class="nav-number">4.4.</span> <span class="nav-text">自定义算子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E7%9A%84%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%BB%A5%E5%95%86%E6%B1%A4%E7%9A%84MMdeploy%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7%E7%AE%B1%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.1.</span> <span class="nav-text">模型转换器设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%8C%85-SDK"><span class="nav-number">5.2.</span> <span class="nav-text">应用开发工具包 SDK</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2"><span class="nav-number">1.</span> <span class="nav-text">模型部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">模型部署场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">模型部署方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96%E6%8C%87%E6%A0%87"><span class="nav-number">1.3.</span> <span class="nav-text">部署优化指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">部署流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU-CPU-NPU"><span class="nav-number">1.5.</span> <span class="nav-text">GPU CPU NPU</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">量化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%A1%E5%87%86"><span class="nav-number">2.1.</span> <span class="nav-text">校准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E6%A0%A1%E5%87%86%E7%AE%97%E6%B3%95%EF%BC%88MSE-Calibration%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">均方误差校准算法（MSE Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E6%9C%80%E5%A4%A7%E5%80%BC%E6%A0%A1%E5%87%86%EF%BC%88MinMax-Calibration%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">绝对最大值校准（MinMax Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KL-%E6%95%A3%E5%BA%A6-%E4%BF%A1%E6%81%AF%E7%86%B5%E6%A0%A1%E5%87%86%EF%BC%88Kullback-Leibler-Divergence-Entropy-Calibration%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">KL 散度&#x2F;信息熵校准（Kullback-Leibler Divergence &#x2F; Entropy Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%88%86%E6%AF%94%E6%A0%A1%E5%87%86%EF%BC%88Percentile-Calibration%EF%BC%89"><span class="nav-number">2.1.4.</span> <span class="nav-text">百分比校准（Percentile Calibration）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QAT%E9%87%8F%E5%8C%96%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">QAT量化优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E7%89%B9%E5%BE%81%E7%B4%AF%E5%8A%A0%E5%AF%BC%E8%87%B4%E7%9A%84%E5%AE%9A%E7%82%B9%E6%95%B0%E6%BA%A2%E5%87%BA-Integer-Overflow"><span class="nav-number">2.2.1.</span> <span class="nav-text">空间特征累加导致的定点数溢出 (Integer Overflow)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YUV-%E8%BE%93%E5%85%A5%E7%AB%AF%E5%AE%9A%E7%82%B9%E5%8C%96%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1"><span class="nav-number">2.2.2.</span> <span class="nav-text">YUV 输入端定点化精度丢失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BEV-%E7%89%B9%E5%BE%81%E5%9B%BE%E8%BE%B9%E7%95%8C%E7%9A%84%E9%87%8F%E5%8C%96%E5%8C%BA%E9%97%B4%E6%A0%A1%E5%87%86%E4%B8%8E%E6%88%AA%E6%96%AD%EF%BC%88Quant-Clamping-Calibration%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">BEV 特征图边界的量化区间校准与截断（Quant Clamping &amp; Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E9%83%A8%E7%BD%B2%E7%AD%96%E7%95%A5%EF%BC%88Mixed-Precision-Policy%EF%BC%89"><span class="nav-number">2.2.4.</span> <span class="nav-text">混合精度部署策略（Mixed-Precision Policy）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%AA%E6%9E%9D"><span class="nav-number">3.</span> <span class="nav-text">剪枝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ONNX"><span class="nav-number">4.</span> <span class="nav-text">ONNX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ONNX-%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">4.1.</span> <span class="nav-text">ONNX 算子优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Slice%E6%9B%BF%E6%8D%A2Gather-%E6%9B%BF%E6%8D%A2%E7%B4%A2%E5%BC%95%E5%8F%96%E5%80%BC"><span class="nav-number">4.1.1.</span> <span class="nav-text">Slice替换Gather, 替换索引取值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MatMul%E6%8D%A2ScatterND"><span class="nav-number">4.1.2.</span> <span class="nav-text">MatMul换ScatterND</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E8%B6%85%E5%88%86%E8%BE%A8%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%BA%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">以超分辨率模型为例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#torch-onnx-export%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.3.</span> <span class="nav-text">torch.onnx.export模型转换接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%97%E5%AD%90"><span class="nav-number">4.4.</span> <span class="nav-text">自定义算子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E7%9A%84%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%BB%A5%E5%95%86%E6%B1%A4%E7%9A%84MMdeploy%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7%E7%AE%B1%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.1.</span> <span class="nav-text">模型转换器设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%8C%85-SDK"><span class="nav-number">5.2.</span> <span class="nav-text">应用开发工具包 SDK</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -878,13 +908,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">129k</span>
+    <span title="站点总字数">135k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:49</span>
+    <span title="站点阅读时长">8:11</span>
 </div>
 
 <div>
