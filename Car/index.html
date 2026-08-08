@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://pic4.zhimg.com/v2-e40165c7c4d059db8c913daecf337d85_b.webp">
 <meta property="og:image" content="https://picx.zhimg.com/v2-45d35cb4e1b446501fcefac07b3dab55_b.webp">
 <meta property="article:published_time" content="2024-07-23T14:12:00.000Z">
-<meta property="article:modified_time" content="2026-07-25T12:50:35.738Z">
+<meta property="article:modified_time" content="2026-08-08T05:16:00.577Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="技术">
@@ -241,7 +241,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-07-25 20:50:35" itemprop="dateModified" datetime="2026-07-25T20:50:35+08:00">2026-07-25</time>
+                <time title="修改时间：2026-08-08 13:16:00" itemprop="dateModified" datetime="2026-08-08T13:16:00+08:00">2026-08-08</time>
               </span>
 
           
@@ -257,14 +257,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>21k</span>
+              <span>22k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1:17</span>
+              <span>1:20</span>
             </span>
 
         </div>
@@ -408,21 +408,20 @@ $$</p>
 </ul>
 <p>在纯视觉方案中又分为传统方法和深度学习方法</p>
 <ol>
-<li>传统方法：IPM（Inverse Perspective Mapping，逆透视变换）<br>  通过多相机的内外参标定，求得相机平面到地平面的单应性矩阵，实现平面到平面的转换，再进行多视角图像的拼接。</li>
+<li><p>传统方法：IPM（Inverse Perspective Mapping，逆透视变换）<br>  通过多相机的内外参标定，求得相机平面到地平面的单应性矩阵，实现平面到平面的转换，再进行多视角图像的拼接。<br>局限性：依赖标定的准确性，且内外参必须固定；假设地面平坦、目标接地，难以应用在较远距离的感知任务中。</p>
+</li>
+<li><p>深度学习方法：</p>
+</li>
 </ol>
-<p>局限性：</p>
-<ul>
-<li>依赖标定的准确性，且内外参必须固定。</li>
-<li>假设地面平坦、目标接地，难以应用在较远距离的感知任务中。</li>
-</ul>
-<ol start="2">
-<li>深度学习方法：</li>
+<h2 id="多任务感知BEV"><a href="#多任务感知BEV" class="headerlink" title="多任务感知BEV"></a>多任务感知BEV</h2><p>LSS 的目标是把多相机图像特征转换到统一的 BEV 坐标系：</p>
+<ol>
+<li>Image backbone：对每路鱼眼图像提取 2D feature。</li>
+<li>Lift：网络从每个相机图像提取 2D 特征，并使用均匀深度采样预测离散深度分布，把每个像素特征提升到一组 3D frustum points</li>
+<li>Splat&#x2F;BEV pooling：利用相机内参、外参、图像增强矩阵，把 frustum points 从 image&#x2F;camera 坐标变换到 ego 坐标。把落入同一 BEV grid 的特征聚合，得到 BEV feature map。</li>
+<li>Shoot：在 BEV feature map 上接检测、分割、高度等任务头。</li>
 </ol>
-<h2 id="鱼眼环视-Fast-BEV-Uniform-depth-LSS"><a href="#鱼眼环视-Fast-BEV-Uniform-depth-LSS" class="headerlink" title="鱼眼环视 Fast-BEV &#x2F; Uniform-depth LSS"></a>鱼眼环视 Fast-BEV &#x2F; Uniform-depth LSS</h2><p>项目里的 LSS 变体面向 4 路鱼眼环视输入，目标是把多视角 2D 图像特征高效投影到 Ego 坐标系下的 BEV 网格。它和经典 LSS 最大的区别是：不再预测显式深度分布，而是使用均匀深度采样、离线鱼眼 LUT 和稀疏矩阵乘法完成部署友好的 BEV 转换。</p>
-<blockquote>
-<p>LSS 可以概括为 Lift、Splat、Shoot。首先图像经过 backbone 提取 2D 特征，Lift 阶段结合深度分布或离散深度 bin，把每个像素特征扩展到 3D 视锥；然后根据相机内参、外参和数据增强矩阵，把视锥点转换到车体坐标系，并聚合到 BEV 网格，这一步就是 Splat 或 BEV pooling；最后 Shoot 阶段在 BEV 特征图上接检测、分割、height map 等任务头。FastBEV 更强调工程效率，会减少显式深度预测或复杂投影计算，常通过离散深度、预计算索引、LUT、简化 pooling 等方式提升速度，更适合 TDA4 这类低算力平台。</p>
-</blockquote>
-<p>整体链路如下：</p>
+<p>Lift阶段采用FastBEV的思想，和经典 LSS 最大的区别是：不再预测显式深度分布，而是使用离散深度、预计算索引、LUT、简化 pooling完成部署友好的 BEV 转换。更强调工程效率，会减少显式深度预测或复杂投影计算，牺牲一部分精细深度表达，换取低算力平台上的实时性，更适合 TDA4 这类低算力平台。</p>
+<p>具体链路如下：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">4 路鱼眼 YUV 图像</span><br><span class="line">  -&gt; Backbone(EfficientNet-Lite) 提取 2D 特征</span><br><span class="line">  -&gt; Neck/Lift 仅做 1x1 降维，不做深度概率预测</span><br><span class="line">  -&gt; CamGeometry 根据鱼眼 LUT 与外参生成 Ego 3D 点</span><br><span class="line">  -&gt; PointsToVoxels 生成 3D 点到 BEV 网格的 mapper</span><br><span class="line">  -&gt; VoxelPooling 用 Sparse MatMul 完成 Splat + Pooling</span><br><span class="line">  -&gt; BevEncoder 平滑融合，输出给下游 shared heads</span><br></pre></td></tr></table></figure>
 
 <p><strong>1. Backbone 与 Neck</strong></p>
@@ -469,8 +468,15 @@ $$</p>
 <li>BEV Encoder 的空间先验：2D CNN 在 BEV 平面学习车辆、行人、车道线的空间形状，抑制线状伪影，增强真实目标的局部聚类。</li>
 </ol>
 <p>因此，这个版本可以理解为一种硬件友好的 Fast-BEV：把深度学习中昂贵的深度分布预测和 frustum 特征膨胀，换成离线几何 LUT、均匀深度采样和稀疏矩阵投影。</p>
-<p><strong>HM (Height Map)</strong></p>
+<h3 id="OD"><a href="#OD" class="headerlink" title="OD"></a>OD</h3><p>截断目标是泊车检测常见难点，尤其在 BEV 边界、遮挡、相机视野边缘处。解决思路包括：</p>
 <ol>
+<li>标注规则：对截断比例、可见区域、是否 ignore 做明确规定。</li>
+<li>训练策略：对边界截断目标使用 ignore mask 或降低 loss 权重，避免模型学习不稳定标签。</li>
+<li>数据增强：模拟截断、遮挡、边界裁剪，增强鲁棒性。</li>
+<li>模型输出：对于只看到局部的目标，可预测可见框和完整框，或增加 visibility&#x2F;truncation 属性。</li>
+<li>评估策略：边界目标单独统计，设置合理距离和可见性容忍度。</li>
+</ol>
+<h3 id="HM-Height-Map"><a href="#HM-Height-Map" class="headerlink" title="HM (Height Map)"></a>HM (Height Map)</h3><ol>
 <li><strong>高度回归损失</strong>: 使用 Smooth L1 Loss 对经过压缩映射后的高度进行回归。误差大时为L1 loss 线性 离群点不敏感 防止高度突变等情况引起的梯度爆炸，误差小时为L2 loss, 二次方平滑。</li>
 <li><strong>置信度损失</strong>: BCE二元交叉熵损失（&gt;0.15m）。</li>
 <li><strong>边缘损失 (Edge Loss)</strong>: 通过计算预测图与真值图在X, Y方向上的梯度差异来强化边缘预测，避免都预测为斜坡，其中梯度是使用 Sobel 算子卷积得到的，惩罚边缘模糊，使得预测的高度图在物体边界处更加锐利。</li>
@@ -501,7 +507,44 @@ $$</p>
 </li>
 </ol>
 <hr>
+<p>常见 2D 到 BEV 可以分几类:</p>
+<ol>
+<li>几何显式投影：例如 IPM，依赖地面平面假设，轻量但对坡度和外参敏感。</li>
+<li>LSS 系列：例如 LSS、BEVDepth、BEVDet，先预测深度或利用深度监督，再把图像特征 lift-splat 到 BEV。</li>
+<li>快速工程化方案：例如 FastBEV，通过预计算投影、均匀深度假设或简化深度建模降低计算量。</li>
+<li>Transformer 查询式方案：例如 BEVFormer，用 BEV query 通过 cross-attention 从多相机特征中采样聚合，表达能力强但算力和部署难度更高。</li>
+<li>多模态方案：例如 BEVFusion，把 camera 和 LiDAR&#x2F;radar 特征统一到 BEV。</li>
+</ol>
+<p>BEV 的优势是：</p>
+<ul>
+<li>空间几何更接近下游规控需求。</li>
+<li>多相机&#x2F;多传感器更容易融合。</li>
+<li>目标位置、FreeSpace、车道线、occupancy 等任务可以统一建模。</li>
+</ul>
+<p>BEV 的难点是：</p>
+<ul>
+<li>从图像到 BEV 需要深度或几何投影，存在深度误差。</li>
+<li>相机内外参和时间同步非常关键。</li>
+<li>BEV 分辨率、范围和算力之间需要权衡。</li>
+</ul>
+<p>BEVDet：基于 LSS 思路的纯视觉 BEV 检测框架。<br>BEVDepth：引入更强的深度监督，改善纯视觉 BEV 中深度估计不准的问题。<br>BEVFormer：使用 transformer 和时序信息，在 BEV query 上融合多视角多帧特征。<br>BEVFusion：融合相机和激光雷达 BEV 特征，利用相机语义和点云几何互补。<br>Occupancy Network：预测 3D 空间中每个 voxel 是否被占据，比检测框更细粒度，近年自动驾驶感知常见。</p>
+<h3 id="轻量化设计"><a href="#轻量化设计" class="headerlink" title="轻量化设计"></a>轻量化设计</h3><p>模型层：选 MobileNetV3、EfficientNet-Lite、CSPDarknet-nano、RepVGG&#x2F;RepConv 等部署友好 backbone；<br>共享 backbone&#x2F;neck，多任务 head 轻量化；降低 BEV 分辨率或使用分层 ROI。<br>算子层：避免动态 shape、scatter&#x2F;gather、复杂 attention、deformable conv 等平台不友好算子；使用 conv、BN、ReLU、concat、upsample 等高支持算子。<br>压缩层：PTQ&#x2F;QAT、结构化剪枝、蒸馏、通道裁剪、低分辨率输入。<br>系统层：减少 CPU fallback，前后处理下沉到硬件可加速链路，控制 NMS&#x2F;后处理复杂度。最终用端到端延迟、峰值内存、NPU 利用率和 KPI 共同评估。</p>
+<h2 id="0-IPM"><a href="#0-IPM" class="headerlink" title="0. IPM"></a>0. IPM</h2><p>IPM 的核心假设是地面近似平面，且相机外参稳定。一旦车辆经过坡道、减速带、路面起伏或悬架姿态变化，平面假设被破坏，投影到 TOP View 的车位线会产生偏移或形变。工程上可以从几方面缓解：</p>
+<ol>
+<li>标定和在线补偿：结合车身姿态、IMU、轮速或悬架信息，对 pitch&#x2F;roll 做动态补偿。</li>
+<li>数据增强：训练中加入抖动、局部透视扰动、模糊和几何变换，提高模型对 IPM 误差的鲁棒性。</li>
+<li>输出过滤：对车位角点做时序稳定、几何约束和置信度过滤。</li>
+<li>模型升级：将车位检测迁移到 BEV feature 空间，减少对可视化 IPM 图像的依赖。</li>
+<li>场景降级：遇到坡道&#x2F;颠簸等异常姿态时降低置信度或触发保守策略。</li>
+</ol>
+<p>轻量级车位关键点检测方案: 模型以 YOLOX 为基础，不直接回归完整车位框，而是检测车位入口点、入口方向相关点和对侧角点，再通过几何规则恢复车位矩形。选择关键点方案的原因是车位线通常结构规则，关键点检测比直接做复杂分割或不规则框检测更轻量，适合 TDA4 这类低算力平台。后处理会根据关键点置信度、几何约束、平行&#x2F;垂直关系和尺寸范围过滤异常结果。</p>
 <h2 id="1-Bottom-Up-LSS-架构"><a href="#1-Bottom-Up-LSS-架构" class="headerlink" title="1.Bottom-Up &#x2F; LSS 架构"></a>1.Bottom-Up &#x2F; LSS 架构</h2><p><strong>核心技术路线</strong>：提取 2D 图像特征 $\to$ 预测离散深度概率分布 $\to$ 外积生成视锥特征量 (Frustum Volume) $\to$ 结合相机内外参投影至 3D 空间 $\to$ Voxel Pooling (体素池化) 展平为 BEV 特征。</p>
+<p>LSS 类方法可以有几种深度处理方式：</p>
+<ol>
+<li>无显式深度监督：只通过最终 BEV 检测&#x2F;分割 loss 反向学习深度分布。</li>
+<li>有显式深度监督：使用 LiDAR、深度图或 3D 标注生成 depth target，对 depth distribution 加 depth loss。</li>
+<li>FastBEV&#x2F;轻量化方案：弱化或跳过在线深度预测，用固定深度 bins、均匀深度假设或预计算投影索引换取速度。</li>
+</ol>
 <h3 id="1-LSS-Lift-Splat-Shoot"><a href="#1-LSS-Lift-Splat-Shoot" class="headerlink" title="1. LSS (Lift, Splat, Shoot)"></a>1. LSS (Lift, Splat, Shoot)</h3><p>LSS 的核心思想是：先把多视角 2D 图像特征 Lift 到相机视锥体中的 3D 采样点，再 Splat 到自车坐标系下的 BEV 网格，最后在 BEV 视角执行检测、分割、规划等任务。</p>
 <ul>
 <li>代码仓库：<a target="_blank" rel="noopener" href="https://github.com/nv-tlabs/lift-splat-shoot">GitHub</a></li>
@@ -574,101 +617,6 @@ $$</p>
 <li><strong>LiDAR 分支</strong>：采用 VoxelNet 或 PointPillars 等 3D 稀疏卷积主干网络，提取并下采样为相同空间分辨率的 LiDAR-BEV 特征图。</li>
 <li><strong>动态自适应融合模块</strong>：由于相机特征提供密集的语义信息（如颜色、类别），而雷达特征提供稀疏但精确的几何深度，两者在激活模式上存在巨大差异。将两者在通道维度拼接 (Concat) 后，BEVFusion 引入了一个基于卷积的通道注意力机制（类似 SE-Net），动态地为不同空间位置和模态的特征分配权重，最终输出深度融合的 BEV 特征图供检测头调用。</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>架构&#x2F;算法</th>
-<th>2D $\to$ 3D 投影机制</th>
-<th>特征表征形态</th>
-<th>时序融合机制</th>
-<th>计算复杂度&#x2F;落地瓶颈</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>LSS</strong></td>
-<td>离散深度预测外积 + Voxel Pooling</td>
-<td>密集 BEV Grid</td>
-<td>早期无直接融合</td>
-<td>视锥生成消耗海量显存</td>
-</tr>
-<tr>
-<td><strong>BEVDet</strong></td>
-<td>改进的 LSS + 空间变换强耦合</td>
-<td>密集 BEV Grid</td>
-<td>BEVDet4D 引入历史帧 Concat</td>
-<td>依赖 CenterPoint，后处理仍需 NMS</td>
-</tr>
-<tr>
-<td><strong>BEVDepth</strong></td>
-<td>LiDAR 显式监督深度预测</td>
-<td>密集 BEV Grid</td>
-<td>滑动窗口特征融合</td>
-<td>相机内外参扰动极其敏感</td>
-</tr>
-<tr>
-<td><strong>Fast-BEV</strong></td>
-<td>预计算静态映射 LUT (Gather)</td>
-<td>密集 BEV Grid</td>
-<td>多帧特征张量拼接</td>
-<td>对相机标定的动态变化适应性差</td>
-</tr>
-<tr>
-<td><strong>BEVFormer</strong></td>
-<td>投影参考点 + Deformable Attention</td>
-<td>密集 BEV Grid</td>
-<td>RNN 隐式历史 BEV 对齐</td>
-<td>Transformer 算子对边缘端 NPU 适配度低</td>
-</tr>
-<tr>
-<td><strong>PETR</strong></td>
-<td>3D PE 注入 + 全局 Cross-Attention</td>
-<td>稀疏 Object Queries</td>
-<td>多帧 3D PE 联合编码</td>
-<td>高分辨率特征图全局 Attention 导致计算量 O(N²)</td>
-</tr>
-<tr>
-<td><strong>BEVFusion</strong></td>
-<td>多模态 BEV 通道级拼接 + 动态加权</td>
-<td>密集多模态 BEV</td>
-<td>融合模块自带时序缓冲</td>
-<td>双模态同步推理要求极高的系统带宽和算力</td>
-</tr>
-<tr>
-<td>BEVDet：基于 LSS 思路的纯视觉 BEV 检测框架。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>BEVDepth：引入更强的深度监督，改善纯视觉 BEV 中深度估计不准的问题。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>BEVFormer：使用 transformer 和时序信息，在 BEV query 上融合多视角多帧特征。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>BEVFusion：融合相机和激光雷达 BEV 特征，利用相机语义和点云几何互补。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Occupancy Network：预测 3D 空间中每个 voxel 是否被占据，比检测框更细粒度，近年自动驾驶感知常见。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
 <hr>
 <h1 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h1><p>FOV（Field of View，视场角）</p>
 <h2 id="图像数据类型"><a href="#图像数据类型" class="headerlink" title="图像数据类型"></a>图像数据类型</h2><p>常用到的图像数据类型包括rgb、bgr、gray、yuv444、nv12、featuremap。<br>数据输入格式 rgb&#x2F;bgr&#x2F;gray&#x2F;featuremap&#x2F;yuv444</p>
@@ -1683,7 +1631,7 @@ B & = Y + 2.03211U
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAN-CANoe"><span class="nav-number">1.1.</span> <span class="nav-text">CAN &amp; CANoe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GHS"><span class="nav-number">1.2.</span> <span class="nav-text">GHS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.3.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.4.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95"><span class="nav-number">1.5.</span> <span class="nav-text">车载测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">相机模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">2.1.</span> <span class="nav-text">相机标定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%8F%82%EF%BC%88Intrinsic-Parameters%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">内参（Intrinsic Parameters）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E5%8F%82%EF%BC%88Extrinsic-Parameters%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">外参（Extrinsic Parameters）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BEV-%E4%B8%AD%E7%9B%B8%E6%9C%BA%E5%86%85%E5%8F%82%E3%80%81%E5%A4%96%E5%8F%82%E3%80%81%E5%A2%9E%E5%BC%BA%E7%9F%A9%E9%98%B5%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">BEV 中相机内参、外参、增强矩阵的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E5%86%85%E5%8F%82"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">相机内参</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E5%A4%96%E5%8F%82"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">相机外参</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E5%BC%BA%E7%9F%A9%E9%98%B5"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">增强矩阵</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BEV%E6%84%9F%E7%9F%A5"><span class="nav-number">3.</span> <span class="nav-text">BEV感知</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%B1%BC%E7%9C%BC%E7%8E%AF%E8%A7%86-Fast-BEV-Uniform-depth-LSS"><span class="nav-number">3.1.</span> <span class="nav-text">鱼眼环视 Fast-BEV &#x2F; Uniform-depth LSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Bottom-Up-LSS-%E6%9E%B6%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">1.Bottom-Up &#x2F; LSS 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-LSS-Lift-Splat-Shoot"><span class="nav-number">3.2.1.</span> <span class="nav-text">1. LSS (Lift, Splat, Shoot)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-BEVDet"><span class="nav-number">3.2.2.</span> <span class="nav-text">2. BEVDet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-BEVDepth"><span class="nav-number">3.2.3.</span> <span class="nav-text">3. BEVDepth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Fast-BEV"><span class="nav-number">3.2.4.</span> <span class="nav-text">4. Fast-BEV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSS-%E4%B8%AD%E6%B7%B1%E5%BA%A6%E5%88%86%E5%B8%83%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">3.2.5.</span> <span class="nav-text">LSS 中深度分布的构造</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8A%A8%E6%80%81%E6%B7%B1%E5%BA%A6%E6%A6%82%E7%8E%87%E9%A2%84%E6%B5%8B-%E5%8E%9F%E7%89%88-LSS"><span class="nav-number">3.2.5.1.</span> <span class="nav-text">1. 动态深度概率预测 (原版 LSS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%9D%87%E5%8C%80%E6%B7%B1%E5%BA%A6%E5%88%86%E5%B8%83-Uniform-Depth-%E7%AB%AF%E4%BE%A7%E5%8A%A0%E9%80%9F%E6%96%B9%E6%A1%88"><span class="nav-number">3.2.5.2.</span> <span class="nav-text">2. 均匀深度分布 (Uniform Depth - 端侧加速方案)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Top-Down-Transformer-%E6%9E%B6%E6%9E%84"><span class="nav-number">3.3.</span> <span class="nav-text">2. Top-Down &#x2F; Transformer 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BEVFormer"><span class="nav-number">3.3.1.</span> <span class="nav-text">1. BEVFormer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PETR-Position-Embedding-Transformation"><span class="nav-number">3.3.2.</span> <span class="nav-text">2. PETR (Position Embedding Transformation)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%A4%9A%E6%A8%A1%E6%80%81%E5%BA%95%E5%B1%82%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88"><span class="nav-number">3.4.</span> <span class="nav-text">3.多模态底层特征融合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BEVFusion"><span class="nav-number">3.4.1.</span> <span class="nav-text">1. BEVFusion</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Note"><span class="nav-number">4.</span> <span class="nav-text">Note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.</span> <span class="nav-text">图像数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%89%E5%8E%8B%E7%BC%A9%E6%96%B9%E5%BC%8F%E5%88%86"><span class="nav-number">4.1.1.</span> <span class="nav-text">按压缩方式分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CV2%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.2.</span> <span class="nav-text">CV2颜色空间转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OCC-Occupancy-Network-%E5%8D%A0%E7%94%A8%E7%BD%91%E7%BB%9C"><span class="nav-number">4.3.</span> <span class="nav-text">OCC (Occupancy Network, 占用网络)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6-Cosine-Similarity"><span class="nav-number">4.4.</span> <span class="nav-text">余弦相似度 (Cosine Similarity)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="nav-number">4.5.</span> <span class="nav-text">贝塞尔曲线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86"><span class="nav-number">4.6.</span> <span class="nav-text">传统图像处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%A4%E6%B3%A2%E7%AE%97%E6%B3%95"><span class="nav-number">4.6.1.</span> <span class="nav-text">滤波算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96"><span class="nav-number">4.6.2.</span> <span class="nav-text">边缘提取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B"><span class="nav-number">4.6.3.</span> <span class="nav-text">缺陷检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E5%8C%96"><span class="nav-number">4.6.4.</span> <span class="nav-text">二值化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">5.</span> <span class="nav-text">车道线检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2D"><span class="nav-number">5.1.</span> <span class="nav-text">2D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3D"><span class="nav-number">5.2.</span> <span class="nav-text">3D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D-3D"><span class="nav-number">5.3.</span> <span class="nav-text">2D + 3D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4D"><span class="nav-number">5.4.</span> <span class="nav-text">4D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="nav-number">5.5.</span> <span class="nav-text">主流方案对比总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">5.6.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0"><span class="nav-number">5.7.</span> <span class="nav-text">评估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Research"><span class="nav-number">5.8.</span> <span class="nav-text">Research</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-LaneSeg-%E5%9F%BA%E4%BA%8E%E8%BD%BB%E9%87%8F%E5%8C%96%E5%88%86%E5%89%B2%E4%B8%8E%E5%8C%BA%E5%9F%9F%E4%BA%92%E4%BF%A1%E6%81%AF"><span class="nav-number">5.8.1.</span> <span class="nav-text">1. LaneSeg (基于轻量化分割与区域互信息)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Line-Segments-Bezier-Curves"><span class="nav-number">5.8.2.</span> <span class="nav-text">Line Segments + Bézier Curves</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PolyLaneNet-%E5%9F%BA%E4%BA%8E%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92"><span class="nav-number">5.8.3.</span> <span class="nav-text">2. PolyLaneNet (基于多项式回归)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-ULSD-%E5%9F%BA%E4%BA%8E%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E7%9A%84%E8%B6%85%E5%BF%AB%E5%BD%A2%E7%8A%B6%E6%A3%80%E6%B5%8B"><span class="nav-number">5.8.4.</span> <span class="nav-text">3. ULSD (基于贝塞尔曲线的超快形状检测)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-GANet-%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E7%82%B9%E4%B8%8E%E5%85%A8%E5%B1%80%E5%85%B3%E8%81%94"><span class="nav-number">5.8.5.</span> <span class="nav-text">4. GANet (基于关键点与全局关联)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3D-BEV-%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B-3D-BEV-Lane-Detection"><span class="nav-number">5.9.</span> <span class="nav-text">3D &#x2F; BEV 车道线检测 (3D&#x2F;BEV Lane Detection)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BEV-LaneDet-%E7%AE%80%E5%8D%95%E9%AB%98%E6%95%88%E7%9A%843D%E8%BD%A6%E9%81%93%E7%BA%BF%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.9.1.</span> <span class="nav-text">1. BEV-LaneDet (简单高效的3D车道线基线模型)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3D-SpLineNet-%E5%9F%BA%E4%BA%8E%E5%8F%82%E6%95%B0%E5%8C%96%E6%A0%B7%E6%9D%A1%E7%9A%843D%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">5.9.2.</span> <span class="nav-text">2. 3D-SpLineNet (基于参数化样条的3D线检测)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-LaneCPP-%E7%BB%93%E5%90%88%E7%89%A9%E7%90%86%E5%85%88%E9%AA%8C%E7%9A%84%E8%BF%9E%E7%BB%AD3D%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">5.9.3.</span> <span class="nav-text">3. LaneCPP (结合物理先验的连续3D车道线检测)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A2%E9%87%8F%E5%8C%96%E9%AB%98%E7%B2%BE%E5%9C%B0%E5%9B%BE%E5%9C%A8%E7%BA%BF%E6%9E%84%E5%BB%BA-Vectorized-HD-Map-Construction"><span class="nav-number">5.10.</span> <span class="nav-text">矢量化高精地图在线构建 (Vectorized HD Map Construction)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MapTR-%E7%BB%93%E6%9E%84%E5%8C%96%E5%BB%BA%E6%A8%A1%E4%B8%8E%E7%AD%89%E4%BB%B7%E6%8E%92%E5%88%97%E5%AD%A6%E4%B9%A0"><span class="nav-number">5.10.1.</span> <span class="nav-text">1. MapTR (结构化建模与等价排列学习)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PivotNet-%E5%9F%BA%E4%BA%8E%E6%9E%A2%E7%BA%BD%E7%82%B9%E7%9A%84%E7%9F%A2%E9%87%8F%E5%9C%B0%E5%9B%BE%E6%9E%84%E5%BB%BA"><span class="nav-number">5.10.2.</span> <span class="nav-text">2. PivotNet (基于枢纽点的矢量地图构建)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E9%92%88%E5%AD%94%E6%91%84%E5%83%8F%E5%A4%B4%E7%9A%84%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">5.10.3.</span> <span class="nav-text">基于针孔摄像头的车道线检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E9%81%93%E7%BA%BF%E5%8C%B9%E9%85%8D"><span class="nav-number">5.11.</span> <span class="nav-text">车道线匹配</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAN-CANoe"><span class="nav-number">1.1.</span> <span class="nav-text">CAN &amp; CANoe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GHS"><span class="nav-number">1.2.</span> <span class="nav-text">GHS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ASPICE"><span class="nav-number">1.3.</span> <span class="nav-text">ASPICE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM"><span class="nav-number">1.4.</span> <span class="nav-text">SLAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E8%BD%BD%E6%B5%8B%E8%AF%95"><span class="nav-number">1.5.</span> <span class="nav-text">车载测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">相机模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A"><span class="nav-number">2.1.</span> <span class="nav-text">相机标定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%8F%82%EF%BC%88Intrinsic-Parameters%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">内参（Intrinsic Parameters）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E5%8F%82%EF%BC%88Extrinsic-Parameters%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">外参（Extrinsic Parameters）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BEV-%E4%B8%AD%E7%9B%B8%E6%9C%BA%E5%86%85%E5%8F%82%E3%80%81%E5%A4%96%E5%8F%82%E3%80%81%E5%A2%9E%E5%BC%BA%E7%9F%A9%E9%98%B5%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">BEV 中相机内参、外参、增强矩阵的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E5%86%85%E5%8F%82"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">相机内参</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E6%9C%BA%E5%A4%96%E5%8F%82"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">相机外参</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E5%BC%BA%E7%9F%A9%E9%98%B5"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">增强矩阵</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BEV%E6%84%9F%E7%9F%A5"><span class="nav-number">3.</span> <span class="nav-text">BEV感知</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%BB%BB%E5%8A%A1%E6%84%9F%E7%9F%A5BEV"><span class="nav-number">3.1.</span> <span class="nav-text">多任务感知BEV</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OD"><span class="nav-number">3.1.1.</span> <span class="nav-text">OD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HM-Height-Map"><span class="nav-number">3.1.2.</span> <span class="nav-text">HM (Height Map)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.1.3.</span> <span class="nav-text">轻量化设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-IPM"><span class="nav-number">3.2.</span> <span class="nav-text">0. IPM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Bottom-Up-LSS-%E6%9E%B6%E6%9E%84"><span class="nav-number">3.3.</span> <span class="nav-text">1.Bottom-Up &#x2F; LSS 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-LSS-Lift-Splat-Shoot"><span class="nav-number">3.3.1.</span> <span class="nav-text">1. LSS (Lift, Splat, Shoot)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-BEVDet"><span class="nav-number">3.3.2.</span> <span class="nav-text">2. BEVDet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-BEVDepth"><span class="nav-number">3.3.3.</span> <span class="nav-text">3. BEVDepth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Fast-BEV"><span class="nav-number">3.3.4.</span> <span class="nav-text">4. Fast-BEV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSS-%E4%B8%AD%E6%B7%B1%E5%BA%A6%E5%88%86%E5%B8%83%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">3.3.5.</span> <span class="nav-text">LSS 中深度分布的构造</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8A%A8%E6%80%81%E6%B7%B1%E5%BA%A6%E6%A6%82%E7%8E%87%E9%A2%84%E6%B5%8B-%E5%8E%9F%E7%89%88-LSS"><span class="nav-number">3.3.5.1.</span> <span class="nav-text">1. 动态深度概率预测 (原版 LSS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%9D%87%E5%8C%80%E6%B7%B1%E5%BA%A6%E5%88%86%E5%B8%83-Uniform-Depth-%E7%AB%AF%E4%BE%A7%E5%8A%A0%E9%80%9F%E6%96%B9%E6%A1%88"><span class="nav-number">3.3.5.2.</span> <span class="nav-text">2. 均匀深度分布 (Uniform Depth - 端侧加速方案)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Top-Down-Transformer-%E6%9E%B6%E6%9E%84"><span class="nav-number">3.4.</span> <span class="nav-text">2. Top-Down &#x2F; Transformer 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BEVFormer"><span class="nav-number">3.4.1.</span> <span class="nav-text">1. BEVFormer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PETR-Position-Embedding-Transformation"><span class="nav-number">3.4.2.</span> <span class="nav-text">2. PETR (Position Embedding Transformation)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%A4%9A%E6%A8%A1%E6%80%81%E5%BA%95%E5%B1%82%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88"><span class="nav-number">3.5.</span> <span class="nav-text">3.多模态底层特征融合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BEVFusion"><span class="nav-number">3.5.1.</span> <span class="nav-text">1. BEVFusion</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Note"><span class="nav-number">4.</span> <span class="nav-text">Note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.</span> <span class="nav-text">图像数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%89%E5%8E%8B%E7%BC%A9%E6%96%B9%E5%BC%8F%E5%88%86"><span class="nav-number">4.1.1.</span> <span class="nav-text">按压缩方式分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CV2%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.2.</span> <span class="nav-text">CV2颜色空间转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OCC-Occupancy-Network-%E5%8D%A0%E7%94%A8%E7%BD%91%E7%BB%9C"><span class="nav-number">4.3.</span> <span class="nav-text">OCC (Occupancy Network, 占用网络)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6-Cosine-Similarity"><span class="nav-number">4.4.</span> <span class="nav-text">余弦相似度 (Cosine Similarity)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF"><span class="nav-number">4.5.</span> <span class="nav-text">贝塞尔曲线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86"><span class="nav-number">4.6.</span> <span class="nav-text">传统图像处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%A4%E6%B3%A2%E7%AE%97%E6%B3%95"><span class="nav-number">4.6.1.</span> <span class="nav-text">滤波算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96"><span class="nav-number">4.6.2.</span> <span class="nav-text">边缘提取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B"><span class="nav-number">4.6.3.</span> <span class="nav-text">缺陷检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E5%8C%96"><span class="nav-number">4.6.4.</span> <span class="nav-text">二值化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">5.</span> <span class="nav-text">车道线检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2D"><span class="nav-number">5.1.</span> <span class="nav-text">2D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3D"><span class="nav-number">5.2.</span> <span class="nav-text">3D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D-3D"><span class="nav-number">5.3.</span> <span class="nav-text">2D + 3D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4D"><span class="nav-number">5.4.</span> <span class="nav-text">4D</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="nav-number">5.5.</span> <span class="nav-text">主流方案对比总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">5.6.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0"><span class="nav-number">5.7.</span> <span class="nav-text">评估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Research"><span class="nav-number">5.8.</span> <span class="nav-text">Research</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-LaneSeg-%E5%9F%BA%E4%BA%8E%E8%BD%BB%E9%87%8F%E5%8C%96%E5%88%86%E5%89%B2%E4%B8%8E%E5%8C%BA%E5%9F%9F%E4%BA%92%E4%BF%A1%E6%81%AF"><span class="nav-number">5.8.1.</span> <span class="nav-text">1. LaneSeg (基于轻量化分割与区域互信息)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Line-Segments-Bezier-Curves"><span class="nav-number">5.8.2.</span> <span class="nav-text">Line Segments + Bézier Curves</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PolyLaneNet-%E5%9F%BA%E4%BA%8E%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92"><span class="nav-number">5.8.3.</span> <span class="nav-text">2. PolyLaneNet (基于多项式回归)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-ULSD-%E5%9F%BA%E4%BA%8E%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E7%9A%84%E8%B6%85%E5%BF%AB%E5%BD%A2%E7%8A%B6%E6%A3%80%E6%B5%8B"><span class="nav-number">5.8.4.</span> <span class="nav-text">3. ULSD (基于贝塞尔曲线的超快形状检测)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-GANet-%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E7%82%B9%E4%B8%8E%E5%85%A8%E5%B1%80%E5%85%B3%E8%81%94"><span class="nav-number">5.8.5.</span> <span class="nav-text">4. GANet (基于关键点与全局关联)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3D-BEV-%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B-3D-BEV-Lane-Detection"><span class="nav-number">5.9.</span> <span class="nav-text">3D &#x2F; BEV 车道线检测 (3D&#x2F;BEV Lane Detection)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-BEV-LaneDet-%E7%AE%80%E5%8D%95%E9%AB%98%E6%95%88%E7%9A%843D%E8%BD%A6%E9%81%93%E7%BA%BF%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.9.1.</span> <span class="nav-text">1. BEV-LaneDet (简单高效的3D车道线基线模型)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3D-SpLineNet-%E5%9F%BA%E4%BA%8E%E5%8F%82%E6%95%B0%E5%8C%96%E6%A0%B7%E6%9D%A1%E7%9A%843D%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">5.9.2.</span> <span class="nav-text">2. 3D-SpLineNet (基于参数化样条的3D线检测)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-LaneCPP-%E7%BB%93%E5%90%88%E7%89%A9%E7%90%86%E5%85%88%E9%AA%8C%E7%9A%84%E8%BF%9E%E7%BB%AD3D%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">5.9.3.</span> <span class="nav-text">3. LaneCPP (结合物理先验的连续3D车道线检测)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A2%E9%87%8F%E5%8C%96%E9%AB%98%E7%B2%BE%E5%9C%B0%E5%9B%BE%E5%9C%A8%E7%BA%BF%E6%9E%84%E5%BB%BA-Vectorized-HD-Map-Construction"><span class="nav-number">5.10.</span> <span class="nav-text">矢量化高精地图在线构建 (Vectorized HD Map Construction)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MapTR-%E7%BB%93%E6%9E%84%E5%8C%96%E5%BB%BA%E6%A8%A1%E4%B8%8E%E7%AD%89%E4%BB%B7%E6%8E%92%E5%88%97%E5%AD%A6%E4%B9%A0"><span class="nav-number">5.10.1.</span> <span class="nav-text">1. MapTR (结构化建模与等价排列学习)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PivotNet-%E5%9F%BA%E4%BA%8E%E6%9E%A2%E7%BA%BD%E7%82%B9%E7%9A%84%E7%9F%A2%E9%87%8F%E5%9C%B0%E5%9B%BE%E6%9E%84%E5%BB%BA"><span class="nav-number">5.10.2.</span> <span class="nav-text">2. PivotNet (基于枢纽点的矢量地图构建)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E9%92%88%E5%AD%94%E6%91%84%E5%83%8F%E5%A4%B4%E7%9A%84%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B"><span class="nav-number">5.10.3.</span> <span class="nav-text">基于针孔摄像头的车道线检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%A6%E9%81%93%E7%BA%BF%E5%8C%B9%E9%85%8D"><span class="nav-number">5.11.</span> <span class="nav-text">车道线匹配</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1857,13 +1805,13 @@ B & = Y + 2.03211U
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">137k</span>
+    <span title="站点总字数">138k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:19</span>
+    <span title="站点阅读时长">8:22</span>
 </div>
 
 <div>
