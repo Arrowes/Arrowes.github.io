@@ -57,7 +57,7 @@
 <meta property="og:image" content="https://i-blog.csdnimg.cn/direct/dbf3bfb8a37c4c1582d09b9ebd6ad01b.png#pic_center">
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/480474efbee3b54d014a3f6691284354.jpeg">
 <meta property="article:published_time" content="2022-12-28T12:22:05.000Z">
-<meta property="article:modified_time" content="2026-08-08T04:13:21.177Z">
+<meta property="article:modified_time" content="2026-09-05T08:13:02.523Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -259,7 +259,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-08 12:13:21" itemprop="dateModified" datetime="2026-08-08T12:13:21+08:00">2026-08-08</time>
+                <time title="修改时间：2026-09-05 16:13:02" itemprop="dateModified" datetime="2026-09-05T16:13:02+08:00">2026-09-05</time>
               </span>
 
           
@@ -275,14 +275,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>17k</span>
+              <span>23k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1:01</span>
+              <span>1:25</span>
             </span>
 
         </div>
@@ -935,7 +935,7 @@ $$</p>
 </blockquote>
 <h2 id="Evaluation-parameters"><a href="#Evaluation-parameters" class="headerlink" title="Evaluation parameters"></a>Evaluation parameters</h2><p><strong>准确率 Accuracy</strong>：在正负样本数量接近的情况下，准确率越高，模型的性能越好（当测试样本不平衡时，该指标会失去意义。）<br>$$Accuracy=\frac{TP+TN}{TP+FP+TN+FN}$$<br><strong>精准率（查准率） precision</strong>：代表在总体预测结果中真阳性的预测数，针对预测结果，当区分能力强时，容易将部分（与负样本相似度高）正样本排除。<br>$$precision(P)=\frac{TP}{TP+FP}$$<br><strong>召回率（查全率） recall</strong>：所有ground truths中真阳性的预测数，针对原样本，当敏感度高时，容易将部分（与正样本相似度高）负样本也判断为正样本。<br>$$recall(R)=\frac{TP}{TP+FN}$$<br><strong>F1 score</strong>：对Precision和Recall两个指标的调和平均值（类似平均速度），F1分值越高，目标检测的准确性越好。F1-score最常用于数据集的类别不平衡的情况。<br>$$F_1 score=2\cdot \frac{P\cdot R}{P+R}$$<br><strong>AP</strong>：同时考察Precision和Recall两个指标来衡量模型对于各个类别的性能。<br>$$AP_i=\int_0^1P_i(R_i)dR_i$$<br><strong>mAP</strong>：表示AP的平均值，并用作衡量目标检测算法的总体检测精度的度量。<br>将recall设置为横坐标，precision设置为纵坐标。PR曲线下围成的面积即AP，所有类别AP平均值即mAP.<br>$$mAP=\frac1n\sum_{i = 1}^{n}AP_i$$<br><strong>置信度 Confidence</strong>：置信度设定越大，Prediction约接近1，Recall越接近0，要寻找最优的F1分数，需要遍历置信度。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL9.png" alt="图 9">  </p>
 <p><strong>交并比 IoU</strong>（Intersection over Union）：是目标检测中使用的一个概念，IoU计算的是“预测的边框”和“真实的边框”的交叠率，即它们的交集和并集的比值。最理想情况是完全重叠，即比值为1。</p>
-<p><em><a href="mailto:&#109;&#65;&#x50;&#64;&#48;&#46;&#53;">&#109;&#65;&#x50;&#64;&#48;&#46;&#53;</a></em>：IoU阈值设为 0.5，即预测框与真实框的重叠面积占比 ≥ 50% 就算正确。对每个类别计算 AP，再取平均值得到 mAP。评估标准较宽松，适合快速验证模型是否具备基本检测能力。<br><em><a href="mailto:&#109;&#65;&#80;&#x40;&#48;&#x2e;&#53;">&#109;&#65;&#80;&#x40;&#48;&#x2e;&#53;</a>:0.95</em>：在 IoU 阈值从 0.5 到 0.95（步长为 0.05） 的 10 个点上分别计算 AP，然后取平均。更严格地评估模型在不同定位精度要求下的表现。全面衡量模型稳定性和定位能力，常用于学术论文和高精度场景（如自动驾驶）。<br>如果一个模型在 <a href="mailto:&#109;&#x41;&#x50;&#x40;&#48;&#46;&#53;">&#109;&#x41;&#x50;&#x40;&#48;&#46;&#53;</a> 上表现很好，但在 <a href="mailto:&#x6d;&#x41;&#80;&#64;&#x30;&#x2e;&#x35;">&#x6d;&#x41;&#80;&#64;&#x30;&#x2e;&#x35;</a>:0.95 上得分低，说明它能大致定位目标，但在精确定位方面表现不佳。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
+<p><em><a href="mailto:&#109;&#65;&#x50;&#x40;&#48;&#x2e;&#53;">&#109;&#65;&#x50;&#x40;&#48;&#x2e;&#53;</a></em>：IoU阈值设为 0.5，即预测框与真实框的重叠面积占比 ≥ 50% 就算正确。对每个类别计算 AP，再取平均值得到 mAP。评估标准较宽松，适合快速验证模型是否具备基本检测能力。<br><em><a href="mailto:&#109;&#x41;&#x50;&#x40;&#48;&#46;&#x35;">&#109;&#x41;&#x50;&#x40;&#48;&#46;&#x35;</a>:0.95</em>：在 IoU 阈值从 0.5 到 0.95（步长为 0.05） 的 10 个点上分别计算 AP，然后取平均。更严格地评估模型在不同定位精度要求下的表现。全面衡量模型稳定性和定位能力，常用于学术论文和高精度场景（如自动驾驶）。<br>如果一个模型在 <a href="mailto:&#x6d;&#65;&#80;&#x40;&#48;&#x2e;&#x35;">&#x6d;&#65;&#80;&#x40;&#48;&#x2e;&#x35;</a> 上表现很好，但在 <a href="mailto:&#109;&#65;&#80;&#64;&#x30;&#x2e;&#x35;">&#109;&#65;&#80;&#64;&#x30;&#x2e;&#x35;</a>:0.95 上得分低，说明它能大致定位目标，但在精确定位方面表现不佳。<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL10.png" width = "60%" /></p>
 <p><strong>ROC曲线</strong>(Receiver Operating Characteristic 受试者工作特征)<br>$$TPR=\frac{TP}{TP+FN},FPR=\frac{FP}{FP+TN}$$可以理解为分类器对正样本的覆盖敏感性和对负样本的敏感性的权衡。<br>在ROC曲线图中，每个点以对应的FPR值为横坐标，以TPR值为纵坐标<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL11ROC.jpg" width = "40%" /></p>
 <p><strong>AUC值</strong>：PR曲线下方的面积<br><img src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DL12AUC.png" width = "70%" /></p>
 <blockquote>
@@ -947,13 +947,393 @@ $$</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">参数量</span><br><span class="line">(kernel*kernel) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是 weight * weight</span><br><span class="line">其中kernel*kernel ＝ <span class="number">1</span>个<span class="built_in">feature</span>的参数量</span><br><span class="line"></span><br><span class="line">计算量</span><br><span class="line">(kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>) *channel_input*channel_output</span><br><span class="line">kernel*kernel 就是weight*weight</span><br><span class="line"><span class="built_in">map</span>*<span class="built_in">map</span>是下个featuremap的大小，也就是上个weight*weight到底做了多少次运算</span><br><span class="line">其中kernel*kernel*<span class="built_in">map</span>*<span class="built_in">map</span>＝　<span class="number">1</span>个<span class="built_in">feature</span>的计算量</span><br></pre></td></tr></table></figure>
 <p>2.池化层<br>无参数<br>3.<strong>全连接层</strong><br><code>参数量＝计算量＝weight_in*weight_out  #模型里面最费参数的就是全连接层</code></p>
 <p><strong>换算计算量</strong>,一般一个参数是指一个float，也就是４个字节,1kb&#x3D;1024字节</p>
-<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p>Transformer 的核心在于注意力机制（Attention Mechanism），注意力机制由三个字母构建：Q (Query)、K (Key)、V (Value)。<br>用经典的“图书馆检索”类比来解释 Q、K、V：<br>Query (Q - 查询)：相当于你走到图书馆系统前，输入的“搜索词”（例如：“机器学习入门”）。它是你带着的目的或问题。<br>Key (K - 键)：相当于图书馆里每一本书背面的“标签或书名”。系统会用你的 Q 去和所有的 K 进行比对，计算相似度。<br>Value (V - 值)：相当于这本“书的具体内容”。当系统发现某本书的 K 和你的 Q 高度匹配时，它就会把这本书的 V（内容）提取出来交给你。<br>数学表达如下：<br>$$Attention(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$<br>公式的物理意义是：用 Q 和 K 算点积（计算相似度打分），然后把分数作为权重，去对 V 进行加权求和。</p>
+<h1 id="EfficientNet"><a href="#EfficientNet" class="headerlink" title="EfficientNet"></a>EfficientNet</h1><p>EfficientNet 是 Google 在 2019 年提出的一组 CNN。它先用神经架构搜索得到较高效的基准网络 <strong>EfficientNet-B0</strong>，再使用 <strong>compound scaling（复合缩放）</strong> 同时调整网络的深度、宽度和输入分辨率，在相近计算预算下取得更好的精度与效率平衡。</p>
+<h2 id="复合缩放（Compound-Scaling）"><a href="#复合缩放（Compound-Scaling）" class="headerlink" title="复合缩放（Compound Scaling）"></a>复合缩放（Compound Scaling）</h2><p>只增加网络深度、只增加通道宽度，或者只提高输入分辨率，都会使另外两个维度成为瓶颈。EfficientNet 用一个缩放系数 $\phi$ 同时控制三个维度：</p>
+<p>$$
+depth=\alpha^\phi,\qquad width=\beta^\phi,\qquad resolution=\gamma^\phi
+$$</p>
+<p>其中 $\alpha$、$\beta$、$\gamma$ 分别控制深度、宽度和分辨率，通常通过网格搜索确定，并满足近似约束：</p>
+<p>$$
+\alpha\cdot\beta^2\cdot\gamma^2\approx 2
+$$</p>
+<p>原因是：深度增加大致线性增加计算量，卷积的通道数和特征图面积分别与计算量近似呈平方关系。固定 $\phi$ 后，得到 EfficientNet-B0 到 B7；B0 是基准模型，B1-B7 逐渐增加模型规模和输入分辨率。</p>
+<h3 id="深度、通道宽度和分辨率的影响"><a href="#深度、通道宽度和分辨率的影响" class="headerlink" title="深度、通道宽度和分辨率的影响"></a>深度、通道宽度和分辨率的影响</h3><p>复合缩放中的三个维度分别作用于网络的不同能力。它们不是越大越好，而是在精度、计算量、显存和延迟之间进行权衡。</p>
+<table>
+<thead>
+<tr>
+<th>缩放维度</th>
+<th>主要改变</th>
+<th>可能带来的收益</th>
+<th>主要代价与风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>深度（Depth）</strong></td>
+<td>网络层数和特征变换次数</td>
+<td>逐步提取更高级的语义特征，扩大有效感受野，提升复杂任务的表达能力</td>
+<td>计算量和延迟大致随层数增加；网络过深可能梯度传播困难、收益递减，端侧还可能增加 kernel launch 开销</td>
+</tr>
+<tr>
+<td><strong>通道宽度（Width）</strong></td>
+<td>每层特征图的通道数</td>
+<td>同一层能够表示更多种特征，增强特征的多样性和模型容量</td>
+<td>卷积计算量、参数量和激活显存明显增加；宽度过大可能过拟合，并受到内存带宽限制</td>
+</tr>
+<tr>
+<td><strong>输入分辨率（Resolution）</strong></td>
+<td>输入图像及中间特征图的空间尺寸</td>
+<td>保留更多细节，对小目标、细边缘和纹理更友好；特征图空间尺寸变大也会增加有效感受野覆盖范围</td>
+<td>特征图面积随高和宽的乘积增长，FLOPs、显存和延迟通常近似按分辨率平方增加；过高分辨率可能放大噪声，收益递减</td>
+</tr>
+</tbody></table>
+<p>可以这样理解：<strong>深度</strong>决定“能进行多少次推理和抽象”，<strong>宽度</strong>决定“每一步能同时表示多少种特征”，<strong>分辨率</strong>决定“输入中有多少空间细节能够被保留”。</p>
+<ul>
+<li>分类任务中，增加深度和宽度通常更直接地提升语义表达能力；</li>
+<li>小目标检测、关键点和分割任务通常对输入分辨率更敏感，但还需要匹配多尺度特征提取结构；</li>
+<li>低算力部署中，不能只看参数量。宽度会影响内存访问，深度会影响串行延迟，分辨率会显著影响中间激活显存，三者都应在目标设备上实测；</li>
+<li>当数据量较小时，盲目增大模型规模容易过拟合，应配合数据增强、权重衰减、Dropout 或冻结部分 backbone。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th align="right">常见输入分辨率</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EfficientNet-B0</td>
+<td align="right">224</td>
+<td>最小基准模型，适合资源受限场景</td>
+</tr>
+<tr>
+<td>EfficientNet-B1&#x2F;B2</td>
+<td align="right">240&#x2F;260</td>
+<td>在精度和计算量之间折中</td>
+</tr>
+<tr>
+<td>EfficientNet-B3&#x2F;B4</td>
+<td align="right">300&#x2F;380</td>
+<td>更高精度，计算和显存开销明显增加</td>
+</tr>
+<tr>
+<td>EfficientNet-B5&#x2F;B6&#x2F;B7</td>
+<td align="right">456&#x2F;528&#x2F;600</td>
+<td>精度较高，但训练、推理和部署成本较大</td>
+</tr>
+</tbody></table>
+<p>这里的分辨率是论文和预训练权重常用的默认值，实际项目应根据数据分布、显存和端侧延迟重新选择，不应机械套用。</p>
+<h2 id="MBConv"><a href="#MBConv" class="headerlink" title="MBConv"></a>MBConv</h2><p>EfficientNet 的基本模块是 <strong>MBConv（Mobile Inverted Bottleneck Convolution）</strong>。它把 MobileNetV2 的 inverted bottleneck 与 squeeze-and-excitation（SE）结合起来，典型数据流如下：</p>
+<ol>
+<li><strong>Expansion 1x1 卷积</strong>：将输入通道从 $C$ 扩展到 $tC$，提升特征表达能力。</li>
+<li><strong>Depthwise 3x3&#x2F;5x5 卷积</strong>：每个通道单独做空间卷积，降低计算量。</li>
+<li><strong>SE 注意力</strong>：全局池化后学习通道权重，重新标定重要通道。</li>
+<li><strong>Projection 1x1 卷积</strong>：将通道数压回输出通道数。</li>
+<li><strong>残差连接</strong>：当 stride&#x3D;1 且输入输出通道相同时，执行 $y=F(x)+x$。</li>
+</ol>
+<p>与普通卷积相比，深度可分离卷积的参数量近似为：</p>
+<p>$$
+K^2C_{in}+C_{in}C_{out}
+$$</p>
+<p>而普通卷积为：</p>
+<p>$$
+K^2C_{in}C_{out}
+$$</p>
+<p>因此 MBConv 能以较低的参数量和 FLOPs 获得较大的感受野。但它并不是“免费加速”：depthwise convolution 的算术强度较低，实际延迟还会受到内存访问、算子融合和硬件 kernel 支持的影响。</p>
+<h3 id="MBConv-的简化-PyTorch-实现"><a href="#MBConv-的简化-PyTorch-实现" class="headerlink" title="MBConv 的简化 PyTorch 实现"></a>MBConv 的简化 PyTorch 实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MBConv</span>(nn.Module):</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_channels, out_channels, expansion=<span class="number">6</span>, stride=<span class="number">1</span></span>):</span><br><span class="line">    <span class="built_in">super</span>().__init__()</span><br><span class="line">    hidden_channels = in_channels * expansion</span><br><span class="line">    <span class="comment"># 只有尺寸和通道数都不变时，输入才能与输出逐元素相加。</span></span><br><span class="line">    self.use_residual = stride == <span class="number">1</span> <span class="keyword">and</span> in_channels == out_channels</span><br><span class="line"></span><br><span class="line">    layers = []</span><br><span class="line">    <span class="keyword">if</span> expansion != <span class="number">1</span>:</span><br><span class="line">      <span class="comment"># 1x1 卷积先扩展通道，提升瓶颈块的表达能力。</span></span><br><span class="line">      layers.extend([</span><br><span class="line">        nn.Conv2d(in_channels, hidden_channels, <span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">        nn.BatchNorm2d(hidden_channels),</span><br><span class="line">        nn.SiLU(inplace=<span class="literal">True</span>),</span><br><span class="line">      ])</span><br><span class="line">    layers.extend([</span><br><span class="line">      <span class="comment"># groups=hidden_channels 表示每个通道独立进行空间卷积。</span></span><br><span class="line">      nn.Conv2d(</span><br><span class="line">        hidden_channels,</span><br><span class="line">        hidden_channels,</span><br><span class="line">        <span class="number">3</span>,</span><br><span class="line">        stride=stride,</span><br><span class="line">        padding=<span class="number">1</span>,</span><br><span class="line">        <span class="comment"># 1x1 投影将扩展后的通道压缩为输出通道数。</span></span><br><span class="line">        groups=hidden_channels,</span><br><span class="line">        bias=<span class="literal">False</span>,</span><br><span class="line">      ),</span><br><span class="line">      nn.BatchNorm2d(hidden_channels),</span><br><span class="line">      nn.SiLU(inplace=<span class="literal">True</span>),</span><br><span class="line">      nn.Conv2d(hidden_channels, out_channels, <span class="number">1</span>, bias=<span class="literal">False</span>),</span><br><span class="line">      nn.BatchNorm2d(out_channels),</span><br><span class="line">    ])</span><br><span class="line">    self.block = nn.Sequential(*layers)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">    out = self.block(x)</span><br><span class="line">    <span class="comment"># 残差连接有助于梯度传播；stride=1 且通道一致时才启用。</span></span><br><span class="line">    <span class="keyword">return</span> x + out <span class="keyword">if</span> self.use_residual <span class="keyword">else</span> out</span><br></pre></td></tr></table></figure>
+
+<p>上面代码用于说明 MBConv 的主干结构，省略了 SE、DropConnect&#x2F;Stochastic Depth 和不同 stage 的配置。实际使用中优先采用经过验证的实现，例如 torchvision 提供的 <code>efficientnet_b0</code>、<code>efficientnet_b1</code> 等预训练模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision.models <span class="keyword">import</span> EfficientNet_B0_Weights, efficientnet_b0</span><br><span class="line"></span><br><span class="line">model = efficientnet_b0(weights=EfficientNet_B0_Weights.DEFAULT)</span><br><span class="line">model.classifier[<span class="number">1</span>] = nn.Linear(model.classifier[<span class="number">1</span>].in_features, num_classes)</span><br></pre></td></tr></table></figure>
+
+<h2 id="EfficientNet-Lite"><a href="#EfficientNet-Lite" class="headerlink" title="EfficientNet-Lite"></a>EfficientNet-Lite</h2><p>EfficientNet-Lite 是面向移动端和边缘设备重新调整的系列，不是简单地把 B0-B7 改名。其目标是减少移动端不友好的算子和运行时开销，常见调整包括：</p>
+<ul>
+<li>使用 <code>ReLU6</code> 替代 <code>Swish/SiLU</code>，便于整数化和 TFLite 等推理后端支持；</li>
+<li>移除或简化部分 SE 等额外结构，降低访存和算子开销；</li>
+<li>调整 stem、分类头、正则化和输入尺寸，使模型更适合移动端训练与部署。</li>
+</ul>
+<p>具体结构应以目标框架和对应 checkpoint 的实现为准，不同仓库中的 “Lite” 变体并不一定完全相同。部署前至少要检查算子是否被后端支持，以及 FP32、FP16、INT8 量化后的精度和延迟。</p>
+<h2 id="选型与工程注意点"><a href="#选型与工程注意点" class="headerlink" title="选型与工程注意点"></a>选型与工程注意点</h2><p>选择 EfficientNet-Lite 的理由：参数量较小、FLOPs 较低、卷积算子部署友好，能够在精度和端侧延迟之间取得较好平衡。没选 FPN&#x2F;Transformer，通常是因为当前低算力平台对显存、访存带宽和算子支持更加敏感；但如果任务需要多尺度检测，EfficientNet-Lite 仍可以作为 backbone，搭配轻量级 FPN 或检测头，而不是二选一。</p>
+<h3 id="参数量、激活显存、计算量与延迟"><a href="#参数量、激活显存、计算量与延迟" class="headerlink" title="参数量、激活显存、计算量与延迟"></a>参数量、激活显存、计算量与延迟</h3><p>这四个指标描述的是模型的不同方面，不能互相替代：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>回答的问题</th>
+<th>主要由什么决定</th>
+<th>常见影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>参数量（Params）</strong></td>
+<td>模型中有多少个需要保存和训练的权重？</td>
+<td>层数、卷积核大小、输入&#x2F;输出通道数、全连接层规模；BN 的 affine 参数也属于参数</td>
+<td>决定权重文件大小、模型存储占用和一部分训练显存；参数越多不一定延迟越高</td>
+</tr>
+<tr>
+<td><strong>激活显存（Activation Memory）</strong></td>
+<td>前向和反向过程中间特征图需要占多少内存？</td>
+<td>Batch size、输入分辨率、各层通道数、特征图尺寸、数据类型，以及训练时需要保存的中间结果</td>
+<td>训练显存通常比推理显存大；高分辨率和大 batch 往往首先增加激活显存</td>
+</tr>
+<tr>
+<td><strong>计算量（FLOPs&#x2F;MACs）</strong></td>
+<td>完成一次前向传播需要执行多少数学运算？</td>
+<td>输入尺寸、输出特征图尺寸、卷积核大小、输入&#x2F;输出通道数、层数和 batch size</td>
+<td>反映理论计算工作量；FLOPs 低通常更容易做到低延迟，但不是绝对关系</td>
+</tr>
+<tr>
+<td><strong>延迟（Latency）</strong></td>
+<td>一次推理实际需要多长时间？</td>
+<td>硬件算力和内存带宽、算子实现、并行度、kernel launch、算子融合、量化、线程数、batch size 和数据搬运</td>
+<td>是部署最关心的实际指标，必须在目标设备和完整推理流程上实测</td>
+</tr>
+</tbody></table>
+<p>对于一个<strong>普通卷积</strong>，忽略 bias 时，参数量近似为：</p>
+<p>$$
+Params=K^2C_{in}C_{out}
+$$</p>
+<p>若输出特征图大小为 $H_{out}\times W_{out}$，则单张图片的 MACs 近似为：</p>
+<p>$$
+MACs=H_{out}W_{out}K^2C_{in}C_{out}
+$$</p>
+<p>若把一次乘法和一次加法分别计作一次 FLOP，则通常有 $FLOPs\approx2\times MACs$。不同工具对 MACs、FLOPs 是否包含加法、激活函数和 BN 的统计口径可能不同，比较结果时必须确认口径一致。</p>
+<p>$$
+计算量\approx参数量\times每个参数参与计算的次数
+$$</p>
+<p>同一组卷积参数会在输出特征图的每个空间位置重复使用，所以当输出特征图为 $H_{out}\times W_{out}$ 时，每个参数大约参与 $H_{out}W_{out}$ 次乘法。由此可见：</p>
+<ul>
+<li>卷积层的<strong>参数量主要由通道数和卷积核大小决定</strong>；</li>
+<li>卷积层的<strong>计算量还会受到输出特征图分辨率影响</strong>；</li>
+<li>即使两个卷积层参数量相同，只要输出分辨率不同，计算量也可能相差很大。</li>
+</ul>
+<p><strong>全连接层</strong>则不同。若输入维度为 $N$、输出维度为 $M$：</p>
+<p>$$
+Params=N\times M,\qquad MACs\approx N\times M
+$$</p>
+<p>单次推理时，全连接层中的每个权重通常只参与一次乘法，因此它的参数量和单样本计算量数量级接近。但在 batch size 为 $B$ 时，整个 batch 的计算量约为 $B\times N\times M$，而参数量仍然只有 $N\times M$。</p>
+<p>深度卷积进一步说明了两者的区别：它的参数量和计算量都比普通卷积小，但由于每个参数仍会在所有空间位置重复使用，所以分辨率提高后计算量仍会明显增加。</p>
+<p>因此，判断模型大小主要看 Params 和权重文件大小；判断理论运算工作量要看 FLOPs&#x2F;MACs；判断实际运行速度还必须结合硬件、内存访问和算子实现测量延迟。</p>
+<p>对于<strong>深度卷积</strong>，参数量和计算量分别近似为：</p>
+<p>$$
+Params=K^2C,\qquad MACs=H_{out}W_{out}K^2C
+$$</p>
+<p>它比普通卷积省参数和运算，但不一定按相同比例降低延迟，因为深度卷积的计算密度较低，可能受内存访问和硬件 kernel 效率限制。</p>
+<p><strong>激活显存</strong>可以用一个中间特征图粗略估算：</p>
+<p>$$
+Memory\approx B\times C\times H\times W\times bytes(dtype)
+$$</p>
+<p>例如 <code>B x C x H x W</code> 的 FP16 特征图每个元素占 2 字节，FP32 占 4 字节。训练时还要保存多个中间激活用于反向传播，实际峰值显存还包括参数、梯度、优化器状态、临时 workspace 和框架缓存，因此不能只把所有参数量乘以 4 作为训练显存。</p>
+<p>几个容易混淆的结论：</p>
+<ul>
+<li><strong>参数量小，不代表激活显存小</strong>：高分辨率特征图可能只有少量参数，却产生很大的激活张量；</li>
+<li><strong>FLOPs 少，不代表延迟低</strong>：算子不被硬件高效支持、访存开销大或 kernel 数量多时，低 FLOPs 模型仍可能较慢；</li>
+<li><strong>延迟和吞吐量不同</strong>：延迟是单次或单 batch 的完成时间，吞吐量是单位时间处理的样本数，大 batch 可能提高吞吐量但增加单次延迟和显存；</li>
+<li><strong>训练和推理的资源不同</strong>：推理通常不保存反向图，也不需要梯度和优化器状态；训练则需要更多激活显存和额外状态；</li>
+<li><strong>改变缩放维度的影响不同</strong>：增加深度主要增加串行层数，增加宽度同时增加参数量、计算量和激活通道，增加分辨率主要放大特征图面积以及激活显存和空间计算量。</li>
+</ul>
+<p>使用时需要注意：</p>
+<ul>
+<li>预训练权重通常要求固定的归一化方式和输入尺寸，训练和推理必须保持一致；</li>
+<li>仅比较 Params 或 FLOPs 不能代表真实速度，应在目标设备上测量端到端延迟、峰值内存和功耗；</li>
+<li>迁移学习时可先冻结 backbone，再逐步解冻；小数据集上应同时关注分类头过拟合和 BatchNorm 统计量漂移；</li>
+<li>端侧 INT8 部署需要校准数据，量化后应重新评估精度，尤其关注小目标和细粒度类别；</li>
+<li>EfficientNet 原始模型使用 SiLU&#x2F;Swish 时，训练精度可能较好，但某些 NPU 不支持或代价较高，Lite 版本的部署优势需要通过实际 benchmark 验证。</li>
+</ul>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p>Transformer 是一种以 <strong>Attention（注意力）</strong> 为核心的序列建模架构。它不像传统 RNN 那样必须按时间顺序逐个处理输入，而是让序列中的元素相互计算关系，因此更容易并行训练，也更擅长建模长距离依赖。</p>
+<p>Transformer 的核心在于注意力机制（Attention Mechanism），注意力机制由三个字母构建：Q (Query)、K (Key)、V (Value)。<br>用经典的“图书馆检索”类比来解释 Q、K、V：</p>
+<ul>
+<li>Query (Q - 查询)：相当于你走到图书馆系统前，输入的“搜索词”（例如：“机器学习入门”）。它是你带着的目的或问题。</li>
+<li>Key (K - 键)：相当于图书馆里每一本书背面的“标签或书名”。系统会用你的 Q 去和所有的 K 进行比对，计算相似度。</li>
+<li>Value (V - 值)：相当于这本“书的具体内容”。当系统发现某本书的 K 和你的 Q 高度匹配时，它就会把这本书的 V（内容）提取出来交给你。<br>数学表达如下：<br>$$Attention(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$<br>公式的物理意义是：用 Q 和 K 算点积（计算相似度打分），然后把分数作为权重，去对 V 进行加权求和。</li>
+</ul>
+<h3 id="Q、K、V-是怎样计算出来的"><a href="#Q、K、V-是怎样计算出来的" class="headerlink" title="Q、K、V 是怎样计算出来的"></a>Q、K、V 是怎样计算出来的</h3><p>假设输入序列为 $X\in\mathbb{R}^{N\times d_{model}}$，其中 $N$ 是 token 数量，$d_{model}$ 是特征维度。Self-Attention 会通过三个可学习的线性层生成 Q、K、V：</p>
+<p>$$
+Q=XW_Q+b_Q,\qquad K=XW_K+b_K,\qquad V=XW_V+b_V
+$$</p>
+<p>其中 $W_Q$、$W_K$、$W_V$ 是训练得到的投影矩阵。若单个注意力头的维度为 $d_k$，则：</p>
+<p>$$
+W_Q,W_K,W_V\in\mathbb{R}^{d_{model}\times d_k},\qquad Q,K,V\in\mathbb{R}^{N\times d_k}
+$$</p>
+<p>具体计算可以拆成四步：</p>
+<ol>
+<li><strong>生成 Q、K、V</strong>：把每个 token 投影到查询、匹配和内容三个子空间；</li>
+<li><strong>计算相似度</strong>：$QK^T$ 的形状为 $N\times N$，第 $i,j$ 个元素表示第 $i$ 个 token 对第 $j$ 个 token 的关注程度；</li>
+<li><strong>归一化权重</strong>：对每一行做 softmax，得到每个 Query 对所有 Key 的注意力权重；</li>
+<li><strong>聚合 Value</strong>：用注意力权重对 V 加权求和，得到新的 token 表示。</li>
+</ol>
+<p>多头注意力会使用多组不同的 $W_Q,W_K,W_V$，每个头独立计算注意力，最后拼接并通过一个输出投影：</p>
+<p>$$
+MultiHead(Q,K,V)=Concat(head_1,\ldots,head_h)W_O
+$$</p>
+<h3 id="为什么要除以-$\sqrt{d_k}$"><a href="#为什么要除以-$\sqrt{d_k}$" class="headerlink" title="为什么要除以 $\sqrt{d_k}$"></a>为什么要除以 $\sqrt{d_k}$</h3><p>如果 Q 和 K 的每个元素都近似服从均值为 0、方差为 1 的分布，那么点积：</p>
+<p>$$
+q\cdot k=\sum_{i=1}^{d_k}q_i k_i
+$$</p>
+<p>其方差大致会随着 $d_k$ 增长。$d_k$ 越大，$QK^T$ 的数值越容易变大。直接把这些大数送入 softmax，会使最大值接近 1、其余值接近 0，softmax 进入饱和区，梯度变小，训练不稳定。</p>
+<p>除以 $\sqrt{d_k}$ 可以把点积的数值尺度拉回相对稳定的范围，使 softmax 不容易过早饱和。因此它是为了<strong>稳定数值范围和梯度</strong>，不是为了改变 Query 与 Key 的语义。</p>
+<h3 id="Self-Attention-与-Cross-Attention"><a href="#Self-Attention-与-Cross-Attention" class="headerlink" title="Self-Attention 与 Cross-Attention"></a>Self-Attention 与 Cross-Attention</h3><p>两者使用的计算公式相同，核心区别是 Q、K、V 的来源不同：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>Q 的来源</th>
+<th>K、V 的来源</th>
+<th>直观含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Self-Attention</strong></td>
+<td>同一个输入 $X$ | 同一个输入 $X$</td>
+<td>序列内部互相交流，回答“我应该关注同一序列中的谁”</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Cross-Attention</strong></td>
+<td>一个序列 $X_q$</td>
+<td>另一个序列 $X_{kv}$</td>
+<td>一个序列去读取另一个序列，回答“查询应该从外部信息中取什么”</td>
+</tr>
+</tbody></table>
+<p>Self-Attention 的写法是：</p>
+<p>$$
+Q=XW_Q,\qquad K=XW_K,\qquad V=XW_V
+$$</p>
+<p>Cross-Attention 的写法是：</p>
+<p>$$
+Q=X_qW_Q,\qquad K=X_{kv}W_K,\qquad V=X_{kv}W_V
+$$</p>
+<p>例如 Encoder-Decoder Transformer 中，Decoder 的 token 生成 Q，Encoder 输出的特征生成 K 和 V。自动驾驶感知中，BEV Query 生成 Q，多相机图像特征生成 K 和 V，这就是 Cross-Attention。</p>
+<h3 id="Deformable-Attention-的基本原理"><a href="#Deformable-Attention-的基本原理" class="headerlink" title="Deformable Attention 的基本原理"></a>Deformable Attention 的基本原理</h3><p>标准全局 Attention 会让每个 Query 与所有 Key 计算相关性。如果 Query 数量为 $N_q$、图像特征 token 数量为 $N_k$，其注意力矩阵大小为 $N_q\times N_k$，计算量和显存开销近似为：</p>
+<p>$$
+O(N_qN_kd_k)
+$$</p>
+<p>对于高分辨率图像，$N_k$ 很大，所有位置都参与匹配，其中大部分位置其实与当前 Query 无关。</p>
+<p>Deformable Attention 不再让一个 Query 关注所有位置，而是为每个 Query 预测少量<strong>采样点（sampling points）</strong>及其权重：</p>
+<ol>
+<li>根据 Query 预测采样偏移量 $\Delta p$；</li>
+<li>以一个参考点 $p_q$ 为中心，得到采样位置 $p_q+\Delta p$；</li>
+<li>在这些位置对特征图做双线性插值，取出对应的 Value；</li>
+<li>用预测的注意力权重对少量采样特征加权求和。</li>
+</ol>
+<p>单尺度 Deformable Attention 可以写成：</p>
+<p>$$
+DeformAttn(z_q,x)=\sum_{m=1}^{M}W_m\sum_{k=1}^{K}A_{mqk}\,x\left(p_q+\Delta p_{mqk}\right)
+$$</p>
+<p>其中 $M$ 是注意力头数，$K$ 是每个头的采样点数量，$A_{mqk}$ 是采样权重，$\Delta p_{mqk}$ 是可学习偏移量，$x(\cdot)$ 表示在连续坐标处插值取值。</p>
+<p>全局 Attention 需要比较所有 Key，而 Deformable Attention 每个 Query 只读取 $M\times K$ 个位置，因此复杂度近似变为：</p>
+<p>$$
+O(N_qMKd_k),\qquad MK\ll N_k
+$$</p>
+<p>所以它能显著节省计算量和注意力矩阵显存，尤其适合高分辨率检测和多尺度视觉特征。代价是采样位置是稀疏的，模型可能漏掉有用区域；采样点数量、参考点质量和特征尺度设计会影响最终效果。</p>
+<h3 id="BEVFormer-中-BEV-Query-如何读取多相机特征"><a href="#BEVFormer-中-BEV-Query-如何读取多相机特征" class="headerlink" title="BEVFormer 中 BEV Query 如何读取多相机特征"></a>BEVFormer 中 BEV Query 如何读取多相机特征</h3><p>BEVFormer 的目标是把环视多相机图像转换成统一的鸟瞰视角（Bird’s-Eye View，BEV）特征。可以把它理解为：先在 BEV 平面上放置一张可学习的“查询网格”，每个网格位置都向多相机图像询问信息。</p>
+<p>其 Spatial Cross-Attention 的主要流程如下：</p>
+<ol>
+<li><strong>初始化 BEV Query</strong>：在 BEV 平面建立 $H_{bev}\times W_{bev}$ 个网格，每个网格对应一个 BEV Query。Query 可以是可学习参数，也可以与 BEV 位置编码相加；</li>
+<li><strong>生成参考点</strong>：为每个 BEV Query 在三维空间中设置一个或多个参考高度，得到参考点 $p_{bev}$；</li>
+<li><strong>坐标投影</strong>：利用车辆坐标系到各相机坐标系的外参，以及相机内参，将 BEV 参考点投影到每个相机的图像平面：</li>
+</ol>
+<p>  $$
+  p_{img}=K_{cam}[R\mid t]p_{bev}
+  $$</p>
+<p>  再进行齐次坐标归一化，得到图像上的二维采样坐标。落在相机视野外的点会被 mask 掉；<br>4. <strong>从多尺度图像特征采样</strong>：每个投影点不需要读取整张图像，而是在不同 FPN 特征层附近采样少量点，采样值通过双线性插值得到；<br>5. <strong>Cross-Attention 聚合</strong>：BEV Query 作为 Q，投影位置附近的多相机图像特征作为 K&#x2F;V，Deformable Attention 预测各采样点的偏移和权重，再把有效相机、多个尺度和多个采样点的特征融合起来；<br>6. <strong>更新 BEV 特征</strong>：每个 BEV 网格得到融合后的视觉信息，形成统一的 BEV 特征图，后续检测头可以在这个特征图上预测 3D 框、地图元素或其他自动驾驶目标。</p>
+<p>需要注意，BEVFormer 不是简单地把所有相机图像拼接后做一次全局 Attention。它利用相机标定把“BEV 位置”与“图像位置”对应起来，再通过稀疏可变形采样读取相关区域，因此既保留了几何关系，又避免了极高的全局注意力开销。</p>
+<p>此外，BEVFormer 还包含 <strong>Temporal Self-Attention</strong>：当前帧的 BEV Query 不仅与当前多相机图像做 Spatial Cross-Attention，还会与历史 BEV 特征进行时序交互，从而利用前后帧信息改善遮挡和检测稳定性。</p>
 <p>在自动驾驶感知中，图像特征图（BEV 特征）本身充当了浩如烟海的图书馆（它提供了 Keys 和 Values）。<br>Q: Object Query（对象查询&#x2F;可学习查询）。<br>在 PivotNet 中提到的 Point Query 和 Line Query，本质上就是这种 Object Query。它们具有以下极其特殊的性质：</p>
 <ul>
 <li>无中生有的“参数”：在网络刚开始训练时，Point Query 可能只是一组随机生成的、没有任何意义的数字向量。</li>
 <li>不断进化的“侦察兵”：在经过成千上万张图片的训练后，这些 Query 通过梯度下降“学习”到了特定的技能。如寻找高对比度的“边缘”、寻找“黄色与黑色的交界点”。</li>
 <li>交叉注意力 (Cross-Attention)：在推理时，这些训练有素的 Query 会带着它们各自学到的“问题（特征偏好和位置偏好）”，去和 BEV 特征图（Keys 和 Values）进行交互。</li>
 </ul>
+<h2 id="Transformer-Block-的组成"><a href="#Transformer-Block-的组成" class="headerlink" title="Transformer Block 的组成"></a>Transformer Block 的组成</h2><p>一个标准 Transformer Block 通常包括：</p>
+<ol>
+<li><strong>Multi-Head Self-Attention</strong>：使用多个注意力头，从不同子空间学习关系；</li>
+<li><strong>残差连接和 LayerNorm</strong>：稳定训练并保留原始特征，常见形式是 <code>x + Attention(x)</code>；</li>
+<li><strong>FFN（Feed-Forward Network）</strong>：对每个位置独立地进行通道维度上的非线性变换，常见结构是 Linear-GELU-Linear；</li>
+<li><strong>位置编码（Positional Encoding）</strong>：注意力本身不感知顺序，需要额外注入位置信息。</li>
+</ol>
+<p>注意力主要负责“不同位置之间的信息混合”，FFN 主要负责“每个位置内部的特征变换”。多头注意力则可以同时学习不同类型的关系，例如语法关系、空间邻近关系或远距离依赖。</p>
+<h2 id="Transformer-在大语言模型中的使用"><a href="#Transformer-在大语言模型中的使用" class="headerlink" title="Transformer 在大语言模型中的使用"></a>Transformer 在大语言模型中的使用</h2><p>大语言模型（LLM）通常先把文本切分为 token，再把 token 映射成向量。一个 token 可以是一个字、一个词、词的一部分或标点，具体由 tokenizer 决定。</p>
+<p>以 GPT 类模型为例，典型流程是：</p>
+<ol>
+<li>文本经过 tokenizer 变成 token ID；</li>
+<li>token ID 查表得到词向量，并加入位置编码；</li>
+<li>多层 <strong>Decoder-only Transformer</strong> 处理这些 token；</li>
+<li>最后一层 Linear 将隐藏向量映射到词表大小，得到下一个 token 的 logits；</li>
+<li>经过 softmax 得到概率，选择或采样下一个 token，再把它追加到输入中循环生成。</li>
+</ol>
+<p>LLM 训练通常使用因果语言建模（Causal Language Modeling）：预测当前位置的下一个 token。为了防止模型偷看答案，Self-Attention 使用<strong>因果 mask</strong>，第 $i$ 个位置只能关注第 $i$ 个及其之前的位置：</p>
+<p>$$
+P(x_t|x_{<t})
+$$</p>
+<p>所以 LLM 中的 Transformer 重点是：<strong>理解 token 之间的语言关系，并根据上下文生成下一个 token</strong>。它的输出通常是词表上的概率分布，而不是图像中的像素或边界框。</p>
+<p>BERT 则是另一种常见形式：主要使用 <strong>Encoder-only Transformer</strong>，通过双向注意力理解上下文，适合分类、匹配和抽取等理解任务；T5 等模型使用 Encoder-Decoder 结构，适合输入到输出的文本转换任务。</p>
+<h2 id="Transformer-在计算机视觉中的使用"><a href="#Transformer-在计算机视觉中的使用" class="headerlink" title="Transformer 在计算机视觉中的使用"></a>Transformer 在计算机视觉中的使用</h2><p>图像不是天然的一维 token 序列，因此视觉 Transformer（Vision Transformer，ViT）通常先把图像切成固定大小的 patch。例如输入图像为 $H\times W$，patch 大小为 $P\times P$，则 token 数量约为：</p>
+<p>$$
+N=\frac{H}{P}\times\frac{W}{P}
+$$</p>
+<p>每个 patch 经过线性投影变成一个视觉 token，再加入二维位置编码，随后送入 Transformer Encoder。以图像分类为例，数据流可以概括为：</p>
+<ol>
+<li>图像切分为 patch；</li>
+<li>每个 patch 展平并投影为固定维度的 token；</li>
+<li>添加位置编码和可选的 <code>[CLS]</code> token；</li>
+<li>Encoder 通过 Self-Attention 建模不同图像区域之间的关系；</li>
+<li>使用分类头输出类别。</li>
+</ol>
+<p>视觉任务不同，Transformer 的输出形式也不同：</p>
+<ul>
+<li><strong>分类</strong>：使用 <code>[CLS]</code> token 或全局池化后的特征输出类别；</li>
+<li><strong>目标检测</strong>：使用 object query 查询图像特征，输出类别和边界框，DETR 就属于这一类；</li>
+<li><strong>语义分割</strong>：保留空间位置，将 token 特征恢复或映射到像素网格；</li>
+<li><strong>图像生成</strong>：将图像 patch 或离散视觉 token 按序预测和生成。</li>
+</ul>
+<p>CV 中的注意力既可以是 patch 之间的全局注意力，也可以限制在局部窗口内。全局注意力能捕捉远距离空间关系，但计算量随 token 数量 $N$ 近似按 $O(N^2)$ 增长；高分辨率图像会产生大量 token，因此 Swin Transformer 等方法采用窗口注意力、层级特征和窗口移动来降低开销。</p>
+<h2 id="LLM-与-CV-中-Transformer-的区别"><a href="#LLM-与-CV-中-Transformer-的区别" class="headerlink" title="LLM 与 CV 中 Transformer 的区别"></a>LLM 与 CV 中 Transformer 的区别</h2><p>两者使用相同的注意力基本公式，但输入、位置关系、mask 和输出目标不同：</p>
+<table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>大语言模型（LLM）</th>
+<th>计算机视觉（CV）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入</td>
+<td>文本 token，通常是一维序列</td>
+<td>图像 patch token，来源于二维网格，也可能来自 CNN 特征图</td>
+</tr>
+<tr>
+<td>位置关系</td>
+<td>词语的先后顺序，常使用绝对或相对位置编码、RoPE</td>
+<td>patch 的二维空间位置，通常需要二维位置编码或窗口位置偏置</td>
+</tr>
+<tr>
+<td>注意力范围</td>
+<td>Decoder-only LLM 使用因果 mask，只看当前位置及之前的 token</td>
+<td>图像理解通常允许 patch 之间双向关注；检测器也会使用 query 与图像特征交互</td>
+</tr>
+<tr>
+<td>主要任务</td>
+<td>预测下一个 token、文本理解、问答、翻译和生成</td>
+<td>分类、检测、分割、跟踪、姿态估计和图像生成</td>
+</tr>
+<tr>
+<td>常见输出</td>
+<td>词表上的 logits 或文本序列</td>
+<td>类别、边界框、掩码、关键点或图像特征图</td>
+</tr>
+<tr>
+<td>主要瓶颈</td>
+<td>上下文长度、KV Cache、显存和生成速度</td>
+<td>高分辨率导致 token 数量多、空间细节和全局建模的平衡</td>
+</tr>
+<tr>
+<td>常见结构</td>
+<td>GPT：Decoder-only；BERT：Encoder-only；T5：Encoder-Decoder</td>
+<td>ViT、Swin、DETR，以及 CNN-Transformer 混合架构</td>
+</tr>
+</tbody></table>
+<p>最容易混淆的一点是：<strong>LLM 中的 token 是语言切分单元，CV 中的 token 通常是图像 patch 或特征位置</strong>。二者都叫 token，但含义不同。LLM 多数是“根据前文生成后文”，CV 多数是“理解整张图并输出结构化预测”。</p>
+<p>在自动驾驶感知中，图像特征图或 BEV 特征可以作为 Key 和 Value，Point Query、Line Query 或 Object Query 作为 Query，通过 Cross-Attention 从视觉特征中提取目标、点或线的信息。这些 Query 可以是可学习的向量，也可以由其他网络根据输入动态生成。</p>
 <h2 id="DETR-DEtection-TRansformer"><a href="#DETR-DEtection-TRansformer" class="headerlink" title="DETR (DEtection TRansformer)"></a>DETR (DEtection TRansformer)</h2><ol>
 <li>CNN 骨干网络 (Backbone)：DETR 没有完全抛弃 CNN，使用 ResNet 等经典的 CNN 来提取图像的基础特征，生成一张浓缩了图像信息的特征图。</li>
 <li>Transformer 编码器 (Encoder)：CNN 提取的特征图被拉平，并加上位置编码（Positional Encoding，附加的位置信息）后，送入 Transformer Encoder。Encoder深度理解输入数据的上下文。 它的输入是一堆带有位置编码的原始特征，输出则是经过深度交流、融合了全局信息的“高级特征图”。<ul>
@@ -1095,7 +1475,7 @@ $$</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">深度学习框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0-Activate-Function"><span class="nav-number">1.1.</span> <span class="nav-text">激活函数 Activate Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E5%8F%97%E9%87%8E-Receptive-field"><span class="nav-number">1.2.</span> <span class="nav-text">感受野(Receptive field)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">卷积</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PyTorch-%E4%BB%A3%E7%A0%81%E7%BB%BC%E5%90%88%E8%B0%83%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">PyTorch 代码综合调用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BatchNorm"><span class="nav-number">1.4.</span> <span class="nav-text">BatchNorm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E6%B4%9E%E5%8D%B7%E7%A7%AF%EF%BC%88%E8%86%A8%E8%83%80%E5%8D%B7%E7%A7%AF%EF%BC%89%EF%BC%88Dilated-Convolution-Atrous-Convolution%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">空洞卷积（膨胀卷积）（Dilated Convolution &#x2F; Atrous Convolution）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF%EF%BC%88Separable-Convolution%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">可分离卷积（Separable Convolution）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF%EF%BC%88Spatially-Separable-Convolutions%EF%BC%89"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">空间可分离卷积（Spatially Separable Convolutions）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF%EF%BC%88Depthwise-Separable-Convolutions%EF%BC%89"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">深度可分离卷积（Depthwise Separable Convolutions）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E9%87%87%E6%A0%B7"><span class="nav-number">1.5.</span> <span class="nav-text">上采样</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF-%E5%8F%8D%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">转置卷积&#x2F;反卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%B1%A0%E5%8C%96"><span class="nav-number">1.5.2.</span> <span class="nav-text">上池化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E4%B8%8A%E9%87%87%E6%A0%B7"><span class="nav-number">1.5.3.</span> <span class="nav-text">普通上采样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%8F%92%E5%80%BC%EF%BC%88Bilinear-Interpolation%EF%BC%89"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">双线性插值（Bilinear Interpolation）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.6.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optimizer"><span class="nav-number">1.7.</span> <span class="nav-text">Optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E4%B8%8E%E4%BC%98%E5%8C%96%E5%99%A8%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.1.</span> <span class="nav-text">学习率与优化器调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E4%B8%8E%E6%A2%AF%E5%BA%A6%E6%8E%A7%E5%88%B6%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.2.</span> <span class="nav-text">动量与梯度控制策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E6%B3%9B%E5%8C%96%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.3.</span> <span class="nav-text">模型正则化与泛化策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%BB%84%E5%90%88%E6%8E%A8%E8%8D%90"><span class="nav-number">1.7.4.</span> <span class="nav-text">常见组合推荐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-size"><span class="nav-number">1.8.</span> <span class="nav-text">Batch size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E3%80%8Closs-function%E3%80%8D"><span class="nav-number">1.9.</span> <span class="nav-text">损失函数「loss function」</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#L1%E8%8C%83%E6%95%B0%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%EF%BC%88MAE%EF%BC%89"><span class="nav-number">1.9.1.</span> <span class="nav-text">L1范数损失函数（MAE）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L2%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%EF%BC%88MSE%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%EF%BC%89"><span class="nav-number">1.9.2.</span> <span class="nav-text">L2损失函数（MSE均方误差损失函数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wing-Loss"><span class="nav-number">1.9.3.</span> <span class="nav-text">Wing Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KL%E6%95%A3%E5%BA%A6%EF%BC%88-Kullback-Leibler-divergence%EF%BC%89"><span class="nav-number">1.9.4.</span> <span class="nav-text">KL散度（ Kullback-Leibler divergence）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.9.5.</span> <span class="nav-text">交叉熵损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A6%99%E5%86%9C%E4%BF%A1%E6%81%AF%E9%87%8F%EF%BC%88Shannon-Information%EF%BC%89"><span class="nav-number">1.9.5.1.</span> <span class="nav-text">香农信息量（Shannon Information）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CE"><span class="nav-number">1.9.5.2.</span> <span class="nav-text">CE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CE-loss"><span class="nav-number">1.9.5.3.</span> <span class="nav-text">CE loss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Focal-loss"><span class="nav-number">1.9.5.4.</span> <span class="nav-text">Focal loss</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RMI-Loss%EF%BC%88Region-Mutual-Information-Loss%EF%BC%89"><span class="nav-number">1.9.6.</span> <span class="nav-text">RMI Loss（Region Mutual Information Loss）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IoU-Loss"><span class="nav-number">1.9.7.</span> <span class="nav-text">IoU Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GIoU-Loss"><span class="nav-number">1.9.7.1.</span> <span class="nav-text">GIoU Loss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PIoU-Loss-Pixels-IoU-Loss"><span class="nav-number">1.9.7.2.</span> <span class="nav-text">PIoU Loss (Pixels-IoU Loss)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NMS"><span class="nav-number">1.10.</span> <span class="nav-text">NMS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87-NMS-Polar-NMS"><span class="nav-number">1.10.1.</span> <span class="nav-text">极坐标 NMS (Polar NMS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scale-nms"><span class="nav-number">1.10.2.</span> <span class="nav-text">Scale nms</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%EF%BC%88Attention-Mechanism%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">注意力机制（Attention Mechanism）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%9F%9F"><span class="nav-number">2.1.</span> <span class="nav-text">软注意力的注意力域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%9F%9F%EF%BC%88Spatial-Domain%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">空间域（Spatial Domain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%9F%9F%EF%BC%88Channel-Domain%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">通道域（Channel Domain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%9F%9F%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.3.</span> <span class="nav-text">时域注意力机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%92%8C%E7%A9%BA%E9%97%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.4.</span> <span class="nav-text">通道和空间注意力机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Metrics-%E8%AF%84%E4%BC%B0"><span class="nav-number">3.</span> <span class="nav-text">Metrics 评估</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5"><span class="nav-number">3.1.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation-parameters"><span class="nav-number">3.2.</span> <span class="nav-text">Evaluation parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%A1%E7%AE%97%E9%87%8F-FLOPs-%E5%92%8C%E5%8F%82%E6%95%B0%E9%87%8F-Params"><span class="nav-number">3.3.</span> <span class="nav-text">模型计算量(FLOPs)和参数量(Params)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformer"><span class="nav-number">4.</span> <span class="nav-text">Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DETR-DEtection-TRansformer"><span class="nav-number">4.1.</span> <span class="nav-text">DETR (DEtection TRansformer)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">5.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">5.1.</span> <span class="nav-text">联邦学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83"><span class="nav-number">5.2.</span> <span class="nav-text">分布式训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%BC%E5%93%88%E9%A1%BF%E8%B7%9D%E7%A6%BB-Manhattan-distance"><span class="nav-number">5.3.</span> <span class="nav-text">曼哈顿距离 (Manhattan distance)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95%EF%BC%88Hungarian-Algorithm%EF%BC%89"><span class="nav-number">5.4.</span> <span class="nav-text">匈牙利算法（Hungarian Algorithm）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C%EF%BC%88FCNs%EF%BC%89"><span class="nav-number">5.5.</span> <span class="nav-text">全卷积网络（FCNs）</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">深度学习框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0-Activate-Function"><span class="nav-number">1.1.</span> <span class="nav-text">激活函数 Activate Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E5%8F%97%E9%87%8E-Receptive-field"><span class="nav-number">1.2.</span> <span class="nav-text">感受野(Receptive field)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">卷积</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PyTorch-%E4%BB%A3%E7%A0%81%E7%BB%BC%E5%90%88%E8%B0%83%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">PyTorch 代码综合调用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BatchNorm"><span class="nav-number">1.4.</span> <span class="nav-text">BatchNorm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E6%B4%9E%E5%8D%B7%E7%A7%AF%EF%BC%88%E8%86%A8%E8%83%80%E5%8D%B7%E7%A7%AF%EF%BC%89%EF%BC%88Dilated-Convolution-Atrous-Convolution%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">空洞卷积（膨胀卷积）（Dilated Convolution &#x2F; Atrous Convolution）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF%EF%BC%88Separable-Convolution%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">可分离卷积（Separable Convolution）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF%EF%BC%88Spatially-Separable-Convolutions%EF%BC%89"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">空间可分离卷积（Spatially Separable Convolutions）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF%EF%BC%88Depthwise-Separable-Convolutions%EF%BC%89"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">深度可分离卷积（Depthwise Separable Convolutions）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E9%87%87%E6%A0%B7"><span class="nav-number">1.5.</span> <span class="nav-text">上采样</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF-%E5%8F%8D%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.5.1.</span> <span class="nav-text">转置卷积&#x2F;反卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%B1%A0%E5%8C%96"><span class="nav-number">1.5.2.</span> <span class="nav-text">上池化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E4%B8%8A%E9%87%87%E6%A0%B7"><span class="nav-number">1.5.3.</span> <span class="nav-text">普通上采样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%8F%92%E5%80%BC%EF%BC%88Bilinear-Interpolation%EF%BC%89"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">双线性插值（Bilinear Interpolation）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.6.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optimizer"><span class="nav-number">1.7.</span> <span class="nav-text">Optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E4%B8%8E%E4%BC%98%E5%8C%96%E5%99%A8%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.1.</span> <span class="nav-text">学习率与优化器调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E4%B8%8E%E6%A2%AF%E5%BA%A6%E6%8E%A7%E5%88%B6%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.2.</span> <span class="nav-text">动量与梯度控制策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E6%B3%9B%E5%8C%96%E7%AD%96%E7%95%A5"><span class="nav-number">1.7.3.</span> <span class="nav-text">模型正则化与泛化策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%BB%84%E5%90%88%E6%8E%A8%E8%8D%90"><span class="nav-number">1.7.4.</span> <span class="nav-text">常见组合推荐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-size"><span class="nav-number">1.8.</span> <span class="nav-text">Batch size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E3%80%8Closs-function%E3%80%8D"><span class="nav-number">1.9.</span> <span class="nav-text">损失函数「loss function」</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#L1%E8%8C%83%E6%95%B0%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%EF%BC%88MAE%EF%BC%89"><span class="nav-number">1.9.1.</span> <span class="nav-text">L1范数损失函数（MAE）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L2%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%EF%BC%88MSE%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%EF%BC%89"><span class="nav-number">1.9.2.</span> <span class="nav-text">L2损失函数（MSE均方误差损失函数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wing-Loss"><span class="nav-number">1.9.3.</span> <span class="nav-text">Wing Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KL%E6%95%A3%E5%BA%A6%EF%BC%88-Kullback-Leibler-divergence%EF%BC%89"><span class="nav-number">1.9.4.</span> <span class="nav-text">KL散度（ Kullback-Leibler divergence）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.9.5.</span> <span class="nav-text">交叉熵损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A6%99%E5%86%9C%E4%BF%A1%E6%81%AF%E9%87%8F%EF%BC%88Shannon-Information%EF%BC%89"><span class="nav-number">1.9.5.1.</span> <span class="nav-text">香农信息量（Shannon Information）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CE"><span class="nav-number">1.9.5.2.</span> <span class="nav-text">CE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CE-loss"><span class="nav-number">1.9.5.3.</span> <span class="nav-text">CE loss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Focal-loss"><span class="nav-number">1.9.5.4.</span> <span class="nav-text">Focal loss</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RMI-Loss%EF%BC%88Region-Mutual-Information-Loss%EF%BC%89"><span class="nav-number">1.9.6.</span> <span class="nav-text">RMI Loss（Region Mutual Information Loss）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IoU-Loss"><span class="nav-number">1.9.7.</span> <span class="nav-text">IoU Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GIoU-Loss"><span class="nav-number">1.9.7.1.</span> <span class="nav-text">GIoU Loss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PIoU-Loss-Pixels-IoU-Loss"><span class="nav-number">1.9.7.2.</span> <span class="nav-text">PIoU Loss (Pixels-IoU Loss)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NMS"><span class="nav-number">1.10.</span> <span class="nav-text">NMS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87-NMS-Polar-NMS"><span class="nav-number">1.10.1.</span> <span class="nav-text">极坐标 NMS (Polar NMS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scale-nms"><span class="nav-number">1.10.2.</span> <span class="nav-text">Scale nms</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%EF%BC%88Attention-Mechanism%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">注意力机制（Attention Mechanism）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%9F%9F"><span class="nav-number">2.1.</span> <span class="nav-text">软注意力的注意力域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%9F%9F%EF%BC%88Spatial-Domain%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">空间域（Spatial Domain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%9F%9F%EF%BC%88Channel-Domain%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">通道域（Channel Domain）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%9F%9F%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.3.</span> <span class="nav-text">时域注意力机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E5%92%8C%E7%A9%BA%E9%97%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.4.</span> <span class="nav-text">通道和空间注意力机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Metrics-%E8%AF%84%E4%BC%B0"><span class="nav-number">3.</span> <span class="nav-text">Metrics 评估</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5"><span class="nav-number">3.1.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation-parameters"><span class="nav-number">3.2.</span> <span class="nav-text">Evaluation parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%A1%E7%AE%97%E9%87%8F-FLOPs-%E5%92%8C%E5%8F%82%E6%95%B0%E9%87%8F-Params"><span class="nav-number">3.3.</span> <span class="nav-text">模型计算量(FLOPs)和参数量(Params)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EfficientNet"><span class="nav-number">4.</span> <span class="nav-text">EfficientNet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%BC%A9%E6%94%BE%EF%BC%88Compound-Scaling%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">复合缩放（Compound Scaling）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E3%80%81%E9%80%9A%E9%81%93%E5%AE%BD%E5%BA%A6%E5%92%8C%E5%88%86%E8%BE%A8%E7%8E%87%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">4.1.1.</span> <span class="nav-text">深度、通道宽度和分辨率的影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MBConv"><span class="nav-number">4.2.</span> <span class="nav-text">MBConv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MBConv-%E7%9A%84%E7%AE%80%E5%8C%96-PyTorch-%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.2.1.</span> <span class="nav-text">MBConv 的简化 PyTorch 实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EfficientNet-Lite"><span class="nav-number">4.3.</span> <span class="nav-text">EfficientNet-Lite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E5%9E%8B%E4%B8%8E%E5%B7%A5%E7%A8%8B%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="nav-number">4.4.</span> <span class="nav-text">选型与工程注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%87%8F%E3%80%81%E6%BF%80%E6%B4%BB%E6%98%BE%E5%AD%98%E3%80%81%E8%AE%A1%E7%AE%97%E9%87%8F%E4%B8%8E%E5%BB%B6%E8%BF%9F"><span class="nav-number">4.4.1.</span> <span class="nav-text">参数量、激活显存、计算量与延迟</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformer"><span class="nav-number">5.</span> <span class="nav-text">Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q%E3%80%81K%E3%80%81V-%E6%98%AF%E6%80%8E%E6%A0%B7%E8%AE%A1%E7%AE%97%E5%87%BA%E6%9D%A5%E7%9A%84"><span class="nav-number">5.0.1.</span> <span class="nav-text">Q、K、V 是怎样计算出来的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%99%A4%E4%BB%A5-$%5Csqrt%7Bd_k%7D$"><span class="nav-number">5.0.2.</span> <span class="nav-text">为什么要除以 $\sqrt{d_k}$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Self-Attention-%E4%B8%8E-Cross-Attention"><span class="nav-number">5.0.3.</span> <span class="nav-text">Self-Attention 与 Cross-Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deformable-Attention-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">5.0.4.</span> <span class="nav-text">Deformable Attention 的基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BEVFormer-%E4%B8%AD-BEV-Query-%E5%A6%82%E4%BD%95%E8%AF%BB%E5%8F%96%E5%A4%9A%E7%9B%B8%E6%9C%BA%E7%89%B9%E5%BE%81"><span class="nav-number">5.0.5.</span> <span class="nav-text">BEVFormer 中 BEV Query 如何读取多相机特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-Block-%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-number">5.1.</span> <span class="nav-text">Transformer Block 的组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-%E5%9C%A8%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">5.2.</span> <span class="nav-text">Transformer 在大语言模型中的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">5.3.</span> <span class="nav-text">Transformer 在计算机视觉中的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LLM-%E4%B8%8E-CV-%E4%B8%AD-Transformer-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.4.</span> <span class="nav-text">LLM 与 CV 中 Transformer 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DETR-DEtection-TRansformer"><span class="nav-number">5.5.</span> <span class="nav-text">DETR (DEtection TRansformer)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">6.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">6.1.</span> <span class="nav-text">联邦学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83"><span class="nav-number">6.2.</span> <span class="nav-text">分布式训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%BC%E5%93%88%E9%A1%BF%E8%B7%9D%E7%A6%BB-Manhattan-distance"><span class="nav-number">6.3.</span> <span class="nav-text">曼哈顿距离 (Manhattan distance)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95%EF%BC%88Hungarian-Algorithm%EF%BC%89"><span class="nav-number">6.4.</span> <span class="nav-text">匈牙利算法（Hungarian Algorithm）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C%EF%BC%88FCNs%EF%BC%89"><span class="nav-number">6.5.</span> <span class="nav-text">全卷积网络（FCNs）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1269,13 +1649,13 @@ $$</p>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">138k</span>
+    <span title="站点总字数">147k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:23</span>
+    <span title="站点阅读时长">8:55</span>
 </div>
 
 <div>

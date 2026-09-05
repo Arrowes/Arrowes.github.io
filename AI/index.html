@@ -30,7 +30,7 @@
 <meta property="og:description" content="AI相关折腾记录: LLM-Deepseek,chat-on-wechat, AI绘画-StableDiffusion, 音视频-DeepLive,F5-TTS">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-07T15:36:00.000Z">
-<meta property="article:modified_time" content="2026-08-31T03:08:06.876Z">
+<meta property="article:modified_time" content="2026-09-05T08:31:30.604Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="深度学习">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-31 11:08:06" itemprop="dateModified" datetime="2026-08-31T11:08:06+08:00">2026-08-31</time>
+                <time title="修改时间：2026-09-05 16:31:30" itemprop="dateModified" datetime="2026-09-05T16:31:30+08:00">2026-09-05</time>
               </span>
 
           
@@ -248,14 +248,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
+              <span>4.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>17 分钟</span>
             </span>
 
         </div>
@@ -336,15 +336,7 @@
 <td>在 Codex 中完成素材导入、时间线剪辑、字幕、配音、生成和导出。</td>
 </tr>
 </tbody></table>
-<h1 id="LLM"><a href="#LLM" class="headerlink" title="LLM"></a>LLM</h1><h2 id="Deepseek"><a href="#Deepseek" class="headerlink" title="Deepseek"></a>Deepseek</h2><p><a target="_blank" rel="noopener" href="https://www.kdocs.cn/l/caFUbVZSt40Q?f=201&share_style=h5_card">DeepSeek：从入门到精通</a></p>
-<h3 id="使用-ollama-Deepseek-本地部署"><a href="#使用-ollama-Deepseek-本地部署" class="headerlink" title="使用 ollama + Deepseek 本地部署"></a>使用 ollama + Deepseek 本地部署</h3><ol>
-<li>下载并安装ollama： <a target="_blank" rel="noopener" href="https://ollama.com/download">https://ollama.com/download</a> （关闭开机自启动：C:\Users\Arrow\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup 删除快捷方式）</li>
-<li>修改模型下载路径，避免占C盘：设置&gt;系统&gt;系统信息&gt;高级系统设置&gt;环境变量&gt;在系统变量中新建：OLLAMA_MODELS D:\XXX\models 重启电脑（默认在C:\Users\XX.Ollama\models）（顺便加一下OLLAMA_HOST 0.0.0.0）</li>
-<li>搜索模型：<a target="_blank" rel="noopener" href="https://ollama.com/search">https://ollama.com/search</a> （注意显存要求，我使用的笔记本端4060 8G大概能跑7-14B，其中名字带uncensored或abliterated是未限制版本的, Q是量化精度，最低q4, 影响不大，优先考虑B）</li>
-<li>下载：<code>ollama run deepseek-r1:14b</code> <code>ollama run huihui_ai/deepseek-r1-abliterated:14b</code><br><a target="_blank" rel="noopener" href="https://ollama.com/huihui_ai/deepseek-r1-abliterated">https://ollama.com/huihui_ai/deepseek-r1-abliterated</a><br>如果速度很慢，是未走VPN,需要开全局模式，</li>
-</ol>
-<hr>
-<p>或者改用<strong>Hugging Face</strong>：<a target="_blank" rel="noopener" href="https://huggingface.co/models?p=1&sort=trending&search=deepseek">https://huggingface.co/models?p=1&amp;sort=trending&amp;search=deepseek</a> ，需要下载GGUF版本才能在ollama中导入</p>
+<h1 id="LLM"><a href="#LLM" class="headerlink" title="LLM"></a>LLM</h1><h2 id="DeepSeek：从入门到精通-Deepseek-本地部署-ollama-Deepseek1-下载并安装ollama：-https-ollama-com-download-（关闭开机自启动：C-Users-Arrow-AppData-Roaming-Microsoft-Windows-Start-Menu-Programs-Startup-删除快捷方式）2-修改模型下载路径，避免占C盘：设置-系统-系统信息-高级系统设置-环境变量-在系统变量中新建：OLLAMA-MODELS-D-XXX-models-重启电脑（默认在C-Users-XX-Ollama-models）（顺便加一下OLLAMA-HOST-0-0-0-0）3-搜索模型：https-ollama-com-search-（注意显存要求，我使用的笔记本端4060-8G大概能跑7-14B，其中名字带uncensored或abliterated是未限制版本的-Q是量化精度，最低q4-影响不大，优先考虑B）4-下载：ollama-run-deepseek-r1-14b-ollama-run-huihui-ai-deepseek-r1-abliterated-14bhttps-ollama-com-huihui-ai-deepseek-r1-abliterated如果速度很慢，是未走VPN-需要开全局模式，"><a href="#DeepSeek：从入门到精通-Deepseek-本地部署-ollama-Deepseek1-下载并安装ollama：-https-ollama-com-download-（关闭开机自启动：C-Users-Arrow-AppData-Roaming-Microsoft-Windows-Start-Menu-Programs-Startup-删除快捷方式）2-修改模型下载路径，避免占C盘：设置-系统-系统信息-高级系统设置-环境变量-在系统变量中新建：OLLAMA-MODELS-D-XXX-models-重启电脑（默认在C-Users-XX-Ollama-models）（顺便加一下OLLAMA-HOST-0-0-0-0）3-搜索模型：https-ollama-com-search-（注意显存要求，我使用的笔记本端4060-8G大概能跑7-14B，其中名字带uncensored或abliterated是未限制版本的-Q是量化精度，最低q4-影响不大，优先考虑B）4-下载：ollama-run-deepseek-r1-14b-ollama-run-huihui-ai-deepseek-r1-abliterated-14bhttps-ollama-com-huihui-ai-deepseek-r1-abliterated如果速度很慢，是未走VPN-需要开全局模式，" class="headerlink" title="DeepSeek：从入门到精通## Deepseek 本地部署### ollama + Deepseek1. 下载并安装ollama： https://ollama.com/download （关闭开机自启动：C:\Users\Arrow\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup 删除快捷方式）2. 修改模型下载路径，避免占C盘：设置&gt;系统&gt;系统信息&gt;高级系统设置&gt;环境变量&gt;在系统变量中新建：OLLAMA_MODELS D:\XXX\models 重启电脑（默认在C:\Users\XX.Ollama\models）（顺便加一下OLLAMA_HOST 0.0.0.0）3. 搜索模型：https://ollama.com/search （注意显存要求，我使用的笔记本端4060 8G大概能跑7-14B，其中名字带uncensored或abliterated是未限制版本的, Q是量化精度，最低q4, 影响不大，优先考虑B）4. 下载：ollama run deepseek-r1:14b ollama run huihui_ai/deepseek-r1-abliterated:14bhttps://ollama.com/huihui_ai/deepseek-r1-abliterated如果速度很慢，是未走VPN,需要开全局模式， "></a><a target="_blank" rel="noopener" href="https://www.kdocs.cn/l/caFUbVZSt40Q?f=201&share_style=h5_card">DeepSeek：从入门到精通</a><br>## Deepseek 本地部署<br>### ollama + Deepseek<br>1. 下载并安装ollama： <a target="_blank" rel="noopener" href="https://ollama.com/download">https://ollama.com/download</a> （关闭开机自启动：C:\Users\Arrow\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup 删除快捷方式）<br>2. 修改模型下载路径，避免占C盘：设置&gt;系统&gt;系统信息&gt;高级系统设置&gt;环境变量&gt;在系统变量中新建：OLLAMA_MODELS D:\XXX\models 重启电脑（默认在C:\Users\XX.Ollama\models）（顺便加一下OLLAMA_HOST 0.0.0.0）<br>3. 搜索模型：<a target="_blank" rel="noopener" href="https://ollama.com/search">https://ollama.com/search</a> （注意显存要求，我使用的笔记本端4060 8G大概能跑7-14B，其中名字带uncensored或abliterated是未限制版本的, Q是量化精度，最低q4, 影响不大，优先考虑B）<br>4. 下载：<code>ollama run deepseek-r1:14b</code> <code>ollama run huihui_ai/deepseek-r1-abliterated:14b</code><br><a target="_blank" rel="noopener" href="https://ollama.com/huihui_ai/deepseek-r1-abliterated">https://ollama.com/huihui_ai/deepseek-r1-abliterated</a><br>如果速度很慢，是未走VPN,需要开全局模式， </h2><p>或者改用<strong>Hugging Face</strong>：<a target="_blank" rel="noopener" href="https://huggingface.co/models?p=1&sort=trending&search=deepseek">https://huggingface.co/models?p=1&amp;sort=trending&amp;search=deepseek</a> ，需要下载GGUF版本才能在ollama中导入</p>
 <blockquote>
 <p>GGUF格式是GPT-Generated Unified Format，由Georgi Gerganov定义发布的一种大模型文件格式。GGUF是GGML的继任者，旨在克服GGML的限制，提升用户体验，可扩展性和稳定性。它设计用于快速加载和保存模型，支持各种模型，并允许添加新功能同时保持兼容性。GGUF文件格式专为存储推断模型而设计，特别适用于语言模型如GPT。</p>
 </blockquote>
@@ -362,15 +354,11 @@
 <li>Hugging Face的<code>mradermacher/DeepSeek-R1-Distill-Qwen-14B-Uncensored-GGUF</code>，Uncensored破限程度更高，且可以通过.mf进行个性化配置，优于abliterated</li>
 </ul>
 <p><code>deepseek-r1:32b</code>：3.04 tokens&#x2F;s, 8G显存+16G共享GPU内存基本全部吃满，风扇转的飞起，确实更聪明</p>
-<h3 id="Deepseek-Open-WebUI-Web页面"><a href="#Deepseek-Open-WebUI-Web页面" class="headerlink" title="Deepseek + Open WebUI Web页面"></a>Deepseek + Open WebUI Web页面</h3><p>Open WebUI依赖<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/">Microsoft C++ 生成工具</a>，安装“使用C++的桌面开发”并确保安装详细信息的前两项勾选（否则报错Microsoft Visual C++ 14.0 is required. Get it with “Microsoft Visual C++ Build Tools）</p>
+<h3 id="Open-WebUI-Web页面"><a href="#Open-WebUI-Web页面" class="headerlink" title="Open WebUI Web页面"></a>Open WebUI Web页面</h3><p>Open WebUI依赖<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/">Microsoft C++ 生成工具</a>，安装“使用C++的桌面开发”并确保安装详细信息的前两项勾选（否则报错Microsoft Visual C++ 14.0 is required. Get it with “Microsoft Visual C++ Build Tools）</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">pip install open-webui</span><br><span class="line">open-webui serve</span><br></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a><br>ipconfig查看自己的ipv4地址，比如192.168.15.195，那么我的web网址为：<br><a target="_blank" rel="noopener" href="http://192.168.15.195:8080/">http://192.168.15.195:8080/</a><br>使用 Windows 防火墙开放端口，使局域网能成功访问：<br><code>netsh advfirewall firewall add rule name=&quot;Allow Port 8080&quot; dir=in action=allow protocol=TCP localport=8080</code></p>
 <p>系统提示词<br>温度：温度越高 模型越会自由发挥<br>上下文长度<br>num_gpu, num_thread</p>
 <p>可以通过修改回答记录进行破甲</p>
-<h3 id="OpenWebUI-Ollama-Container-部署"><a href="#OpenWebUI-Ollama-Container-部署" class="headerlink" title="OpenWebUI+Ollama Container 部署"></a>OpenWebUI+Ollama Container 部署</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拉OpenWebUI镜像，创建容器</span></span><br><span class="line">docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway --health-cmd <span class="string">&quot;curl -fsSL http://localhost:8080 || exit 1&quot;</span> --health-interval 60s --health-retries 5 --health-timeout 20s --health-start-period 60s --restart=always -v open-webui:/app/backend/data -v /root/.ollama:/root/.ollama --name open-webui ghcr.io/open-webui/open-webui:cuda</span><br><span class="line"><span class="comment"># 在容器内安装ollama:</span></span><br><span class="line">curl -fsSL https://ollama.com/install.sh | sh</span><br><span class="line">apt update</span><br><span class="line">apt install pciutils lshw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置ollama serve 在容器内自启动</span></span><br><span class="line">容器内：\app\backend\start.sh</span><br><span class="line">在最后一行WEBUI_SECRET_KEY前加入：</span><br><span class="line"><span class="built_in">nohup</span> ollama serve &gt; /root/.ollama/ollama.log 2&gt;&amp;1 &amp; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 封装镜像</span></span><br><span class="line">docker commit [commitID] open-webui-ollama</span><br><span class="line">docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway --health-cmd <span class="string">&quot;curl -fsSL http://localhost:8080 || exit 1&quot;</span> --health-interval 60s --health-retries 5 --health-timeout 20s --health-start-period 60s --restart=always -v open-webui:/app/backend/data -v /root/.ollama:/root/.ollama --name open-webui-ollama open-webui-ollama</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建模型</span></span><br><span class="line">ollama create Qwen3-Coder-30B -f Qwen3-Coder-30B/qwen.mf</span><br><span class="line"><span class="comment"># 试运行(可以关)</span></span><br><span class="line">ollama run Qwen3-Coder-30B</span><br><span class="line"></span><br><span class="line"><span class="comment"># openweb-ui设置本地容器内连ollama </span></span><br><span class="line">api:http://localhost:11434</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://www.xugj520.cn/archives/qwen3-coder-deploy.html">qwen3-coder-deploy</a></p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deepseek</span></span><br><span class="line">ollama run hf.co/unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF:Q4_K_XL</span><br><span class="line">https://huggingface.co/unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF</span><br><span class="line"></span><br><span class="line"><span class="comment"># mf文件：</span></span><br><span class="line">FROM ./DeepSeek-R1-0528-Qwen3-8B-UD-Q4_K_XL.gguf</span><br><span class="line"></span><br><span class="line">PARAMETER temperature <span class="number">0.6</span></span><br><span class="line">PARAMETER top_p <span class="number">0.95</span></span><br><span class="line"></span><br><span class="line">TEMPLATE <span class="string">&quot;&quot;&quot;&lt;｜begin of sentence｜&gt;&lt;｜User｜&gt;</span></span><br><span class="line"><span class="string">&#123;&#123; .Prompt &#125;&#125;&lt;｜Assistant｜&gt;&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;｜end of sentence｜&gt;&quot;</span></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;｜begin of sentence｜&gt;&quot;</span></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;｜User｜&gt;&quot;</span></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;｜Assistant｜&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Qwen3-Coder</span></span><br><span class="line">[Qwen3-Coder-30B-A3B-Instruct-GGUF](https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/discussions/<span class="number">4</span>)</span><br><span class="line"><span class="comment"># mf模板</span></span><br><span class="line">FROM ./Qwen3-Coder-30B-A3B-Instruct-UD-Q4_K_XL.gguf</span><br><span class="line"></span><br><span class="line">TEMPLATE <span class="string">&quot;&quot;&quot;&lt;|im_start|&gt;system</span></span><br><span class="line"><span class="string">&#123;&#123; .System &#125;&#125;&lt;|im_end|&gt;</span></span><br><span class="line"><span class="string">&lt;|im_start|&gt;user</span></span><br><span class="line"><span class="string">&#123;&#123; .Prompt &#125;&#125;&lt;|im_end|&gt;</span></span><br><span class="line"><span class="string">&lt;|im_start|&gt;assistant</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">SYSTEM <span class="string">&quot;&quot;&quot;你是Qwen，由阿里云开发的AI助手。你对用户的问题和请求总是有帮助、准确和诚实的。&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">PARAMETER temperature <span class="number">0.7</span></span><br><span class="line">PARAMETER top_p <span class="number">0.8</span></span><br><span class="line">PARAMETER top_k <span class="number">20</span></span><br><span class="line">PARAMETER repeat_penalty <span class="number">1.05</span></span><br><span class="line">PARAMETER num_ctx <span class="number">65536</span></span><br><span class="line"></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;|im_end|&gt;&quot;</span></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;|im_start|&gt;&quot;</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="Deepseek-AnythingLLM-自建知识库"><a href="#Deepseek-AnythingLLM-自建知识库" class="headerlink" title="Deepseek + AnythingLLM 自建知识库"></a>Deepseek + AnythingLLM 自建知识库</h3><ol>
 <li>下载<a target="_blank" rel="noopener" href="https://ollama.com/library/nomic-embed-text">nomic-embed-text</a>：<code>ollama pull nomic-embed-text</code>，一个具有大型 token 上下文窗口的高性能开放嵌入模型。</li>
 <li>下载安装AnythingLLM：<a target="_blank" rel="noopener" href="https://anythingllm.com/desktop">https://anythingllm.com/desktop</a><br>选ollama(先要打开ollama)&gt;选模型&gt;一直下一步,即可开始聊天</li>
@@ -385,15 +373,267 @@
 <p>手机端连接：config.yaml：listen: true; whitelist: - 192.168.<em>.</em><br><a target="_blank" rel="noopener" href="http://192.168.15.195:8000/">http://192.168.15.195:8000/</a><br><code>netsh advfirewall firewall add rule name=&quot;Allow Port 8000&quot; dir=in action=allow protocol=TCP localport=8000</code></p>
 <p>连本地ollama: ollama 打开后，选文本补全-ollama Api填<a target="_blank" rel="noopener" href="http://192.168.15.195:11434/">http://192.168.15.195:11434/</a> - 连接</p>
 <p>Gemini API: 注意并非可以访问gemini的网站就代表梯子正常。对于PC用户而言，需要打开CLASH中的“TUN模式”才可以正常链接API使用。</p>
-<p><a target="_blank" rel="noopener" href="https://docs.google.com/document/d/11vPOdz_4q_DrAhdL3fLP61FkzRZSppyCuqpLps4qIkA/edit?tab=t.0#heading=h.suwlqsio29mz">小白也能看懂的本地文生图</a></p>
+<h2 id="OpenWebUI-Ollama-Container-打包部署"><a href="#OpenWebUI-Ollama-Container-打包部署" class="headerlink" title="OpenWebUI + Ollama Container 打包部署"></a>OpenWebUI + Ollama Container 打包部署</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拉OpenWebUI镜像，创建容器</span></span><br><span class="line">docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway --health-cmd <span class="string">&quot;curl -fsSL http://localhost:8080 || exit 1&quot;</span> --health-interval 60s --health-retries 5 --health-timeout 20s --health-start-period 60s --restart=always -v open-webui:/app/backend/data -v /root/.ollama:/root/.ollama --name open-webui ghcr.io/open-webui/open-webui:cuda</span><br><span class="line"><span class="comment"># 在容器内安装ollama:</span></span><br><span class="line">curl -fsSL https://ollama.com/install.sh | sh</span><br><span class="line">apt update</span><br><span class="line">apt install pciutils lshw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置ollama serve 在容器内自启动</span></span><br><span class="line">容器内：\app\backend\start.sh</span><br><span class="line">在最后一行WEBUI_SECRET_KEY前加入：</span><br><span class="line"><span class="built_in">nohup</span> ollama serve &gt; /root/.ollama/ollama.log 2&gt;&amp;1 &amp; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 封装镜像</span></span><br><span class="line">docker commit [commitID] open-webui-ollama</span><br><span class="line">docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway --health-cmd <span class="string">&quot;curl -fsSL http://localhost:8080 || exit 1&quot;</span> --health-interval 60s --health-retries 5 --health-timeout 20s --health-start-period 60s --restart=always -v open-webui:/app/backend/data -v /root/.ollama:/root/.ollama --name open-webui-ollama open-webui-ollama</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建模型</span></span><br><span class="line">ollama create Qwen3-Coder-30B -f Qwen3-Coder-30B/qwen.mf</span><br><span class="line"><span class="comment"># 试运行(可以关)</span></span><br><span class="line">ollama run Qwen3-Coder-30B</span><br><span class="line"></span><br><span class="line"><span class="comment"># openweb-ui设置本地容器内连ollama </span></span><br><span class="line">api:http://localhost:11434</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.xugj520.cn/archives/qwen3-coder-deploy.html">qwen3-coder-deploy</a> 模版参考：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deepseek</span></span><br><span class="line">ollama run hf.co/unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF:Q4_K_XL</span><br><span class="line">https://huggingface.co/unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF</span><br><span class="line"></span><br><span class="line"><span class="comment"># mf文件：</span></span><br><span class="line">FROM ./DeepSeek-R1-0528-Qwen3-8B-UD-Q4_K_XL.gguf</span><br><span class="line"></span><br><span class="line">PARAMETER temperature <span class="number">0.6</span></span><br><span class="line">PARAMETER top_p <span class="number">0.95</span></span><br><span class="line"></span><br><span class="line">TEMPLATE <span class="string">&quot;&quot;&quot;&lt;｜begin of sentence｜&gt;&lt;｜User｜&gt;</span></span><br><span class="line"><span class="string">&#123;&#123; .Prompt &#125;&#125;&lt;｜Assistant｜&gt;&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;｜end of sentence｜&gt;&quot;</span></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;｜begin of sentence｜&gt;&quot;</span></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;｜User｜&gt;&quot;</span></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;｜Assistant｜&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Qwen3-Coder</span></span><br><span class="line">[Qwen3-Coder-30B-A3B-Instruct-GGUF](https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/discussions/<span class="number">4</span>)</span><br><span class="line"><span class="comment"># mf模板</span></span><br><span class="line">FROM ./Qwen3-Coder-30B-A3B-Instruct-UD-Q4_K_XL.gguf</span><br><span class="line"></span><br><span class="line">TEMPLATE <span class="string">&quot;&quot;&quot;&lt;|im_start|&gt;system</span></span><br><span class="line"><span class="string">&#123;&#123; .System &#125;&#125;&lt;|im_end|&gt;</span></span><br><span class="line"><span class="string">&lt;|im_start|&gt;user</span></span><br><span class="line"><span class="string">&#123;&#123; .Prompt &#125;&#125;&lt;|im_end|&gt;</span></span><br><span class="line"><span class="string">&lt;|im_start|&gt;assistant</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">SYSTEM <span class="string">&quot;&quot;&quot;你是Qwen，由阿里云开发的AI助手。你对用户的问题和请求总是有帮助、准确和诚实的。&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">PARAMETER temperature <span class="number">0.7</span></span><br><span class="line">PARAMETER top_p <span class="number">0.8</span></span><br><span class="line">PARAMETER top_k <span class="number">20</span></span><br><span class="line">PARAMETER repeat_penalty <span class="number">1.05</span></span><br><span class="line">PARAMETER num_ctx <span class="number">65536</span></span><br><span class="line"></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;|im_end|&gt;&quot;</span></span><br><span class="line">PARAMETER stop <span class="string">&quot;&lt;|im_start|&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Qwen3-8-27B"><a href="#Qwen3-8-27B" class="headerlink" title="Qwen3.8 27B"></a>Qwen3.8 27B</h3><p><a target="_blank" rel="noopener" href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">https://huggingface.co/unsloth/Qwen3.8-27B-GGUF</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##############################</span></span><br><span class="line"><span class="comment"># Coder</span></span><br><span class="line"><span class="comment"># 1. 基础模型路径</span></span><br><span class="line">FROM /root/.ollama/Qwen3.8/Qwen3.8-27B-Q8_0.gguf</span><br><span class="line"><span class="comment"># 2. 扩容上下文窗口 (48G 显卡)</span></span><br><span class="line">PARAMETER num_ctx 32768</span><br><span class="line"><span class="comment"># 3. 采样参数设置 (兼顾逻辑严谨与语言流畅)</span></span><br><span class="line">PARAMETER temperature 0.6</span><br><span class="line">PARAMETER top_p 0.90</span><br><span class="line">PARAMETER top_k 20</span><br><span class="line">PARAMETER min_p 0.05</span><br><span class="line">PARAMETER presence_penalty 0.0</span><br><span class="line">PARAMETER repeat_penalty 1.05</span><br><span class="line"><span class="comment"># 4. 系统提示词 (让它在网页端对话时更清爽)</span></span><br><span class="line">SYSTEM <span class="string">&quot;&quot;</span><span class="string">&quot;你是一个乐于助人的 AI 专家。请直接给出简洁、专业的回答。</span></span><br><span class="line"><span class="string">在提供代码时，请附带少量但核心的中文注释。不要在回答开头和结尾说多余的客套话。&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##############################</span></span><br><span class="line"><span class="comment"># Agent</span></span><br><span class="line">FROM /root/.ollama/Qwen3.8/Qwen3.8-27B-Q8_0.gguf</span><br><span class="line"></span><br><span class="line">PARAMETER num_ctx 32768</span><br><span class="line"></span><br><span class="line">PARAMETER temperature 0.6</span><br><span class="line">PARAMETER top_p 0.90</span><br><span class="line">PARAMETER top_k 20</span><br><span class="line">PARAMETER repeat_penalty 1.05</span><br><span class="line"><span class="comment">#############################</span></span><br><span class="line"></span><br><span class="line">docker run -d -p 3000:8080 -p 11434:11434 -e OLLAMA_HOST=<span class="string">&quot;0.0.0.0&quot;</span> -e CUDA_VISIBLE_DEVICES=<span class="string">&quot;0,1,2,3,4,5,6,7&quot;</span> -e OLLAMA_SCHED_SPREAD=1 --gpus all --add-host=host.docker.internal:host-gateway --health-cmd <span class="string">&quot;curl -fsSL http://localhost:8080 || exit 1&quot;</span> --health-interval 60s --health-retries 5 --health-timeout 20s --health-start-period 60s --restart=always -v open-webui:/app/backend/data -v /mnt/Disk_20T/arrow/ollama:/root/.ollama --name open-webui-ollama open-webui-ollama:v3</span><br><span class="line"><span class="comment"># -p 3000:8080 -p 11434:11434 分别映射OpenWebUI和ollama serve的端口</span></span><br><span class="line"><span class="comment"># -e OLLAMA_HOST=&quot;0.0.0.0&quot;确保ollama serve可以在容器内对外（ROO Code）提供服务</span></span><br><span class="line"><span class="comment"># OLLAMA_SCHED_SPREAD=1确保显存均匀分布</span></span><br></pre></td></tr></table></figure>
+<h3 id="Roo-Code-AI-agent"><a href="#Roo-Code-AI-agent" class="headerlink" title="Roo Code AI agent"></a>Roo Code AI agent</h3><p>测试是否返回模型名称：curl <a target="_blank" rel="noopener" href="http://localhost:11434/api/tags">http://localhost:11434/api/tags</a><br>安装vscode插件ROO code</p>
+<p>配置：</p>
+<ul>
+<li>OpenAI Compatible<ul>
+<li>Base URL:<a target="_blank" rel="noopener" href="http://localhost:11434/">http://localhost:11434</a> </li>
+<li>API Key随便填 </li>
+<li>Model: 填刚才返回的模型名称</li>
+<li>关闭ROO code的存档点功能，如果项目占用大 非常占空间</li>
+</ul>
+</li>
+</ul>
 <h2 id="chat-on-wechat"><a href="#chat-on-wechat" class="headerlink" title="chat-on-wechat"></a>chat-on-wechat</h2><p><a target="_blank" rel="noopener" href="https://github.com/zhayujie/chatgpt-on-wechat">https://github.com/zhayujie/chatgpt-on-wechat</a><br>config example:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;channel_type&quot;: &quot;wx&quot;,</span><br><span class="line"> &quot;model&quot;: &quot;xunfei&quot;,</span><br><span class="line"> &quot;xunfei_app_id&quot;: &quot;2c706062&quot;,</span><br><span class="line"> &quot;xunfei_api_key&quot;: &quot;99da3dd9feaf65eXXX&quot;,</span><br><span class="line"> &quot;xunfei_api_secret&quot;: &quot;ZTg3MmMyODJkZmQyXXX9b98ad41989a47e97XXXNzQ5M2YzM2M1YzYy&quot;,</span><br><span class="line"> &quot;xunfei_domain&quot;: &quot;generalv3.5&quot;,</span><br><span class="line"> &quot;xunfei_spark_url&quot;: &quot;wss://spark-api.xf-yun.com/v3.5/chat&quot;,  </span><br></pre></td></tr></table></figure>
-<h1 id="AI绘画"><a href="#AI绘画" class="headerlink" title="AI绘画"></a>AI绘画</h1><p><a target="_blank" rel="noopener" href="https://space.bilibili.com/12566101">秋葉aaaki</a>：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1iM4y1y7oA/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b530b63b4657d68926b54a618d047d04">Stable Diffusion整合包</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ew411776J/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b530b63b4657d68926b54a618d047d04">ComfyUI整合包</a></li>
+
+<h1 id="AI音视频"><a href="#AI音视频" class="headerlink" title="AI音视频"></a>AI音视频</h1><blockquote>
+<p>ComfyUI 本地图像与视频工作流笔记<br>更新：2026-09-05<br>以本机已安装的模型和 <code>user\default\workflows</code> 中的工作流为准，只保留复现和调参需要的信息。</p>
+</blockquote>
+<h2 id="1-环境与启动"><a href="#1-环境与启动" class="headerlink" title="1. 环境与启动"></a>1. 环境与启动</h2><ul>
+<li>ComfyUI：<code>E:\Study\AI\ComfyUI</code></li>
+<li>工作流：<code>E:\Study\AI\ComfyUI\user\default\workflows</code></li>
+<li>输出：<code>E:\Study\AI\ComfyUI\output</code></li>
+<li>硬件：RTX 4060 Laptop 8GB，内存 32GB</li>
 </ul>
-<h1 id="AI音视频"><a href="#AI音视频" class="headerlink" title="AI音视频"></a>AI音视频</h1><h2 id="DeepLive"><a href="#DeepLive" class="headerlink" title="DeepLive"></a>DeepLive</h2><p><a target="_blank" rel="noopener" href="https://github.com/hacksider/Deep-Live-Cam">Deep-Live-Cam</a><br>注意图片不能有中文路径</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> E:\Study\AI\ComfyUI</span><br><span class="line">&amp; .\.venv\Scripts\python.exe .\main.py <span class="literal">--listen</span> <span class="number">127.0</span>.<span class="number">0.1</span> <span class="literal">--port</span> <span class="number">8188</span> <span class="literal">--lowvram</span> <span class="literal">--use-sage-attention</span></span><br></pre></td></tr></table></figure>
+
+<p>打开 <a target="_blank" rel="noopener" href="http://127.0.0.1:8188/">http://127.0.0.1:8188/</a>。启动日志必须出现 <code>Using sage attention</code>；失败时先解决 SageAttention，不要默认降级。已使用全局 <code>--use-sage-attention</code>，不再叠加工作流 SageAttention Patch 节点。</p>
+<h2 id="2-图像工作流"><a href="#2-图像工作流" class="headerlink" title="2. 图像工作流"></a>2. 图像工作流</h2><h3 id="2-1-Krea-2-Turbo-文生图"><a href="#2-1-Krea-2-Turbo-文生图" class="headerlink" title="2.1 Krea 2 Turbo 文生图"></a>2.1 Krea 2 Turbo 文生图</h3><p>工作流：</p>
+<ul>
+<li><code>Krea-2 Turbo Text to Image.json</code>：日常文生图。</li>
+<li><code>Krea-2 Turbo Text to Image - Rebalance NSFW.json</code>：高强度 Rebalance 专用预设，不用于普通出图。</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Krea 2 UNET + Qwen3-VL 4B + Qwen Image VAE</span><br><span class="line">        → 提示词 / 可选 LoRA / Rebalance</span><br><span class="line">        → KSampler → VAE Decode → SaveImage</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>日常值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>尺寸</td>
+<td>1 MP，1:1 时为 1024×1024，尺寸为 8 的倍数</td>
+</tr>
+<tr>
+<td>Steps</td>
+<td>8</td>
+</tr>
+<tr>
+<td>CFG</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Sampler &#x2F; Scheduler</td>
+<td><code>euler</code> &#x2F; <code>simple</code></td>
+</tr>
+<tr>
+<td>Denoise</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>普通 Rebalance multiplier</td>
+<td>4</td>
+</tr>
+<tr>
+<td>当前 LoRA</td>
+<td><code>lenovo_krea2_3000.safetensors</code>，strength 0.8</td>
+</tr>
+<tr>
+<td>Prompt enhance</td>
+<td>当前关闭；需要时再开</td>
+</tr>
+</tbody></table>
+<p>先固定 seed 调提示词，再换 seed 探索构图。8GB 显存下先保持 1 MP 和单张批次。</p>
+<h3 id="2-2-Krea-2-三图参考编辑"><a href="#2-2-Krea-2-三图参考编辑" class="headerlink" title="2.2 Krea 2 三图参考编辑"></a>2.2 Krea 2 三图参考编辑</h3><p>工作流：<code>Krea 2 - Multi Image Reference Edit (3 Images).json</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">参考图 1（主体/身份）+图 2（服装/次要主体）+图 3（背景/风格）</span><br><span class="line">        → Krea2EditRebalance → 8 步采样 → VAE Decode</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>尺寸：1 MP，默认 1:1。</li>
+<li>Sampler &#x2F; Scheduler：<code>euler</code> &#x2F; <code>simple</code>，Steps 8，Denoise 1.0。</li>
+<li><code>steering=1</code>，<code>layer_multiplier=1</code>，三张参考图 token 均为 <code>normal</code>。</li>
+<li>只需改三张图、合成目标提示词和 seed。</li>
+</ul>
+<h3 id="2-3-SD1-5-局部重绘"><a href="#2-3-SD1-5-局部重绘" class="headerlink" title="2.3 SD1.5 局部重绘"></a>2.3 SD1.5 局部重绘</h3><p>工作流：<code>SD15 - Local Inpaint Mask Editor.json</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">载入图片并在 MaskEditor 涂遮罩</span><br><span class="line">        → InpaintModelConditioning → KSampler → VAE Decode</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>模型：<code>v1-5-pruned-emaonly-fp16.safetensors</code></li>
+<li>Steps 20，CFG 7，<code>dpmpp_2m</code> + <code>karras</code>，Denoise 1.0，<code>noise_mask=true</code>。</li>
+<li>正向提示词只描述遮罩区最终要出现的内容。</li>
+</ul>
+<h3 id="2-4-SD1-5-Scribble-ControlNet"><a href="#2-4-SD1-5-Scribble-ControlNet" class="headerlink" title="2.4 SD1.5 Scribble ControlNet"></a>2.4 SD1.5 Scribble ControlNet</h3><p>工作流：<code>SD15 - ControlNet Scribble Guided Image.json</code></p>
+<ul>
+<li>基础模型：<code>v1-5-pruned-emaonly-fp16.safetensors</code></li>
+<li>ControlNet：<code>control_v11p_sd15_scribble_fp16.safetensors</code></li>
+<li>默认尺寸 512×768，Steps 24，CFG 7，<code>dpmpp_2m</code> + <code>karras</code>，Denoise 1.0。</li>
+<li>ControlNet strength 0.85，作用范围 0–1；结构太僵降到约 0.6，跟随不足升到 1.0。</li>
+<li>未配预处理节点，输入必须是已处理的黑白 Scribble 图。</li>
+</ul>
+<h3 id="2-5-RealESRGAN-图片-2倍放大"><a href="#2-5-RealESRGAN-图片-2倍放大" class="headerlink" title="2.5 RealESRGAN 图片 2倍放大"></a>2.5 RealESRGAN 图片 2倍放大</h3><p>工作流：<code>Image Upscale - RealESRGAN x2 Detail Enhance.json</code></p>
+<ul>
+<li>模型：<code>RealESRGAN_x2plus.pth</code></li>
+<li>结果：宽高各 2倍，像素数约 4倍。</li>
+<li>用于成图或视频帧放大；会重建细节，不等于恢复真实原生细节。</li>
+</ul>
+<h2 id="3-视频工作流"><a href="#3-视频工作流" class="headerlink" title="3. 视频工作流"></a>3. 视频工作流</h2><h3 id="3-1-MiniMax-H3-共用结构"><a href="#3-1-MiniMax-H3-共用结构" class="headerlink" title="3.1 MiniMax H3 共用结构"></a>3.1 MiniMax H3 共用结构</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">H3 UNET + Qwen3-VL 32B + 视频/音频 VAE</span><br><span class="line">        → I2VA / FL2VA / Ref2VA 条件</span><br><span class="line">        → Noise + Guider + Scheduler + Sampler</span><br><span class="line">        → 视频帧/音频解码 → CreateVideo → SaveVideo</span><br></pre></td></tr></table></figure>
+
+<p>共通规则：</p>
+<ul>
+<li>帧数遵循 <code>17k+5</code>：124 帧在 24 FPS 下约 5.17 秒，243 帧约 10.13 秒。</li>
+<li>Turbo：<code>minimax_h3_turbo_v4_step600_ema.safetensors</code>，strength 1.0，<code>low_vram=true</code>，<code>simple</code> + 8 steps。</li>
+<li>日常先用 Turbo 预览；只有确定值得时才跑 20 步质量档。</li>
+<li>H3 提示词保留画面&#x2F;参考对齐、<code>integrated_multimodal_description</code>、<code>overall_soundscape</code>、<code>non_diegetic_music</code> 四部分。</li>
+<li>提示词优先写主体保持、动作时序、镜头运动、物理连续性和声音；少堆叠空泛画质词。</li>
+</ul>
+<h3 id="3-2-H3-提示词-Skill-与模板"><a href="#3-2-H3-提示词-Skill-与模板" class="headerlink" title="3.2 H3 提示词 Skill 与模板"></a>3.2 H3 提示词 Skill 与模板</h3><p>本地参考：</p>
+<ul>
+<li><a href="C:/Users/Arrow/.codex/skills/h3-prompt-writing/SKILL.md">h3-prompt-writing Skill</a></li>
+<li><a href="C:/Users/Arrow/.codex/skills/h3-prompt-writing/references/base-en.txt">T2VA &#x2F; I2VA &#x2F; FL2VA &#x2F; L2VA 基础规范</a></li>
+<li><a href="C:/Users/Arrow/.codex/skills/h3-prompt-writing/references/ref-en.txt">Ref2VA 六段式规范</a></li>
+</ul>
+<p>编写规则：正文用英文；对话、歌词和画面内文字保留原语言。标签、字段名和顺序不要改。时间必须与实际帧数&#x2F;FPS 一致。</p>
+<h4 id="I2VA-模板（首帧→动作发展）"><a href="#I2VA-模板（首帧→动作发展）" class="headerlink" title="I2VA 模板（首帧→动作发展）"></a>I2VA 模板（首帧→动作发展）</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">For the target video, at 0.00 seconds into the target video, &lt;Picture 1&gt; (from [Shot 1]) is fully referenced.</span><br><span class="line"></span><br><span class="line">integrated_multimodal_description: [Shot 1] &lt;visual style and opening composition from Picture 1&gt;. Preserve &lt;identity, clothing, objects, colors, and spatial relationships&gt;. &lt;Describe action onset, continuous development, camera motion, synchronized physical sounds, and the final state&gt;.</span><br><span class="line"></span><br><span class="line">overall_soundscape: &lt;ambient sound, physical action sounds, and non-verbal human sounds across the full video&gt;.</span><br><span class="line"></span><br><span class="line">non_diegetic_music: &lt;instrumentation, tempo, rhythm, and volume changes; use N/A when there is no audience-only music&gt;.</span><br></pre></td></tr></table></figure>
+
+<h4 id="FL2VA-模板（首帧→可观察过程→尾帧）"><a href="#FL2VA-模板（首帧→可观察过程→尾帧）" class="headerlink" title="FL2VA 模板（首帧→可观察过程→尾帧）"></a>FL2VA 模板（首帧→可观察过程→尾帧）</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">How the reference pictures align with the target video — Picture 1 (from Shot 1) aligns with the 0.00-second mark of the target video; Picture 2 (from Shot N) aligns with the D.DD-second mark of the target video.</span><br><span class="line"></span><br><span class="line">integrated_multimodal_description: [Shot 1] &lt;style and exact opening state established by Picture 1&gt;. &lt;Describe observable intermediate changes in subject pose, object state, composition, lighting, and camera motion&gt;. &lt;Progressively narrow the differences and end in the exact state and framing established by Picture 2&gt;.</span><br><span class="line"></span><br><span class="line">overall_soundscape: &lt;continuous ambience and synchronized action sounds&gt;.</span><br><span class="line"></span><br><span class="line">non_diegetic_music: &lt;music description or N/A&gt;.</span><br></pre></td></tr></table></figure>
+
+<p><code>D.DD</code> 换成有效时长，必须保留两位小数，例如 <code>5.17</code> 或 <code>10.13</code>。<code>Shot N</code> 换成尾帧所属的实际镜头；单镜头就写 <code>Shot 1</code>。</p>
+<h4 id="Ref2VA-模板（多参考六段式）"><a href="#Ref2VA-模板（多参考六段式）" class="headerlink" title="Ref2VA 模板（多参考六段式）"></a>Ref2VA 模板（多参考六段式）</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">subject_definitions:</span><br><span class="line">&lt;Subject 1&gt; is &lt;the reusable person/object identity defined by Picture 1 and the features to preserve&gt;.</span><br><span class="line">&lt;Subject 2&gt; is &lt;the clothing, prop, action, or other attribute defined by Picture 2&gt;.</span><br><span class="line">&lt;Subject 3&gt; is &lt;the environment, lighting, composition, or style defined by Picture 3&gt;.</span><br><span class="line"></span><br><span class="line">summary:</span><br><span class="line">[reference generation] &lt;One short paragraph describing the target video and how Subject 1/2/3 are used&gt;.</span><br><span class="line"></span><br><span class="line">retention_analysis:</span><br><span class="line">&lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - &lt;preserved identity and visible features&gt;.</span><br><span class="line">&lt;Subject 2&gt; (appears in [Shot 1]): attribute_transfer - &lt;attributes transferred onto Subject 1&gt;.</span><br><span class="line">&lt;Subject 3&gt; (appears in [Shot 1]): fully_preserved - &lt;preserved environment/style features&gt;.</span><br><span class="line"></span><br><span class="line">detailed_description:</span><br><span class="line">&lt;One or two sentences establishing the overall visual style and lighting&gt;.</span><br><span class="line">[Shot 1] &lt;composition, referenced subjects, positions, environment, actions and state changes, camera movement, synchronized sounds, and the points where each reference takes effect&gt;.</span><br><span class="line"></span><br><span class="line">overall_soundscape:</span><br><span class="line">&lt;ambient sound, physical sounds, and non-verbal human sounds across the full video&gt;.</span><br><span class="line"></span><br><span class="line">non_diegetic_music:</span><br><span class="line">&lt;audience-only score, or N/A&gt;.</span><br></pre></td></tr></table></figure>
+
+<p>Ref2VA 的可见参考关系只使用 <code>fully_preserved</code>、<code>partially_preserved</code>、<code>attribute_transfer</code>、<code>weak_reference</code>。同一参考从头到尾使用同一标签，不要在后续段落重新编号。</p>
+<p>多镜头时，<code>[Shot 1]</code> 不写时间；后续切镜使用递增的 <code>[Shot 2] At 00:03.500, ...</code>。镜头运动用“类型 + 幅度 + 速度”写成自然英文，例如 <code>The camera pushes in with small amplitude at slow speed.</code>。对话格式为 <code>(S1) says: &lt;d&gt;[Chinese] 原文&lt;/d&gt;</code>，不翻译或改写用户台词。</p>
+<h3 id="3-3-I2VA：单张首帧生视频"><a href="#3-3-I2VA：单张首帧生视频" class="headerlink" title="3.3 I2VA：单张首帧生视频"></a>3.3 I2VA：单张首帧生视频</h3><p>工作流：<code>MiniMax H3 I2VA 5s 768x1376.json</code></p>
+<ul>
+<li>模型：<code>minimax_h3_fl2va_pruned_int8_convrot.safetensors</code></li>
+<li>原生生成：576×1024，124 帧，约 5.17 秒。</li>
+<li>采样：Turbo 8 步，<code>simple</code>，Denoise 1.0。</li>
+<li>输出：Lanczos 缩放到 768×1376，24 FPS，8-bit sRGB，保留生成音频。</li>
+<li>使用：替换 <code>Picture 1</code>，再改动作、镜头和声音描述。</li>
+</ul>
+<h3 id="3-4-FL2VA：首尾帧生视频"><a href="#3-4-FL2VA：首尾帧生视频" class="headerlink" title="3.4 FL2VA：首尾帧生视频"></a>3.4 FL2VA：首尾帧生视频</h3><p>工作流：<code>MiniMax H3 - First Last Frame FL2VA 5s 768x1376.json</code></p>
+<ul>
+<li>分别在 <code>Picture 1</code> &#x2F; <code>Picture 2</code> 载入首帧和尾帧。</li>
+<li>原生生成：576×1024，<strong>243 帧，约 10.13 秒</strong>。</li>
+<li>采样：Turbo 8 步，<code>simple</code>，Denoise 1.0。</li>
+<li>输出：Lanczos 缩放到 768×1376，24 FPS。</li>
+<li>注意：文件名中的 <code>5s</code> 与当前节点参数不符。要改为约 5.17 秒，将 <code>length</code> 改为 124，并同步改写提示词时间段。</li>
+</ul>
+<h3 id="3-5-Ref2VA：三图多参考生视频"><a href="#3-5-Ref2VA：三图多参考生视频" class="headerlink" title="3.5 Ref2VA：三图多参考生视频"></a>3.5 Ref2VA：三图多参考生视频</h3><p>工作流：<code>MiniMax H3 Ref2VA - Multi Reference 3 Images - Quality or 4 Step.json</code></p>
+<ul>
+<li>模型：<code>minimax_h3_ref2va_pruned_int8_convrot.safetensors</code></li>
+<li>参考分工：图 1 主体身份，图 2 服装&#x2F;道具，图 3 环境&#x2F;光线&#x2F;风格。</li>
+<li>默认尺寸选择器：9:16、0.6 MP、32 的倍数，实际约 576×1024。</li>
+<li>时长：124 帧，24 FPS，约 5.17 秒；<code>ref_image_size=match</code>。</li>
+<li>质量档：20 步，<code>res_multistep</code> + <code>simple</code>。</li>
+<li>预览档：开启开关后使用 <code>minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors</code>，strength 1.0，4 步。</li>
+</ul>
+<h3 id="3-6-RIFE-补帧与可选超分"><a href="#3-6-RIFE-补帧与可选超分" class="headerlink" title="3.6 RIFE 补帧与可选超分"></a>3.6 RIFE 补帧与可选超分</h3><p>工作流：</p>
+<ul>
+<li><code>Video Toolbox - Optional RealESRGAN x2 and RIFE.json</code></li>
+<li><code>RIFE 4.26 - Drop Video Frame Interpolation.json</code></li>
+</ul>
+<p>两个文件当前是同一功能的复制版，日常保留一个使用即可。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">载入视频 → 拆分画面/音频/FPS</span><br><span class="line">        → 可选 RealESRGAN 2×</span><br><span class="line">        → 可选 RIFE 4.26 补帧</span><br><span class="line">        → 按新 FPS 封装并保留音频</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>补帧模型：<code>rife_v4.26.safetensors</code>，默认倍率 2。</li>
+<li>超分模型：<code>RealESRGAN_x2plus.pth</code>，默认关闭。</li>
+<li>默认仅补帧；同时开超分和补帧会显著增加内存和耗时，长视频先分段。</li>
+<li>补帧只改善流畅度，不会恢复原生纹理。</li>
+</ul>
+<h2 id="4-当前模型清单"><a href="#4-当前模型清单" class="headerlink" title="4. 当前模型清单"></a>4. 当前模型清单</h2><h3 id="图像与后处理必需模型"><a href="#图像与后处理必需模型" class="headerlink" title="图像与后处理必需模型"></a>图像与后处理必需模型</h3><table>
+<thead>
+<tr>
+<th>用途</th>
+<th>文件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Krea 2 UNET</td>
+<td><code>models\diffusion_models\krea2_turbo_fp8_scaled.safetensors</code></td>
+</tr>
+<tr>
+<td>Krea 2 文本编码器</td>
+<td><code>models\text_encoders\qwen3vl_4b_fp8_scaled.safetensors</code></td>
+</tr>
+<tr>
+<td>Krea 2 VAE</td>
+<td><code>models\vae\qwen_image_vae.safetensors</code></td>
+</tr>
+<tr>
+<td>Krea 2 当前 LoRA</td>
+<td><code>models\loras\lenovo_krea2_3000.safetensors</code></td>
+</tr>
+<tr>
+<td>SD1.5 基础模型</td>
+<td><code>models\checkpoints\v1-5-pruned-emaonly-fp16.safetensors</code></td>
+</tr>
+<tr>
+<td>Scribble ControlNet</td>
+<td><code>models\controlnet\control_v11p_sd15_scribble_fp16.safetensors</code></td>
+</tr>
+<tr>
+<td>2× 放大</td>
+<td><code>models\upscale_models\RealESRGAN_x2plus.pth</code></td>
+</tr>
+<tr>
+<td>RIFE 补帧</td>
+<td><code>models\frame_interpolation\rife_v4.26.safetensors</code></td>
+</tr>
+</tbody></table>
+<h3 id="MiniMax-H3-必需模型"><a href="#MiniMax-H3-必需模型" class="headerlink" title="MiniMax H3 必需模型"></a>MiniMax H3 必需模型</h3><table>
+<thead>
+<tr>
+<th>用途</th>
+<th>文件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I2VA &#x2F; FL2VA UNET</td>
+<td><code>models\diffusion_models\minimax_h3_fl2va_pruned_int8_convrot.safetensors</code></td>
+</tr>
+<tr>
+<td>Ref2VA UNET</td>
+<td><code>models\diffusion_models\minimax_h3_ref2va_pruned_int8_convrot.safetensors</code></td>
+</tr>
+<tr>
+<td>文本编码器</td>
+<td><code>models\text_encoders\qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors</code></td>
+</tr>
+<tr>
+<td>视频 VAE</td>
+<td><code>models\vae\minimax_h3_video_vae_fp16.safetensors</code></td>
+</tr>
+<tr>
+<td>音频 VAE</td>
+<td><code>models\vae\minimax_h3_audio_vae_fp32.safetensors</code></td>
+</tr>
+<tr>
+<td>I2VA &#x2F; FL2VA Turbo</td>
+<td><code>models\loras\minimax_h3_turbo_v4_step600_ema.safetensors</code></td>
+</tr>
+<tr>
+<td>Ref2VA 4 步预览</td>
+<td><code>models\loras\minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors</code></td>
+</tr>
+</tbody></table>
+<p>已安装但当前上述工作流未绑定的 LoRA：<code>krea2_retroanime.safetensors</code>、<code>vivid-concept-art.safetensors</code>、<code>h3-realism-people-t2v-i2v-r2v.safetensors</code>。只在需要对应风格时手动接入并单独测试。</p>
+<h2 id="5-最小调参与复现规则"><a href="#5-最小调参与复现规则" class="headerlink" title="5. 最小调参与复现规则"></a>5. 最小调参与复现规则</h2><ol>
+<li>先低成本验证构图和动作，再增加步数、尺寸或时长。</li>
+<li>比较提示词时固定 seed；探索新构图时再随机化 seed。</li>
+<li>满意的结果同时保存输出、工作流 JSON、提示词、seed 和实际参数。</li>
+<li>H3、RealESRGAN 和 RIFE 串行运行；8GB 显存下不同时排多条重型链路。</li>
+<li>后期放大不等于原生高分辨率；先优化原生生成的主体、构图、合焦和运动。</li>
+<li>长时间生成无法从扩散中间状态续跑；开始前保持接电、散热良好，关闭不必要的显存占用。</li>
+</ol>
+<h2 id="DeepLive"><a href="#DeepLive" class="headerlink" title="DeepLive"></a>DeepLive</h2><p><a target="_blank" rel="noopener" href="https://github.com/hacksider/Deep-Live-Cam">Deep-Live-Cam</a><br>注意图片不能有中文路径</p>
 <h2 id="F5-TTS"><a href="#F5-TTS" class="headerlink" title="F5-TTS"></a>F5-TTS</h2><p><a target="_blank" rel="noopener" href="https://github.com/SWivid/F5-TTS">F5-TTS</a><br>安装cuda以加速</p>
 
     </div>
@@ -476,7 +716,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AI-Agent"><span class="nav-number">1.</span> <span class="nav-text">AI Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gemini"><span class="nav-number">1.1.</span> <span class="nav-text">Gemini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Skills"><span class="nav-number">1.2.</span> <span class="nav-text">Skills</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E4%B8%8E%E6%8A%80%E8%83%BD%E5%8F%91%E7%8E%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">搜索与技能发现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91"><span class="nav-number">1.2.2.</span> <span class="nav-text">软件开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E8%A7%89%E4%B8%8E%E8%A7%86%E9%A2%91%E5%88%9B%E4%BD%9C"><span class="nav-number">1.2.3.</span> <span class="nav-text">视觉与视频创作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LLM"><span class="nav-number">2.</span> <span class="nav-text">LLM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deepseek"><span class="nav-number">2.1.</span> <span class="nav-text">Deepseek</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ollama-Deepseek-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2"><span class="nav-number">2.1.1.</span> <span class="nav-text">使用 ollama + Deepseek 本地部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-Open-WebUI-Web%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.1.2.</span> <span class="nav-text">Deepseek + Open WebUI Web页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenWebUI-Ollama-Container-%E9%83%A8%E7%BD%B2"><span class="nav-number">2.1.3.</span> <span class="nav-text">OpenWebUI+Ollama Container 部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-AnythingLLM-%E8%87%AA%E5%BB%BA%E7%9F%A5%E8%AF%86%E5%BA%93"><span class="nav-number">2.1.4.</span> <span class="nav-text">Deepseek + AnythingLLM 自建知识库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-API-SillyTavern"><span class="nav-number">2.1.5.</span> <span class="nav-text">Deepseek API + SillyTavern</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chat-on-wechat"><span class="nav-number">2.2.</span> <span class="nav-text">chat-on-wechat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AI%E7%BB%98%E7%94%BB"><span class="nav-number">3.</span> <span class="nav-text">AI绘画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AI%E9%9F%B3%E8%A7%86%E9%A2%91"><span class="nav-number">4.</span> <span class="nav-text">AI音视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepLive"><span class="nav-number">4.1.</span> <span class="nav-text">DeepLive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F5-TTS"><span class="nav-number">4.2.</span> <span class="nav-text">F5-TTS</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AI-Agent"><span class="nav-number">1.</span> <span class="nav-text">AI Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gemini"><span class="nav-number">1.1.</span> <span class="nav-text">Gemini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Skills"><span class="nav-number">1.2.</span> <span class="nav-text">Skills</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E4%B8%8E%E6%8A%80%E8%83%BD%E5%8F%91%E7%8E%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">搜索与技能发现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91"><span class="nav-number">1.2.2.</span> <span class="nav-text">软件开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E8%A7%89%E4%B8%8E%E8%A7%86%E9%A2%91%E5%88%9B%E4%BD%9C"><span class="nav-number">1.2.3.</span> <span class="nav-text">视觉与视频创作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LLM"><span class="nav-number">2.</span> <span class="nav-text">LLM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepSeek%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A-Deepseek-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2-ollama-Deepseek1-%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%AE%89%E8%A3%85ollama%EF%BC%9A-https-ollama-com-download-%EF%BC%88%E5%85%B3%E9%97%AD%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8%EF%BC%9AC-Users-Arrow-AppData-Roaming-Microsoft-Windows-Start-Menu-Programs-Startup-%E5%88%A0%E9%99%A4%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F%EF%BC%892-%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%9E%8B%E4%B8%8B%E8%BD%BD%E8%B7%AF%E5%BE%84%EF%BC%8C%E9%81%BF%E5%85%8D%E5%8D%A0C%E7%9B%98%EF%BC%9A%E8%AE%BE%E7%BD%AE-%E7%B3%BB%E7%BB%9F-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF-%E9%AB%98%E7%BA%A7%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-%E5%9C%A8%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F%E4%B8%AD%E6%96%B0%E5%BB%BA%EF%BC%9AOLLAMA-MODELS-D-XXX-models-%E9%87%8D%E5%90%AF%E7%94%B5%E8%84%91%EF%BC%88%E9%BB%98%E8%AE%A4%E5%9C%A8C-Users-XX-Ollama-models%EF%BC%89%EF%BC%88%E9%A1%BA%E4%BE%BF%E5%8A%A0%E4%B8%80%E4%B8%8BOLLAMA-HOST-0-0-0-0%EF%BC%893-%E6%90%9C%E7%B4%A2%E6%A8%A1%E5%9E%8B%EF%BC%9Ahttps-ollama-com-search-%EF%BC%88%E6%B3%A8%E6%84%8F%E6%98%BE%E5%AD%98%E8%A6%81%E6%B1%82%EF%BC%8C%E6%88%91%E4%BD%BF%E7%94%A8%E7%9A%84%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%AB%AF4060-8G%E5%A4%A7%E6%A6%82%E8%83%BD%E8%B7%917-14B%EF%BC%8C%E5%85%B6%E4%B8%AD%E5%90%8D%E5%AD%97%E5%B8%A6uncensored%E6%88%96abliterated%E6%98%AF%E6%9C%AA%E9%99%90%E5%88%B6%E7%89%88%E6%9C%AC%E7%9A%84-Q%E6%98%AF%E9%87%8F%E5%8C%96%E7%B2%BE%E5%BA%A6%EF%BC%8C%E6%9C%80%E4%BD%8Eq4-%E5%BD%B1%E5%93%8D%E4%B8%8D%E5%A4%A7%EF%BC%8C%E4%BC%98%E5%85%88%E8%80%83%E8%99%91B%EF%BC%894-%E4%B8%8B%E8%BD%BD%EF%BC%9Aollama-run-deepseek-r1-14b-ollama-run-huihui-ai-deepseek-r1-abliterated-14bhttps-ollama-com-huihui-ai-deepseek-r1-abliterated%E5%A6%82%E6%9E%9C%E9%80%9F%E5%BA%A6%E5%BE%88%E6%85%A2%EF%BC%8C%E6%98%AF%E6%9C%AA%E8%B5%B0VPN-%E9%9C%80%E8%A6%81%E5%BC%80%E5%85%A8%E5%B1%80%E6%A8%A1%E5%BC%8F%EF%BC%8C"><span class="nav-number">2.1.</span> <span class="nav-text">DeepSeek：从入门到精通## Deepseek 本地部署### ollama + Deepseek1. 下载并安装ollama： https:&#x2F;&#x2F;ollama.com&#x2F;download （关闭开机自启动：C:\Users\Arrow\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup 删除快捷方式）2. 修改模型下载路径，避免占C盘：设置&gt;系统&gt;系统信息&gt;高级系统设置&gt;环境变量&gt;在系统变量中新建：OLLAMA_MODELS D:\XXX\models 重启电脑（默认在C:\Users\XX.Ollama\models）（顺便加一下OLLAMA_HOST 0.0.0.0）3. 搜索模型：https:&#x2F;&#x2F;ollama.com&#x2F;search （注意显存要求，我使用的笔记本端4060 8G大概能跑7-14B，其中名字带uncensored或abliterated是未限制版本的, Q是量化精度，最低q4, 影响不大，优先考虑B）4. 下载：ollama run deepseek-r1:14b ollama run huihui_ai&#x2F;deepseek-r1-abliterated:14bhttps:&#x2F;&#x2F;ollama.com&#x2F;huihui_ai&#x2F;deepseek-r1-abliterated如果速度很慢，是未走VPN,需要开全局模式， </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-WebUI-Web%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.1.1.</span> <span class="nav-text">Open WebUI Web页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-AnythingLLM-%E8%87%AA%E5%BB%BA%E7%9F%A5%E8%AF%86%E5%BA%93"><span class="nav-number">2.1.2.</span> <span class="nav-text">Deepseek + AnythingLLM 自建知识库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-API-SillyTavern"><span class="nav-number">2.1.3.</span> <span class="nav-text">Deepseek API + SillyTavern</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenWebUI-Ollama-Container-%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2"><span class="nav-number">2.2.</span> <span class="nav-text">OpenWebUI + Ollama Container 打包部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Qwen3-8-27B"><span class="nav-number">2.2.1.</span> <span class="nav-text">Qwen3.8 27B</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Roo-Code-AI-agent"><span class="nav-number">2.2.2.</span> <span class="nav-text">Roo Code AI agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chat-on-wechat"><span class="nav-number">2.3.</span> <span class="nav-text">chat-on-wechat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AI%E9%9F%B3%E8%A7%86%E9%A2%91"><span class="nav-number">3.</span> <span class="nav-text">AI音视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%90%AF%E5%8A%A8"><span class="nav-number">3.1.</span> <span class="nav-text">1. 环境与启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9B%BE%E5%83%8F%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">3.2.</span> <span class="nav-text">2. 图像工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Krea-2-Turbo-%E6%96%87%E7%94%9F%E5%9B%BE"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.1 Krea 2 Turbo 文生图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Krea-2-%E4%B8%89%E5%9B%BE%E5%8F%82%E8%80%83%E7%BC%96%E8%BE%91"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2 Krea 2 三图参考编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-SD1-5-%E5%B1%80%E9%83%A8%E9%87%8D%E7%BB%98"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.3 SD1.5 局部重绘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-SD1-5-Scribble-ControlNet"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.4 SD1.5 Scribble ControlNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-RealESRGAN-%E5%9B%BE%E7%89%87-2%E5%80%8D%E6%94%BE%E5%A4%A7"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.5 RealESRGAN 图片 2倍放大</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%A7%86%E9%A2%91%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">3.3.</span> <span class="nav-text">3. 视频工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-MiniMax-H3-%E5%85%B1%E7%94%A8%E7%BB%93%E6%9E%84"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.1 MiniMax H3 共用结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-H3-%E6%8F%90%E7%A4%BA%E8%AF%8D-Skill-%E4%B8%8E%E6%A8%A1%E6%9D%BF"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.2 H3 提示词 Skill 与模板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#I2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E9%A6%96%E5%B8%A7%E2%86%92%E5%8A%A8%E4%BD%9C%E5%8F%91%E5%B1%95%EF%BC%89"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">I2VA 模板（首帧→动作发展）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FL2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E9%A6%96%E5%B8%A7%E2%86%92%E5%8F%AF%E8%A7%82%E5%AF%9F%E8%BF%87%E7%A8%8B%E2%86%92%E5%B0%BE%E5%B8%A7%EF%BC%89"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">FL2VA 模板（首帧→可观察过程→尾帧）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ref2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E5%A4%9A%E5%8F%82%E8%80%83%E5%85%AD%E6%AE%B5%E5%BC%8F%EF%BC%89"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">Ref2VA 模板（多参考六段式）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-I2VA%EF%BC%9A%E5%8D%95%E5%BC%A0%E9%A6%96%E5%B8%A7%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3 I2VA：单张首帧生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-FL2VA%EF%BC%9A%E9%A6%96%E5%B0%BE%E5%B8%A7%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.4 FL2VA：首尾帧生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-Ref2VA%EF%BC%9A%E4%B8%89%E5%9B%BE%E5%A4%9A%E5%8F%82%E8%80%83%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.5.</span> <span class="nav-text">3.5 Ref2VA：三图多参考生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-RIFE-%E8%A1%A5%E5%B8%A7%E4%B8%8E%E5%8F%AF%E9%80%89%E8%B6%85%E5%88%86"><span class="nav-number">3.3.6.</span> <span class="nav-text">3.6 RIFE 补帧与可选超分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%BD%93%E5%89%8D%E6%A8%A1%E5%9E%8B%E6%B8%85%E5%8D%95"><span class="nav-number">3.4.</span> <span class="nav-text">4. 当前模型清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86%E5%BF%85%E9%9C%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.1.</span> <span class="nav-text">图像与后处理必需模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MiniMax-H3-%E5%BF%85%E9%9C%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.2.</span> <span class="nav-text">MiniMax H3 必需模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%9C%80%E5%B0%8F%E8%B0%83%E5%8F%82%E4%B8%8E%E5%A4%8D%E7%8E%B0%E8%A7%84%E5%88%99"><span class="nav-number">3.5.</span> <span class="nav-text">5. 最小调参与复现规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepLive"><span class="nav-number">3.6.</span> <span class="nav-text">DeepLive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F5-TTS"><span class="nav-number">3.7.</span> <span class="nav-text">F5-TTS</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -650,13 +890,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">138k</span>
+    <span title="站点总字数">147k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:23</span>
+    <span title="站点阅读时长">8:55</span>
 </div>
 
 <div>
