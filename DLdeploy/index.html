@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="深度学习模型部署相关记录，目前仅开了个头，项目地址：DLpractice">
+  <meta name="description" content="从 PyTorch 模型到 ONNX、压缩量化、端侧编译和 SDK 集成的部署笔记。项目地址：DLpractice">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DL模型转换及部署：torch &gt; onnx &gt; deploy">
+<meta property="og:title" content="DLdeploy：torch &gt; onnx &gt; deploy">
 <meta property="og:url" content="https://wangyujie.space/DLdeploy/index.html">
 <meta property="og:site_name" content="Arrow的笔记本">
-<meta property="og:description" content="深度学习模型部署相关记录，目前仅开了个头，项目地址：DLpractice">
+<meta property="og:description" content="从 PyTorch 模型到 ONNX、压缩量化、端侧编译和 SDK 集成的部署笔记。项目地址：DLpractice">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/Arrowes/Blog/main/images/TDA4VMdeploy.png">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-ffd5625be23ba4fa8a56f5232a3f9c95_720w.webp">
@@ -40,10 +40,11 @@
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-a076d9317d2167d9d6d8898e0db0fd7c_1440w.webp?source=1940ef5c">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-5618bc32c6018dbe6b7419555c373445_1440w.webp">
 <meta property="article:published_time" content="2023-06-09T03:36:00.000Z">
-<meta property="article:modified_time" content="2026-07-19T03:27:29.482Z">
+<meta property="article:modified_time" content="2026-09-11T16:00:00.000Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="模型部署">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Arrowes/Blog/main/images/TDA4VMdeploy.png">
 
@@ -60,7 +61,7 @@
   };
 </script>
 
-  <title>DL模型转换及部署：torch > onnx > deploy | Arrow的笔记本</title>
+  <title>DLdeploy：torch > onnx > deploy | Arrow的笔记本</title>
   
 
 
@@ -226,7 +227,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          DL模型转换及部署：torch > onnx > deploy
+          DLdeploy：torch > onnx > deploy
         </h1>
 
         <div class="post-meta">
@@ -243,7 +244,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-07-19 11:27:29" itemprop="dateModified" datetime="2026-07-19T11:27:29+08:00">2026-07-19</time>
+                <time title="修改时间：2026-09-12 00:00:00" itemprop="dateModified" datetime="2026-09-12T00:00:00+08:00">2026-09-12</time>
               </span>
 
           
@@ -259,14 +260,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>43 分钟</span>
+              <span>55 分钟</span>
             </span>
 
         </div>
@@ -278,20 +279,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>深度学习模型部署相关记录，目前仅开了个头，项目地址：<a target="_blank" rel="noopener" href="https://github.com/Arrowes/DLpractice">DLpractice</a></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>从 PyTorch 模型到 ONNX、压缩量化、端侧编译和 SDK 集成的部署笔记。项目地址：<a target="_blank" rel="noopener" href="https://github.com/Arrowes/DLpractice">DLpractice</a></p>
 <span id="more"></span>
 
-<p><strong>算法部署</strong></p>
-<ul>
-<li>Network selection：</li>
-<li>Optimization：分组卷积、深度可分离卷积、稀疏卷积</li>
-<li>Deployment：<img alt="图 1" src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/></li>
-</ul>
+<h2 id="学习路线与速查"><a href="#学习路线与速查" class="headerlink" title="学习路线与速查"></a>学习路线与速查</h2><table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>主题</th>
+<th>复习重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><a href="#deployment-overview">部署总览</a></td>
+<td>场景、指标、硬件和完整链路</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="#compression-workflow">压缩与量化工作流</a></td>
+<td>结构化剪枝、PTQ、QAT 如何衔接</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="#quantization">量化原理与案例</a></td>
+<td>Scale、Zero-point、校准和混合精度</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="#pruning">剪枝实践</a></td>
+<td>重要性评分、依赖图和物理通道裁剪</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="#onnx">ONNX 转换与优化</a></td>
+<td>导出、校验、算子兼容和改写</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="#deployment-sdk">部署框架与 SDK</a></td>
+<td>转换器、前后处理、runtime 和封装</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="#deployment-checklist">部署验收清单</a></td>
+<td>精度、性能、内存、功耗与可回退性</td>
+</tr>
+</tbody></table>
+<p>核心链路：模型选择与训练 → 结构&#x2F;算子优化 → 模型转换 → 压缩与量化 → 目标后端编译 → 端侧验证 → SDK 集成。</p>
+<img alt="图 1" src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/TDA4VMdeploy.png" width="70%"/>
+
 <p>Netron神经网络可视化: <a target="_blank" rel="noopener" href="https://github.com/lutzroeder/netron/releases/tag/v7.0.0">软件下载</a>, <a target="_blank" rel="noopener" href="https://netron.app/">在线网站</a></p>
 <p><a target="_blank" rel="noopener" href="https://mmdeploy.readthedocs.io/zh-cn/latest/">MMDeploy中文文档</a></p>
 <hr>
-<h1 id="模型部署"><a href="#模型部署" class="headerlink" title="模型部署"></a>模型部署</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/367042545">AI 框架部署方案之模型部署概述</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/396781295">AI 框架部署方案之模型转换</a></p>
-<p>学术界负责各种 SOTA(State of the Art) 模型的训练和结构探索，而工业界负责将这些 SOTA 模型应用落地，赋能百业。模型部署一般无需再考虑如何修改训练方式或者修改网络结构以提高模型精度，更多的是需要明确部署的场景、部署方式（中心服务化还是本地终端部署）、模型的优化指标，以及如何提高吞吐率和减少延迟等。</p>
+<p><span id="deployment-overview"></span></p>
+<h1 id="部署总览"><a href="#部署总览" class="headerlink" title="部署总览"></a>部署总览</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/367042545">AI 框架部署方案之模型部署概述</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/396781295">AI 框架部署方案之模型转换</a></p>
+<p>模型部署需要把训练框架中的模型转换成目标运行时可执行的计算图，并对齐前处理、后处理和数值精度。部署阶段仍可能反向影响网络结构与训练方式，例如用部署友好算子替换不支持算子，或通过 QAT 恢复量化精度。</p>
 <h2 id="模型部署场景"><a href="#模型部署场景" class="headerlink" title="模型部署场景"></a>模型部署场景</h2><ul>
 <li>云端部署：模型部署在云端服务器，用户通过网页访问或者 API 接口调用等形式向云端服务器发出请求，云端收到请求后处理并返回结果。 </li>
 <li><strong>边缘部署</strong>：主要用于嵌入式设备，主要通过将模型打包封装到 SDK，集成到嵌入式设备，数据的处理和模型推理都在终端设备上执行。</li>
@@ -331,8 +374,8 @@
 </tbody></table>
 <img alt="图 3" src="https://pic2.zhimg.com/80/v2-ffd5625be23ba4fa8a56f5232a3f9c95_720w.webp" width="80%"/>  
 
-<h2 id="部署优化指标"><a href="#部署优化指标" class="headerlink" title="部署优化指标"></a>部署优化指标</h2><p>成本、功耗、性价比</p>
-<p>AI 模型部署到硬件上的成本将极大限制用户的业务承受能力。<br>成本问题主要聚焦于芯片的选型，比如，对比<strong>寒武纪 MLU220</strong> 和 MLU270，MLU270 主要用作数据中心级的加速卡，其算力和功耗都相对于边缘端的人工智能加速卡MLU220要高。至于 Nvida 推出的 Jetson 和 Tesla T4 也是类似思路，Tesla T4 是主打数据中心的推理加速卡，而 Jetson 则是嵌入式设备的加速卡。对于终端场景，还会根据对算力的需求进一步细分，比如表中给出的高通骁龙芯片，除 GPU 的浮点算力外，还会增加 DSP 以增加定点算力</p>
+<h2 id="部署优化指标"><a href="#部署优化指标" class="headerlink" title="部署优化指标"></a>部署优化指标</h2><p>部署优化通常同时考虑：任务 KPI、端到端延迟、吞吐量、峰值内存、模型大小、功耗、成本、冷启动时间和稳定性。TOPS 只是理论算力指标，不能替代目标模型在真实输入、编译器和频率配置下的测量。</p>
+<p>下表是早期硬件资料快照，只用于理解数据中心与边缘设备的功耗&#x2F;算力定位；规格可能随工作模式和厂商口径变化，选型时应查询当前官方手册。</p>
 <table>
 <thead>
 <tr>
@@ -372,10 +415,7 @@
 <td>70 W</td>
 </tr>
 </tbody></table>
-<p>在数据中心服务场景，对于功耗的约束要求相对较低；在边缘终端设备场景，硬件的功耗会影响边缘设备的电池使用时长。因此，对于功耗要求相对较高，一般来说，利用 NPU 等专用优化的加速器单元来处理神经网络等高密度计算，能节省大量功耗。</p>
-<p>不同的业务场景对于芯片的选择有所不同，以达到更高的性价比。 从公司业务来看，云端相对更加关注是多路的吞吐量优化需求，而终端场景则更关注单路的延时需要。</p>
-<p>在目前主流的 CV 领域，低比特模型相对成熟，且 INT8&#x2F;INT4 芯片因成本低，且算力比高的原因已被广泛使用；但在NLP或者语音等领域，对于精度的要求较高，低比特模型精度可能会存在难以接受的精度损失，因此 FP16 是相对更优的选择。</p>
-<p>在 CV 领域的芯片性价比选型上，在有 INT8&#x2F;INT4 计算精度的芯片里，主打低精度算力的产品是追求高性价比的主要选择之一，但这也为平衡精度和性价比提出了巨大的挑战。</p>
+<p>云端服务通常更关注多路吞吐、资源利用率和成本；边缘设备通常更关注单路延迟、峰值内存、功耗和热设计。INT8、INT4、FP16 或混合精度是否更合适，取决于模型类型、目标硬件支持和精度容忍度，必须通过实测选择。</p>
 <h2 id="部署流程"><a href="#部署流程" class="headerlink" title="部署流程"></a>部署流程</h2><p>模型转换、模型量化压缩、模型打包封装 SDK。</p>
 <p><strong>模型转换</strong>:主要用于模型在不同框架之间的流转，常用于训练和推理场景的连接。目前主流的框架都以 ONNX 或者 caffe 为模型的交换格式；模型转换主要分为计算图生成和计算图转换两大步骤，另外，根据需要，还可以在中间插入计算图优化，对计算机进行推理加速（诸如常见的 CONV&#x2F;BN 的算子融合），例如去除冗余 op，计算合并等。</p>
 <ul>
@@ -394,15 +434,15 @@
 </ul>
 <p>和五花八门的芯片等端侧硬件相比，x86 和 CUDA 平台是普及率最高的平台，因此如果是出于部署测试、转换精度确认、量化等需要，一个能够在 x86 或者 CUDA 平台运行的 runtime 是非常必要的。对此，支持 ONNX 格式的部署框架一般会基于 onnxruntime（微软出品的一个具有 ONNX 执行能力的框架）进行扩展，支持 caffe 格式的部署框架一般会基于原生 caffe 进行扩展。通过 onnxruntime 和 caffe 的推理运行能力，来提供在 x86 或者 CUDA 平台上和硬件平台相同算子表达层次的运行能力。当然还有一些生态较好的部署框架，他们自己提供算子表达能力和计算精度与硬件一致的 x86 或 CUDA 平台的模拟器。</p>
 <p><strong>模型量化压缩</strong>：终端场景中，一般会有内存和速度的考虑，因此会要求模型尽量小，同时保证较高的吞吐率。除了人工针对嵌入式设备设计合适的模型，如 MobileNet 系列，通过 NAS(Neural Architecture Search) 自动搜索小模型，以及通过蒸馏&#x2F;剪枝的方式压缩模型外，一般还会使用量化来达到减小模型规模和加速的目的。</p>
-<p>量化的过程主要是将原始浮点 FP32 训练出来的模型压缩到定点 INT8(或者 INT4&#x2F;INT1) 的模型，由于 INT8 只需要 8 比特来表示，因此相对于 32 比特的浮点，其模型规模理论上可以直接降为原来的 1&#x2F;4，这种压缩率是非常直观的。<br>另外，大部分终端设备都会有专用的定点计算单元，通过低比特指令实现的低精度算子，速度上会有很大的提升，当然，这部分还依赖协同体系结构和算法来获得更大的加速。</p>
+<p>量化把权重或激活映射到 INT8、INT4 等低位宽表示，以减少模型存储和内存带宽，并在目标硬件支持时加速计算。裸 FP32 权重转换为 INT8 后理论大小约为四分之一，但完整模型大小和速度还受图结构、量化参数及算子支持影响。<br>另外，大部分终端设备都会有专用的定点计算单元，通过低比特指令实现的低精度算子，速度上会有很大的提升，当然，这部分还依赖协同体系结构和算法来获得更大的加速。</p>
 <ul>
 <li>量化训练（QAT, Quantization Aware Training）：即量化感知训练方案，在浮点训练的时候，就先对浮点模型结构进行干预，使得模型能够感知到量化带来的损失，减少量化损失精度的方案。通过对模型插入伪量化算子（这些算子用来模拟低精度运算的逻辑），通过梯度下降等优化方式在原始浮点模型上进行微调，从来调整参数得到精度符合预期的模型。量化训练基于原始浮点模型的训练逻辑进行训练，理论上更能保证收敛到原始模型的精度，但需要精细调参且生产周期较长；</li>
-<li>离线量化（PTQ）：即训练后量化方案，先训练浮点模型，然后使用校准图片计算量化参数，将浮点模型转为量化模型的量化方法。主要是通过少量校准数据集（从原始数据集中挑选 100-1000 张图，不需要训练样本的标签）获得网络的 activation 分布，通过统计手段或者优化浮点和定点输出的分布来获得量化参数，从而获取最终部署的模型。离线量化只需要基于少量校准数据，因此生产周期短且更加灵活，缺点是精度可能略逊于量化训练。<br> 实际落地过程中，发现大部分模型通过离线量化就可以获得不错的模型精度（1% 以内的精度损失，当然这部分精度的提升也得益于优化策略的加持），剩下少部分模型可能需要通过量化训练来弥补精度损失，因此实际业务中会结合两者的优劣来应用。</li>
+<li>离线量化（PTQ）：即训练后量化方案，先训练浮点模型，然后使用校准图片计算量化参数，将浮点模型转为量化模型的量化方法。主要是通过少量校准数据集（从原始数据集中挑选 100-1000 张图，不需要训练样本的标签）获得网络的 activation 分布，通过统计手段或者优化浮点和定点输出的分布来获得量化参数，从而获取最终部署的模型。离线量化只需要基于少量校准数据，因此生产周期短且更加灵活，缺点是精度可能略逊于量化训练。<br>实际流程通常先尝试 PTQ；若验证集 KPI 不达标，再分析敏感层、调整校准或使用 QAT。精度损失没有通用的固定百分比。</li>
 </ul>
 <p>两大难点：一是如何平衡模型的吞吐率和精度，二是如何结合推理引擎充分挖掘芯片的能力。 比特数越低其吞吐率可能会越大，但其精度损失可能也会越大，因此，如何通过算法提升精度至关重要，这也是组内的主要工作之一。另外，压缩到低比特，某些情况下吞吐率未必会提升，还需要结合推理引擎优化一起对模型进行图优化，甚至有时候会反馈如何进行网络设计，因此会是一个算法与工程迭代的过程。</p>
 <p><strong>模型打包封装 SDK</strong>：实际业务落地过程中，模型可能只是产品流程中的一环，用于实现某些特定功能，其输出可能会用于流程的下一环。因此，模型打包会将模型的前后处理，一个或者多个模型整合到一起，再加入描述性的文件（前后处理的参数、模型相关参数、模型格式和版本等）来实现一个完整的功能。因此，SDK 除了需要一些通用前后处理的高效实现，对齐训练时的前后处理逻辑，还需要具有足够好的扩展性来应对不同的场景，方便业务线扩展新的功能。可以看到，模型打包过程更多是模型的进一步组装，将不同模型组装在一起，当需要使用的时候将这些内容解析成整个流程（pipeline）的不同阶段（stage），从而实现整个产品功能。</p>
 <p>另外，考虑到模型很大程度是研究员的研究成果，对外涉及保密问题，因此会对模型进行加密，以保证其安全性。加密算法的选择需要根据实际业务需求来决定，诸如不同加密算法其加解密效率不一样，加解密是否有中心验证服务器，其核心都是为了保护研究成果。</p>
-<h2 id="GPU-CPU-NPU"><a href="#GPU-CPU-NPU" class="headerlink" title="GPU CPU NPU"></a>GPU CPU NPU</h2><p>CPU 是通用处理器，控制能力强，适合复杂逻辑、分支判断、系统调度和少量串行计算，但大规模矩阵并行计算效率不如 GPU&#x2F;NPU。</p>
+<h2 id="CPU、GPU-与-NPU"><a href="#CPU、GPU-与-NPU" class="headerlink" title="CPU、GPU 与 NPU"></a>CPU、GPU 与 NPU</h2><p>CPU 是通用处理器，控制能力强，适合复杂逻辑、分支判断、系统调度和少量串行计算，但大规模矩阵并行计算效率不如 GPU&#x2F;NPU。</p>
 <p>GPU 是通用并行计算处理器，核心数量多，擅长大规模浮点矩阵运算、卷积、图形渲染和深度学习训练&#x2F;推理。优点是灵活、生态成熟，支持算子多；缺点是功耗和成本较高。</p>
 <p>NPU 是面向神经网络推理的专用加速器，通常对 INT8&#x2F;FP16 卷积、矩阵乘法等算子做硬件优化，能效比高，适合边缘端部署。缺点是灵活性较弱，算子支持受平台工具链限制，遇到 scatter、grid_sample、动态 shape、复杂 attention 等算子时可能不支持，需要改网络或 CPU fallback。</p>
 <p>工程上常见分工是：CPU 做前后处理和调度，NPU&#x2F;GPU 做模型推理，ISP 做图像信号处理，DSP 有时做传统视觉或部分前处理</p>
@@ -411,7 +451,7 @@
 <li>CPU：低延迟与通用性优先</li>
 </ol>
 <ul>
-<li><strong>设计初衷：</strong> 尽可能快地执行单一、复杂的线程，应对极其多变的通用任务。</li>
+<li><strong>设计初衷：</strong> 以较低延迟执行复杂控制流和通用任务。</li>
 <li><strong>架构取舍：</strong> 芯片上绝大部分面积被分配给了<strong>控制单元（Control Unit）</strong>和<strong>大容量缓存（Cache）</strong>。通过复杂的乱序执行、分支预测和数据预取来降低延迟。</li>
 <li><strong>结果：</strong> 真正用于算术运算的单元（ALU）占比较小。这解释了为什么它控制能力极强、能处理各种复杂逻辑，但在面对需要海量并发的矩阵计算时显得力不从心。</li>
 </ul>
@@ -428,12 +468,95 @@
 </ol>
 <ul>
 <li><strong>设计初衷：</strong> 深度学习爆发后，为了解决 GPU 功耗过高和数据搬运瓶颈，专门为神经网络定制的加速架构。</li>
-<li><strong>架构取舍：</strong> 彻底放弃了通用计算的灵活性。NPU 直接在物理硬件级别设计了针对矩阵乘加运算（MAC）的专用电路（如脉动阵列 Systolic Array）。</li>
+<li><strong>架构取舍：</strong> 以部分通用性换取特定神经网络算子的能效，常提供矩阵乘加专用电路；具体架构并不都采用同一种脉动阵列。</li>
 <li><strong>结果：</strong> 因为算子是“硬连线”在物理电路上的，数据流动路径极短，所以它在处理常规卷积和矩阵运算时能效比极高、功耗极低。但代价是灵活性被锁死在硬件层面——一旦遇到芯片设计之初没有预料到的新算子或动态结构，硬件就无法直接处理，只能交回给 CPU（Fallback）或重新进行硬件迭代。</li>
 </ul>
 <p>CPU 将空间用来做<strong>复杂控制</strong>，GPU 将空间用来堆砌<strong>通用计算核心</strong>，而 NPU 将空间用来打造执行特定数学公式的<strong>专用物理电路</strong>。</p>
 <hr>
-<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>量化一般是指把模型的单精度参数（Float32）转化为低精度参数(Int8,Int4)，把推理过程中的浮点运算转化为定点运算。是目前工业界最有效的模型优化方法之一，<br>量化是指定点与浮点等数据之间建立一种数据映射关系，使得以较小的精度损失代价获得了推理性能收益，可简单理解为用“低比特”数字表示FP32等数值，如FP32–&gt;INT8可以实现4倍的参数压缩，在压缩内存的同时可以实现更快速的计算。<br><em>（float和int的本质区别在于小数点是否固定）</em></p>
+<p><span id="compression-workflow"></span></p>
+<h1 id="模型压缩与量化部署工作流"><a href="#模型压缩与量化部署工作流" class="headerlink" title="模型压缩与量化部署工作流"></a>模型压缩与量化部署工作流</h1><p>结构化剪枝、训练后量化（PTQ）和量化感知训练（QAT）可以组成一条可重复的模型压缩管线：</p>
+<p>$$
+\text{FP32 基线}
+\xrightarrow{\text{结构化剪枝}}
+\text{通道裁剪模型}
+\xrightarrow{\text{微调}}
+\text{精度恢复}
+\xrightarrow{\text{PTQ；不足时 QAT}}
+\text{量化模型}
+\xrightarrow{\text{ONNX / 后端编译}}
+\text{端侧模型}
+$$</p>
+<p>推荐按以下顺序执行，每一步都保存模型、配置和评估结果，避免最后只知道“精度掉了”，却无法定位从哪一步开始偏离。</p>
+<ol>
+<li><strong>冻结 FP32 基线</strong>：记录代码版本、权重、输入预处理、数据集版本和 KPI。</li>
+<li><strong>建立目标端基准</strong>：确认算子支持、精度类型、静态&#x2F;动态 shape、内存和延迟预算。</li>
+<li><strong>结构化剪枝</strong>：按依赖关系删除通道或分组，重新统计参数量和 MACs。</li>
+<li><strong>微调恢复</strong>：逐步提高剪枝率，每轮微调并在验证集检查 KPI。</li>
+<li><strong>优先尝试 PTQ</strong>：使用有代表性的校准集生成量化参数，并分析逐层误差。</li>
+<li><strong>必要时进行 QAT</strong>：在前向中模拟量化噪声，通过微调恢复精度。</li>
+<li><strong>导出和编译</strong>：根据 runtime 选择 QDQ ONNX、浮点图 + Encodings，或厂商中间格式。</li>
+<li><strong>端侧验收</strong>：比较训练框架、ONNX Runtime、后端模拟器和真机输出，并测量端到端性能。</li>
+</ol>
+<h2 id="1-结构化剪枝"><a href="#1-结构化剪枝" class="headerlink" title="1. 结构化剪枝"></a>1. 结构化剪枝</h2><p>非结构化剪枝虽然能将权重稀疏化，但在没有专门稀疏算子支持的端侧芯片上，无法带来实质上的算力释放。因此我们采用结构化剪枝，直接在物理通道维度上进行裁剪，从而降低内存带宽和计算开销。</p>
+<p><strong>通道重要性评估</strong><br>裁剪通道前需要评估它们对输出特征的贡献。主要实现了三种评估算法：</p>
+<ul>
+<li><strong>量级剪枝（Magnitude Pruning）</strong>：它基于“小权重贡献小”的假设，直接计算卷积核权重 $W \in \mathbb{R}^{C_{out} \times C_{in} \times K \times K}$ 的范数。对于第 $i$ 个输出通道的权重 $W_i$，其 $L_1$ 范数评分为 $S(i) &#x3D; \sum |W_i|$，而 $L_2$ 范数评分则为其元素的平方和开根。若某个通道的权重范数极小，说明其输出特征图的幅值也极小，对后层特征的贡献微乎其微，因此可以安全剪裁。</li>
+<li><strong>BN 缩放因子剪枝（BN Scale Pruning）</strong>：Batch Normalization 层的公式为 $y = \gamma \cdot \hat{x} + \beta$。其中可学习的缩放因子 $\gamma$ 直接决定了该通道输出的幅值。在训练时，我们在损失函数中引入关于 $\gamma$ 的 $L_1$ 稀疏惩罚项（$\mathcal{L}_{\text{total}} = \mathcal{L} + \lambda \sum |\gamma|$），强迫不重要通道的 $\gamma$ 趋近于 0。剪枝时，直接将 $\gamma_i$ 接近 0 的通道整条裁掉。这种方法比单纯看权重大小更直接地反映了激活流的信息量。</li>
+<li><strong>二阶梯度与泰勒展开剪枝（Group-based Hessian Pruning）</strong>：有些通道虽然权重幅值偏小，但损失函数对它的微小变化却极度敏感。为了解决量级剪枝的这一盲区，我们评估裁剪掉参数 $\Delta \theta$ 后损失函数 $\mathcal{L}$ 的变化量。通过在收敛状态下进行二阶泰勒展开，由于此时一阶梯度趋近于 0，损失的变化量 $\Delta \mathcal{L}$ 可以近似为：<br>$$\Delta \mathcal{L} \approx \frac{1}{2} \Delta \theta^T H \Delta \theta$$<br>如果我们强行裁剪参数 $\theta_i$（即令其变化量为 $\Delta \theta_i = -\theta_i$），该参数的重要性评分可以近似表示为 $S(i) \approx \frac{1}{2} \theta_i^2 H_{ii}$。这里 $H_{ii}$ 是 Hessian 矩阵的对角线元素。该方法引入了表示曲率的二阶偏导数，即便权重很小，只要其所在方向的曲率极高，也会被强制保留。<blockquote>
+<p>什么是 Hessian 矩阵与曲率？<br>Hessian 矩阵是损失函数对模型权重的二阶偏导数组成的方阵。在机器学习中，它描述了损失函数在参数空间中的“曲率”（Curvature）。<br>曲率小（平坦区域）：即使权重发生较大变化，损失函数的上升也非常缓慢，说明该参数对最终精度不敏感，可以被安全剪掉。<br>曲率大（陡峭区域）：权重哪怕只有极其微小的改变，也会导致损失函数剧烈飙升，说明该参数非常关键，必须保留。<br>泰勒展开剪枝正是利用了这一几何特性，保护了那些“体量虽小，但处于陡峭峡谷区”的核心参数。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>依赖图感知</strong><br>在复杂的泊车网络（如带有 ResNet 残差连接或 FPN 特征金字塔）中，前一个卷积的输出通道必须与后一个卷积的输入通道严格一致，残差相加分支的通道也必须对齐。<br>为解决层与层之间的拓扑耦合，利用 <code>torch_pruning</code> 库构建了<strong>依赖图（Dependency Graph）</strong>。当决定裁剪某一层时，依赖图会将所有相互关联的层打包成一个“剪枝群组（Pruning Group）”，并将裁剪指令在群组内进行拓扑传递。这确保了通道裁剪在整个计算图中的同步性，避免了维度不匹配导致的运行时崩溃。</p>
+<blockquote>
+<p>什么是依赖图？<br>神经网络本质上是一个有向无环图（DAG）。当你剪掉 Conv A 的 10 个输出通道时，紧跟在其后的 BatchNorm A、ReLU 以及 Conv B 的 10 个输入通道必须同时被剪掉。如果在残差网络中，Conv A 还要和 Conv C 进行相加（Add），那么 Conv C 的输出通道也必须同步裁剪。<br>依赖图就是一种拓扑排序工具，它能自动追踪这些网络结构的绑定关系，将关联的层打包成一个“剪枝群组”，保证“一剪全剪”，避免张量形状不匹配引发内存崩溃。</p>
+</blockquote>
+<h2 id="2-低比特量化"><a href="#2-低比特量化" class="headerlink" title="2. 低比特量化"></a>2. 低比特量化</h2><p>量化是将浮点数值（FP32）映射到窄带宽定点数值（INT8&#x2F;INT4）的过程，能够大幅缩减内存占用并激活 DSP&#x2F;NPU 的 SIMD 或张量硬件加速。</p>
+<p>采用均匀线性量化，其数学表达为：</p>
+<ul>
+<li>**量化 (FP32 $\to$ INT8)**：<br>$$q = \text{clamp}\left( \text{round}\left( \frac{x}{S} \right) + Z, \, q_{\min}, \, q_{\max} \right)$$</li>
+<li>**反量化 (INT8 $\to$ FP32)**：<br>$$\hat{x} = S \cdot (q - Z)$$<blockquote>
+<p>反量化 (Dequantization, INT8 $\to$ FP32)：由于部分算子（如 Softmax 或最终的检测框解码）必须在浮点空间运行，我们需要将 INT8 整数重新乘以缩放因子 $S$，还原成 FP32 格式。注意：反量化回来的 FP32 并不等于原始的 FP32，它带有量化噪声。</p>
+</blockquote>
+</li>
+</ul>
+<p>其中 $S$ (Scale) 是缩放因子，代表定点格点之间的最小物理间距；$Z$ (Zero-Point) 是零点，代表 FP32 中的 $0$ 在量化空间的整型映射值。根据硬件平台的特点，量化可以分为对称与非对称两类：</p>
+<ul>
+<li><strong>对称量化（HTP 常用）</strong>：强制令零点 $Z = 0$，量化边界关于 0 完全对称。缩放因子计算为 $S = \max(|x_{\min}|, |x_{\max}|) / q_{\max}$。由于在反量化时无需减去非零零点，它极大地节省了车端加速器的通用寄存器带宽。</li>
+<li><strong>非对称量化（TDA4 常用）</strong>：允许 $Z \neq 0$，量化区间自适应贴合浮点分布，公式为 $S = \frac{x_{\max} - x_{\min}}{q_{\max} - q_{\min}}$。这种方式量化误差更低，但端侧推理时需要多进行一步减去偏置的整型加法。</li>
+</ul>
+<p>确定缩放因子 $S$ 与零点 $Z$ 的本质，是在**截断误差**（超出量化范围的值被饱和截断导致的信号丢失）与**取整误差**（量化范围过大导致格点变粗、分辨率下降）之间取得平衡。代码底层调用了两种校准算法来寻找最佳截断点 $[x_{\min}, x_{\max}]$：</p>
+<ul>
+<li><strong>Min-Max 校准</strong>：直接收集校准批次中激活值的物理绝对极值作为边界。这种方式容易受到激活值中个别噪点（Outliers）的干扰，导致量化范围被异常拉大，拉低主体数据的数值分辨率。</li>
+<li><strong>KL 散度校准（Entropy Calibration）</strong>：将量化前后的特征分布 $P$ 和 $Q$ 视为概率密度函数，通过最小化两者的相对熵（Kullback-Leibler Divergence），寻找让整体分布最匹配的截断点 $T$：<br>$$D_{\text{KL}}(P \parallel Q) = \sum_{i} P(i) \log \frac{P(i)}{Q(i)}$$<br>这种方法在数学上保证了核心特征分布的一致性，能够有效消除极少数噪点对量化范围的干扰，是自动驾驶泊车网络的首选。</li>
+</ul>
+<h2 id="3-从静态校准到感知训练：PTQ-与-QAT-的工程实现"><a href="#3-从静态校准到感知训练：PTQ-与-QAT-的工程实现" class="headerlink" title="3. 从静态校准到感知训练：PTQ 与 QAT 的工程实现"></a>3. 从静态校准到感知训练：PTQ 与 QAT 的工程实现</h2><p>在模型最终烧录进端侧定点芯片前，我们必须在服务器上提前模拟定点化带来的数值截断与溢出。这就是为什么即使在不需要反向梯度更新的 <strong>训练后量化（PTQ）</strong> 中，也需要插入量化模拟节点（QuantSim&#x2F;QDQ 算子）的原因。若不插入这些节点，前向推理依旧是全浮点计算，无法评估校准参数和低比特精度的表现。</p>
+<h3 id="训练后量化（PTQ）"><a href="#训练后量化（PTQ）" class="headerlink" title="训练后量化（PTQ）"></a>训练后量化（PTQ）</h3><p>PTQ 是一种超快的模型压缩技术，无需基于梯度的微调，通常在几分钟内即可完成。其基本工作流如下：</p>
+<ol>
+<li><strong>加载 FP32 权重</strong>：获取已收敛的全精度浮点模型。</li>
+<li><strong>算子合并（BatchNorm Folding）</strong>：在数学上将紧密相邻的卷积层与 BN 层折叠融合，消除部署时的多余计算层。</li>
+<li><strong>注入模拟节点</strong>：在特征图和权重的输入输出端包装伪量化算子，在模拟前向传播时引入低比特精度截断。</li>
+<li><strong>运行动态校准</strong>：输入一小批真实样本（500 到 1000 张图像）跑前向传播（不计算梯度），收集激活特征图的统计范围，利用 Min-Max 或 KL 散度算法计算出每一层的最优缩放因子与零点（Encodings）。</li>
+<li><strong>精度评估与敏感度剖析</strong>：在测试集上测试量化后的 KPI。泊车网络中的车位多边形角点回归和三维深度映射对低比特量化非常敏感，我们使用 <code>QuantAnalyzer</code> 进行逐层 MSE 损失分析。若发现关键层崩溃，则将其加入 <code>modules_to_ignore</code> 中维持 FP32&#x2F;FP16 精度，其余大部分算子依然保持 INT8 运行，以此实现混合精度部署。</li>
+<li><strong>导出部署包</strong>：剥离无用模拟节点，生成带有标准 QDQ 算子的部署 ONNX 计算图和 Encodings JSON 描述文件。</li>
+</ol>
+<h3 id="量化感知训练（QAT）"><a href="#量化感知训练（QAT）" class="headerlink" title="量化感知训练（QAT）"></a>量化感知训练（QAT）</h3><p>如果 PTQ 无法挽回精度损失，就需要使用 QAT。它在前向传播时引入模拟量化噪声，在反向传播时微调底层浮点权重，从而补偿精度损失。QAT 能够成功运作，依赖两个数学原理：</p>
+<ul>
+<li><strong>BatchNorm 折叠原理</strong>：在推理时，BN 层会被合并到卷积层权重 $W$ 和偏置 $b$ 中：<br>$$W_{\text{fold}} = W \cdot \frac{\gamma}{\sqrt{\sigma^2 + \epsilon}}, \quad b_{\text{fold}} = (b - \mu) \cdot \frac{\gamma}{\sqrt{\sigma^2 + \epsilon}} + \beta$$<br>如果在微调时先量化再融合，BN 参数的微小抖动会在部署融合时被放大，导致量化失配（Quantization Mismatch）。为此，我们在初始化时先进行数学折叠，再对融合后的 $W_{\text{fold}}$ 进行量化节点模拟，确保训练与车端运行时计算逻辑高度等价。</li>
+<li><strong>直通估计器（STE）</strong>：取整操作 $\text{round}(\cdot)$ 的导数在非整数点处为 0，会导致反向传播时梯度流断流。STE 方案强制将量化节点的偏导数设为 1（等价于恒等映射），使误差梯度顺利流回前层的浮点权重：<br>$$\frac{\partial \, \text{round}(x)}{\partial x} \approx 1 \implies \frac{\partial \mathcal{L}}{\partial x} \approx \frac{\partial \mathcal{L}}{\partial \hat{x}}$$<br>这使得网络能够不断微调底层的 FP32 权重，使其收敛到能够天然容忍 INT8 误差的最优参数空间。</li>
+</ul>
+<p>在工程实现中，<code>QATHook</code> 串联起了完整的闭环：在训练启动前，Hook 自动将 <code>Conv -&gt; BN</code> 以及 <code>ConvTranspose -&gt; BN</code> 结构进行数学折叠。接着，使用 <code>QuantizationSimModel</code> 在每个支持量化的算子输入输出端包装一层 <code>QcQuantizeWrapper</code> 伪量化节点。随后，使用小批数据运行前向传播，利用 KL 散度初始化所有节点的 Scale 与 Offset。<br>在微调训练中，数据流经每个节点时执行伪量化 $\hat{x} = \text{Dequantize}(\text{Quantize}(x))$，主动注入量化噪声。反向传播时激活 STE 机制，更新底层的 FP32 参数。训练结束后，剥离量化模拟节点，导出纠偏后的纯浮点权重文件（<code>_without_quant_nodes.pth</code>），以及内嵌 QDQ 节点的 ONNX 部署计算图与 Encodings JSON 文件。</p>
+<h3 id="自动化流水线的产物"><a href="#自动化流水线的产物" class="headerlink" title="自动化流水线的产物"></a>自动化流水线的产物</h3><p>每次运行至少保存：</p>
+<ul>
+<li>FP32、剪枝后、微调后和 QAT 后权重；</li>
+<li>剪枝配置、通道依赖与模型结构描述；</li>
+<li>校准集清单、量化 scheme、位宽、scale&#x2F;zero-point 或 encodings；</li>
+<li>ONNX&#x2F;后端模型、编译日志、fallback 算子清单；</li>
+<li>每个阶段的 KPI、延迟、内存与功耗报告。</li>
+</ul>
+<hr>
+<p><span id="quantization"></span></p>
+<h1 id="量化原理与案例"><a href="#量化原理与案例" class="headerlink" title="量化原理与案例"></a>量化原理与案例</h1><p>量化使用较低位宽表示权重和激活。若权重都从 FP32 存为 INT8，裸权重体积理论上可降到约四分之一；实际模型文件还包含图结构、量化参数和可能保留的高精度张量。运行速度取决于硬件是否提供相应低精度内核，以及量化&#x2F;反量化和数据搬运开销。</p>
 <p>浮点数格式 (float32)：$$V = (-1)^s×M×2^E$$</p>
 <table>
 <thead>
@@ -494,9 +617,9 @@
 <li>量化与反量化（Fake Quantization）：将其转为 INT8 后再转回 FP32，模拟定点化带来的精度损失，得到重建张量 $\hat{X}$：$\hat{X} = Dequantize\left(Quantize\left(X_{clip}, Δ\right)\right)$</li>
 <li>计算目标函数（L2 损失）：<br> 我们的目标是寻找一个 T，使得 X 与 $\hat{X}$ 之间的均方误差最小：<br> $argmin_{T} MSE(T) = argmin_{T} (1)/(N) ∑ᵢ₌₁^{N} \left( Xᵢ - \hat{X}_i(T) \right)²$</li>
 </ol>
-<p>  MSE 的均方误差公式在数学上非常优美地平衡了两种量化误差的博弈：<br>  Total Error &#x3D; Clipping Error (截断误差) + Rounding Error (舍入误差)</p>
+<p>  MSE 目标同时反映两类误差：<br>  Total Error &#x3D; Clipping Error (截断误差) + Rounding Error (舍入误差)</p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number"> 1 </span>          ▲ 概率密度</span><br><span class="line"><span class="number"> 2 </span>          │</span><br><span class="line"><span class="number"> 3 </span>          │         ┌──Rounding Error (缩尺太宽，小特征舍入归零)</span><br><span class="line"><span class="number"> 4 </span>          │         ▼</span><br><span class="line"><span class="number"> 5 </span>          │       ┌─┴─┐</span><br><span class="line"><span class="number"> 6 </span>          │      /│   │\</span><br><span class="line"><span class="number"> 7 </span>          │     / │   │ \  ◄─── 寻找最佳截断点 T_opt </span><br><span class="line"><span class="number"> 8 </span>          │____/  │   │  \____</span><br><span class="line"><span class="number"> 9 </span>        ──┴───────┼───┼───────┼───────► 数值</span><br><span class="line">10                  -T_opt       T_max </span><br><span class="line">11                           └───┬───┘</span><br><span class="line">12                               ▼</span><br><span class="line">13                         Clipping Error (缩尺太窄，大特征截断失真)</span><br></pre></td></tr></table></figure>
-<p>MSE 校准算法通过在校准数据集（Calibration Dataset）上，利用黄金分割法或网格搜索法（Grid Search）在 T ∈ [0.5 × Tₘₐₓ, Tₘₐₓ] 之间不断迭代计算上述公式，精确找到那个让“截断误差 + 舍入误差”总和最小的黄金平衡点Tₒₚₜ</p>
+<p>MSE 校准可通过网格搜索等方式比较候选阈值。搜索区间和算法由实现决定，不固定为 $[0.5T_{max},T_{max}]$。</p>
 <h3 id="绝对最大值校准（MinMax-Calibration）"><a href="#绝对最大值校准（MinMax-Calibration）" class="headerlink" title="绝对最大值校准（MinMax Calibration）"></a>绝对最大值校准（MinMax Calibration）</h3><ul>
 <li>原理：最简单直接的校准方法。不裁剪任何数据，直接将校准数据集中出现过的绝对最大值作为截断阈值：<br>$T_{clip} = max\left(|Xₘᵢₙ|, |Xₘₐₓ|\right)$</li>
 <li>优点：计算极其简单，几乎不需要任何校准数据集，耗时为 0。</li>
@@ -507,7 +630,7 @@
 <ul>
 <li>原理：它将 FP32 特征值和 INT8 特征值看作两个概率分布（Probability Distributions） P 和 Q。它通过计算 KL 散度（相对熵），来衡量这两个概率分布之间的相似度。通过搜索一个截断阈值 T，使得截断前后的信息失真（相对熵损失）达到最小：<br>$argmin_{T} D_{KL}(P || Q(T)) = ∑ᵢ Pᵢ log\left((Pᵢ)/(Qᵢ(T))\right)$</li>
 <li>优点：从信息论角度出发，它不仅平衡了误差，而且最大程度地保留了特征图的原始概率特征和信息分布。</li>
-<li>缺点：</li>
+<li>缺点：结果依赖直方图分桶、候选阈值和实现细节，不保证任务 KPI 最优。</li>
 </ul>
 <h3 id="百分比校准（Percentile-Calibration）"><a href="#百分比校准（Percentile-Calibration）" class="headerlink" title="百分比校准（Percentile Calibration）"></a>百分比校准（Percentile Calibration）</h3><ul>
 <li>原理：非常简单粗暴但异常有效的工程方案。通过直接统计校准数据集中的特征值分布，强行将排在最远端的固定百分比（如 99.9% 或 99.99%）的数据保留，其余 0.01% 的极大值直接切掉：<br>$T_{clip} = Percentile(X, 99.99\%)$</li>
@@ -515,7 +638,7 @@
 <li>缺点：百分比参数（例如是 99.9% 还是 99.99%）需要工程师凭经验进行繁琐的手动超参调优（Hyper-parameter Tuning）。</li>
 <li>适用场景：目标检测中的边界框回归层，或者需要快速输出量化结果的敏捷开发交付。</li>
 </ul>
-<h2 id="QAT量化优化案例"><a href="#QAT量化优化案例" class="headerlink" title="QAT量化优化案例"></a>QAT量化优化案例</h2><p>  在将 FP32 模型量化为 INT8 过程中，我们面临着由于 3D 几何投影的特殊性带来的激活值范围爆炸（Scale Mismatch）和溢出（Overflow）问题。</p>
+<h2 id="QAT量化优化案例"><a href="#QAT量化优化案例" class="headerlink" title="QAT量化优化案例"></a>QAT量化优化案例</h2><p>以下是特定泊车 BEV 项目的排查记录。张量形状、14 个深度格、95%&#x2F;5% 算力占比和精度变化都属于当时配置，复用前应重新测量。</p>
 <h3 id="空间特征累加导致的定点数溢出-Integer-Overflow"><a href="#空间特征累加导致的定点数溢出-Integer-Overflow" class="headerlink" title="空间特征累加导致的定点数溢出 (Integer Overflow)"></a>空间特征累加导致的定点数溢出 (Integer Overflow)</h3><ul>
 <li>问题描述：在 VoxelPooling 的矩阵乘法投影阶段，由于我们使用的是 Uniform Depth（均匀深度），同一个 2D 像素的特征会被投射到射线穿过的 14 个深度格子里。在矩阵乘法进行特征累加（Pooling）时：$F{BEV} = Mₛₚₐᵣₛₑ × F{2D}$<br>由于稀疏映射矩阵 mapper_matrix 里的数值是非零整数或浮点，数千个 2D 像素特征在同一个 BEV 网格相加累计。在 INT8 量化中，这会导致累加后的激活值（Activation）急剧变大，直接超出 INT8 最大值 127<br>  限制，发生严重的饱和溢出或数值截断（Clipping），导致量化后的 BEV 特征图出现大面积噪声，车位检测精度直接雪崩。</li>
 <li>对策:QAT 中的权重归一化：<br>在量化感知训练（QAT）时，对映射稀疏矩阵的行进行归一化缩放（Scaling）,将每行（即每个 BEV 栅格所接收的 2D 像素映射总数）进行均值缩放。使稀疏投影矩阵的所有行之和严格等于 1,彻底防止了定点数乘加运算时的溢出，将量化后的 BEV 目标检测精度（mAP）损失控制在了极其优秀的 0.5% 以内。</li>
@@ -524,7 +647,7 @@
 </ul>
 <h3 id="YUV-输入端定点化精度丢失"><a href="#YUV-输入端定点化精度丢失" class="headerlink" title="YUV 输入端定点化精度丢失"></a>YUV 输入端定点化精度丢失</h3><ul>
 <li>问题描述：我们的 Backbone 输入是 YUV 格式数据（亮度 x_y 为 1 通道，色度 x_uv 为 2 通道）。由于 YUV 数据中亮度和色度的动态数值范围（Dynamic Range）差异极大，直接使用统一的 Scale<br>进行量化会导致色度特征丢失。</li>
-<li>我们的对策：在 QAT 阶段，我们为 x_y 和 x_uv 分别注册了独立的量化观察器（Quantization Observer），使 Backbone 在输入端拥有独立的量化阶（Scale）和零点偏移（Zero-point），完美保全了 YUV底层色彩和纹理特征的完整度。<br>在训练时，模型使用 HistogramObserver（直方图观察器）分别收集 x_y 和 x_uv 在数万帧数据中的激活值分布。对于噪声多、动态范围广的色度通道，计算出专属的 $Scale_{uv}$ 和 $Zero_Point_{uv}$。</li>
+<li>对策：为 <code>x_y</code> 和 <code>x_uv</code> 分别注册量化观察器，使用独立的 scale 和 zero-point，避免两个分布共享同一组量化参数。<br>在训练时，模型使用 HistogramObserver（直方图观察器）分别收集 x_y 和 x_uv 在数万帧数据中的激活值分布。对于噪声多、动态范围广的色度通道，计算出专属的 $Scale_{uv}$ 和 $Zero_Point_{uv}$。</li>
 <li>优化收益：使色度通道的微弱特征（如暗色泊车位线、暗光地标特征）在经过 INT8 定点化后依然能够保留其完整的对比度信息，彻底消除了在暗光或地标边缘区域的漏检和抖动。</li>
 </ul>
 <h3 id="BEV-特征图边界的量化区间校准与截断（Quant-Clamping-Calibration）"><a href="#BEV-特征图边界的量化区间校准与截断（Quant-Clamping-Calibration）" class="headerlink" title="BEV 特征图边界的量化区间校准与截断（Quant Clamping &amp; Calibration）"></a>BEV 特征图边界的量化区间校准与截断（Quant Clamping &amp; Calibration）</h3><p>  在 VoxelPooling 完成、多个相机的特征拼合到全局网格 grid 时，由于相交视野区域（如 FV 与 MVL 交叠区）会有多个相机的特征做物理累加，而单相机区域（如 FV 正前方远端）只有单路特征。这会导致 BEV<br>  特征图的局部数值分布出现极强的不均匀性。<br>    我们在 BevEncoder 的前向传播输入端，强行插入了显式的量化截断层（Quant Clamping Layer）。<br>    在 QAT 训练中，我们使用 MSE (Mean Squared Error) Calibration（均方误差校准算法）来搜索最完美的 Clipping 边界值 T_{clip}：$F{Quant} = Clamp\left(F{BEV}, -T_{clip}, T_{clip}\right)$<br>    它放弃了极少数异常极大值（Outliers，如高反光带带来的特征暴增），将 99.9% 核心 BEV 特征的 INT8 表示精度聚焦在 [-T_{clip}, T_{clip}] 区间。</p>
@@ -538,11 +661,12 @@
 </ul>
 <hr>
 <h1 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48304306/article/details/126993559">pytorch如何使用自带的模型剪枝工具prune</a><br>目前最先进的深度学习技术依赖于过度参数化的模型，这些模型很难部署。相反，生物神经网络被认为使用了高效的稀疏连接。识别出在模型中通过减少参数数量来压缩模型的最佳技术是很重要的，这样可以减少内存、电池和硬件消耗，同时又不损失准确性。可以在设备上部署轻量级模型，PyTorch 提供了多种剪枝技术，如随机剪枝、L1剪枝、结构化剪枝等</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn.utils.prune <span class="keyword">as</span> prune</span><br><span class="line"><span class="keyword">import</span> onnx</span><br><span class="line"><span class="keyword">from</span> onnxsim <span class="keyword">import</span> simplify</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> common <span class="keyword">import</span> utils</span><br><span class="line"><span class="keyword">import</span> model.net <span class="keyword">as</span> net</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载model</span></span><br><span class="line">json_path = <span class="string">&#x27;experiments\params.json&#x27;</span></span><br><span class="line">params = utils.Params(json_path)</span><br><span class="line">params = utils.Params(json_path)</span><br><span class="line">model = net.fetch_net(params)</span><br><span class="line">state_dict = torch.load(<span class="string">&#x27;509_best.pth&#x27;</span>, map_location=torch.device(<span class="string">&#x27;cpu&#x27;</span>))</span><br><span class="line"><span class="comment"># 将状态字典加载到模型中</span></span><br><span class="line">model.load_state_dict(state_dict, strict=<span class="literal">False</span>)</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义剪枝函数，全局剪枝，根据全局的权重分布进行剪枝，而不是仅针对某一层</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">global_pruning</span>(<span class="params">model, pruning_amount</span>):</span><br><span class="line">    parameters_to_prune = []</span><br><span class="line">    <span class="keyword">for</span> module_name, module <span class="keyword">in</span> model.named_modules():  </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(module, torch.nn.Conv2d) <span class="keyword">or</span> <span class="built_in">isinstance</span>(module, torch.nn.Linear):  <span class="comment">#遍历卷积层和全连接层</span></span><br><span class="line">            parameters_to_prune.append((module, <span class="string">&#x27;weight&#x27;</span>))</span><br><span class="line"></span><br><span class="line">    prune.global_unstructured(</span><br><span class="line">        parameters_to_prune,</span><br><span class="line">        pruning_method=prune.L1Unstructured,    <span class="comment">#基于L1范数（绝对值和）进行非结构化剪枝</span></span><br><span class="line">        amount=pruning_amount,</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除剪枝掩码,永久移除剪枝后的 mask，使剪枝效果不可逆</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">remove_pruning_masks</span>(<span class="params">model</span>):</span><br><span class="line">    <span class="keyword">for</span> module_name, module <span class="keyword">in</span> model.named_modules():</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(module, torch.nn.Conv2d) <span class="keyword">or</span> <span class="built_in">isinstance</span>(module, torch.nn.Linear):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                prune.remove(module, <span class="string">&#x27;weight&#x27;</span>)  <span class="comment">#移除指定参数上的剪枝掩码</span></span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pruning_amount = <span class="number">0.99</span>    <span class="comment">#剪枝率</span></span><br><span class="line">model = global_pruning(model, pruning_amount)   <span class="comment">#全局剪枝</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除剪枝掩码</span></span><br><span class="line">model = remove_pruning_masks(model)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存为PTH</span></span><br><span class="line">torch.save(model.state_dict(), <span class="string">&#x27;509_best_pruned.pth&#x27;</span>)</span><br><span class="line"><span class="comment"># 导出为 ONNX 格式</span></span><br><span class="line">dummy_input = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">128</span>, <span class="number">256</span>)</span><br><span class="line">onnx_path = <span class="string">&#x27;509_best_pruned.onnx&#x27;</span></span><br><span class="line"></span><br><span class="line">torch.onnx.export(model,dummy_input, onnx_path, verbose=<span class="literal">False</span>, export_params=<span class="literal">True</span>, opset_version=<span class="number">11</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简化 ONNX 模型</span></span><br><span class="line">onnx_model = onnx.load(onnx_path)</span><br><span class="line">simplified_model, check = simplify(onnx_model)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">onnx.save(simplified_model, <span class="string">&#x27;509_best_pruned.onnx&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Done&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn.utils.prune <span class="keyword">as</span> prune</span><br><span class="line"><span class="keyword">import</span> onnx</span><br><span class="line"><span class="keyword">from</span> onnxsim <span class="keyword">import</span> simplify</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> common <span class="keyword">import</span> utils</span><br><span class="line"><span class="keyword">import</span> model.net <span class="keyword">as</span> net</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载model</span></span><br><span class="line">json_path = <span class="string">r&#x27;experiments\params.json&#x27;</span></span><br><span class="line">params = utils.Params(json_path)</span><br><span class="line">model = net.fetch_net(params)</span><br><span class="line">state_dict = torch.load(<span class="string">&#x27;509_best.pth&#x27;</span>, map_location=torch.device(<span class="string">&#x27;cpu&#x27;</span>))</span><br><span class="line"><span class="comment"># 将状态字典加载到模型中</span></span><br><span class="line">model.load_state_dict(state_dict, strict=<span class="literal">False</span>)</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义剪枝函数，全局剪枝，根据全局的权重分布进行剪枝，而不是仅针对某一层</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">global_pruning</span>(<span class="params">model, pruning_amount</span>):</span><br><span class="line">    parameters_to_prune = []</span><br><span class="line">    <span class="keyword">for</span> module_name, module <span class="keyword">in</span> model.named_modules():  </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(module, torch.nn.Conv2d) <span class="keyword">or</span> <span class="built_in">isinstance</span>(module, torch.nn.Linear):  <span class="comment">#遍历卷积层和全连接层</span></span><br><span class="line">            parameters_to_prune.append((module, <span class="string">&#x27;weight&#x27;</span>))</span><br><span class="line"></span><br><span class="line">    prune.global_unstructured(</span><br><span class="line">        parameters_to_prune,</span><br><span class="line">        pruning_method=prune.L1Unstructured,    <span class="comment">#基于L1范数（绝对值和）进行非结构化剪枝</span></span><br><span class="line">        amount=pruning_amount,</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除剪枝掩码,永久移除剪枝后的 mask，使剪枝效果不可逆</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">remove_pruning_masks</span>(<span class="params">model</span>):</span><br><span class="line">    <span class="keyword">for</span> module_name, module <span class="keyword">in</span> model.named_modules():</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(module, torch.nn.Conv2d) <span class="keyword">or</span> <span class="built_in">isinstance</span>(module, torch.nn.Linear):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                prune.remove(module, <span class="string">&#x27;weight&#x27;</span>)  <span class="comment">#移除指定参数上的剪枝掩码</span></span><br><span class="line">            <span class="keyword">except</span> ValueError:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pruning_amount = <span class="number">0.30</span>    <span class="comment"># 示例：全局裁掉 30% 权重；实际比例由验证集决定</span></span><br><span class="line">model = global_pruning(model, pruning_amount)   <span class="comment">#全局剪枝</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除剪枝掩码</span></span><br><span class="line">model = remove_pruning_masks(model)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存为PTH</span></span><br><span class="line">torch.save(model.state_dict(), <span class="string">&#x27;509_best_pruned.pth&#x27;</span>)</span><br><span class="line"><span class="comment"># 导出为 ONNX 格式</span></span><br><span class="line">dummy_input = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">128</span>, <span class="number">256</span>)</span><br><span class="line">onnx_path = <span class="string">&#x27;509_best_pruned.onnx&#x27;</span></span><br><span class="line"></span><br><span class="line">torch.onnx.export(model,dummy_input, onnx_path, verbose=<span class="literal">False</span>, export_params=<span class="literal">True</span>, opset_version=<span class="number">11</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简化 ONNX 模型</span></span><br><span class="line">onnx_model = onnx.load(onnx_path)</span><br><span class="line">simplified_model, check = simplify(onnx_model)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> check:</span><br><span class="line">    <span class="keyword">raise</span> RuntimeError(<span class="string">&quot;ONNX simplification check failed&quot;</span>)</span><br><span class="line">onnx.save(simplified_model, <span class="string">&#x27;509_best_pruned.onnx&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Done&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="ONNX"><a href="#ONNX" class="headerlink" title="ONNX"></a>ONNX</h1><p><a target="_blank" rel="noopener" href="https://mmdeploy.readthedocs.io/zh-cn/latest/tutorial/01_introduction_to_model_deployment.html">模型部署简介 — mmdeploy 1.3.1 文档</a></p>
+<p><span id="onnx"></span></p>
+<h1 id="ONNX-转换与优化"><a href="#ONNX-转换与优化" class="headerlink" title="ONNX 转换与优化"></a>ONNX 转换与优化</h1><p><a target="_blank" rel="noopener" href="https://mmdeploy.readthedocs.io/zh-cn/latest/tutorial/01_introduction_to_model_deployment.html">模型部署简介 — mmdeploy 1.3.1 文档</a></p>
 <p>神经网络实际上只是描述了数据计算的过程，其结构可以用计算图表示。比如 <code>a+b</code> 可以用下面的计算图来表示：<br><img src="https://user-images.githubusercontent.com/4560679/156558717-96bbe544-4dc7-4460-8850-3cb1790e39ec.png" alt="a+b"></p>
 <p>为了加速计算，一些框架会使用对神经网络“先编译，后执行”的静态图来描述网络。静态图的缺点是难以描述控制流（比如 if-else 分支语句和 for 循环语句），直接对其引入控制语句会导致产生不同的计算图。比如循环执行 n 次 <code>a=a+b</code>，对于不同的 n，会生成不同的计算图：<br><img src="https://user-images.githubusercontent.com/4560679/156558606-6ff18e19-f3b1-463f-8f83-60bf6f7ef64b.png" alt="n=2"></p>
 <p>ONNX（Open Neural Network Exchange）开源机器学习通用中间格式，兼容各种深度学习框架、推理引擎、终端硬件、操作系统，是 Facebook 和微软在 2017 年共同发布的，用于标准描述计算图的一种格式。目前，在数家机构的共同维护下，ONNX 已经对接了多种深度学习框架和多种推理引擎。因此，ONNX 被当成了深度学习框架到推理引擎的桥梁，就像编译器的中间语言一样。</p>
@@ -556,49 +680,46 @@
 </blockquote>
 <h2 id="ONNX-算子优化案例"><a href="#ONNX-算子优化案例" class="headerlink" title="ONNX 算子优化案例"></a>ONNX 算子优化案例</h2><h3 id="Slice替换Gather-替换索引取值"><a href="#Slice替换Gather-替换索引取值" class="headerlink" title="Slice替换Gather, 替换索引取值"></a>Slice替换Gather, 替换索引取值</h3><p>   在多相机循环投影时，模型最初直接通过相机索引从 batch 特征图中拿取单视角特征：x[cam_id]</p>
 <ul>
-<li>编译结果：在导出 ONNX 时，这行代码会被编译为 Gather 或 GatherND 算子。由于 NPU 硬件无法预测非连续地址的跳转，Gather 算子在几乎所有车载 DPU&#x2F;NPU 上都会强制降级（Fallback）到 CPU运行<blockquote>
+<li>编译结果：标量索引通常会导出为 Gather 类算子。该算子在特定目标 NPU 上发生 CPU fallback；是否支持以及性能如何取决于编译器版本和索引形式。<blockquote>
 <p>Gather：x[cam_id] （使用单个整型索引提取第 cam_id 个相机的特征，返回的张量少了一个维度）。代表离散、非连续、不确定寻址 (Random&#x2F;Indirect Memory Access)。对于以高并行乘加（MAC）为核心、但片外 SRAM &#x2F; DRAM 带宽受限的车载 NPU 来说，这种不确定的跳转会导致频繁的 Cache Miss（缓存不命中） 和总线等待，从而造成严重的计算管线停顿</p>
 </blockquote>
 </li>
-<li>优化原理：x[cam_id:cam_id+1] 语法在导出 ONNX 时会被编译为 Slice 算子。Slice 对应的是硬件极其友好的连续内存、按固定步长（Stride）的寻址读取。<br>   推理时间瞬间缩短了数毫秒，且保证了 100% 的 NPU 硬件全算子加速。<blockquote>
+<li>优化原理：<code>x[cam_id:cam_id+1]</code> 可导出为 Slice，并保留该维度。在当时目标后端中，Slice 获得了更好的算子支持和延迟；切换平台后必须重新编译与 profiling。<blockquote>
 <p>Slice：x[cam_id : cam_id + 1] （使用区间切片提取，返回的张量保留原有维度，形状为 (1, fH*fW, C)）。代表连续内存访问 (Sequential Memory Access)。它在物理内存中只需要提供一个 Start_Address（起始地址）和 Length（步长长度），然后通过 DMA（直接内存访问）将一整块连续的数据一次性拷贝到 NPU的片上高速缓存（SRAM）中。</p>
 </blockquote>
 </li>
 </ul>
-<h3 id="MatMul换ScatterND"><a href="#MatMul换ScatterND" class="headerlink" title="MatMul换ScatterND"></a>MatMul换ScatterND</h3><p>  ONNX 标准规范虽然支持稀疏格式，但是几乎所有量产芯片标配的硬件编译器都不支持编译 SparseTensor 以及 torch.sparse.mm 算子。</p>
+<h3 id="MatMul换ScatterND"><a href="#MatMul换ScatterND" class="headerlink" title="MatMul换ScatterND"></a>MatMul换ScatterND</h3><p>  ONNX 能表达部分稀疏数据和算子，但目标编译器的支持范围各不相同。应同时保留可替换实现并根据编译报告选择：</p>
 <ol>
-<li>MatMul（矩阵乘法算子）：将映射索引转换为稠密&#x2F;稀疏矩阵，与特征做矩阵相乘。对于支持大尺寸 2D&#x2F;3D 矩阵相乘（GEMM 硬件加速器）的芯片，这是执行投影的最快途径。</li>
+<li>MatMul（矩阵乘法算子）：将映射关系编码为矩阵并与特征相乘。适合支持相应矩阵尺寸且内存开销可接受的后端。</li>
 <li>ScatterND（散布写入算子）：根据索引，将一个特征张量中的数据直接“分发并写入”到目标全景 BEV 零张量的对应物理槽位中<ul>
 <li>由于硬件编译器的局限性：某些老一代车载 NPU 芯片，其 GEMM 乘法加速器内存极度受限（无法一次性载入巨大的静态映射矩阵），但是它的片上 DMA 控制器却支持高速的数据多路写入（即 Scatter 硬件支持）。<ul>
-<li>若芯片支持大矩阵：直接走 MatMul 投影，效率最高。</li>
-<li>若芯片矩阵乘法器受阻，但 DMA 写入器强：将模型编译为 ONNX 标准的 ScatterND 运行分支，为多款不同的量产主流芯片提供了完备的兼容保障方案。</li>
+<li>若后端能高效执行该尺寸的 MatMul，可优先测量矩阵方案。</li>
+<li>若 ScatterND 支持更好，可测量索引散布方案。最终选择依据端到端延迟、内存、精度和 fallback 情况。</li>
 </ul>
 </li>
 </ul>
 </li>
 </ol>
-<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以超分辨率模型为例，实现pytorch模型转onnx<br>其中， PyTorch 的 interpolate 插值算子可以在运行阶段选择放大倍数，但该算子不兼容，需要<strong>自定义算子</strong>:</p>
+<h2 id="以超分辨率模型为例"><a href="#以超分辨率模型为例" class="headerlink" title="以超分辨率模型为例"></a>以超分辨率模型为例</h2><p>参考：<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1497987564452114432">模型部署那些事</a><br>以下是早期 symbolic 导出接口的超分辨率示例。现代 PyTorch 导出器和 ONNX Resize 支持会随版本变化；只有目标 opset 或后端不能表达所需语义时才考虑自定义 symbolic，并应先查阅当前 <a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable/onnx.html"><code>torch.onnx</code></a> 文档。</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NewInterpolate</span>(torch.autograd.Function):</span><br><span class="line">    <span class="comment"># 自定义的插值算子，继承自torch.autograd.Function</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">symbolic</span>(<span class="params">g, <span class="built_in">input</span>, scales</span>):</span><br><span class="line">        <span class="comment"># 静态方法，用于定义符号图的构建过程, g: 符号图构建器, input: 输入张量, scales: 缩放因子</span></span><br><span class="line">        <span class="comment">#ONNX 算子的具体定义由 g.op 实现。g.op 的每个参数都可以映射到 ONNX 中的算子属性</span></span><br><span class="line">        <span class="comment">#对于其他参数，可以照着 Resize 算子文档填</span></span><br><span class="line">        <span class="keyword">return</span> g.op(<span class="string">&quot;Resize&quot;</span>,  <span class="comment"># 使用Resize操作</span></span><br><span class="line">                    <span class="built_in">input</span>,  <span class="comment"># 输入张量</span></span><br><span class="line">                    g.op(<span class="string">&quot;Constant&quot;</span>, value_t=torch.tensor([], dtype=torch.float32)),  <span class="comment"># 空的常量张量</span></span><br><span class="line">                    scales,  <span class="comment"># 缩放因子</span></span><br><span class="line">                    coordinate_transformation_mode_s=<span class="string">&quot;pytorch_half_pixel&quot;</span>,  <span class="comment"># 坐标转换模式为pytorch_half_pixel</span></span><br><span class="line">                    cubic_coeff_a_f=-<span class="number">0.75</span>,  <span class="comment"># cubic插值的系数a为-0.75</span></span><br><span class="line">                    mode_s=<span class="string">&#x27;cubic&#x27;</span>,  <span class="comment"># 插值模式为cubic</span></span><br><span class="line">                    nearest_mode_s=<span class="string">&quot;floor&quot;</span>)  <span class="comment"># 最近邻插值模式为floor</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">ctx, <span class="built_in">input</span>, scales</span>):    <span class="comment">#算子的推理行为由算子的 foward 方法决定</span></span><br><span class="line">        scales = scales.tolist()[-<span class="number">2</span>:]   <span class="comment">#截取输入张量的后两个元素,把 [1, 1, w, h] 格式的输入对接到原来的 interpolate 函数上</span></span><br><span class="line">        <span class="keyword">return</span> interpolate(<span class="built_in">input</span>,   <span class="comment">#把这两个元素以 list 的格式传入 interpolate 的 scale_factor 参数。</span></span><br><span class="line">                           scale_factor=scales,</span><br><span class="line">                           mode=<span class="string">&#x27;bicubic&#x27;</span>,</span><br><span class="line">                           align_corners=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://user-images.githubusercontent.com/4560679/157627349-10ed5483-8bde-47d0-b190-a7a4d0ca2c03.png" alt="alt text"></p>
 <details>
     <summary>SRCNN超分辨率代码</summary>
 
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>).astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StrangeSuperResolutionNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">9</span>, padding=<span class="number">4</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">1</span>, padding=<span class="number">0</span>)</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">32</span>, <span class="number">3</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, upscale_factor</span>):</span><br><span class="line">        x = NewInterpolate.apply(x, upscale_factor)</span><br><span class="line">        out = self.relu(self.conv1(x))</span><br><span class="line">        out = self.relu(self.conv2(out))</span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_torch_model</span>():</span><br><span class="line">    torch_model = StrangeSuperResolutionNet()</span><br><span class="line"></span><br><span class="line">    state_dict = torch.load(<span class="string">&#x27;srcnn.pth&#x27;</span>)[<span class="string">&#x27;state_dict&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Adapt the checkpoint</span></span><br><span class="line">    <span class="keyword">for</span> old_key <span class="keyword">in</span> <span class="built_in">list</span>(state_dict.keys()):</span><br><span class="line">        new_key = <span class="string">&#x27;.&#x27;</span>.join(old_key.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>:])</span><br><span class="line">        state_dict[new_key] = state_dict.pop(old_key)</span><br><span class="line"></span><br><span class="line">    torch_model.load_state_dict(state_dict)</span><br><span class="line">    torch_model.<span class="built_in">eval</span>()</span><br><span class="line">    <span class="keyword">return</span> torch_model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = init_torch_model()</span><br><span class="line">factor = torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line"></span><br><span class="line">input_img = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> input_img <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">raise</span> FileNotFoundError(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">input_img = input_img.astype(np.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># HWC to NCHW</span></span><br><span class="line">input_img = np.transpose(input_img, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">input_img = np.expand_dims(input_img, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inference</span></span><br><span class="line">torch_output = model(torch.from_numpy(input_img), factor).detach().numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># NCHW to HWC</span></span><br><span class="line">torch_output = np.squeeze(torch_output, <span class="number">0</span>)</span><br><span class="line">torch_output = np.clip(torch_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">torch_output = np.transpose(torch_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show image</span></span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2.png&quot;</span>, torch_output)</span><br><span class="line">input_img1 = cv2.imread(<span class="string">&#x27;face.png&#x27;</span>)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Input Image&quot;</span>, input_img1)</span><br><span class="line">cv2.imshow(<span class="string">&quot;Torch Output&quot;</span>, torch_output)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
 </details>
 
 <hr>
 <p>模型转换为ONNX，验证正确性，运行推理：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pth2onnx</span></span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line"><span class="comment"># 一种叫做追踪（trace）的模型转换方法：给定一组输入，再实际执行一遍模型，即把这组输入对应的计算图记录下来，保存为 ONNX 格式</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    torch.onnx.export(model, (x, factor),</span><br><span class="line">                      <span class="string">&quot;srcnn2.onnx&quot;</span>,</span><br><span class="line">                      opset_version=<span class="number">11</span>,</span><br><span class="line">                      input_names=[<span class="string">&#x27;input&#x27;</span>, <span class="string">&#x27;factor&#x27;</span>],</span><br><span class="line">                      output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证onnx, 此外可以使用Netron可视化检查网络结构</span></span><br><span class="line">onnx_model = onnx.load(<span class="string">&quot;srcnn2.onnx&quot;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    onnx.checker.check_model(onnx_model)</span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model incorrect&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model correct&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择放大倍数，运行ONNX Runtime 推理</span></span><br><span class="line">input_factor = np.array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>], dtype=np.float32)</span><br><span class="line">ort_session = onnxruntime.InferenceSession(<span class="string">&quot;srcnn2.onnx&quot;</span>)   <span class="comment"># 用于获取一个 ONNX Runtime 推理器</span></span><br><span class="line">ort_inputs = &#123;<span class="string">&#x27;input&#x27;</span>: input_img, <span class="string">&#x27;factor&#x27;</span>: input_factor&#125;</span><br><span class="line">ort_output = ort_session.run(<span class="literal">None</span>, ort_inputs)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ort_output = np.squeeze(ort_output, <span class="number">0</span>)</span><br><span class="line">ort_output = np.clip(ort_output, <span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">ort_output = np.transpose(ort_output, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>]).astype(np.uint8)</span><br><span class="line">cv2.imwrite(<span class="string">&quot;face_torch2_run.png&quot;</span>, ort_output)  <span class="comment"># 生成上采样图片，运行成功</span></span><br></pre></td></tr></table></figure>
 <img alt="picture 0" src="https://raw.githubusercontent.com/Arrowes/Blog/main/images/DLdeploynetron.png" width="80%"/>  
 
-<h2 id="torch-onnx-export模型转换接口"><a href="#torch-onnx-export模型转换接口" class="headerlink" title="torch.onnx.export模型转换接口"></a>torch.onnx.export模型转换接口</h2><p>Pytorch 模型导出使用自带的接口：<code>torch.onnx.export</code><br><code>torch.onnx.export(model,x,onnx_file,opset_version=11)</code><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/onnx.html%23functions">torch.onnx ‒ PyTorch 1.11.0 documentation</a><br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>而要把普通 PyTorch 模型转一个 TorchScript 模型，有跟踪（trace）和记录（script）两种导出计算图的方法：</p>
-<ul>
-<li>trace: 以上一节为例，跟踪法只能通过实际运行一遍模型的方法导出模型的静态图，即无法识别出模型中的控制流（如循环）,对于循环中不同的n, ONNX 模型的结构是不一样的</li>
-<li>script: 记录法则能通过解析模型来正确记录所有的控制流,模型不需要实际运行，用 Loop 节点来表示循环</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">model, args, f, export_params=<span class="literal">True</span>, verbose=<span class="literal">False</span>, training=TrainingMode.EVAL, </span></span><br><span class="line"><span class="params">           input_names=<span class="literal">None</span>, output_names=<span class="literal">None</span>, aten=<span class="literal">False</span>, export_raw_ir=<span class="literal">False</span>, </span></span><br><span class="line"><span class="params">           operator_export_type=<span class="literal">None</span>, opset_version=<span class="literal">None</span>, _retain_param_name=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           do_constant_folding=<span class="literal">True</span>, example_outputs=<span class="literal">None</span>, strip_doc_string=<span class="literal">True</span>, </span></span><br><span class="line"><span class="params">           dynamic_axes=<span class="literal">None</span>, keep_initializers_as_inputs=<span class="literal">None</span>, custom_opsets=<span class="literal">None</span>, </span></span><br><span class="line"><span class="params">           enable_onnx_checker=<span class="literal">True</span>, use_external_data_format=<span class="literal">False</span></span>): </span><br><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的,默认True</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字），最好设置，保证 ONNX 和推理引擎中使用同一套名称。</span></span><br><span class="line"><span class="comment"># opset_version：转换时参考哪个 ONNX 算子集版本，默认为 9。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
+<h2 id="torch-onnx-export-转换接口"><a href="#torch-onnx-export-转换接口" class="headerlink" title="torch.onnx.export 转换接口"></a><code>torch.onnx.export</code> 转换接口</h2><p>PyTorch 可通过 <code>torch.onnx.export(model, args, path, ...)</code> 导出 ONNX。接口和默认导出器会随 PyTorch 版本变化，使用时应查阅当前 <a target="_blank" rel="noopener" href="https://docs.pytorch.org/docs/stable/onnx.html"><code>torch.onnx</code> 文档</a>。重点确认输入分支、dtype、shape、输入输出名称、opset 以及目标 runtime 的动态维支持。<br><a href="https://link.zhihu.com/?target=https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的 <code>torch.jit.ScriptModule</code>模型。<br>Tracing 只记录示例输入实际经过的路径，因此数据相关控制流可能被固化。遇到循环、条件分支或不支持算子时，应先检查当前导出器的图捕获能力，再考虑改写模型或自定义算子。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># model: 模型， args：输入， f：导出文件名，</span></span><br><span class="line"><span class="comment"># export_params：是否存储模型权重， ONNX 是用同一个文件表示记录模型的结构和权重的,默认True</span></span><br><span class="line"><span class="comment"># input_names, output_names：设置输入和输出张量的名称。如果不设置的话，会自动分配一些简单的名字（如数字），最好设置，保证 ONNX 和推理引擎中使用同一套名称。</span></span><br><span class="line"><span class="comment"># opset_version：选择目标 runtime 支持且能表达所需算子的版本，不依赖旧版默认值。</span></span><br><span class="line"><span class="comment"># dynamic_axes：指定输入输出张量的哪些维度是动态的。为了效率，ONNX 默认所有参与运算的张量都是静态的（张量的形状不发生改变），必要时需要显式地指明输入输出张量的哪几个维度的大小是可变的。</span></span><br></pre></td></tr></table></figure>
 
+<p>导出后至少执行 <code>onnx.checker</code>，再使用 ONNX Runtime 和固定测试样本与 PyTorch 输出做数值对齐。只有导出、校验、数值对齐和目标后端编译全部通过，才能认为转换链路成立。</p>
 <h2 id="自定义算子"><a href="#自定义算子" class="headerlink" title="自定义算子"></a>自定义算子</h2><ul>
 <li>PyTorch 算子<ul>
 <li>组合现有算子</li>
@@ -619,7 +740,8 @@
 </li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/513387413">模型部署入门教程（四）：在 PyTorch 中支持更多 ONNX 算子</a></p>
-<h1 id="模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）"><a href="#模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）" class="headerlink" title="模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）"></a>模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）</h1><h2 id="模型转换器设计"><a href="#模型转换器设计" class="headerlink" title="模型转换器设计"></a>模型转换器设计</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/450342651">千行百业智能化落地，MMDeploy 助你一”部”到位 - 知乎 (zhihu.com)</a><br><img alt="图 3" src="https://pic1.zhimg.com/80/v2-a076d9317d2167d9d6d8898e0db0fd7c_1440w.webp?source=1940ef5c" width="80%"/><br>模型转换器的具体步骤为：</p>
+<p><span id="deployment-sdk"></span></p>
+<h1 id="部署框架与-SDK（以-MMDeploy-为例）"><a href="#部署框架与-SDK（以-MMDeploy-为例）" class="headerlink" title="部署框架与 SDK（以 MMDeploy 为例）"></a>部署框架与 SDK（以 MMDeploy 为例）</h1><h2 id="模型转换器设计"><a href="#模型转换器设计" class="headerlink" title="模型转换器设计"></a>模型转换器设计</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/450342651">千行百业智能化落地，MMDeploy 助你一”部”到位 - 知乎 (zhihu.com)</a><br><img alt="图 3" src="https://pic1.zhimg.com/80/v2-a076d9317d2167d9d6d8898e0db0fd7c_1440w.webp?source=1940ef5c" width="80%"/><br>模型转换器的具体步骤为：</p>
 <ol>
 <li>把 PyTorch 转换成 ONNX 模型；</li>
 <li>对 ONNX 模型进行优化；</li>
@@ -642,7 +764,7 @@
 <li>模型组件（Model）：支持 SDK Model 不同的文件格式</li>
 <li>任务组件（Task）：模型推理过程中，流水线的最小执行单元。它包括:<ul>
 <li>预处理（preprocess）：与 OpenMMLab Transform 算子对齐，比如 Resize、Crop、Pad、Normalize等等。每种算子均提供了 cpu、cuda 两种实现方式。</li>
-<li>网络推理引擎（net）：对推理引擎的封装。目前，SDK 可以接入5种推理引擎：PPL.NN, TensorRT, ONNX Runtime, NCNN 和 OpenVINO</li>
+<li>网络推理引擎（net）：对 TensorRT、ONNX Runtime、NCNN、OpenVINO 等后端的封装；当前支持列表以所用 MMDeploy 版本文档为准。</li>
 <li>后处理（postprocess）：对应与 OpenMMLab 各算法库的后处理功能。</li>
 </ul>
 </li>
@@ -650,6 +772,54 @@
 </li>
 <li>核心层<br>核心层是 SDK 的基石，定义了 SDK 最基础、最核心的数据结构。</li>
 </ul>
+<p><span id="deployment-checklist"></span></p>
+<h1 id="部署验收清单"><a href="#部署验收清单" class="headerlink" title="部署验收清单"></a>部署验收清单</h1><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>必查项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基线</td>
+<td>代码、权重、数据版本、预处理、随机种子与 FP32 KPI 可复现</td>
+</tr>
+<tr>
+<td>剪枝</td>
+<td>参数量&#x2F;MACs 确实下降；残差与拼接维度正确；微调后 KPI 达标</td>
+</tr>
+<tr>
+<td>量化</td>
+<td>校准集覆盖关键场景；逐层误差、饱和率和敏感层记录完整</td>
+</tr>
+<tr>
+<td>ONNX</td>
+<td>checker 通过；输入输出名称与 shape 正确；PyTorch&#x2F;ORT 数值对齐</td>
+</tr>
+<tr>
+<td>编译</td>
+<td>无意外 CPU fallback；算子融合、精度分区和编译警告已审查</td>
+</tr>
+<tr>
+<td>真机</td>
+<td>预热后测 P50&#x2F;P95 延迟、峰值内存、功耗和长时间稳定性</td>
+</tr>
+<tr>
+<td>SDK</td>
+<td>前后处理、颜色空间、layout、归一化、NMS 与训练配置一致</td>
+</tr>
+<tr>
+<td>发布</td>
+<td>模型、encodings、配置、runtime 版本和回退包一起归档</td>
+</tr>
+</tbody></table>
+<h2 id="复习自测"><a href="#复习自测" class="headerlink" title="复习自测"></a>复习自测</h2><ol>
+<li>为什么 mask pruning 不一定减少真机延迟，而结构化剪枝更容易产生实际收益？</li>
+<li>PTQ 的校准集为什么不需要标签，却仍必须覆盖真实输入分布？</li>
+<li>Scale、zero-point、截断误差和取整误差之间是什么关系？</li>
+<li>什么情况下应从 PTQ 升级到 QAT，什么情况下应使用混合精度？</li>
+<li>ONNX 导出通过后，为什么仍要做 ORT 对齐、后端编译和真机验证？</li>
+</ol>
 
     </div>
 
@@ -661,6 +831,7 @@
           <div class="post-tags">
               <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
               <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
+              <a href="/tags/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/" rel="tag"># 模型部署</a>
           </div>
 
         
@@ -734,7 +905,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2"><span class="nav-number">1.</span> <span class="nav-text">模型部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">模型部署场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">模型部署方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96%E6%8C%87%E6%A0%87"><span class="nav-number">1.3.</span> <span class="nav-text">部署优化指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">部署流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU-CPU-NPU"><span class="nav-number">1.5.</span> <span class="nav-text">GPU CPU NPU</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">量化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%A1%E5%87%86"><span class="nav-number">2.1.</span> <span class="nav-text">校准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E6%A0%A1%E5%87%86%E7%AE%97%E6%B3%95%EF%BC%88MSE-Calibration%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">均方误差校准算法（MSE Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E6%9C%80%E5%A4%A7%E5%80%BC%E6%A0%A1%E5%87%86%EF%BC%88MinMax-Calibration%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">绝对最大值校准（MinMax Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KL-%E6%95%A3%E5%BA%A6-%E4%BF%A1%E6%81%AF%E7%86%B5%E6%A0%A1%E5%87%86%EF%BC%88Kullback-Leibler-Divergence-Entropy-Calibration%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">KL 散度&#x2F;信息熵校准（Kullback-Leibler Divergence &#x2F; Entropy Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%88%86%E6%AF%94%E6%A0%A1%E5%87%86%EF%BC%88Percentile-Calibration%EF%BC%89"><span class="nav-number">2.1.4.</span> <span class="nav-text">百分比校准（Percentile Calibration）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QAT%E9%87%8F%E5%8C%96%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">QAT量化优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E7%89%B9%E5%BE%81%E7%B4%AF%E5%8A%A0%E5%AF%BC%E8%87%B4%E7%9A%84%E5%AE%9A%E7%82%B9%E6%95%B0%E6%BA%A2%E5%87%BA-Integer-Overflow"><span class="nav-number">2.2.1.</span> <span class="nav-text">空间特征累加导致的定点数溢出 (Integer Overflow)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YUV-%E8%BE%93%E5%85%A5%E7%AB%AF%E5%AE%9A%E7%82%B9%E5%8C%96%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1"><span class="nav-number">2.2.2.</span> <span class="nav-text">YUV 输入端定点化精度丢失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BEV-%E7%89%B9%E5%BE%81%E5%9B%BE%E8%BE%B9%E7%95%8C%E7%9A%84%E9%87%8F%E5%8C%96%E5%8C%BA%E9%97%B4%E6%A0%A1%E5%87%86%E4%B8%8E%E6%88%AA%E6%96%AD%EF%BC%88Quant-Clamping-Calibration%EF%BC%89"><span class="nav-number">2.2.3.</span> <span class="nav-text">BEV 特征图边界的量化区间校准与截断（Quant Clamping &amp; Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E9%83%A8%E7%BD%B2%E7%AD%96%E7%95%A5%EF%BC%88Mixed-Precision-Policy%EF%BC%89"><span class="nav-number">2.2.4.</span> <span class="nav-text">混合精度部署策略（Mixed-Precision Policy）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%AA%E6%9E%9D"><span class="nav-number">3.</span> <span class="nav-text">剪枝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ONNX"><span class="nav-number">4.</span> <span class="nav-text">ONNX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ONNX-%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">4.1.</span> <span class="nav-text">ONNX 算子优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Slice%E6%9B%BF%E6%8D%A2Gather-%E6%9B%BF%E6%8D%A2%E7%B4%A2%E5%BC%95%E5%8F%96%E5%80%BC"><span class="nav-number">4.1.1.</span> <span class="nav-text">Slice替换Gather, 替换索引取值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MatMul%E6%8D%A2ScatterND"><span class="nav-number">4.1.2.</span> <span class="nav-text">MatMul换ScatterND</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E8%B6%85%E5%88%86%E8%BE%A8%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%BA%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">以超分辨率模型为例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#torch-onnx-export%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.3.</span> <span class="nav-text">torch.onnx.export模型转换接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%97%E5%AD%90"><span class="nav-number">4.4.</span> <span class="nav-text">自定义算子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E7%9A%84%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%BB%A5%E5%95%86%E6%B1%A4%E7%9A%84MMdeploy%E9%83%A8%E7%BD%B2%E5%B7%A5%E5%85%B7%E7%AE%B1%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">模型部署的软件设计（以商汤的MMdeploy部署工具箱为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.1.</span> <span class="nav-text">模型转换器设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%8C%85-SDK"><span class="nav-number">5.2.</span> <span class="nav-text">应用开发工具包 SDK</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E4%B8%8E%E9%80%9F%E6%9F%A5"><span class="nav-number">1.</span> <span class="nav-text">学习路线与速查</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%80%BB%E8%A7%88"><span class="nav-number"></span> <span class="nav-text">部署总览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E5%9C%BA%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">模型部署场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">模型部署方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96%E6%8C%87%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">部署优化指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">部署流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU%E3%80%81GPU-%E4%B8%8E-NPU"><span class="nav-number">5.</span> <span class="nav-text">CPU、GPU 与 NPU</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%8E%8B%E7%BC%A9%E4%B8%8E%E9%87%8F%E5%8C%96%E9%83%A8%E7%BD%B2%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number"></span> <span class="nav-text">模型压缩与量化部署工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BB%93%E6%9E%84%E5%8C%96%E5%89%AA%E6%9E%9D"><span class="nav-number">1.</span> <span class="nav-text">1. 结构化剪枝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BD%8E%E6%AF%94%E7%89%B9%E9%87%8F%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">2. 低比特量化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%8E%E9%9D%99%E6%80%81%E6%A0%A1%E5%87%86%E5%88%B0%E6%84%9F%E7%9F%A5%E8%AE%AD%E7%BB%83%EF%BC%9APTQ-%E4%B8%8E-QAT-%E7%9A%84%E5%B7%A5%E7%A8%8B%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">3. 从静态校准到感知训练：PTQ 与 QAT 的工程实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E5%90%8E%E9%87%8F%E5%8C%96%EF%BC%88PTQ%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">训练后量化（PTQ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E6%84%9F%E7%9F%A5%E8%AE%AD%E7%BB%83%EF%BC%88QAT%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">量化感知训练（QAT）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%9A%84%E4%BA%A7%E7%89%A9"><span class="nav-number">3.3.</span> <span class="nav-text">自动化流水线的产物</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A1%88%E4%BE%8B"><span class="nav-number"></span> <span class="nav-text">量化原理与案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%A1%E5%87%86"><span class="nav-number">1.</span> <span class="nav-text">校准</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%87%E6%96%B9%E8%AF%AF%E5%B7%AE%E6%A0%A1%E5%87%86%E7%AE%97%E6%B3%95%EF%BC%88MSE-Calibration%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">均方误差校准算法（MSE Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E6%9C%80%E5%A4%A7%E5%80%BC%E6%A0%A1%E5%87%86%EF%BC%88MinMax-Calibration%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">绝对最大值校准（MinMax Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KL-%E6%95%A3%E5%BA%A6-%E4%BF%A1%E6%81%AF%E7%86%B5%E6%A0%A1%E5%87%86%EF%BC%88Kullback-Leibler-Divergence-Entropy-Calibration%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">KL 散度&#x2F;信息熵校准（Kullback-Leibler Divergence &#x2F; Entropy Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%88%86%E6%AF%94%E6%A0%A1%E5%87%86%EF%BC%88Percentile-Calibration%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">百分比校准（Percentile Calibration）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QAT%E9%87%8F%E5%8C%96%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">QAT量化优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E7%89%B9%E5%BE%81%E7%B4%AF%E5%8A%A0%E5%AF%BC%E8%87%B4%E7%9A%84%E5%AE%9A%E7%82%B9%E6%95%B0%E6%BA%A2%E5%87%BA-Integer-Overflow"><span class="nav-number">2.1.</span> <span class="nav-text">空间特征累加导致的定点数溢出 (Integer Overflow)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YUV-%E8%BE%93%E5%85%A5%E7%AB%AF%E5%AE%9A%E7%82%B9%E5%8C%96%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1"><span class="nav-number">2.2.</span> <span class="nav-text">YUV 输入端定点化精度丢失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BEV-%E7%89%B9%E5%BE%81%E5%9B%BE%E8%BE%B9%E7%95%8C%E7%9A%84%E9%87%8F%E5%8C%96%E5%8C%BA%E9%97%B4%E6%A0%A1%E5%87%86%E4%B8%8E%E6%88%AA%E6%96%AD%EF%BC%88Quant-Clamping-Calibration%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">BEV 特征图边界的量化区间校准与截断（Quant Clamping &amp; Calibration）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E9%83%A8%E7%BD%B2%E7%AD%96%E7%95%A5%EF%BC%88Mixed-Precision-Policy%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">混合精度部署策略（Mixed-Precision Policy）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%AA%E6%9E%9D"><span class="nav-number"></span> <span class="nav-text">剪枝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ONNX-%E8%BD%AC%E6%8D%A2%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="nav-number"></span> <span class="nav-text">ONNX 转换与优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ONNX-%E7%AE%97%E5%AD%90%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">ONNX 算子优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Slice%E6%9B%BF%E6%8D%A2Gather-%E6%9B%BF%E6%8D%A2%E7%B4%A2%E5%BC%95%E5%8F%96%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">Slice替换Gather, 替换索引取值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MatMul%E6%8D%A2ScatterND"><span class="nav-number">1.2.</span> <span class="nav-text">MatMul换ScatterND</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E8%B6%85%E5%88%86%E8%BE%A8%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">以超分辨率模型为例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#torch-onnx-export-%E8%BD%AC%E6%8D%A2%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">torch.onnx.export 转换接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%97%E5%AD%90"><span class="nav-number">4.</span> <span class="nav-text">自定义算子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%A1%86%E6%9E%B6%E4%B8%8E-SDK%EF%BC%88%E4%BB%A5-MMDeploy-%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">部署框架与 SDK（以 MMDeploy 为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">模型转换器设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%8C%85-SDK"><span class="nav-number">2.</span> <span class="nav-text">应用开发工具包 SDK</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E9%AA%8C%E6%94%B6%E6%B8%85%E5%8D%95"><span class="nav-number"></span> <span class="nav-text">部署验收清单</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0%E8%87%AA%E6%B5%8B"><span class="nav-number">1.</span> <span class="nav-text">复习自测</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -754,7 +925,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -820,8 +991,8 @@
                   </a>
                 </li>
                 <li class="right-posts-item right-posts-item-active">
-                  <a href="/DLdeploy/" title="DL模型转换及部署：torch > onnx > deploy">
-                    DL模型转换及部署：torch > onnx > deploy
+                  <a href="/DLdeploy/" title="DLdeploy：torch > onnx > deploy">
+                    DLdeploy：torch > onnx > deploy
                   </a>
                 </li>
                 <li class="right-posts-item">
@@ -908,13 +1079,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">149k</span>
+    <span title="站点总字数">155k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">9:01</span>
+    <span title="站点阅读时长">9:24</span>
 </div>
 
 <div>
