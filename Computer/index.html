@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Arrowes/Blog/main/images/Computer-r7202.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Arrowes/Blog/main/images/Computer_VoiceMeeter.png">
 <meta property="article:published_time" content="2023-11-09T03:36:00.000Z">
-<meta property="article:modified_time" content="2026-09-13T16:27:30.113Z">
+<meta property="article:modified_time" content="2026-09-14T12:45:25.021Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="技术">
 <meta name="twitter:card" content="summary">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-09-14 00:27:30" itemprop="dateModified" datetime="2026-09-14T00:27:30+08:00">2026-09-14</time>
+                <time title="修改时间：2026-09-14 20:45:25" itemprop="dateModified" datetime="2026-09-14T20:45:25+08:00">2026-09-14</time>
               </span>
 
           
@@ -251,14 +251,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.2k</span>
+              <span>5.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>15 分钟</span>
+              <span>19 分钟</span>
             </span>
 
         </div>
@@ -298,15 +298,15 @@
 <p>sunshine如果启动后打不开<a href="https://localhost:47990，需要在安装目录以管理员方式运行">https://localhost:47990，需要在安装目录以管理员方式运行</a><br>如果忘记账号密码，在安装目录运行：<code>.\sunshine.exe --creds admin admin</code>，重设账号密码</p>
 <h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#更新软件</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt upgrade</span><br><span class="line"><span class="comment">#安装openssh-server</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment">#check，其中 active(running) 是高亮的，则成功，若未运行：sudo systemctl enable --now ssh</span></span><br><span class="line">service ssh status</span><br><span class="line"><span class="comment">#允许 SSH 通过防火墙</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line"><span class="comment">#查ip，10.99.1.55</span></span><br><span class="line">ip a</span><br></pre></td></tr></table></figure>
 
-<p>vscode安装插件：Remote - SSH<br>登录ubuntu用户：ssh <a href="mailto:&#x75;&#115;&#101;&#x72;&#x6e;&#x61;&#x6d;&#x65;&#x40;&#x31;&#48;&#46;&#57;&#x39;&#46;&#49;&#x2e;&#x35;&#53;">&#x75;&#115;&#101;&#x72;&#x6e;&#x61;&#x6d;&#x65;&#x40;&#x31;&#48;&#46;&#57;&#x39;&#46;&#49;&#x2e;&#x35;&#53;</a></p>
+<p>vscode安装插件：Remote - SSH<br>登录ubuntu用户：ssh <a href="mailto:&#x75;&#115;&#101;&#114;&#x6e;&#x61;&#109;&#x65;&#64;&#49;&#x30;&#x2e;&#57;&#57;&#46;&#x31;&#x2e;&#x35;&#53;">&#x75;&#115;&#101;&#114;&#x6e;&#x61;&#109;&#x65;&#64;&#49;&#x30;&#x2e;&#57;&#57;&#46;&#x31;&#x2e;&#x35;&#53;</a></p>
 <blockquote>
-<p>例如主用户XXX：<br>ssh <a href="mailto:&#88;&#x58;&#88;&#64;&#x31;&#x30;&#x2e;&#x39;&#57;&#46;&#x31;&#x2e;&#x35;&#x35;">&#88;&#x58;&#88;&#64;&#x31;&#x30;&#x2e;&#x39;&#57;&#46;&#x31;&#x2e;&#x35;&#x35;</a><br>密码：XXX204</p>
+<p>例如主用户XXX：<br>ssh <a href="mailto:&#88;&#x58;&#x58;&#x40;&#49;&#48;&#x2e;&#57;&#57;&#46;&#49;&#x2e;&#x35;&#53;">&#88;&#x58;&#x58;&#x40;&#49;&#48;&#x2e;&#57;&#57;&#46;&#49;&#x2e;&#x35;&#53;</a><br>密码：XXX204</p>
 </blockquote>
 <h1 id="Redmi-K30-Ultra-闲置手机服务器"><a href="#Redmi-K30-Ultra-闲置手机服务器" class="headerlink" title="Redmi K30 Ultra 闲置手机服务器"></a>Redmi K30 Ultra 闲置手机服务器</h1><blockquote>
 <p>记录时间：2026-09-14。设备为 Redmi K30 至尊纪念版（<code>cezanne</code>），Android 12，局域网地址暂为 <code>192.168.15.153</code>。地址可能随 DHCP 变化，长期使用应在路由器中为手机设置静态租约。</p>
 </blockquote>
 <h2 id="当前方案"><a href="#当前方案" class="headerlink" title="当前方案"></a>当前方案</h2><p>保留原厂 Android，通过 Termux 运行服务，不需要 Root，也不需要安装完整 Ubuntu：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Redmi K30 Ultra</span><br><span class="line">├── OpenSSH             8022  SSH 远程管理</span><br><span class="line">├── ttyd + tmux         7681  浏览器终端</span><br><span class="line">├── copyparty           3923  全部内部存储文件管理</span><br><span class="line">├── aria2 RPC           6800  下载后端</span><br><span class="line">│   └── AriaNg          6880  下载管理网页</span><br><span class="line">└── Termux:API                电池、通知、相机、传感器等 Android API</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Redmi K30 Ultra</span><br><span class="line">├── OpenSSH             8022  SSH 远程管理</span><br><span class="line">├── ttyd + tmux         7681  浏览器终端</span><br><span class="line">├── copyparty           3923  全部内部存储文件管理</span><br><span class="line">├── aria2 RPC           6800  下载后端</span><br><span class="line">│   └── AriaNg          6880  下载管理网页</span><br><span class="line">└── Termux:API                电池、通知、相机、传感器等 Android API</span><br><span class="line">    └── late-night-guard      光线/姿态熬夜检测、警报与每周豁免额度</span><br></pre></td></tr></table></figure>
 
 <table>
 <thead>
@@ -444,6 +444,67 @@
 <li>chroot、底层网络规则和更深层的系统控制。</li>
 </ul>
 <p>Redmi K30 Ultra 成功解锁 Bootloader 会清除全部用户数据，包括 Termux 环境和内部存储。只为当前文件&#x2F;下载服务器没有必要 Root；确实需要 ACC 或标准 53 端口 DNS 时，应先完成整机和 Termux 配置备份，再解锁和安装 Magisk。</p>
+<h2 id="熬夜检测仪：用光线和姿态约束关灯"><a href="#熬夜检测仪：用光线和姿态约束关灯" class="headerlink" title="熬夜检测仪：用光线和姿态约束关灯"></a>熬夜检测仪：用光线和姿态约束关灯</h2><p>旧手机平时竖直放在桌面上，可以把环境光、距离和重力传感器组合成一个不需要单独 App 的熬夜检测仪。实现文件如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~/server/late-night-guard.py                 检测、警报和每周额度状态机</span><br><span class="line">~/.termux/boot/start-late-night-guard        开机启动入口</span><br><span class="line">~/server/ensure-services                     重新打开 Termux 时补齐全部服务</span><br><span class="line">~/.local/state/late-night-guard/state.json   校准值、额度和当晚状态</span><br><span class="line">~/server/logs/late-night-guard.log           正式运行日志</span><br></pre></td></tr></table></figure>
+
+<p>当前规则：</p>
+<table>
+<thead>
+<tr>
+<th>时间或事件</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>00:25</code></td>
+<td>发出预警通知，显示仍可使用的“延迟”和“取消”按钮</td>
+</tr>
+<tr>
+<td><code>00:30</code></td>
+<td>若房间仍亮，开始循环播放提示音、振动并显示高优先级通知</td>
+</tr>
+<tr>
+<td>点击“延迟15分钟”</td>
+<td>立即停止警报，从点击时刻延后15分钟；每个 ISO 自然周最多3次</td>
+</tr>
+<tr>
+<td>点击“取消今晚”</td>
+<td>立即停止并结束当晚检测；每个 ISO 自然周最多1次</td>
+</tr>
+<tr>
+<td>有效关灯</td>
+<td>连续确认两次黑暗后尽快停声，并进入15分钟防复亮期</td>
+</tr>
+<tr>
+<td>防复亮期重新开灯</td>
+<td>重新报警，关灯后重新计算15分钟</td>
+</tr>
+<tr>
+<td><code>01:00</code></td>
+<td>无条件停止提示音、振动和当晚检测；延迟不能越过这个硬截止时间</td>
+</tr>
+</tbody></table>
+<p>按钮同时出现在预警通知和正式警报通知中，MIUI 上可能需要下拉并展开通知才能看到。额度按自然周记录，重启脚本或手机不会重置。</p>
+<h3 id="防止遮挡伪装成关灯"><a href="#防止遮挡伪装成关灯" class="headerlink" title="防止遮挡伪装成关灯"></a>防止遮挡伪装成关灯</h3><p>只看照度会被盖住手机或扣在桌面上绕过，因此“有效关灯”必须同时满足：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">环境光：light &lt;= 2 lux（按实际房间校准）</span><br><span class="line">无遮挡：proximity &gt;= 4</span><br><span class="line">保持竖直：gravity.y &gt;= 6.5</span><br><span class="line">稳定性：连续两次采样都满足</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>光线传感器判断房间是否关灯。</li>
+<li>距离传感器排除手掌、布料等贴近屏幕上方的遮挡。</li>
+<li>重力方向排除把手机正面朝下扣在桌面的情况。</li>
+<li>阈值与手机型号、支架角度和房间余光有关，换位置后应重新校准，不能照搬到其他设备。</li>
+</ul>
+<p>读取与校准命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前照度、距离、重力和判定原因</span></span><br><span class="line">python ~/server/late-night-guard.py sample</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保持手机竖直、无遮挡并关灯，然后校准黑暗阈值</span></span><br><span class="line">python ~/server/late-night-guard.py calibrate-dark</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看阈值、当周剩余额度和当前状态</span></span><br><span class="line">python ~/server/late-night-guard.py status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只检查状态机与防遮挡逻辑，不触发警报</span></span><br><span class="line">python ~/server/late-night-guard.py self-test</span><br></pre></td></tr></table></figure>
+
+<p>当前 Redmi K30 Ultra 在关灯、竖直且无遮挡时测得约 <code>0 lux</code>，最终黑暗阈值取 <code>2 lux</code>。这是本机实测值，不是通用常量。</p>
+<h3 id="警报、测试与省电"><a href="#警报、测试与省电" class="headerlink" title="警报、测试与省电"></a>警报、测试与省电</h3><p>警报使用系统内置的 <code>Alarm_Classic.ogg</code>，通过 <code>termux-media-player</code> 循环播放，并配合 <code>termux-vibrate</code>。开始警报前保存 alarm、music、notification 三类音量并临时调高，停止后恢复，避免测试永久改变日常音量。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模拟已经到达检测时间；不消耗周额度，也不写入当晚完成状态</span></span><br><span class="line">python ~/server/late-night-guard.py test-now</span><br><span class="line"></span><br><span class="line"><span class="comment"># 中止模拟测试并恢复安静状态</span></span><br><span class="line">pkill -f <span class="string">&#x27;[l]ate-night-guard.py test-now&#x27;</span></span><br><span class="line">termux-media-player stop</span><br></pre></td></tr></table></figure>
+
+<p><code>test-now</code> 只测试亮灯报警、关灯停止和防复亮，不显示会改变真实额度的按钮。正式通知中的操作按钮由 <code>delay</code> 和 <code>cancel</code> 子命令处理。</p>
+<p>白天守护进程不读取传感器，只计算下一次预警时间并长时间休眠；夜间等待截止时间时也低频唤醒，只有报警和15分钟防复亮阶段才密集采样。这样既保留常驻能力，也减少旧手机的耗电和发热。</p>
+<h3 id="自动恢复与系统边界"><a href="#自动恢复与系统边界" class="headerlink" title="自动恢复与系统边界"></a>自动恢复与系统边界</h3><p><code>~/.termux/boot/start-late-night-guard</code> 由 Termux:Boot 在手机启动后运行；<code>~/server/ensure-services</code> 则复用开机脚本，在每次打开 Termux 终端时静默检查 SSH、文件服务、下载服务和熬夜检测进程，已存在的进程不会重复启动。</p>
+<p>Android 的“强行停止”是系统级禁令：被强行停止后，Termux、Termux:Boot、定时器和广播都不能自行复活。此时至少要重新打开一次 Termux，随后终端启动钩子才会恢复服务。MIUI 中还应为 Termux 与 Termux:Boot 同时开启自启动、允许后台运行，并把电池策略设为“不限制”。因此这套方案能增加绕过成本，但无法在无 Root 条件下做到绝对不可关闭。</p>
 <h1 id="拯救者R720-15IKBN"><a href="#拯救者R720-15IKBN" class="headerlink" title="拯救者R720-15IKBN"></a>拯救者R720-15IKBN</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">制造商: LENOVO</span><br><span class="line">设备型号: Lenovo R720-15IKBN</span><br><span class="line">设备代号: 80WW</span><br><span class="line">序列号: PF0S8CHZ</span><br><span class="line">BIOS版本: 4KCN45WW</span><br></pre></td></tr></table></figure>
 <p>高中毕业17年暑假购入的拯救者R720-15IKBN，21年加过一条和原装同款的8G内存条组成双通道（155），网卡换成了Intel AX200（108），22年把原装的128g固态换成了闪迪的1T（619，现在价格都降一半了），硅脂换了2-3次，研一拿来跑深度学习，现在还用c口转dp连着一台2k144显示器，属实难为这个1050ti了；现在外壳都好几处开裂，屏幕好几条黑线，但是嫌换屏幕麻烦且贵，凑合着再用最后一年陪我写完毕业论文吧.</p>
 <p>工具：<br><a target="_blank" rel="noopener" href="https://pan.leekarl.com/LLT">拯救者工具箱 Lenovo Legion Toolkit</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv17598773/?spm_id_from=333.999.collection.opus.click">拯救者R720如何恢复原厂系统</a></p>
@@ -553,7 +614,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#X-WRT-%E8%B7%AF%E7%94%B1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">X-WRT 路由器配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#USB%E6%8E%A5%E9%9A%8F%E8%BA%ABWifi"><span class="nav-number">1.1.1.</span> <span class="nav-text">USB接随身Wifi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6%E5%8A%A0%E8%BD%BD%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.2.</span> <span class="nav-text">IPv6加载问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E6%9C%AF%E5%8A%A0%E9%80%9F"><span class="nav-number">1.2.</span> <span class="nav-text">学术加速</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">1.2.1.</span> <span class="nav-text">Windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android"><span class="nav-number">1.2.2.</span> <span class="nav-text">Android</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux"><span class="nav-number">1.2.3.</span> <span class="nav-text">Linux</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%B8%B2%E6%B5%81"><span class="nav-number">1.3.</span> <span class="nav-text">远程串流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESSH"><span class="nav-number">1.4.</span> <span class="nav-text">配置SSH</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redmi-K30-Ultra-%E9%97%B2%E7%BD%AE%E6%89%8B%E6%9C%BA%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">Redmi K30 Ultra 闲置手机服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E6%96%B9%E6%A1%88"><span class="nav-number">2.1.</span> <span class="nav-text">当前方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87-Android-%E5%BA%94%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">准备 Android 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">安装基础组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH"><span class="nav-number">2.3.1.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copyparty-%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.3.2.</span> <span class="nav-text">copyparty 文件服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aria2-%E4%B8%8B%E8%BD%BD%E5%99%A8"><span class="nav-number">2.3.3.</span> <span class="nav-text">aria2 下载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AriaNg-%E4%B8%8B%E8%BD%BD%E7%AE%A1%E7%90%86%E7%BD%91%E9%A1%B5"><span class="nav-number">2.3.4.</span> <span class="nav-text">AriaNg 下载管理网页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ttyd-%E7%BD%91%E9%A1%B5%E7%BB%88%E7%AB%AF"><span class="nav-number">2.3.5.</span> <span class="nav-text">ttyd 网页终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Termux-API"><span class="nav-number">2.3.6.</span> <span class="nav-text">Termux:API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">2.4.</span> <span class="nav-text">开机自启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%AE%89%E5%85%A8"><span class="nav-number">2.5.</span> <span class="nav-text">运维与安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%98%E8%83%BD%E6%89%A9%E5%B1%95%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.6.</span> <span class="nav-text">还能扩展的服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%AF%E6%95%91%E8%80%85R720-15IKBN"><span class="nav-number">3.</span> <span class="nav-text">拯救者R720-15IKBN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%B5%E8%84%91%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">4.</span> <span class="nav-text">电脑小技巧</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug"><span class="nav-number">5.</span> <span class="nav-text">Debug</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows%E4%BD%BF%E7%94%A8VoiceMeeter%E5%AE%9E%E7%8E%B0%E9%9F%B3%E9%A2%91%E5%A4%9A%E8%B7%AF%E8%BE%93%E5%87%BA"><span class="nav-number">6.</span> <span class="nav-text">Windows使用VoiceMeeter实现音频多路输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E9%9F%B3%E5%94%A4%E9%86%92%E5%B0%8F%E7%88%B1%E5%90%8C%E5%AD%A6"><span class="nav-number">7.</span> <span class="nav-text">语音唤醒小爱同学</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#X-WRT-%E8%B7%AF%E7%94%B1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">X-WRT 路由器配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#USB%E6%8E%A5%E9%9A%8F%E8%BA%ABWifi"><span class="nav-number">1.1.1.</span> <span class="nav-text">USB接随身Wifi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6%E5%8A%A0%E8%BD%BD%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.2.</span> <span class="nav-text">IPv6加载问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E6%9C%AF%E5%8A%A0%E9%80%9F"><span class="nav-number">1.2.</span> <span class="nav-text">学术加速</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">1.2.1.</span> <span class="nav-text">Windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android"><span class="nav-number">1.2.2.</span> <span class="nav-text">Android</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux"><span class="nav-number">1.2.3.</span> <span class="nav-text">Linux</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%B8%B2%E6%B5%81"><span class="nav-number">1.3.</span> <span class="nav-text">远程串流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESSH"><span class="nav-number">1.4.</span> <span class="nav-text">配置SSH</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redmi-K30-Ultra-%E9%97%B2%E7%BD%AE%E6%89%8B%E6%9C%BA%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">Redmi K30 Ultra 闲置手机服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E6%96%B9%E6%A1%88"><span class="nav-number">2.1.</span> <span class="nav-text">当前方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87-Android-%E5%BA%94%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">准备 Android 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">安装基础组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH"><span class="nav-number">2.3.1.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copyparty-%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.3.2.</span> <span class="nav-text">copyparty 文件服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aria2-%E4%B8%8B%E8%BD%BD%E5%99%A8"><span class="nav-number">2.3.3.</span> <span class="nav-text">aria2 下载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AriaNg-%E4%B8%8B%E8%BD%BD%E7%AE%A1%E7%90%86%E7%BD%91%E9%A1%B5"><span class="nav-number">2.3.4.</span> <span class="nav-text">AriaNg 下载管理网页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ttyd-%E7%BD%91%E9%A1%B5%E7%BB%88%E7%AB%AF"><span class="nav-number">2.3.5.</span> <span class="nav-text">ttyd 网页终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Termux-API"><span class="nav-number">2.3.6.</span> <span class="nav-text">Termux:API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">2.4.</span> <span class="nav-text">开机自启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%AE%89%E5%85%A8"><span class="nav-number">2.5.</span> <span class="nav-text">运维与安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%98%E8%83%BD%E6%89%A9%E5%B1%95%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.6.</span> <span class="nav-text">还能扩展的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%86%AC%E5%A4%9C%E6%A3%80%E6%B5%8B%E4%BB%AA%EF%BC%9A%E7%94%A8%E5%85%89%E7%BA%BF%E5%92%8C%E5%A7%BF%E6%80%81%E7%BA%A6%E6%9D%9F%E5%85%B3%E7%81%AF"><span class="nav-number">2.7.</span> <span class="nav-text">熬夜检测仪：用光线和姿态约束关灯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E9%81%AE%E6%8C%A1%E4%BC%AA%E8%A3%85%E6%88%90%E5%85%B3%E7%81%AF"><span class="nav-number">2.7.1.</span> <span class="nav-text">防止遮挡伪装成关灯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AD%A6%E6%8A%A5%E3%80%81%E6%B5%8B%E8%AF%95%E4%B8%8E%E7%9C%81%E7%94%B5"><span class="nav-number">2.7.2.</span> <span class="nav-text">警报、测试与省电</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%81%A2%E5%A4%8D%E4%B8%8E%E7%B3%BB%E7%BB%9F%E8%BE%B9%E7%95%8C"><span class="nav-number">2.7.3.</span> <span class="nav-text">自动恢复与系统边界</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%AF%E6%95%91%E8%80%85R720-15IKBN"><span class="nav-number">3.</span> <span class="nav-text">拯救者R720-15IKBN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%B5%E8%84%91%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">4.</span> <span class="nav-text">电脑小技巧</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug"><span class="nav-number">5.</span> <span class="nav-text">Debug</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows%E4%BD%BF%E7%94%A8VoiceMeeter%E5%AE%9E%E7%8E%B0%E9%9F%B3%E9%A2%91%E5%A4%9A%E8%B7%AF%E8%BE%93%E5%87%BA"><span class="nav-number">6.</span> <span class="nav-text">Windows使用VoiceMeeter实现音频多路输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E9%9F%B3%E5%94%A4%E9%86%92%E5%B0%8F%E7%88%B1%E5%90%8C%E5%AD%A6"><span class="nav-number">7.</span> <span class="nav-text">语音唤醒小爱同学</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -727,13 +788,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">157k</span>
+    <span title="站点总字数">161k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">9:32</span>
+    <span title="站点阅读时长">9:45</span>
 </div>
 
 <div>

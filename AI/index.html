@@ -30,7 +30,7 @@
 <meta property="og:description" content="AI相关折腾记录: LLM-Deepseek,chat-on-wechat, AI绘画-StableDiffusion, 音视频-DeepLive,F5-TTS">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-07T15:36:00.000Z">
-<meta property="article:modified_time" content="2026-09-08T16:15:44.178Z">
+<meta property="article:modified_time" content="2026-09-14T07:55:44.520Z">
 <meta property="article:author" content="Arrow">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="深度学习">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-09-09 00:15:44" itemprop="dateModified" datetime="2026-09-09T00:15:44+08:00">2026-09-09</time>
+                <time title="修改时间：2026-09-14 15:55:44" itemprop="dateModified" datetime="2026-09-14T15:55:44+08:00">2026-09-14</time>
               </span>
 
           
@@ -248,14 +248,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.6k</span>
+              <span>6.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>17 分钟</span>
+              <span>25 分钟</span>
             </span>
 
         </div>
@@ -274,7 +274,153 @@
 <blockquote>
 <p>严禁无端夸奖： 停止在对话中使用过度礼貌、奉承或“为了夸而夸”的措辞（如：太棒了、你真博学、很有见地等）。 赞美的触发门槛： 除非我的表现、观点或产出在逻辑性、独创性或复杂程度方面，经模型评估优于 70% 以上的大数据样本，否则请保持中立、客观且高效的对话风格。 平等交流： 保持作为专业助手和合作伙伴的姿态，语气要简洁、真诚且落地，不需要表现出讨好感。 直言不讳： 如果我的想法有误或可以改进，请直接指出，这种专业性比赞美更有价值。</p>
 </blockquote>
-<h2 id="Skills"><a href="#Skills" class="headerlink" title="Skills"></a>Skills</h2><h3 id="搜索与技能发现"><a href="#搜索与技能发现" class="headerlink" title="搜索与技能发现"></a>搜索与技能发现</h3><table>
+<h2 id="Codex-飞书自动化"><a href="#Codex-飞书自动化" class="headerlink" title="Codex + 飞书自动化"></a>Codex + 飞书自动化</h2><p>这套方案把飞书消息桥接到本地 Codex CLI，并用 PowerShell、Windows 计划任务和飞书卡片实现自动提醒。设计目标是在新机器上能够快速重建，同时不把 App Secret、访问令牌、用户 ID 或会话 ID 写进 Git。</p>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>当前版本（2026-09-13）</th>
+<th>来源</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@larksuite/cli</code>（命令 <code>lark-cli</code>）</td>
+<td><code>1.0.89</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/larksuite/cli">larksuite&#x2F;cli</a></td>
+<td>飞书&#x2F;Lark 官方 CLI，用于配置身份并调用消息、文档、日历等开放平台接口。</td>
+</tr>
+<tr>
+<td><code>lark-channel-bridge</code></td>
+<td><code>0.7.0</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/zarazhangrui/feishu-claude-code-bridge">zarazhangrui&#x2F;feishu-claude-code-bridge</a></td>
+<td>社区桥接工具，把飞书私聊或群聊消息转给本地 Codex&#x2F;Claude CLI，并将结果发回飞书。</td>
+</tr>
+</tbody></table>
+<p>新机器优先安装最新版；表中版本用于复现和排障，不作为版本锁定要求。<code>lark-channel-bridge</code> 不是飞书官方项目。</p>
+<h3 id="安装与基本使用"><a href="#安装与基本使用" class="headerlink" title="安装与基本使用"></a>安装与基本使用</h3><p>前置条件：Node.js <code>&gt;= 20.12.0</code>、已安装并登录 Codex CLI，以及一个飞书&#x2F;Lark PersonalAgent 应用。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装飞书官方 CLI</span></span><br><span class="line">npx @larksuite/<span class="built_in">cli</span>@latest install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证；访问个人日历、云文档等资源时才需要用户授权</span></span><br><span class="line">lark<span class="literal">-cli</span> <span class="literal">--version</span></span><br><span class="line">lark<span class="literal">-cli</span> config init</span><br><span class="line">lark<span class="literal">-cli</span> auth login <span class="literal">--recommend</span></span><br><span class="line">lark<span class="literal">-cli</span> auth status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用机器人身份发消息</span></span><br><span class="line">lark<span class="literal">-cli</span> im +messages<span class="literal">-send</span> <span class="literal">--as</span> bot <span class="literal">--chat-id</span> <span class="string">&quot;oc_xxx&quot;</span> <span class="literal">--text</span> <span class="string">&quot;Hello&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装并首次运行 Codex bridge</span></span><br><span class="line">npm i <span class="literal">-g</span> lark<span class="literal">-channel-bridge</span></span><br><span class="line">lark<span class="literal">-channel-bridge</span> run <span class="literal">--profile</span> codex <span class="literal">--agent</span> codex</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证后注册为 Windows 后台服务</span></span><br><span class="line">lark<span class="literal">-channel-bridge</span> <span class="built_in">start</span> <span class="literal">--profile</span> codex <span class="literal">--agent</span> codex</span><br><span class="line">lark<span class="literal">-channel-bridge</span> status <span class="literal">--profile</span> codex</span><br><span class="line">lark<span class="literal">-channel-bridge</span> restart <span class="literal">--profile</span> codex</span><br></pre></td></tr></table></figure>
+
+<p>bridge 在 Windows 上使用计划任务维持后台服务。每个 profile 的配置、身份和日志位于 <code>~/.lark-channel/profiles/&lt;profile&gt;/</code>。bridge 环境中调用 <code>lark-cli</code> 时，应保留 <code>LARK_CHANNEL</code>、<code>LARK_CHANNEL_HOME</code>、<code>LARK_CHANNEL_PROFILE</code>、<code>LARK_CHANNEL_CONFIG</code> 和 <code>LARKSUITE_CLI_CONFIG_DIR</code>，不要绕回普通本机配置。</p>
+<h3 id="不消耗模型-Token-的原则"><a href="#不消耗模型-Token-的原则" class="headerlink" title="不消耗模型 Token 的原则"></a>不消耗模型 Token 的原则</h3><p>定时任务直接运行 PowerShell 和 <code>lark-cli</code>，不向 Codex 发送自然语言请求：</p>
+<ol>
+<li>额度查询通过 <code>codex app-server --stdio</code> 的 <code>account/rateLimits/read</code> 读取状态，不创建模型对话。</li>
+<li>消息通过 <code>lark-cli im +messages-send --as bot</code> 直接发送到飞书私聊。</li>
+<li>卡片按钮只携带固定格式的本地 <code>cmd</code>，bridge 记录事件后不转发给 Agent。</li>
+<li>本地监听器只接受指定私聊、当天有效且位于白名单中的命令。</li>
+</ol>
+<p>零模型 Token 的按钮不能使用 <code>__bridge_cb: true</code>，否则 bridge 会把点击交给 Codex，产生一次模型调用。飞书开放平台请求、bridge 和本地脚本仍会产生少量网络、CPU 与日志开销。</p>
+<h3 id="Codex-额度提醒"><a href="#Codex-额度提醒" class="headerlink" title="Codex 额度提醒"></a>Codex 额度提醒</h3><p>脚本：<code>~/.codex/quota-notifier/Send-CodexQuota.ps1</code>。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开机推送</td>
+<td>Windows 登录后启动 bridge；确认 <code>codex</code> profile 上线后立即私聊推送一次。同一次 Windows 开机按系统启动时间去重，发送成功后才记录状态。</td>
+</tr>
+<tr>
+<td>定时推送</td>
+<td>每天 <code>00:00</code>，以及活动时段的 <code>10:00、12:00、14:00、16:00、18:00、20:00、22:00</code> 推送。午休后的 <code>13:00</code> 延后到 <code>14:00</code>。</td>
+</tr>
+<tr>
+<td>低额度监控</td>
+<td><code>10:05–23:50</code> 每 15 分钟检查；5 小时或 7 天额度首次低于 20% 时提醒一次。</td>
+</tr>
+<tr>
+<td>手动查询</td>
+<td>卡片底部“查询额度”按钮写入本地 <code>quota.refresh</code>；监听器调用同一脚本重新查询并发送新卡。</td>
+</tr>
+<tr>
+<td>数据来源</td>
+<td><code>account/rateLimits/read</code>，读取 5 小时额度、7 天额度、重置次数、最近到期时间和额外额度。</td>
+</tr>
+<tr>
+<td>计划任务</td>
+<td><code>CodexQuotaNotifier</code>、<code>CodexQuotaLowAlert</code>、<code>CodexQuotaCardActions</code>。</td>
+</tr>
+</tbody></table>
+<p>开机推送复用 <code>~/.lark-channel/startup/start-codex-bridge.ps1</code>。脚本优先读取 <code>supervisor/profile-online</code> 日志；若当前 bridge 版本没有生成该 JSONL 事件，则以本次开机后稳定运行的 bridge 进程作为兼容信号。随后调用额度脚本，并仅在飞书返回成功后写入去重状态。</p>
+<p>额度卡使用 CardKit 2.0：</p>
+<ul>
+<li>标题显示总体状态和查询时间，不显示套餐信息。</li>
+<li>第一块显示 5 小时额度，第二块显示 7 天额度；上下排列并使用相同标签宽度。</li>
+<li>每块第一行显示名称、剩余百分比和具体重置日期；第二行显示进度条和距离重置的剩余时间。</li>
+<li>两块颜色独立变化：剩余 <code>&lt;20%</code> 为红色，<code>20%–49%</code> 为橙色，<code>&gt;=50%</code> 为绿色。</li>
+<li>下方显示可用重置次数和最近到期时间。大于 2 天使用普通颜色，不超过 2 天为橙色，不超过 1 天为红色；没有次数时显示“无”。</li>
+<li>只有确实存在额外额度或无限额度时，才追加“额外额度”一行。</li>
+<li>底部放置小号“查询额度”按钮；<code>CodexQuotaCardActions</code> 登录后启动，每 2 秒检查新点击并去重。</li>
+</ul>
+<h3 id="关机提醒"><a href="#关机提醒" class="headerlink" title="关机提醒"></a>关机提醒</h3><p>脚本：</p>
+<ul>
+<li><code>~/.lark-channel/send-shutdown-reminder.ps1</code></li>
+<li><code>~/.lark-channel/handle-shutdown-card-actions.ps1</code></li>
+</ul>
+<p>当前行为：</p>
+<ol>
+<li>每天 <code>00:30、01:00、01:30</code> 私聊发送紧凑 CardKit 2.0 卡片。</li>
+<li>卡片正文保留一句状态说明，底部横排“今晚不关”和“立即关机”。</li>
+<li>“立即关机”带二次确认，确认后发送回执并在 5 秒后关机。</li>
+<li>“今晚不关”写入当天状态、取消已经安排的关机，并停止当晚后续提醒。</li>
+<li>如果 <code>01:30</code> 仍未回应，且提醒发送成功、bridge 正常运行，则安排 <code>01:45</code> 自动关机；期间选择“今晚不关”仍可取消。</li>
+<li>bridge 未运行时不安排自动关机，避免无法操作按钮而误关机。</li>
+</ol>
+<p>计划任务：</p>
+<ul>
+<li><code>Codex-Lark-Shutdown-Reminder-0030</code>：触发三次提醒。</li>
+<li><code>Codex-Lark-Shutdown-Card-Actions</code>：每天 <code>00:29</code> 启动监听，并在用户登录时补启动；每 15 秒检查一次按钮事件，到 <code>01:46</code> 结束。监听器只处理本次启动后的新点击，避免重放旧卡。</li>
+</ul>
+<p>按钮命令带当天日期，例如 <code>shutdown.skip.20260913</code> 和 <code>shutdown.now.20260913</code>。监听器还会校验目标私聊 ID、去重事件并忽略旧日期。</p>
+<h3 id="新机器重建清单"><a href="#新机器重建清单" class="headerlink" title="新机器重建清单"></a>新机器重建清单</h3><ol>
+<li>安装最新版 <code>@larksuite/cli</code> 和 <code>lark-channel-bridge</code>，使用 <code>codex</code> profile。</li>
+<li>检查 Node.js、Codex CLI、现有飞书应用和计划任务，不覆盖可用配置。</li>
+<li>通过当前 bridge&#x2F;profile 获取实际用户与私聊标识，不沿用旧机器的 ID。</li>
+<li>创建额度提醒和关机提醒脚本，注册上述 Windows 计划任务，并加入开机上线检测与发送成功校验。</li>
+<li>定时查询和卡片按钮使用本地白名单命令，不使用 <code>__bridge_cb</code>。</li>
+<li>不把 App Secret、token、用户 ID、chat ID 写入仓库或日志输出。</li>
+<li>先执行 PowerShell 语法检查、额度卡结构测试和关机动作 dry-run；测试期间不真正关机。</li>
+<li>最后核对触发时间、bridge 状态、私聊收件人、开机去重状态和日志。</li>
+</ol>
+<p>迁移到新机器时仍需重新完成 PersonalAgent 绑定；Git 只保存技术方案，不保存身份凭据。</p>
+<h2 id="Skills"><a href="#Skills" class="headerlink" title="Skills"></a>Skills</h2><h3 id="自定义-Skill"><a href="#自定义-Skill" class="headerlink" title="自定义 Skill"></a>自定义 Skill</h3><p><code>interview-review-coach</code> 面向计算机视觉、自动驾驶感知、BEV、模型部署和算法工程岗位。它可以把面试录音、转录或笔记整理为真实回答记录、改进回答、知识缺口和下一轮复习计划，并附带本地 Whisper 转录脚本。</p>
+<h3 id="Codex-系统能力"><a href="#Codex-系统能力" class="headerlink" title="Codex 系统能力"></a>Codex 系统能力</h3><table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>来源</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>imagegen</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/openai/skills">openai&#x2F;skills</a></td>
+<td>生成和编辑照片、插画、纹理及透明背景位图。</td>
+</tr>
+<tr>
+<td><code>openai-docs</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/openai/skills">openai&#x2F;skills</a></td>
+<td>查询 Codex、ChatGPT、OpenAI API、模型和配置的官方资料。</td>
+</tr>
+<tr>
+<td><code>plugin-creator</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/openai/skills">openai&#x2F;skills</a></td>
+<td>创建 Codex 插件、MCP 配置和个人市场条目。</td>
+</tr>
+<tr>
+<td><code>skill-creator</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/openai/skills">openai&#x2F;skills</a></td>
+<td>设计、创建、修改和验证 Agent Skill。</td>
+</tr>
+<tr>
+<td><code>skill-installer</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/openai/skills">openai&#x2F;skills</a></td>
+<td>从官方目录或 GitHub 仓库安装 Skill。</td>
+</tr>
+</tbody></table>
+<h3 id="搜索与技能发现"><a href="#搜索与技能发现" class="headerlink" title="搜索与技能发现"></a>搜索与技能发现</h3><table>
 <thead>
 <tr>
 <th>Skill</th>
@@ -317,6 +463,25 @@
 <td>在代码审查中，提供针对代码的深入问题和改进建议。</td>
 </tr>
 </tbody></table>
+<h3 id="求职与面试"><a href="#求职与面试" class="headerlink" title="求职与面试"></a>求职与面试</h3><table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>来源</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>interview-review-coach</code></td>
+<td>本地自定义</td>
+<td>复盘技术面试，整理真实回答、建议回答、知识缺口和学习计划。</td>
+</tr>
+<tr>
+<td><code>job-hunter</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/Donzhu2020/job-tracker">Donzhu2020&#x2F;job-tracker</a></td>
+<td>搜索职位、匹配简历、生成求职信并将结果保存到 Obsidian。</td>
+</tr>
+</tbody></table>
 <h3 id="视觉与视频创作"><a href="#视觉与视频创作" class="headerlink" title="视觉与视频创作"></a>视觉与视频创作</h3><table>
 <thead>
 <tr>
@@ -335,7 +500,25 @@
 <td><a target="_blank" rel="noopener" href="https://github.com/ChatCut-Inc/agent-plugin">ChatCut-Inc&#x2F;agent-plugin</a></td>
 <td>在 Codex 中完成素材导入、时间线剪辑、字幕、配音、生成和导出。</td>
 </tr>
+<tr>
+<td><code>anything2explainer</code></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/Vincentwei1021/anything2explainer">Vincentwei1021&#x2F;anything2explainer</a></td>
+<td>将主题或文章制作成带配音、字幕和章节进度条的 MG 科普视频。</td>
+</tr>
 </tbody></table>
+<h3 id="anything2explainer：代码生成科普视频"><a href="#anything2explainer：代码生成科普视频" class="headerlink" title="anything2explainer：代码生成科普视频"></a>anything2explainer：代码生成科普视频</h3><p><a target="_blank" rel="noopener" href="https://github.com/Vincentwei1021/anything2explainer">anything2explainer</a> 是 Claude Code &#x2F; Codex Skill。输入主题、语言和时长后，它会生成黑底 MG 风格的 1280×720 视频；画面使用 React + TypeScript 编写，并由 <a target="_blank" rel="noopener" href="https://www.remotion.dev/">Remotion</a> 按帧拼接和渲染。中文默认可使用 edge-tts <code>zh-CN-YunxiNeural</code> 配音。</p>
+<p>基本工作流：</p>
+<ol>
+<li>从模板建立 Remotion 项目并安装依赖。</li>
+<li>调研主题，核对事实、数字和引用来源。</li>
+<li>编写解说词；用户确认后锁定文案。</li>
+<li>生成 TTS 配音，根据词语时间边界换算成 30fps 时间轴和字幕。</li>
+<li>为每句解说设计一个镜头，整理完整分镜表。</li>
+<li>用多个构建组编写 Remotion 镜头组件，并先渲染前 30 秒样片确认风格。</li>
+<li>完成剩余镜头，检查字幕安全区、构图、动画节奏和音画同步。</li>
+<li>Remotion 逐帧生成画面，再通过 FFmpeg 编码为 H.264 + AAC 的 MP4。</li>
+</ol>
+<p>主要产物：调研文档、解说词、配音、帧级时间轴、分镜表、Remotion 源码、QC 报告和最终 MP4。它使用代码绘制画面，不依赖传统剪辑软件或文生视频模型，适合批量生成统一风格的技术科普内容。</p>
 <h1 id="LLM"><a href="#LLM" class="headerlink" title="LLM"></a>LLM</h1><p><a target="_blank" rel="noopener" href="https://www.kdocs.cn/l/caFUbVZSt40Q?f=201&share_style=h5_card">DeepSeek：从入门到精通</a></p>
 <h2 id="Deepseek-本地部署"><a href="#Deepseek-本地部署" class="headerlink" title="Deepseek 本地部署"></a>Deepseek 本地部署</h2><h3 id="ollama-Deepseek"><a href="#ollama-Deepseek" class="headerlink" title="ollama + Deepseek"></a>ollama + Deepseek</h3><ol>
 <li>下载并安装ollama： <a target="_blank" rel="noopener" href="https://ollama.com/download">https://ollama.com/download</a> （关闭开机自启动：C:\Users\Arrow\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup 删除快捷方式）</li>
@@ -724,7 +907,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AI-Agent"><span class="nav-number">1.</span> <span class="nav-text">AI Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gemini"><span class="nav-number">1.1.</span> <span class="nav-text">Gemini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Skills"><span class="nav-number">1.2.</span> <span class="nav-text">Skills</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E4%B8%8E%E6%8A%80%E8%83%BD%E5%8F%91%E7%8E%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">搜索与技能发现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91"><span class="nav-number">1.2.2.</span> <span class="nav-text">软件开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E8%A7%89%E4%B8%8E%E8%A7%86%E9%A2%91%E5%88%9B%E4%BD%9C"><span class="nav-number">1.2.3.</span> <span class="nav-text">视觉与视频创作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LLM"><span class="nav-number">2.</span> <span class="nav-text">LLM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deepseek-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2"><span class="nav-number">2.1.</span> <span class="nav-text">Deepseek 本地部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ollama-Deepseek"><span class="nav-number">2.1.1.</span> <span class="nav-text">ollama + Deepseek</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-WebUI-Web%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.1.2.</span> <span class="nav-text">Open WebUI Web页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-AnythingLLM-%E8%87%AA%E5%BB%BA%E7%9F%A5%E8%AF%86%E5%BA%93"><span class="nav-number">2.1.3.</span> <span class="nav-text">Deepseek + AnythingLLM 自建知识库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-API-SillyTavern"><span class="nav-number">2.1.4.</span> <span class="nav-text">Deepseek API + SillyTavern</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenWebUI-Ollama-Container-%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2"><span class="nav-number">2.2.</span> <span class="nav-text">OpenWebUI + Ollama Container 打包部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Qwen3-8-27B"><span class="nav-number">2.2.1.</span> <span class="nav-text">Qwen3.8 27B</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Roo-Code-AI-agent"><span class="nav-number">2.2.2.</span> <span class="nav-text">Roo Code AI agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chat-on-wechat"><span class="nav-number">2.3.</span> <span class="nav-text">chat-on-wechat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AI%E9%9F%B3%E8%A7%86%E9%A2%91"><span class="nav-number">3.</span> <span class="nav-text">AI音视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%90%AF%E5%8A%A8"><span class="nav-number">3.1.</span> <span class="nav-text">1. 环境与启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9B%BE%E5%83%8F%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">3.2.</span> <span class="nav-text">2. 图像工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Krea-2-Turbo-%E6%96%87%E7%94%9F%E5%9B%BE"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.1 Krea 2 Turbo 文生图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Krea-2-%E4%B8%89%E5%9B%BE%E5%8F%82%E8%80%83%E7%BC%96%E8%BE%91"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2 Krea 2 三图参考编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-SD1-5-%E5%B1%80%E9%83%A8%E9%87%8D%E7%BB%98"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.3 SD1.5 局部重绘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-SD1-5-Scribble-ControlNet"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.4 SD1.5 Scribble ControlNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-RealESRGAN-%E5%9B%BE%E7%89%87-2%E5%80%8D%E6%94%BE%E5%A4%A7"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.5 RealESRGAN 图片 2倍放大</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%A7%86%E9%A2%91%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">3.3.</span> <span class="nav-text">3. 视频工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-MiniMax-H3-%E5%85%B1%E7%94%A8%E7%BB%93%E6%9E%84"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.1 MiniMax H3 共用结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-H3-%E6%8F%90%E7%A4%BA%E8%AF%8D-Skill-%E4%B8%8E%E6%A8%A1%E6%9D%BF"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.2 H3 提示词 Skill 与模板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#I2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E9%A6%96%E5%B8%A7%E2%86%92%E5%8A%A8%E4%BD%9C%E5%8F%91%E5%B1%95%EF%BC%89"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">I2VA 模板（首帧→动作发展）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FL2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E9%A6%96%E5%B8%A7%E2%86%92%E5%8F%AF%E8%A7%82%E5%AF%9F%E8%BF%87%E7%A8%8B%E2%86%92%E5%B0%BE%E5%B8%A7%EF%BC%89"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">FL2VA 模板（首帧→可观察过程→尾帧）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ref2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E5%A4%9A%E5%8F%82%E8%80%83%E5%85%AD%E6%AE%B5%E5%BC%8F%EF%BC%89"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">Ref2VA 模板（多参考六段式）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-I2VA%EF%BC%9A%E5%8D%95%E5%BC%A0%E9%A6%96%E5%B8%A7%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3 I2VA：单张首帧生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-FL2VA%EF%BC%9A%E9%A6%96%E5%B0%BE%E5%B8%A7%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.4 FL2VA：首尾帧生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-Ref2VA%EF%BC%9A%E4%B8%89%E5%9B%BE%E5%A4%9A%E5%8F%82%E8%80%83%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.5.</span> <span class="nav-text">3.5 Ref2VA：三图多参考生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-RIFE-%E8%A1%A5%E5%B8%A7%E4%B8%8E%E5%8F%AF%E9%80%89%E8%B6%85%E5%88%86"><span class="nav-number">3.3.6.</span> <span class="nav-text">3.6 RIFE 补帧与可选超分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%BD%93%E5%89%8D%E6%A8%A1%E5%9E%8B%E6%B8%85%E5%8D%95"><span class="nav-number">3.4.</span> <span class="nav-text">4. 当前模型清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86%E5%BF%85%E9%9C%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.1.</span> <span class="nav-text">图像与后处理必需模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MiniMax-H3-%E5%BF%85%E9%9C%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.2.</span> <span class="nav-text">MiniMax H3 必需模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%9C%80%E5%B0%8F%E8%B0%83%E5%8F%82%E4%B8%8E%E5%A4%8D%E7%8E%B0%E8%A7%84%E5%88%99"><span class="nav-number">3.5.</span> <span class="nav-text">5. 最小调参与复现规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepLive"><span class="nav-number">3.6.</span> <span class="nav-text">DeepLive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F5-TTS"><span class="nav-number">3.7.</span> <span class="nav-text">F5-TTS</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AI-Agent"><span class="nav-number">1.</span> <span class="nav-text">AI Agent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gemini"><span class="nav-number">1.1.</span> <span class="nav-text">Gemini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Codex-%E9%A3%9E%E4%B9%A6%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">Codex + 飞书自动化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装与基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E6%B6%88%E8%80%97%E6%A8%A1%E5%9E%8B-Token-%E7%9A%84%E5%8E%9F%E5%88%99"><span class="nav-number">1.2.3.</span> <span class="nav-text">不消耗模型 Token 的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Codex-%E9%A2%9D%E5%BA%A6%E6%8F%90%E9%86%92"><span class="nav-number">1.2.4.</span> <span class="nav-text">Codex 额度提醒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E6%9C%BA%E6%8F%90%E9%86%92"><span class="nav-number">1.2.5.</span> <span class="nav-text">关机提醒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E6%9C%BA%E5%99%A8%E9%87%8D%E5%BB%BA%E6%B8%85%E5%8D%95"><span class="nav-number">1.2.6.</span> <span class="nav-text">新机器重建清单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Skills"><span class="nav-number">1.3.</span> <span class="nav-text">Skills</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-Skill"><span class="nav-number">1.3.1.</span> <span class="nav-text">自定义 Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Codex-%E7%B3%BB%E7%BB%9F%E8%83%BD%E5%8A%9B"><span class="nav-number">1.3.2.</span> <span class="nav-text">Codex 系统能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E4%B8%8E%E6%8A%80%E8%83%BD%E5%8F%91%E7%8E%B0"><span class="nav-number">1.3.3.</span> <span class="nav-text">搜索与技能发现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91"><span class="nav-number">1.3.4.</span> <span class="nav-text">软件开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%81%8C%E4%B8%8E%E9%9D%A2%E8%AF%95"><span class="nav-number">1.3.5.</span> <span class="nav-text">求职与面试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E8%A7%89%E4%B8%8E%E8%A7%86%E9%A2%91%E5%88%9B%E4%BD%9C"><span class="nav-number">1.3.6.</span> <span class="nav-text">视觉与视频创作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anything2explainer%EF%BC%9A%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E7%A7%91%E6%99%AE%E8%A7%86%E9%A2%91"><span class="nav-number">1.3.7.</span> <span class="nav-text">anything2explainer：代码生成科普视频</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LLM"><span class="nav-number">2.</span> <span class="nav-text">LLM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deepseek-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2"><span class="nav-number">2.1.</span> <span class="nav-text">Deepseek 本地部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ollama-Deepseek"><span class="nav-number">2.1.1.</span> <span class="nav-text">ollama + Deepseek</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-WebUI-Web%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.1.2.</span> <span class="nav-text">Open WebUI Web页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-AnythingLLM-%E8%87%AA%E5%BB%BA%E7%9F%A5%E8%AF%86%E5%BA%93"><span class="nav-number">2.1.3.</span> <span class="nav-text">Deepseek + AnythingLLM 自建知识库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepseek-API-SillyTavern"><span class="nav-number">2.1.4.</span> <span class="nav-text">Deepseek API + SillyTavern</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenWebUI-Ollama-Container-%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2"><span class="nav-number">2.2.</span> <span class="nav-text">OpenWebUI + Ollama Container 打包部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Qwen3-8-27B"><span class="nav-number">2.2.1.</span> <span class="nav-text">Qwen3.8 27B</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Roo-Code-AI-agent"><span class="nav-number">2.2.2.</span> <span class="nav-text">Roo Code AI agent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chat-on-wechat"><span class="nav-number">2.3.</span> <span class="nav-text">chat-on-wechat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AI%E9%9F%B3%E8%A7%86%E9%A2%91"><span class="nav-number">3.</span> <span class="nav-text">AI音视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%90%AF%E5%8A%A8"><span class="nav-number">3.1.</span> <span class="nav-text">1. 环境与启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9B%BE%E5%83%8F%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">3.2.</span> <span class="nav-text">2. 图像工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Krea-2-Turbo-%E6%96%87%E7%94%9F%E5%9B%BE"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.1 Krea 2 Turbo 文生图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Krea-2-%E4%B8%89%E5%9B%BE%E5%8F%82%E8%80%83%E7%BC%96%E8%BE%91"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2 Krea 2 三图参考编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-SD1-5-%E5%B1%80%E9%83%A8%E9%87%8D%E7%BB%98"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.3 SD1.5 局部重绘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-SD1-5-Scribble-ControlNet"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.4 SD1.5 Scribble ControlNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-RealESRGAN-%E5%9B%BE%E7%89%87-2%E5%80%8D%E6%94%BE%E5%A4%A7"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.5 RealESRGAN 图片 2倍放大</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%A7%86%E9%A2%91%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">3.3.</span> <span class="nav-text">3. 视频工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-MiniMax-H3-%E5%85%B1%E7%94%A8%E7%BB%93%E6%9E%84"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.1 MiniMax H3 共用结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-H3-%E6%8F%90%E7%A4%BA%E8%AF%8D-Skill-%E4%B8%8E%E6%A8%A1%E6%9D%BF"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.2 H3 提示词 Skill 与模板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#I2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E9%A6%96%E5%B8%A7%E2%86%92%E5%8A%A8%E4%BD%9C%E5%8F%91%E5%B1%95%EF%BC%89"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">I2VA 模板（首帧→动作发展）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FL2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E9%A6%96%E5%B8%A7%E2%86%92%E5%8F%AF%E8%A7%82%E5%AF%9F%E8%BF%87%E7%A8%8B%E2%86%92%E5%B0%BE%E5%B8%A7%EF%BC%89"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">FL2VA 模板（首帧→可观察过程→尾帧）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ref2VA-%E6%A8%A1%E6%9D%BF%EF%BC%88%E5%A4%9A%E5%8F%82%E8%80%83%E5%85%AD%E6%AE%B5%E5%BC%8F%EF%BC%89"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">Ref2VA 模板（多参考六段式）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-I2VA%EF%BC%9A%E5%8D%95%E5%BC%A0%E9%A6%96%E5%B8%A7%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3 I2VA：单张首帧生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-FL2VA%EF%BC%9A%E9%A6%96%E5%B0%BE%E5%B8%A7%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.4 FL2VA：首尾帧生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-Ref2VA%EF%BC%9A%E4%B8%89%E5%9B%BE%E5%A4%9A%E5%8F%82%E8%80%83%E7%94%9F%E8%A7%86%E9%A2%91"><span class="nav-number">3.3.5.</span> <span class="nav-text">3.5 Ref2VA：三图多参考生视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-RIFE-%E8%A1%A5%E5%B8%A7%E4%B8%8E%E5%8F%AF%E9%80%89%E8%B6%85%E5%88%86"><span class="nav-number">3.3.6.</span> <span class="nav-text">3.6 RIFE 补帧与可选超分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%BD%93%E5%89%8D%E6%A8%A1%E5%9E%8B%E6%B8%85%E5%8D%95"><span class="nav-number">3.4.</span> <span class="nav-text">4. 当前模型清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86%E5%BF%85%E9%9C%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.1.</span> <span class="nav-text">图像与后处理必需模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MiniMax-H3-%E5%BF%85%E9%9C%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.2.</span> <span class="nav-text">MiniMax H3 必需模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%9C%80%E5%B0%8F%E8%B0%83%E5%8F%82%E4%B8%8E%E5%A4%8D%E7%8E%B0%E8%A7%84%E5%88%99"><span class="nav-number">3.5.</span> <span class="nav-text">5. 最小调参与复现规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepLive"><span class="nav-number">3.6.</span> <span class="nav-text">DeepLive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F5-TTS"><span class="nav-number">3.7.</span> <span class="nav-text">F5-TTS</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -898,13 +1081,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">157k</span>
+    <span title="站点总字数">161k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">9:32</span>
+    <span title="站点阅读时长">9:45</span>
 </div>
 
 <div>
