@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff04da;
+  background: #9004ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3039,6 +3039,19 @@ mjx-container + br {
 }
 .search-result-list li > a {
   display: block;
+}
+.search-result-article {
+  margin-top: 4px;
+}
+.search-result-article summary {
+  color: #999;
+  cursor: pointer;
+  font-size: 0.8125em;
+  padding: 4px 0;
+  user-select: none;
+}
+.search-result-article summary:hover {
+  color: var(--link-hover-color);
 }
 .search-history {
   display: flex;
