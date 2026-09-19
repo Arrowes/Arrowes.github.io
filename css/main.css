@@ -1246,7 +1246,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #a429ff;
+  background: #3bcd9a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3041,17 +3041,40 @@ mjx-container + br {
   display: block;
 }
 .search-result-article {
-  margin-top: 4px;
+  margin-top: 8px;
 }
-.search-result-article summary {
+.search-result-header {
+  align-items: center;
+  background: var(--content-bg-color);
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding: 7px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.search-result-header::-webkit-details-marker {
+  display: none;
+}
+.search-result-header::after {
   color: #999;
+  content: "\25B6";
   cursor: pointer;
   font-size: 0.8125em;
-  padding: 4px 0;
+  margin-left: auto;
+  padding: 4px;
   user-select: none;
 }
-.search-result-article summary:hover {
+.search-result-header:hover::after {
   color: var(--link-hover-color);
+}
+.search-result-header .search-result-title {
+  flex: 1;
+  min-width: 0;
+}
+.search-result-article[open] > .search-result-header::after {
+  content: "\25BC";
 }
 .search-history {
   display: flex;
