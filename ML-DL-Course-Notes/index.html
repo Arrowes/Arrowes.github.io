@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png">
+  <link rel="mask-icon" href="/images/arrow.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=20260919">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wangyujie.space","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇文章把两份课程笔记整理为一条从经典机器学习到深度学习与计算机视觉的复习路线。原稿中的截图和手写内容已尽量转写为文字、LaTeX、表格与 Mermaid 流程图。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习与深度学习课程笔记">
+<meta property="og:url" content="https://wangyujie.space/ML-DL-Course-Notes/index.html">
+<meta property="og:site_name" content="Arrow的笔记本">
+<meta property="og:description" content="这篇文章把两份课程笔记整理为一条从经典机器学习到深度学习与计算机视觉的复习路线。原稿中的截图和手写内容已尽量转写为文字、LaTeX、表格与 Mermaid 流程图。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-27T08:04:01.000Z">
+<meta property="article:modified_time" content="2026-09-21T16:00:00.000Z">
+<meta property="article:author" content="Arrow">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="Andrew Ng">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wangyujie.space/ML-DL-Course-Notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>机器学习与深度学习课程笔记 | Arrow的笔记本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Arrow的笔记本" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Arrow的笔记本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <a>
+        <img class="custom-logo-image" src="/images/arrow.png" alt="Arrow的笔记本">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="https://wangyujie.space/pintree/" rel="section"><i class="fa fa-sitemap fa-fw"></i>书签</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <div class="search-options" aria-label="搜索选项">
+    <button class="search-option search-option-case" type="button" aria-pressed="false" title="区分大小写" aria-label="区分大小写">
+      Aa
+    </button>
+    <button class="search-option search-option-whole" type="button" aria-pressed="false" title="完整选词" aria-label="完整选词">
+      W
+    </button>
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-history" aria-label="最近搜索"></div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wangyujie.space/ML-DL-Course-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Arrow">
+      <meta itemprop="description" content="记录一些杂七杂八的东西">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Arrow的笔记本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习与深度学习课程笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-27 16:04:01" itemprop="dateCreated datePublished" datetime="2022-11-27T16:04:01+08:00">2022-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-22 00:00:00" itemprop="dateModified" datetime="2026-09-22T00:00:00+08:00">2026-09-22</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>48 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>这篇文章把两份课程笔记整理为一条从经典机器学习到深度学习与计算机视觉的复习路线。原稿中的截图和手写内容已尽量转写为文字、LaTeX、表格与 Mermaid 流程图。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>文中的 <code>p.</code> 页码对应两份原始 PDF，便于回查手写推导；正文可以独立阅读，不依赖原 PDF 或图片资源。</p>
+</blockquote>
+<h1 id="学习路线与导航"><a href="#学习路线与导航" class="headerlink" title="学习路线与导航"></a>学习路线与导航</h1><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>内容</th>
+<th>重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><a href="#ml-notes">机器学习基础</a></td>
+<td>回归、分类、正则化、模型诊断</td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="#ml-notes">经典机器学习算法</a></td>
+<td>SVM、树与集成学习、聚类、PCA、推荐系统</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="#ml-workflow">可信实验与评估</a></td>
+<td>防止泄漏、Pipeline、指标、校准、复现</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="#dl-notes">神经网络基础</a></td>
+<td>向量化、前向&#x2F;反向传播、初始化</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="#dl-notes">深层网络训练</a></td>
+<td>正则化、优化器、BatchNorm、项目策略</td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="#dl-notes">计算机视觉</a></td>
+<td>CNN、ResNet、Inception、目标检测、人脸与风格迁移</td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="#sequence-models">序列模型</a></td>
+<td>RNN、GRU&#x2F;LSTM、词向量、Seq2Seq、Attention</td>
+</tr>
+</tbody></table>
+<p>配套阅读：<a href="/DL/">深度学习概念笔记</a>、<a href="/Pytorch/">PyTorch</a>、<a href="/DLtrain/">训练经验</a>、<a href="/DLdeploy/">部署与量化</a>。本文侧重 Andrew Ng 课程体系和公式复习，配套文章侧重专题原理、API 与工程实践。</p>
+<pre class="mermaid">flowchart LR
+    A[线性/逻辑回归] --> B[正则化与模型诊断]
+    B --> C[经典机器学习算法]
+    C --> D[浅层与深层神经网络]
+    D --> E[训练优化与项目策略]
+    E --> F[卷积网络与视觉任务]
+    F --> G[序列模型与 Attention]</pre>
+
+<p><span id="ml-notes"></span></p>
+<h1 id="第一部分：机器学习"><a href="#第一部分：机器学习" class="headerlink" title="第一部分：机器学习"></a>第一部分：机器学习</h1><h2 id="记号约定"><a href="#记号约定" class="headerlink" title="记号约定"></a>记号约定</h2><table>
+<thead>
+<tr>
+<th>记号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$m$</td>
+<td>训练样本数</td>
+</tr>
+<tr>
+<td>$n$</td>
+<td>特征数</td>
+</tr>
+<tr>
+<td>$x^{(i)}$</td>
+<td>第 $i$ 个样本，通常令 $x_0^{(i)}&#x3D;1$</td>
+</tr>
+<tr>
+<td>$y^{(i)}$</td>
+<td>第 $i$ 个标签</td>
+</tr>
+<tr>
+<td>$\theta$</td>
+<td>模型参数</td>
+</tr>
+<tr>
+<td>$h_\theta(x)$</td>
+<td>假设函数&#x2F;预测函数</td>
+</tr>
+<tr>
+<td>$J(\theta)$</td>
+<td>代价函数</td>
+</tr>
+<tr>
+<td>$\alpha$</td>
+<td>学习率</td>
+</tr>
+<tr>
+<td>$\lambda$</td>
+<td>正则化强度</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="1-引言（p-3–4）"><a href="#1-引言（p-3–4）" class="headerlink" title="1. 引言（p.3–4）"></a>1. 引言（p.3–4）</h2><p>Tom Mitchell 的定义：若程序在任务 $T$ 上的表现（用指标 $P$ 衡量）随经验 $E$ 增加而提高，则称程序从经验中学习。</p>
+<h3 id="1-1-监督学习"><a href="#1-1-监督学习" class="headerlink" title="1.1 监督学习"></a>1.1 监督学习</h3><p>训练数据包含输入 $x$ 和标签 $y$。</p>
+<ul>
+<li><strong>回归</strong>：预测连续值，如房价。</li>
+<li><strong>分类</strong>：预测离散类别，如肿瘤良性&#x2F;恶性。</li>
+</ul>
+<h3 id="1-2-无监督学习"><a href="#1-2-无监督学习" class="headerlink" title="1.2 无监督学习"></a>1.2 无监督学习</h3><p>训练数据没有标签，算法寻找潜在结构。</p>
+<ul>
+<li><strong>聚类</strong>：把相似样本分组，如新闻主题聚合。</li>
+<li><strong>信号分离</strong>：从混合信号中恢复独立源（原稿称“鸡尾酒会问题”）。</li>
+</ul>
+<pre class="mermaid">flowchart LR
+    A[机器学习任务] --> B[监督学习]
+    A --> C[无监督学习]
+    B --> D[回归：连续值]
+    B --> E[分类：离散类别]
+    C --> F[聚类：发现分组]
+    C --> G[降维/信号分离]</pre>
+
+<hr>
+<h2 id="2-单变量线性回归（p-5–10）"><a href="#2-单变量线性回归（p-5–10）" class="headerlink" title="2. 单变量线性回归（p.5–10）"></a>2. 单变量线性回归（p.5–10）</h2><h3 id="2-1-模型与代价函数"><a href="#2-1-模型与代价函数" class="headerlink" title="2.1 模型与代价函数"></a>2.1 模型与代价函数</h3><p>单特征线性模型：</p>
+<p>$$
+h_\theta(x)=\theta_0+\theta_1x
+$$</p>
+<p>平方误差代价：</p>
+<p>$$
+J(\theta_0,\theta_1)=\frac{1}{2m}\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2
+$$</p>
+<p>系数 $1/2$ 使求导后的常数消掉，不影响最优解。等高线图上越靠近中心，$J$ 越小。</p>
+<h3 id="2-2-梯度下降"><a href="#2-2-梯度下降" class="headerlink" title="2.2 梯度下降"></a>2.2 梯度下降</h3><p>同步更新所有参数：</p>
+<p>$$
+\theta_j \leftarrow \theta_j-\alpha\frac{\partial J(\theta)}{\partial\theta_j},\quad j=0,1
+$$</p>
+<p>在线性回归中：</p>
+<p>$$
+\frac{\partial J}{\partial\theta_j}=\frac{1}{m}\sum_{i=1}^{m}
+\left(h_\theta(x^{(i)})-y^{(i)}\right)x_j^{(i)}
+$$</p>
+<p>“批量”梯度下降指每次参数更新都使用全部 $m$ 个样本。线性回归的平方误差是凸函数，因此不存在需要逃离的局部极小值。</p>
+<pre class="mermaid">flowchart LR
+    A[初始化参数] --> B[计算预测]
+    B --> C[计算代价与梯度]
+    C --> D[同步更新参数]
+    D --> E{代价收敛?}
+    E -- 否 --> B
+    E -- 是 --> F[输出模型]</pre>
+
+<p><strong>检查要点</strong>：</p>
+<ol>
+<li>更新必须基于同一轮旧参数，不能先更新 $\theta_0$ 再用新值计算 $\theta_1$。</li>
+<li>$\alpha$ 太小收敛慢，太大可能震荡或发散。</li>
+<li>迭代时观察 $J(\theta)$ 是否持续下降。</li>
+</ol>
+<hr>
+<h2 id="3-线性代数回顾（p-11）"><a href="#3-线性代数回顾（p-11）" class="headerlink" title="3. 线性代数回顾（p.11）"></a>3. 线性代数回顾（p.11）</h2><ul>
+<li>向量可看作 $n\times1$ 矩阵；矩阵 $A\in\mathbb R^{m\times n}$。</li>
+<li>只有相同形状的矩阵才能逐元素加减。</li>
+<li>若 $A\in\mathbb R^{m\times n}$、$B\in\mathbb R^{n\times p}$，则 $AB\in\mathbb R^{m\times p}$。</li>
+<li>矩阵乘法一般不满足交换律：$AB\ne BA$；满足结合律：$(AB)C=A(BC)$。</li>
+<li>$(AB)^T=B^TA^T$。</li>
+<li>方阵 $A$ 可逆时 $A^{-1}A&#x3D;I$；奇异矩阵没有逆。实践中优先使用线性方程求解器，不显式计算逆矩阵。</li>
+</ul>
+<hr>
+<h2 id="4-多变量线性回归（p-12–16）"><a href="#4-多变量线性回归（p-12–16）" class="headerlink" title="4. 多变量线性回归（p.12–16）"></a>4. 多变量线性回归（p.12–16）</h2><h3 id="4-1-向量化模型"><a href="#4-1-向量化模型" class="headerlink" title="4.1 向量化模型"></a>4.1 向量化模型</h3><p>$$
+h_\theta(x)=\theta^Tx
+$$</p>
+<p>矩阵形式：$X\in\mathbb R^{m\times(n+1)}$，预测为 $X\theta$。</p>
+<h3 id="4-2-特征缩放与学习率"><a href="#4-2-特征缩放与学习率" class="headerlink" title="4.2 特征缩放与学习率"></a>4.2 特征缩放与学习率</h3><p>不同特征尺度相差很大时，代价函数等高线狭长，梯度下降会来回摆动。常用标准化：</p>
+<p>$$
+x_j\leftarrow\frac{x_j-\mu_j}{s_j}
+$$</p>
+<p>$s_j$ 可取标准差或范围。原稿建议按数量级尝试学习率，如 $0.01,0.03,0.1,0.3,1$，并用学习曲线判断。</p>
+<h3 id="4-3-多项式特征"><a href="#4-3-多项式特征" class="headerlink" title="4.3 多项式特征"></a>4.3 多项式特征</h3><p>通过 $x,x^2,x^3$ 或交叉项构造非线性边界。新增高次项后尤其需要特征缩放，也要警惕过拟合。</p>
+<h3 id="4-4-正规方程"><a href="#4-4-正规方程" class="headerlink" title="4.4 正规方程"></a>4.4 正规方程</h3><p>$$
+\theta=(X^TX)^{-1}X^Ty
+$$</p>
+<p>它不需要选择学习率，但计算和存储成本随特征数快速增加。$X^TX$ 不可逆通常来自冗余特征或特征数大于样本数；可删除线性相关特征，或使用伪逆&#x2F;正则化求解。</p>
+<hr>
+<h2 id="6-逻辑回归（p-17–21）"><a href="#6-逻辑回归（p-17–21）" class="headerlink" title="6. 逻辑回归（p.17–21）"></a>6. 逻辑回归（p.17–21）</h2><blockquote>
+<p>原 PDF 目录从第 4 章直接跳到第 6 章，本版保留原编号。</p>
+</blockquote>
+<h3 id="6-1-假设函数与概率解释"><a href="#6-1-假设函数与概率解释" class="headerlink" title="6.1 假设函数与概率解释"></a>6.1 假设函数与概率解释</h3><p>$$
+h_\theta(x)=\sigma(\theta^Tx),\qquad
+\sigma(z)=\frac{1}{1+e^{-z}}
+$$</p>
+<p>$h_\theta(x)$ 可解释为 $P(y=1\mid x;\theta)$。阈值为 0.5 时，$\theta^Tx\ge0$ 判为正类，$\theta^Tx=0$ 是决策边界。</p>
+<h3 id="6-2-交叉熵代价"><a href="#6-2-交叉熵代价" class="headerlink" title="6.2 交叉熵代价"></a>6.2 交叉熵代价</h3><p>单样本损失：</p>
+<p>$$
+\operatorname{Cost}(h,y)=-y\log h-(1-y)\log(1-h)
+$$</p>
+<p>总体代价：</p>
+<p>$$
+J(\theta)=-\frac1m\sum_{i=1}^m\left[y^{(i)}\log h_\theta(x^{(i)})+(1-y^{(i)})\log(1-h_\theta(x^{(i)}))\right]
+$$</p>
+<p>梯度形式与线性回归相似，但 $h_\theta$ 已换成 sigmoid。该目标是凸函数。</p>
+<h3 id="6-3-高级优化与多分类"><a href="#6-3-高级优化与多分类" class="headerlink" title="6.3 高级优化与多分类"></a>6.3 高级优化与多分类</h3><p>共轭梯度、BFGS、L-BFGS 等算法通常比手写梯度下降更快，也更少需要人工选学习率。多分类可用 <strong>one-vs-rest</strong>：每个类别训练一个二分类器，预测时选概率最高的类别。</p>
+<hr>
+<h2 id="7-正则化（p-22–24）"><a href="#7-正则化（p-22–24）" class="headerlink" title="7. 正则化（p.22–24）"></a>7. 正则化（p.22–24）</h2><p>过拟合表现为训练误差很低、对新数据泛化差。L2 正则化线性回归：</p>
+<p>$$
+J(\theta)=\frac{1}{2m}\sum_i(h_\theta(x^{(i)})-y^{(i)})^2+
+\frac{\lambda}{2m}\sum_{j=1}^{n}\theta_j^2
+$$</p>
+<p>通常不惩罚偏置 $\theta_0$。对 $j\ge1$ 的更新可写为：</p>
+<p>$$
+\theta_j\leftarrow\theta_j\left(1-\alpha\frac{\lambda}{m}\right)
+-\alpha\frac1m\sum_i(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)}
+$$</p>
+<ul>
+<li>$\lambda$ 太小：高方差、易过拟合。</li>
+<li>$\lambda$ 太大：参数被压得过小，高偏差、欠拟合。</li>
+<li>用验证集选择 $\lambda$，不要用测试集调参。</li>
+</ul>
+<p>逻辑回归同样在交叉熵后加入参数平方和。</p>
+<hr>
+<h2 id="8-神经网络：表示（p-26–30）"><a href="#8-神经网络：表示（p-26–30）" class="headerlink" title="8. 神经网络：表示（p.26–30）"></a>8. 神经网络：表示（p.26–30）</h2><p>当输入维度高、需要复杂非线性特征组合时，显式构造所有多项式项会迅速膨胀。神经网络让隐藏层自行学习中间表示。</p>
+<p>第 $l$ 层：</p>
+<p>$$
+z^{[l]}=\Theta^{[l-1]}a^{[l-1]},\qquad a^{[l]}=g(z^{[l]})
+$$</p>
+<p>其中 $a^{[1]}=x$；偏置可并入激活向量。由输入层向输出层计算称为前向传播。</p>
+<h3 id="逻辑门直观理解"><a href="#逻辑门直观理解" class="headerlink" title="逻辑门直观理解"></a>逻辑门直观理解</h3><p>通过不同权重和偏置，单元可以模拟 AND、OR、NOT；组合隐藏单元可表示 XOR。这说明多层网络能逐层组合简单特征，形成复杂决策边界。</p>
+<p>多分类输出通常采用 one-hot 标签和 softmax，使输出维度等于类别数。</p>
+<hr>
+<h2 id="9-神经网络的学习（p-31–39）"><a href="#9-神经网络的学习（p-31–39）" class="headerlink" title="9. 神经网络的学习（p.31–39）"></a>9. 神经网络的学习（p.31–39）</h2><h3 id="9-1-代价函数"><a href="#9-1-代价函数" class="headerlink" title="9.1 代价函数"></a>9.1 代价函数</h3><p>多分类交叉熵配合 L2 正则化：</p>
+<p>$$
+J(\Theta)=-\frac1m\sum_{i=1}^m\sum_{k=1}^K
+\left[y_k^{(i)}\log h_k^{(i)}+(1-y_k^{(i)})\log(1-h_k^{(i)})\right]
++\frac{\lambda}{2m}\sum_l\sum_{r,c}(\Theta_{r,c}^{[l]})^2
+$$</p>
+<p>偏置列通常不正则化。</p>
+<h3 id="9-2-反向传播"><a href="#9-2-反向传播" class="headerlink" title="9.2 反向传播"></a>9.2 反向传播</h3><ol>
+<li>前向传播并缓存 $z^{[l]},a^{[l]}$。</li>
+<li>输出层误差：$\delta^{[L]}=a^{[L]}-y$。</li>
+<li>向前一层传播：</li>
+</ol>
+<p>$$
+\delta^{[l]}=(\Theta^{[l]})^T\delta^{[l+1]}\odot g'(z^{[l]})
+$$</p>
+<ol start="4">
+<li>累积梯度并除以 $m$；非偏置参数加入正则化项。</li>
+</ol>
+<p>反向传播本质是链式法则的动态规划：复用中间结果，避免重复求导。</p>
+<h3 id="9-3-梯度检验"><a href="#9-3-梯度检验" class="headerlink" title="9.3 梯度检验"></a>9.3 梯度检验</h3><p>数值近似：</p>
+<p>$$
+\frac{\partial J}{\partial\theta_j}\approx
+\frac{J(\theta+\varepsilon e_j)-J(\theta-\varepsilon e_j)}{2\varepsilon}
+$$</p>
+<p>比较数值梯度与反向传播梯度的相对误差。梯度检验计算昂贵，只在调试时使用，通过后关闭。</p>
+<h3 id="9-4-随机初始化"><a href="#9-4-随机初始化" class="headerlink" title="9.4 随机初始化"></a>9.4 随机初始化</h3><p>所有权重初始化为 0 会导致同层神经元对称、学到相同特征。应使用小随机数或 Xavier&#x2F;He 初始化；偏置可初始化为 0。</p>
+<hr>
+<h2 id="10-应用机器学习的建议（p-40–47）"><a href="#10-应用机器学习的建议（p-40–47）" class="headerlink" title="10. 应用机器学习的建议（p.40–47）"></a>10. 应用机器学习的建议（p.40–47）</h2><h3 id="10-1-数据集划分"><a href="#10-1-数据集划分" class="headerlink" title="10.1 数据集划分"></a>10.1 数据集划分</h3><ul>
+<li>训练集：拟合参数。</li>
+<li>验证集：选择模型、特征、阈值和超参数。</li>
+<li>测试集：最后一次给出无偏泛化估计。</li>
+</ul>
+<h3 id="10-2-偏差与方差"><a href="#10-2-偏差与方差" class="headerlink" title="10.2 偏差与方差"></a>10.2 偏差与方差</h3><table>
+<thead>
+<tr>
+<th>现象</th>
+<th align="right">训练误差</th>
+<th align="right">验证误差</th>
+<th>常见对策</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高偏差&#x2F;欠拟合</td>
+<td align="right">高</td>
+<td align="right">高且接近训练误差</td>
+<td>增加特征或模型容量、减小 $\lambda$</td>
+</tr>
+<tr>
+<td>高方差&#x2F;过拟合</td>
+<td align="right">低</td>
+<td align="right">明显更高</td>
+<td>增加数据、减少特征&#x2F;容量、增大 $\lambda$</td>
+</tr>
+</tbody></table>
+<h3 id="10-3-学习曲线"><a href="#10-3-学习曲线" class="headerlink" title="10.3 学习曲线"></a>10.3 学习曲线</h3><p>绘制误差随训练样本数增长的曲线：</p>
+<ul>
+<li>高偏差时两条曲线在较高误差处接近，继续加数据帮助有限。</li>
+<li>高方差时两条曲线存在间隙，增加数据往往有效。</li>
+</ul>
+<h3 id="10-4-决策顺序"><a href="#10-4-决策顺序" class="headerlink" title="10.4 决策顺序"></a>10.4 决策顺序</h3><p>先用诊断确定问题，再行动。不要默认“多收集数据”一定有效。</p>
+<ol>
+<li>高方差：更多样本、减小模型、增大正则化。</li>
+<li>高偏差：更多&#x2F;更好的特征、增大模型、减小正则化。</li>
+<li>同时检查数据泄漏、标签质量和训练&#x2F;验证分布是否一致。</li>
+</ol>
+<hr>
+<h2 id="11-机器学习系统设计（p-48–52）"><a href="#11-机器学习系统设计（p-48–52）" class="headerlink" title="11. 机器学习系统设计（p.48–52）"></a>11. 机器学习系统设计（p.48–52）</h2><h3 id="11-1-误差分析"><a href="#11-1-误差分析" class="headerlink" title="11.1 误差分析"></a>11.1 误差分析</h3><p>建立快速基线后，人工检查一批错误样本并分类计数。优先修复覆盖错误最多、成本合理的类别。对于垃圾邮件示例，可比较正文特征、路由特征、词干化和拼写变体，而不是凭直觉投入数周开发。</p>
+<h3 id="11-2-类别不平衡"><a href="#11-2-类别不平衡" class="headerlink" title="11.2 类别不平衡"></a>11.2 类别不平衡</h3><p>准确率在偏斜数据上可能误导。定义：</p>
+<p>$$
+\text{Precision}=\frac{TP}{TP+FP},\qquad
+\text{Recall}=\frac{TP}{TP+FN}
+$$</p>
+<p>$$
+F_1=2\frac{\text{Precision}\cdot\text{Recall}}
+{\text{Precision}+\text{Recall}}
+$$</p>
+<p>调高分类阈值通常提高 Precision、降低 Recall；调低阈值反之。阈值应在验证集上按业务代价选择。目标检测中 AP 衡量单类性能，mAP 是多个类别 AP 的平均。</p>
+<h3 id="11-3-数据规模"><a href="#11-3-数据规模" class="headerlink" title="11.3 数据规模"></a>11.3 数据规模</h3><p>大量数据能带来优势需要两个条件：输入包含足够信息，模型容量足够大。还要保证数据覆盖部署分布，而不是仅追求数量。</p>
+<hr>
+<h2 id="12-支持向量机（p-53–59）"><a href="#12-支持向量机（p-53–59）" class="headerlink" title="12. 支持向量机（p.53–59）"></a>12. 支持向量机（p.53–59）</h2><p>SVM 直接学习分类边界，核心是最大化分类间隔。软间隔目标可写成：</p>
+<p>$$
+\min_{w,b,\xi}\ \frac12\lVert w\rVert^2+C\sum_i\xi_i
+$$</p>
+<p>其中 $C$ 控制违反间隔的惩罚：</p>
+<ul>
+<li>$C$ 大：更重视训练误差，可能高方差。</li>
+<li>$C$ 小：允许更多误分，边界更平滑，可能高偏差。</li>
+</ul>
+<p>高斯核（RBF）：</p>
+<p>$$
+K(x,l)=\exp\left(-\frac{\lVert x-l\rVert^2}{2\sigma^2}\right)
+$$</p>
+<p>$\sigma$ 小会形成更曲折的局部边界；$\sigma$ 大会形成更平滑的边界。使用成熟库时仍需做特征缩放，并通过验证集选择 $C$ 与核参数。</p>
+<hr>
+<h2 id="补充专题：树模型与集成学习"><a href="#补充专题：树模型与集成学习" class="headerlink" title="补充专题：树模型与集成学习"></a>补充专题：树模型与集成学习</h2><p>线性模型依赖特征的加权组合，SVM 依赖间隔与核函数；树模型则不断提出“某个特征是否小于阈值”这类问题，将特征空间递归切分。它通常不要求标准化，能自然表达非线性关系和特征交互，因此常作为表格数据的强基线。</p>
+<h3 id="决策树与-CART"><a href="#决策树与-CART" class="headerlink" title="决策树与 CART"></a>决策树与 CART</h3><p>分类树选择能够最大幅度降低节点不纯度的特征和阈值。常见分类指标为：</p>
+<p>$$
+H(S)=-\sum_{k=1}^{K}p_k\log p_k,
+\qquad
+G(S)=1-\sum_{k=1}^{K}p_k^2
+$$</p>
+<p>其中 $H$ 是信息熵，$G$ 是基尼不纯度。一次划分的收益可写成：</p>
+<p>$$
+\Delta I=I(S)-\frac{|S_L|}{|S|}I(S_L)-\frac{|S_R|}{|S|}I(S_R)
+$$</p>
+<p>回归树通常选择使子节点均方误差最小的划分。叶节点输出所属样本的均值；分类树输出多数类或类别概率。</p>
+<pre class="mermaid">flowchart TD
+    A[全部训练样本] --> B{选择特征与阈值}
+    B -->|满足条件| C[左子节点]
+    B -->|不满足| D[右子节点]
+    C --> E{继续划分或停止}
+    D --> F{继续划分或停止}
+    E --> G[叶节点预测]
+    F --> H[叶节点预测]</pre>
+
+<p>树可以一直生长到完全拟合训练集，因此需要通过 <code>max_depth</code>、<code>min_samples_leaf</code>、<code>max_leaf_nodes</code> 或代价复杂度剪枝限制容量。单棵树直观、可解释，但对数据扰动敏感，方差较大。</p>
+<h3 id="Bagging-与随机森林"><a href="#Bagging-与随机森林" class="headerlink" title="Bagging 与随机森林"></a>Bagging 与随机森林</h3><p>Bagging 对训练集进行有放回抽样，独立训练多个高方差模型，然后平均预测：</p>
+<p>$$
+\hat f(x)=\frac1B\sum_{b=1}^{B}\hat f_b(x)
+$$</p>
+<p>随机森林在 Bagging 基础上，每次划分只考察随机抽取的一部分特征，以降低树之间的相关性。分类取多数投票，回归取均值。它通常具有以下特点：</p>
+<ul>
+<li>对缩放不敏感，能处理非线性和特征交互；</li>
+<li>增加树的数量主要降低方差，但会增加计算量；</li>
+<li>树深、叶节点样本数和每次候选特征数仍需验证；</li>
+<li>内置特征重要性可能偏向取值多的特征，解释时优先结合置换重要性或 SHAP。</li>
+</ul>
+<h3 id="Boosting-与梯度提升树"><a href="#Boosting-与梯度提升树" class="headerlink" title="Boosting 与梯度提升树"></a>Boosting 与梯度提升树</h3><p>Boosting 按顺序训练弱学习器，让后一个模型修正当前模型的错误。梯度提升把新树拟合到损失函数相对于当前预测的负梯度：</p>
+<p>$$
+F_t(x)=F_{t-1}(x)+\eta h_t(x)
+$$</p>
+<p>$\eta$ 是学习率，$h_t$ 是第 $t$ 棵弱树。较小学习率通常需要更多树。常见实现包括 GBDT、XGBoost、LightGBM 和 CatBoost，它们在正则化、采样、类别特征处理和系统优化上各有差异。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>主要作用</th>
+<th>优点</th>
+<th>主要风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单棵决策树</td>
+<td>递归划分空间</td>
+<td>可解释、无需缩放</td>
+<td>容易过拟合、结果不稳定</td>
+</tr>
+<tr>
+<td>随机森林</td>
+<td>并行平均多棵去相关树</td>
+<td>稳健、参数相对好调</td>
+<td>模型较大、外推能力弱</td>
+</tr>
+<tr>
+<td>梯度提升树</td>
+<td>顺序修正残差</td>
+<td>表格数据上常有很强精度</td>
+<td>参数较多，需防止过拟合</td>
+</tr>
+<tr>
+<td>线性&#x2F;逻辑回归</td>
+<td>学习全局线性关系</td>
+<td>快、可解释、可外推</td>
+<td>难以自动表达复杂交互</td>
+</tr>
+<tr>
+<td>神经网络</td>
+<td>端到端学习表征</td>
+<td>适合高维非结构化数据</td>
+<td>更依赖数据量与训练配置</td>
+</tr>
+</tbody></table>
+<p>实践中应先建立简单基线，再用交叉验证比较。数据量、缺失模式、类别特征、推理延迟和可解释性往往比“哪个模型更先进”更能决定最终选择。</p>
+<hr>
+<h2 id="13-聚类（p-61–64）"><a href="#13-聚类（p-61–64）" class="headerlink" title="13. 聚类（p.61–64）"></a>13. 聚类（p.61–64）</h2><h3 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h3><p>重复两步直至收敛：</p>
+<ol>
+<li><strong>分配</strong>：$c^{(i)}=\arg\min_k\lVert x^{(i)}-\mu_k\rVert^2$。</li>
+<li><strong>更新</strong>：$\mu_k$ 取属于第 $k$ 簇样本的均值。</li>
+</ol>
+<pre class="mermaid">flowchart LR
+    A[随机选择 K 个中心] --> B[按最近中心分配样本]
+    B --> C[按簇均值更新中心]
+    C --> D{分配是否稳定?}
+    D -- 否 --> B
+    D -- 是 --> E[输出聚类结果]</pre>
+
+<p>目标函数：</p>
+<p>$$
+J(c,\mu)=\frac1m\sum_i\lVert x^{(i)}-\mu_{c^{(i)}}\rVert^2
+$$</p>
+<p>K-means 对初始化敏感。随机选择训练样本作为初始中心，多次运行后保留 $J$ 最小的结果。簇数可结合肘部法、下游指标和业务可解释性选择；不要只看图形“像不像”。</p>
+<hr>
+<h2 id="14-降维与-PCA（p-65–72）"><a href="#14-降维与-PCA（p-65–72）" class="headerlink" title="14. 降维与 PCA（p.65–72）"></a>14. 降维与 PCA（p.65–72）</h2><p>PCA 寻找一组正交方向，使投影后的方差最大，等价于最小化投影重建误差。</p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>对每个特征做均值归一化，尺度差异明显时再除以标准差。</li>
+<li>计算协方差矩阵 $\Sigma=\frac1mX^TX$。</li>
+<li>对 $\Sigma$ 做 SVD&#x2F;特征分解。</li>
+<li>取前 $k$ 个主方向组成 $U_k$。</li>
+<li>降维：$Z=XU_k$；近似重建：$X_{approx}=ZU_k^T$。</li>
+</ol>
+<p>选择最小的 $k$，使保留方差比例达到目标（如 99%）：</p>
+<p>$$
+\frac{\sum_{j=1}^{k}s_j}{\sum_{j=1}^{n}s_j}\ge0.99
+$$</p>
+<p><strong>边界</strong>：PCA 是无监督变换，不知道哪些信息对标签重要，不能把它当作正则化的默认替代。只有在可视化、压缩或计算&#x2F;存储确有压力时使用，并在训练集上拟合变换。</p>
+<hr>
+<h2 id="15-异常检测（p-73–77）"><a href="#15-异常检测（p-73–77）" class="headerlink" title="15. 异常检测（p.73–77）"></a>15. 异常检测（p.73–77）</h2><p>对每个特征用高斯分布建模：</p>
+<p>$$
+p(x)=\prod_{j=1}^{n}\frac{1}{\sqrt{2\pi}\sigma_j}
+\exp\left(-\frac{(x_j-\mu_j)^2}{2\sigma_j^2}\right)
+$$</p>
+<p>若 $p(x)<\varepsilon$，判为异常。$\varepsilon$ 在包含异常样本的验证集上按 $F_1$ 等指标选择。</p>
+<p>适合异常检测的情形：异常种类多且不断变化，正常样本多而异常标签少。若正负类都有足够且稳定的标注，监督分类通常更合适。</p>
+<p>特征分布严重偏斜时，可做 $\log(x+c)$、平方根等变换，使其更接近高斯。多元高斯能显式建模特征相关性，但协方差矩阵估计需要更多样本且计算更贵。</p>
+<hr>
+<h2 id="16-推荐系统（p-78–82）"><a href="#16-推荐系统（p-78–82）" class="headerlink" title="16. 推荐系统（p.78–82）"></a>16. 推荐系统（p.78–82）</h2><p>令用户向量为 $\theta^{(j)}$、物品向量为 $x^{(i)}$，评分预测：</p>
+<p>$$
+\hat y^{(i,j)}=(\theta^{(j)})^Tx^{(i)}
+$$</p>
+<ul>
+<li><strong>基于内容</strong>：物品特征已知，学习用户偏好参数。</li>
+<li><strong>协同过滤</strong>：用户偏好和物品特征共同从评分矩阵中学习。</li>
+</ul>
+<p>正则化目标只在已观察评分上求和。矩阵形式 $X\Theta^T$ 是低秩矩阵分解，可用于预测缺失评分；物品向量距离还能用于寻找相似物品。</p>
+<p>均值归一化能处理“从未评分”的用户：先减去每件物品的平均分训练，预测后再加回均值。现代系统还需考虑隐式反馈、冷启动、曝光偏差、多样性与在线实验。</p>
+<hr>
+<h2 id="17-大规模机器学习（p-83–86）"><a href="#17-大规模机器学习（p-83–86）" class="headerlink" title="17. 大规模机器学习（p.83–86）"></a>17. 大规模机器学习（p.83–86）</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>每次更新使用的数据</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Batch GD</td>
+<td>全部样本</td>
+<td>稳定但单步昂贵</td>
+</tr>
+<tr>
+<td>SGD</td>
+<td>1 个样本</td>
+<td>更新快、噪声大</td>
+</tr>
+<tr>
+<td>Mini-batch GD</td>
+<td>一小批样本</td>
+<td>可向量化，是常用折中</td>
+</tr>
+</tbody></table>
+<p>训练前应打乱数据。监控一段窗口内的平均损失，而不是单个样本损失。学习率可随训练衰减，使参数从“在最小值附近震荡”逐渐转为收敛。</p>
+<p><strong>在线学习</strong>适合数据持续到来、用户偏好会变化的场景；需要同时监控概念漂移和异常输入。MapReduce&#x2F;数据并行把可加和的梯度计算拆到多台机器，再聚合更新。</p>
+<hr>
+<h2 id="18-应用实例：图片文字识别（p-87–89）"><a href="#18-应用实例：图片文字识别（p-87–89）" class="headerlink" title="18. 应用实例：图片文字识别（p.87–89）"></a>18. 应用实例：图片文字识别（p.87–89）</h2><p>典型流水线：</p>
+<ol>
+<li>文本区域检测。</li>
+<li>字符&#x2F;单词切分（现代 OCR 常直接做序列识别）。</li>
+<li>字符识别。</li>
+<li>语言模型与后处理。</li>
+</ol>
+<pre class="mermaid">flowchart LR
+    A[输入图片] --> B[文本区域检测]
+    B --> C[字符或序列识别]
+    C --> D[语言模型纠错]
+    D --> E[结构化文本]</pre>
+
+<p>滑动窗口可把固定尺寸分类器应用到整幅图像；卷积实现能够共享重叠区域计算。数据不足时可用不同字体、背景、透视、旋转、模糊等合成数据，但增强应模拟真实分布。</p>
+<p><strong>上限分析（ceiling analysis）</strong>：依次假设某个流水线模块达到完美，测量整体指标能提升多少；优先优化潜在收益最大的模块。</p>
+<hr>
+<h2 id="19-总结（p-90）"><a href="#19-总结（p-90）" class="headerlink" title="19. 总结（p.90）"></a>19. 总结（p.90）</h2><p>一套可靠的机器学习流程：</p>
+<ol>
+<li>明确任务、数据分布和指标。</li>
+<li>建立简单可运行的基线。</li>
+<li>划分训练&#x2F;验证&#x2F;测试集，防止泄漏。</li>
+<li>用向量化和数值检查保证实现正确。</li>
+<li>用偏差&#x2F;方差、学习曲线和误差分析定位瓶颈。</li>
+<li>只对已确认的瓶颈增加数据、特征或模型复杂度。</li>
+<li>在独立测试集上一次性评估，并监控部署后的漂移。</li>
+</ol>
+<hr>
+<p><span id="ml-workflow"></span></p>
+<h2 id="补充专题：从数据到可信评估"><a href="#补充专题：从数据到可信评估" class="headerlink" title="补充专题：从数据到可信评估"></a>补充专题：从数据到可信评估</h2><p>模型分数只有在数据处理和评估过程正确时才有意义。最常见的错误不是模型公式写错，而是测试信息以某种形式进入了训练过程。</p>
+<h3 id="正确的数据处理顺序"><a href="#正确的数据处理顺序" class="headerlink" title="正确的数据处理顺序"></a>正确的数据处理顺序</h3><pre class="mermaid">flowchart LR
+    A[原始数据] --> B[先划分训练/验证/测试集]
+    B --> C[仅在训练集拟合预处理器]
+    C --> D[Pipeline 串联预处理与模型]
+    D --> E[交叉验证和超参数搜索]
+    E --> F[在验证集确定阈值]
+    F --> G[测试集只做最终评估]
+    G --> H[保存模型、配置和版本]</pre>
+
+<p>以下操作都必须只利用训练折的信息进行拟合：</p>
+<ul>
+<li>缺失值填补、均值方差标准化；</li>
+<li>PCA、特征选择和异常值阈值；</li>
+<li>过采样、欠采样和目标编码；</li>
+<li>词表、类别映射及任何由全体数据统计出的特征。</li>
+</ul>
+<p>如果先在全部数据上标准化或挑选特征，再切分数据，验证分数会包含未来信息。将变换器和模型放进同一个 <code>Pipeline</code>，可以让交叉验证在每个训练折中独立拟合预处理步骤。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> StratifiedKFold, cross_validate</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> make_pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> SimpleImputer</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">model = make_pipeline(</span><br><span class="line">    SimpleImputer(strategy=<span class="string">&quot;median&quot;</span>),</span><br><span class="line">    StandardScaler(),</span><br><span class="line">    LogisticRegression(max_iter=<span class="number">1000</span>, class_weight=<span class="string">&quot;balanced&quot;</span>),</span><br><span class="line">)</span><br><span class="line">cv = StratifiedKFold(n_splits=<span class="number">5</span>, shuffle=<span class="literal">True</span>, random_state=<span class="number">42</span>)</span><br><span class="line">scores = cross_validate(</span><br><span class="line">    model, X_train, y_train, cv=cv,</span><br><span class="line">    scoring=[<span class="string">&quot;roc_auc&quot;</span>, <span class="string">&quot;average_precision&quot;</span>, <span class="string">&quot;f1&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>时间序列、同一用户的多条记录、同一视频拆出的帧不能随意随机拆分。它们应按时间或实体分组，保证验证集模拟真实上线时遇到的未知数据。</p>
+<h3 id="指标、阈值与概率校准"><a href="#指标、阈值与概率校准" class="headerlink" title="指标、阈值与概率校准"></a>指标、阈值与概率校准</h3><p>模型的排序能力、分类阈值和概率可信度是三个问题：</p>
+<ul>
+<li>ROC-AUC 或 PR-AUC 衡量排序质量，不直接给出业务阈值；</li>
+<li>Precision、Recall、F1 依赖具体阈值；</li>
+<li>校准良好的 $0.8$ 概率意味着相似样本约有 $80\%$ 为正类。</li>
+</ul>
+<p>阈值应根据漏检与误报代价在验证集上选择。若下游把分数当概率使用，应通过可靠性曲线和 Brier Score 检查校准；必要时在独立校准集上使用 Platt scaling 或 isotonic regression。不能用测试集反复挑阈值。</p>
+<h3 id="可复现性与结果记录"><a href="#可复现性与结果记录" class="headerlink" title="可复现性与结果记录"></a>可复现性与结果记录</h3><p>随机种子只控制随机性的来源之一。要复现实验，还需记录：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>最少记录内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据</td>
+<td>数据版本、切分规则、过滤条件、标签版本</td>
+</tr>
+<tr>
+<td>环境</td>
+<td>Python 与依赖版本、硬件、关键后端配置</td>
+</tr>
+<tr>
+<td>训练</td>
+<td>配置文件、种子、初始化、优化器、学习率计划</td>
+</tr>
+<tr>
+<td>结果</td>
+<td>最优与最后检查点、逐类指标、错误样本、运行日志</td>
+</tr>
+</tbody></table>
+<p>同一硬件和版本下也可能存在非确定性算子，因此“固定种子”不等于绝对逐位一致。更实用的目标是：能够重建相同的数据切分、配置和模型，并得到统计上相近的结果。</p>
+<hr>
+<h2 id="附录-A：线性代数速查"><a href="#附录-A：线性代数速查" class="headerlink" title="附录 A：线性代数速查"></a>附录 A：线性代数速查</h2><ul>
+<li>点积：$a^Tb=\sum_i a_ib_i$，也可理解为长度与夹角的组合。</li>
+<li>范数：$\lVert x\rVert_2=\sqrt{\sum_i x_i^2}$。</li>
+<li>正交：$a^Tb=0$；正交矩阵满足 $Q^TQ=I$。</li>
+<li>特征分解：$Av=\lambda v$；实对称矩阵具有正交特征向量。</li>
+<li>SVD：$A=U\Sigma V^T$，可用于低秩近似、PCA 和稳定求解。</li>
+</ul>
+<h2 id="附录-B：概率速查"><a href="#附录-B：概率速查" class="headerlink" title="附录 B：概率速查"></a>附录 B：概率速查</h2><ul>
+<li>条件概率：$P(A\mid B)=P(A\cap B)/P(B)$。</li>
+<li>贝叶斯公式：$P(A\mid B)=P(B\mid A)P(A)/P(B)$。</li>
+<li>期望：$E[X]=\sum_xxP(X=x)$ 或 $\int xp(x)dx$。</li>
+<li>方差：$\operatorname{Var}(X)=E[(X-E[X])^2]$。</li>
+<li>协方差：$\operatorname{Cov}(X,Y)=E[(X-E[X])(Y-E[Y])]$。</li>
+<li>最大似然：选择参数使观测数据概率最大；常转为最大化对数似然。</li>
+</ul>
+<h2 id="复习清单"><a href="#复习清单" class="headerlink" title="复习清单"></a>复习清单</h2><ul>
+<li><input disabled="" type="checkbox"> 能从任务类型判断回归、分类、聚类或异常检测。</li>
+<li><input disabled="" type="checkbox"> 能写出线性回归、逻辑回归、正则化与梯度下降公式。</li>
+<li><input disabled="" type="checkbox"> 能解释前向传播、反向传播和梯度检验。</li>
+<li><input disabled="" type="checkbox"> 能用训练&#x2F;验证误差区分高偏差与高方差。</li>
+<li><input disabled="" type="checkbox"> 能正确选择 Precision、Recall、F1、AP&#x2F;mAP 等指标。</li>
+<li><input disabled="" type="checkbox"> 能解释决策树、随机森林与梯度提升树的差异。</li>
+<li><input disabled="" type="checkbox"> 能用 Pipeline 和正确的数据划分避免预处理泄漏。</li>
+<li><input disabled="" type="checkbox"> 能区分排序指标、分类阈值和概率校准。</li>
+<li><input disabled="" type="checkbox"> 能说明 SVM 的 $C$、RBF 的 $\sigma$、K-means 的 $K$ 和 PCA 的 $k$ 如何选择。</li>
+<li><input disabled="" type="checkbox"> 能描述推荐系统、SGD 与 OCR 流水线的基本工程思路。</li>
+</ul>
+<hr>
+<h2 id="从机器学习到深度学习"><a href="#从机器学习到深度学习" class="headerlink" title="从机器学习到深度学习"></a>从机器学习到深度学习</h2><p>两部分共享同一个目标：从有限样本中学习能够泛化的函数。主要差别在于特征如何获得。</p>
+<table>
+<thead>
+<tr>
+<th>经典机器学习</th>
+<th>深度学习</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>人工设计或单独学习特征，再训练预测器</td>
+<td>多层网络从原始输入中联合学习表征和预测器</td>
+</tr>
+<tr>
+<td>常适合结构化表格、小到中等数据</td>
+<td>常适合图像、语音、文本等高维非结构化数据</td>
+</tr>
+<tr>
+<td>训练通常较快，解释与调试更直接</td>
+<td>容量大，依赖更多数据、算力和训练技巧</td>
+</tr>
+</tbody></table>
+<p>逻辑回归本身就是一个没有隐藏层的神经网络：</p>
+<p>$$
+\hat y=\sigma(w^Tx+b)
+$$</p>
+<p>加入隐藏层后，每一层先做线性变换再做非线性映射：</p>
+<p>$$
+a^{[l]}=g^{[l]}\left(W^{[l]}a^{[l-1]}+b^{[l]}\right)
+$$</p>
+<p>因此梯度下降、正则化、偏差与方差、训练&#x2F;验证&#x2F;测试划分、误差分析等方法会自然延续到深度学习。变化主要来自模型更深、参数更多，以及表征也参与端到端优化。</p>
+<pre class="mermaid">flowchart LR
+    A[人工特征 + 线性模型] --> B[非线性特征 + 传统模型]
+    B --> C[浅层神经网络]
+    C --> D[深层表征学习]
+    D --> E[面向图像、文本与语音的专用架构]</pre>
+
+<p><span id="dl-notes"></span></p>
+<h1 id="第二部分：深度学习"><a href="#第二部分：深度学习" class="headerlink" title="第二部分：深度学习"></a>第二部分：深度学习</h1><h2 id="统一记号"><a href="#统一记号" class="headerlink" title="统一记号"></a>统一记号</h2><table>
+<thead>
+<tr>
+<th>记号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$m$</td>
+<td>样本数</td>
+</tr>
+<tr>
+<td>$n_x$</td>
+<td>输入特征数</td>
+</tr>
+<tr>
+<td>$L$</td>
+<td>网络层数（不含输入层）</td>
+</tr>
+<tr>
+<td>$W^{[l]},b^{[l]}$</td>
+<td>第 $l$ 层参数</td>
+</tr>
+<tr>
+<td>$Z^{[l]},A^{[l]}$</td>
+<td>第 $l$ 层线性输出与激活</td>
+</tr>
+<tr>
+<td>$g^{[l]}$</td>
+<td>第 $l$ 层激活函数</td>
+</tr>
+<tr>
+<td>$\alpha$</td>
+<td>学习率</td>
+</tr>
+</tbody></table>
+<pre class="mermaid">flowchart LR
+    A[神经网络基础] --> B[向量化与反向传播]
+    B --> C[初始化、正则化与优化]
+    C --> D[机器学习项目策略]
+    D --> E[卷积神经网络]
+    E --> F[检测、人脸与风格迁移]</pre>
+
+<hr>
+<h2 id="第一门课：神经网络和深度学习"><a href="#第一门课：神经网络和深度学习" class="headerlink" title="第一门课：神经网络和深度学习"></a>第一门课：神经网络和深度学习</h2><h3 id="第-1-周：深度学习引言（p-3–5）"><a href="#第-1-周：深度学习引言（p-3–5）" class="headerlink" title="第 1 周：深度学习引言（p.3–5）"></a>第 1 周：深度学习引言（p.3–5）</h3><h4 id="什么是神经网络"><a href="#什么是神经网络" class="headerlink" title="什么是神经网络"></a>什么是神经网络</h4><p>最简单的神经元完成“加权求和 + 非线性变换”：</p>
+<p>$$
+z=w^Tx+b,\qquad a=g(z)
+$$</p>
+<p>多个神经元组成一层，多层组合形成神经网络。监督学习中常见结构：</p>
+<ul>
+<li>标准全连接网络：表格数据、基础分类&#x2F;回归。</li>
+<li>CNN：图像与网格数据。</li>
+<li>RNN&#x2F;Transformer：序列、文本、语音。</li>
+</ul>
+<h4 id="深度学习兴起的原因"><a href="#深度学习兴起的原因" class="headerlink" title="深度学习兴起的原因"></a>深度学习兴起的原因</h4><ol>
+<li>数据规模增长。</li>
+<li>GPU&#x2F;专用硬件提高计算能力。</li>
+<li>ReLU、更好的初始化和优化算法改善梯度传播。</li>
+<li>开源框架缩短实验周期。</li>
+</ol>
+<p>在数据较少时，大网络未必占优；随着数据和模型规模增加，深度模型通常能继续受益。实践关键是缩短“想法—代码—实验”循环。</p>
+<hr>
+<h3 id="第-2-周：神经网络编程基础（p-6–8）"><a href="#第-2-周：神经网络编程基础（p-6–8）" class="headerlink" title="第 2 周：神经网络编程基础（p.6–8）"></a>第 2 周：神经网络编程基础（p.6–8）</h3><h4 id="二分类与数据形状"><a href="#二分类与数据形状" class="headerlink" title="二分类与数据形状"></a>二分类与数据形状</h4><p>按列存放样本：</p>
+<p>$$
+X=[x^{(1)},\ldots,x^{(m)}]\in\mathbb R^{n_x\times m},\quad
+Y=[y^{(1)},\ldots,y^{(m)}]\in\mathbb R^{1\times m}
+$$</p>
+<p>逻辑回归：</p>
+<p>$$
+Z=w^TX+b,\quad A=\sigma(Z),\quad
+\sigma(z)=\frac1{1+e^{-z}}
+$$</p>
+<h4 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h4><p>$$
+\mathcal L(\hat y,y)=-y\log\hat y-(1-y)\log(1-\hat y)
+$$</p>
+<p>$$
+J(w,b)=\frac1m\sum_i\mathcal L(\hat y^{(i)},y^{(i)})
+$$</p>
+<p>梯度：</p>
+<p>$$
+dZ=A-Y,\quad dw=\frac1mXdZ^T,\quad db=\frac1m\sum_i dZ_i
+$$</p>
+<h4 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h4><p>用矩阵运算替代显式 Python 循环，能调用高度优化的 BLAS&#x2F;GPU 内核。每写一步先核对形状；广播可以简化偏置相加，也可能掩盖维度错误。</p>
+<p><strong>数值稳定性</strong>：不要先算 sigmoid 再直接取极端概率的对数；实际框架优先使用 <code>BCEWithLogitsLoss</code> 等“logits + loss”融合实现。</p>
+<hr>
+<h3 id="第-3-周：浅层神经网络（p-9–14）"><a href="#第-3-周：浅层神经网络（p-9–14）" class="headerlink" title="第 3 周：浅层神经网络（p.9–14）"></a>第 3 周：浅层神经网络（p.9–14）</h3><h4 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h4><p>单隐藏层网络：</p>
+<p>$$
+Z^{[1]}=W^{[1]}X+b^{[1]},\quad A^{[1]}=g^{[1]}(Z^{[1]})
+$$</p>
+<p>$$
+Z^{[2]}=W^{[2]}A^{[1]}+b^{[2]},\quad A^{[2]}=\sigma(Z^{[2]})
+$$</p>
+<p>若第 $l$ 层有 $n^{[l]}$ 个单元：</p>
+<p>$$
+W^{[l]}\in\mathbb R^{n^{[l]}\times n^{[l-1]}},\quad
+b^{[l]}\in\mathbb R^{n^{[l]}\times1}
+$$</p>
+<h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>公式&#x2F;范围</th>
+<th>使用建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sigmoid</td>
+<td>$\sigma(z)\in(0,1)$</td>
+<td>二分类输出层；深层隐藏层易饱和</td>
+</tr>
+<tr>
+<td>tanh</td>
+<td>$\tanh(z)\in(-1,1)$</td>
+<td>零中心，但仍会饱和</td>
+</tr>
+<tr>
+<td>ReLU</td>
+<td>$\max(0,z)$</td>
+<td>隐藏层默认选择，计算快</td>
+</tr>
+<tr>
+<td>Leaky ReLU</td>
+<td>$\max(az,z)$</td>
+<td>减轻“死亡 ReLU”</td>
+</tr>
+</tbody></table>
+<p>若所有层都用线性激活，多层复合仍是线性函数，因此隐藏层需要非线性。</p>
+<h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p>二分类输出层：</p>
+<p>$$
+dZ^{[2]}=A^{[2]}-Y
+$$</p>
+<p>$$
+dW^{[2]}=\frac1m dZ^{[2]}(A^{[1]})^T,\quad
+db^{[2]}=\frac1m\sum dZ^{[2]}
+$$</p>
+<p>$$
+dZ^{[1]}=(W^{[2]})^TdZ^{[2]}\odot g'^{[1]}(Z^{[1]})
+$$</p>
+<p>所有权重不能同时初始化为 0，否则隐藏单元始终对称。使用小随机数或与扇入匹配的初始化。</p>
+<pre class="mermaid">flowchart LR
+    X[输入 X] --> FP[逐层前向传播]
+    FP --> L[计算损失]
+    L --> BP[链式法则反向传播]
+    BP --> G[得到各层梯度]
+    G --> U[优化器更新参数]
+    U --> FP</pre>
+
+<hr>
+<h3 id="第-4-周：深层神经网络（p-15–21）"><a href="#第-4-周：深层神经网络（p-15–21）" class="headerlink" title="第 4 周：深层神经网络（p.15–21）"></a>第 4 周：深层神经网络（p.15–21）</h3><h4 id="深层前向与反向传播"><a href="#深层前向与反向传播" class="headerlink" title="深层前向与反向传播"></a>深层前向与反向传播</h4><p>$$
+Z^{[l]}=W^{[l]}A^{[l-1]}+b^{[l]},\quad
+A^{[l]}=g^{[l]}(Z^{[l]})
+$$</p>
+<p>前向时缓存 $A^{[l-1]},W^{[l]},b^{[l]},Z^{[l]}$；反向时逐层计算：</p>
+<p>$$
+dW^{[l]}=\frac1m dZ^{[l]}(A^{[l-1]})^T,quad
+db^{[l]}=\frac1m\sum dZ^{[l]}
+$$</p>
+<p>$$
+dA^{[l-1]}=(W^{[l]})^TdZ^{[l]}
+$$</p>
+<h4 id="深层表示为何有效"><a href="#深层表示为何有效" class="headerlink" title="深层表示为何有效"></a>深层表示为何有效</h4><p>深层网络通过层级组合复用特征：图像中可从边缘到纹理、部件再到对象；语音中可从短时频谱到音素、词和语义。电路复杂度观点也说明，有些函数用浅层网络表示需要指数级单元，而深层组合更紧凑。</p>
+<h4 id="参数与超参数"><a href="#参数与超参数" class="headerlink" title="参数与超参数"></a>参数与超参数</h4><ul>
+<li><strong>参数</strong>：$W,b$，由训练学习。</li>
+<li><strong>超参数</strong>：学习率、层数、单元数、激活函数、批量大小、正则化强度、训练轮数等。</li>
+</ul>
+<p>超参数控制训练过程，应以验证集表现和训练稳定性来选择。</p>
+<hr>
+<h2 id="第二门课：改善深层神经网络"><a href="#第二门课：改善深层神经网络" class="headerlink" title="第二门课：改善深层神经网络"></a>第二门课：改善深层神经网络</h2><h3 id="第-1-周：深度学习的实践层面（p-22–29）"><a href="#第-1-周：深度学习的实践层面（p-22–29）" class="headerlink" title="第 1 周：深度学习的实践层面（p.22–29）"></a>第 1 周：深度学习的实践层面（p.22–29）</h3><h4 id="训练-验证-测试集"><a href="#训练-验证-测试集" class="headerlink" title="训练&#x2F;验证&#x2F;测试集"></a>训练&#x2F;验证&#x2F;测试集</h4><p>训练集用于拟合，验证集用于快速迭代与调参，测试集用于最终无偏评估。验证集与测试集应来自同一目标分布；样本极多时，验证&#x2F;测试集不必固定占 20%，只需足以稳定比较模型。</p>
+<h4 id="偏差—方差诊断"><a href="#偏差—方差诊断" class="headerlink" title="偏差—方差诊断"></a>偏差—方差诊断</h4><p>以人类水平或可估计的 Bayes 误差为参照：</p>
+<ul>
+<li>训练误差远高于可达到水平：可避免偏差大。</li>
+<li>验证误差远高于训练误差：方差大。</li>
+</ul>
+<p>先解决偏差还是方差取决于诊断，而非固定顺序。</p>
+<h4 id="L2-正则化"><a href="#L2-正则化" class="headerlink" title="L2 正则化"></a>L2 正则化</h4><p>$$
+J_{reg}=J+\frac{\lambda}{2m}\sum_l\lVert W^{[l]}\rVert_F^2
+$$</p>
+<p>$$
+dW^{[l]}\leftarrow dW^{[l]}+\frac{\lambda}{m}W^{[l]}
+$$</p>
+<p>其更新表现为权重衰减。通常不正则化偏置。</p>
+<h4 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h4><p>训练时为每层采样掩码 $D^{[l]}$：</p>
+<p>$$
+A^{[l]}\leftarrow \frac{A^{[l]}\odot D^{[l]}}{keep\_prob}
+$$</p>
+<p>这是 inverted dropout，使测试时无需再次缩放。测试&#x2F;推理阶段必须关闭 dropout。它能减少特征间脆弱的共适应，但会令每步代价随机，调试时可先关闭以检查 $J$ 是否下降。</p>
+<h4 id="其他正则化"><a href="#其他正则化" class="headerlink" title="其他正则化"></a>其他正则化</h4><ul>
+<li>数据增强：产生符合真实不变性的样本。</li>
+<li>Early stopping：验证指标不再提升时停止；简单但将优化与正则化耦合。</li>
+<li>权重衰减、标签平滑、随机深度等可按任务选择。</li>
+</ul>
+<h4 id="输入归一化"><a href="#输入归一化" class="headerlink" title="输入归一化"></a>输入归一化</h4><p>$$
+x\leftarrow\frac{x-\mu}{\sqrt{\sigma^2+\varepsilon}}
+$$</p>
+<p>只用训练集统计量，并将同一统计量应用到验证集、测试集和线上输入。</p>
+<h4 id="梯度消失-爆炸与初始化"><a href="#梯度消失-爆炸与初始化" class="headerlink" title="梯度消失&#x2F;爆炸与初始化"></a>梯度消失&#x2F;爆炸与初始化</h4><p>深层反向传播包含许多 Jacobian 连乘，范数持续小于 1 会消失，大于 1 会爆炸。</p>
+<ul>
+<li>Xavier（适合 tanh）：$\operatorname{Var}(W)\approx1/n_{in}$。</li>
+<li>He（适合 ReLU）：$\operatorname{Var}(W)\approx2/n_{in}$。</li>
+<li>还可使用归一化层、残差连接和梯度裁剪。</li>
+</ul>
+<h4 id="梯度检验"><a href="#梯度检验" class="headerlink" title="梯度检验"></a>梯度检验</h4><p>把所有参数展开为向量，用中心差分计算数值梯度，再比较：</p>
+<p>$$
+\frac{\lVert g_{approx}-g\rVert_2}{\lVert g_{approx}\rVert_2+\lVert g\rVert_2}
+$$</p>
+<p>检查时关闭 dropout；不要在正式训练中持续运行；若含正则化，解析和数值目标必须一致。</p>
+<hr>
+<h3 id="第-2-周：优化算法（p-30–38）"><a href="#第-2-周：优化算法（p-30–38）" class="headerlink" title="第 2 周：优化算法（p.30–38）"></a>第 2 周：优化算法（p.30–38）</h3><h4 id="Mini-batch-梯度下降"><a href="#Mini-batch-梯度下降" class="headerlink" title="Mini-batch 梯度下降"></a>Mini-batch 梯度下降</h4><p>每轮（epoch）遍历全部训练集，每个 mini-batch 更新一次参数。批量大小常取 2 的幂以利硬件利用，但最终由吞吐、显存和验证效果决定。</p>
+<ul>
+<li>batch 太大：单步稳定但更新少、内存高。</li>
+<li>batch 太小：噪声大但更新频繁，可能有正则化效果。</li>
+</ul>
+<h4 id="指数加权平均"><a href="#指数加权平均" class="headerlink" title="指数加权平均"></a>指数加权平均</h4><p>$$
+v_t=\beta v_{t-1}+(1-\beta)\theta_t
+$$</p>
+<p>有效窗口约为 $1/(1-\beta)$。初期偏差修正：</p>
+<p>$$
+\hat v_t=\frac{v_t}{1-\beta^t}
+$$</p>
+<h4 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h4><p>$$
+v_{dW}=\beta v_{dW}+(1-\beta)dW,qquad W\leftarrow W-\alpha v_{dW}
+$$</p>
+<p>它抑制高曲率方向的来回摆动，并沿一致方向积累速度。</p>
+<h4 id="RMSprop"><a href="#RMSprop" class="headerlink" title="RMSprop"></a>RMSprop</h4><p>$$
+s_{dW}=\beta_2s_{dW}+(1-\beta_2)dW^2
+$$</p>
+<p>$$
+W\leftarrow W-\alpha\frac{dW}{\sqrt{s_{dW}}+\varepsilon}
+$$</p>
+<h4 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h4><p>Adam 结合一阶矩（Momentum）和二阶矩（RMSprop），并做偏差修正：</p>
+<p>$$
+W\leftarrow W-\alpha\frac{\hat v_{dW}}{\sqrt{\hat s_{dW}}+\varepsilon}
+$$</p>
+<p>常见初值：$\beta_1=0.9,\beta_2=0.999,\varepsilon=10^{-8}$，学习率仍需调节。</p>
+<h4 id="学习率衰减与局部几何"><a href="#学习率衰减与局部几何" class="headerlink" title="学习率衰减与局部几何"></a>学习率衰减与局部几何</h4><p>可使用阶梯、指数、余弦或基于验证指标的衰减。高维非凸目标的零梯度点往往是鞍点而非差的局部极小；更常见的困难是长时间停留在平坦区。动量、归一化和合理初始化有助于通过平坦区。</p>
+<hr>
+<h3 id="第-3-周：超参数、BatchNorm-与框架（p-39–47）"><a href="#第-3-周：超参数、BatchNorm-与框架（p-39–47）" class="headerlink" title="第 3 周：超参数、BatchNorm 与框架（p.39–47）"></a>第 3 周：超参数、BatchNorm 与框架（p.39–47）</h3><h4 id="超参数搜索"><a href="#超参数搜索" class="headerlink" title="超参数搜索"></a>超参数搜索</h4><p>优先级通常为：学习率最高，其次是动量&#x2F;批量大小&#x2F;隐藏单元，再到层数和学习率衰减。随机搜索比规则网格更容易覆盖重要维度；对学习率、正则化等跨数量级参数应在对数尺度采样。</p>
+<p>两种工作方式：</p>
+<ul>
+<li><strong>Pandas</strong>：同时训练许多模型，适合计算资源充足。</li>
+<li><strong>Caviar</strong>：维护并持续调试一个模型，适合单次训练昂贵。</li>
+</ul>
+<h4 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h4><p>对 mini-batch 中某层的 $z$：</p>
+<p>$$
+\mu_B=\frac1m\sum_i z_i,\qquad
+\sigma_B^2=\frac1m\sum_i(z_i-\mu_B)^2
+$$</p>
+<p>$$
+\hat z_i=\frac{z_i-\mu_B}{\sqrt{\sigma_B^2+\varepsilon}},\qquad
+\tilde z_i=\gamma\hat z_i+\beta
+$$</p>
+<p>$\gamma,\beta$ 可学习，因此标准化后仍能恢复合适的均值和尺度。训练时使用批次统计量，推理时使用移动平均统计量；两种模式切换错误是常见故障。</p>
+<h4 id="Softmax"><a href="#Softmax" class="headerlink" title="Softmax"></a>Softmax</h4><p>$$
+p_k=\frac{e^{z_k}}{\sum_j e^{z_j}},\qquad
+\mathcal L=-\sum_k y_k\log p_k
+$$</p>
+<p>为数值稳定，先从所有 logits 减去最大值。多分类互斥标签用 softmax；多个标签可同时为真时，用逐类 sigmoid。</p>
+<h4 id="框架选择"><a href="#框架选择" class="headerlink" title="框架选择"></a>框架选择</h4><p>关注开发效率、生态、部署环境、自动微分和硬件支持。无论框架如何，始终检查张量形状、训练&#x2F;推理模式、随机种子、数据预处理和保存&#x2F;加载是否一致。</p>
+<hr>
+<h2 id="第三门课：结构化机器学习项目"><a href="#第三门课：结构化机器学习项目" class="headerlink" title="第三门课：结构化机器学习项目"></a>第三门课：结构化机器学习项目</h2><h3 id="第-1-周：机器学习策略（一）（p-48–52）"><a href="#第-1-周：机器学习策略（一）（p-48–52）" class="headerlink" title="第 1 周：机器学习策略（一）（p.48–52）"></a>第 1 周：机器学习策略（一）（p.48–52）</h3><h4 id="正交化"><a href="#正交化" class="headerlink" title="正交化"></a>正交化</h4><p>为每个问题选择针对性旋钮：</p>
+<ul>
+<li>训练集拟合差：增大模型、改善优化。</li>
+<li>验证集泛化差：正则化、增加训练数据。</li>
+<li>测试集与验证集差异大：增加验证集或减少对验证集过拟合。</li>
+<li>线上体验差：重新设计指标&#x2F;数据分布。</li>
+</ul>
+<p>Early stopping 同时影响优化与泛化，因此不是很“正交”的控制手段。</p>
+<h4 id="单一评估指标"><a href="#单一评估指标" class="headerlink" title="单一评估指标"></a>单一评估指标</h4><p>开发时需要快速排序模型，可将多个指标组合为一个优化指标，并把其他要求设为满足指标。例如最大化准确率，同时要求延迟低于 100 ms。</p>
+<h4 id="数据集分布与大小"><a href="#数据集分布与大小" class="headerlink" title="数据集分布与大小"></a>数据集分布与大小</h4><p>验证集和测试集必须反映未来真正关心的分布，并从同一分布抽样。测试集大小取决于希望多精确地估计最终性能；若无需最终无偏报告，可以只有训练集和验证集，但应明确风险。</p>
+<h4 id="何时修改指标"><a href="#何时修改指标" class="headerlink" title="何时修改指标"></a>何时修改指标</h4><p>如果指标偏爱实际体验更差的模型，就应修改指标或样本权重。先定义正确目标，再优化模型。</p>
+<h4 id="人类水平与可避免偏差"><a href="#人类水平与可避免偏差" class="headerlink" title="人类水平与可避免偏差"></a>人类水平与可避免偏差</h4><p>人类水平可近似 Bayes 误差，但应选匹配任务的专家水平。可避免偏差约为“训练误差 − Bayes&#x2F;人类水平”，方差约为“验证误差 − 训练误差”。</p>
+<hr>
+<h3 id="第-2-周：机器学习策略（二）（p-53–57）"><a href="#第-2-周：机器学习策略（二）（p-53–57）" class="headerlink" title="第 2 周：机器学习策略（二）（p.53–57）"></a>第 2 周：机器学习策略（二）（p.53–57）</h3><h4 id="分布不匹配"><a href="#分布不匹配" class="headerlink" title="分布不匹配"></a>分布不匹配</h4><p>若训练数据与目标数据分布不同，可增加一个 <strong>train-dev 集</strong>：它来自训练分布但不参与训练。</p>
+<ul>
+<li>训练误差 → train-dev 误差：方差。</li>
+<li>train-dev 误差 → dev 误差：数据不匹配。</li>
+<li>dev 误差 → test 误差：对验证集过拟合或抽样波动。</li>
+</ul>
+<h4 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h4><p>先在大数据源任务上预训练，再用目标任务微调。目标数据少时冻结更多底层；目标数据增多时解冻更多层。两任务输入类型相近、低层特征可共享时更有效。</p>
+<h4 id="多任务学习"><a href="#多任务学习" class="headerlink" title="多任务学习"></a>多任务学习</h4><p>一个网络同时输出多个任务，适用于任务共享低层特征、数据规模相近且模型容量足够的情况。缺失标签可通过掩码只计算已标注任务的损失。</p>
+<h4 id="端到端学习"><a href="#端到端学习" class="headerlink" title="端到端学习"></a>端到端学习</h4><p>端到端模型减少人工中间表示，可能简化系统并让数据决定特征；但它通常需要大量成对数据。若某个子任务有丰富数据或明确结构，多阶段系统可能更可靠、可诊断。</p>
+<hr>
+<h2 id="第四门课：卷积神经网络"><a href="#第四门课：卷积神经网络" class="headerlink" title="第四门课：卷积神经网络"></a>第四门课：卷积神经网络</h2><h3 id="第-1-周：卷积基础（p-58–68）"><a href="#第-1-周：卷积基础（p-58–68）" class="headerlink" title="第 1 周：卷积基础（p.58–68）"></a>第 1 周：卷积基础（p.58–68）</h3><h4 id="二维卷积与输出尺寸"><a href="#二维卷积与输出尺寸" class="headerlink" title="二维卷积与输出尺寸"></a>二维卷积与输出尺寸</h4><p>输入 $n\times n$、卷积核 $f\times f$、padding 为 $p$、stride 为 $s$：</p>
+<p>$$
+n_{out}=\left\lfloor\frac{n+2p-f}{s}\right\rfloor+1
+$$</p>
+<ul>
+<li>Valid 卷积：$p=0$。</li>
+<li>Same 卷积（$s=1$、奇数核）：$p=(f-1)/2$。</li>
+</ul>
+<p>Padding 可减缓空间尺寸缩小并保留边缘信息。</p>
+<h4 id="多通道卷积"><a href="#多通道卷积" class="headerlink" title="多通道卷积"></a>多通道卷积</h4><p>若输入通道数为 $n_C$，卷积核深度也必须为 $n_C$。一个卷积核产生一个输出通道；$n_C'$ 个核产生 $n_C'$ 个输出通道。</p>
+<p>参数量：</p>
+<p>$$
+(f\times f\times n_C+1)\times n_C'
+$$</p>
+<p>与输入图像宽高无关，这来自参数共享和稀疏连接。</p>
+<h4 id="池化"><a href="#池化" class="headerlink" title="池化"></a>池化</h4><p>最大池化提供局部平移鲁棒性，通常无可学习参数；平均池化常用于网络末端的全局聚合。池化也会损失空间信息，现代结构有时用带步长卷积替代。</p>
+<h4 id="典型-CNN"><a href="#典型-CNN" class="headerlink" title="典型 CNN"></a>典型 CNN</h4><p>常见流程：<code>Conv → BN → ReLU → Pool/Stride</code> 重复若干次，再接全局池化&#x2F;全连接输出。卷积层提取局部特征，全连接或全局池化负责映射到任务输出。</p>
+<hr>
+<h3 id="第-2-周：经典网络、ResNet-与-Inception（p-69–77）"><a href="#第-2-周：经典网络、ResNet-与-Inception（p-69–77）" class="headerlink" title="第 2 周：经典网络、ResNet 与 Inception（p.69–77）"></a>第 2 周：经典网络、ResNet 与 Inception（p.69–77）</h3><h4 id="经典网络"><a href="#经典网络" class="headerlink" title="经典网络"></a>经典网络</h4><ul>
+<li>LeNet：早期手写数字识别。</li>
+<li>AlexNet：ReLU、GPU 和大规模视觉数据推动深度 CNN。</li>
+<li>VGG：反复堆叠 $3\times3$ 卷积，结构规则但计算大。</li>
+</ul>
+<h4 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h4><p>残差块：</p>
+<p>$$
+a^{[l+2]}=g(F(a^{[l]})+a^{[l]})
+$$</p>
+<p>捷径连接为梯度和信息提供短路径。若维度不同，可用 $1\times1$ 卷积投影捷径。残差分支很容易学习到零，使加深网络至少能近似恒等映射。</p>
+<h4 id="$1\times1$-卷积"><a href="#$1\times1$-卷积" class="headerlink" title="$1\times1$ 卷积"></a>$1\times1$ 卷积</h4><p>在每个空间位置对通道做共享的线性组合并配合非线性，可改变通道数、降低计算量和增加表达能力。</p>
+<h4 id="Inception"><a href="#Inception" class="headerlink" title="Inception"></a>Inception</h4><p>并行使用不同尺度卷积和池化，再沿通道拼接，让网络自行选择尺度。先用 $1\times1$ 瓶颈降维，再做昂贵卷积，可显著降低计算量。</p>
+<h4 id="迁移学习与增强"><a href="#迁移学习与增强" class="headerlink" title="迁移学习与增强"></a>迁移学习与增强</h4><p>小数据集可加载预训练网络，先冻结骨干并训练新头部，再用较小学习率微调。增强应保留标签语义：随机裁剪、翻转、颜色扰动等；不要引入线上不会出现的失真。</p>
+<hr>
+<h3 id="第-3-周：目标检测（p-78–84）"><a href="#第-3-周：目标检测（p-78–84）" class="headerlink" title="第 3 周：目标检测（p.78–84）"></a>第 3 周：目标检测（p.78–84）</h3><h4 id="定位与检测"><a href="#定位与检测" class="headerlink" title="定位与检测"></a>定位与检测</h4><p>目标定位同时预测类别和边界框，可表示为 $(p_c,b_x,b_y,b_w,b_h,c_1,\ldots,c_K)$。多目标检测需要在不同网格&#x2F;候选框上重复此预测。</p>
+<h4 id="滑动窗口的卷积实现"><a href="#滑动窗口的卷积实现" class="headerlink" title="滑动窗口的卷积实现"></a>滑动窗口的卷积实现</h4><p>把全连接层改写为卷积层，可让重叠窗口共享计算，但窗口位置较粗时边界不够精确。YOLO 直接回归边界框，避免逐窗口运行网络。</p>
+<h4 id="IoU"><a href="#IoU" class="headerlink" title="IoU"></a>IoU</h4><p>$$
+IoU=\frac{\text{预测框与真实框交集面积}}{\text{两框并集面积}}
+$$</p>
+<p>IoU 用于匹配预测和真值，也用于 NMS 的重叠判定；阈值取决于任务与评估规范。</p>
+<h4 id="非极大值抑制（NMS）"><a href="#非极大值抑制（NMS）" class="headerlink" title="非极大值抑制（NMS）"></a>非极大值抑制（NMS）</h4><ol>
+<li>丢弃低置信度框。</li>
+<li>选剩余框中得分最高者。</li>
+<li>删除与它 IoU 过高的同类框。</li>
+<li>重复直至处理完。</li>
+</ol>
+<p>应按类别执行；Soft-NMS 会衰减分数而非直接删除。</p>
+<h4 id="Anchor-Boxes-与-YOLO"><a href="#Anchor-Boxes-与-YOLO" class="headerlink" title="Anchor Boxes 与 YOLO"></a>Anchor Boxes 与 YOLO</h4><p>每个网格预测多个 anchor，使同一位置可表示不同宽高比&#x2F;多个对象。训练时把目标分配给形状最匹配的 anchor。YOLO 输出经解码、置信度过滤和 NMS 得到最终检测框。</p>
+<pre class="mermaid">flowchart LR
+    A[图像] --> B[骨干网络提取特征]
+    B --> C[检测头预测类别与框]
+    C --> D[解码并过滤低置信度框]
+    D --> E[NMS 去除重复框]
+    E --> F[最终检测结果]</pre>
+
+<h4 id="候选区域方法"><a href="#候选区域方法" class="headerlink" title="候选区域方法"></a>候选区域方法</h4><p>R-CNN 系列先提出候选区域再分类&#x2F;回归；Faster R-CNN 用 RPN 学习候选区域，通常精度高但推理链路比单阶段检测器复杂。</p>
+<hr>
+<h3 id="第-4-周：人脸识别与神经风格迁移（p-85–90）"><a href="#第-4-周：人脸识别与神经风格迁移（p-85–90）" class="headerlink" title="第 4 周：人脸识别与神经风格迁移（p.85–90）"></a>第 4 周：人脸识别与神经风格迁移（p.85–90）</h3><h4 id="人脸验证与识别"><a href="#人脸验证与识别" class="headerlink" title="人脸验证与识别"></a>人脸验证与识别</h4><ul>
+<li>验证：两张脸是否属于同一人（1:1）。</li>
+<li>识别：输入脸属于数据库中的谁（1:N）。</li>
+</ul>
+<p>One-shot 场景每人可能只有一张注册照片，因此学习“相似度&#x2F;嵌入”比直接训练固定人员分类器更合适。</p>
+<h4 id="Siamese-网络"><a href="#Siamese-网络" class="headerlink" title="Siamese 网络"></a>Siamese 网络</h4><p>共享参数的网络把图像映射到嵌入 $f(x)$，同一人的距离小、不同人的距离大。共享权重确保两个输入使用同一特征空间。</p>
+<h4 id="Triplet-Loss"><a href="#Triplet-Loss" class="headerlink" title="Triplet Loss"></a>Triplet Loss</h4><p>锚点 $A$、正样本 $P$、负样本 $N$：</p>
+<p>$$
+\mathcal L=\max\left(\lVert f(A)-f(P)\rVert_2^2-
+\lVert f(A)-f(N)\rVert_2^2+\alpha,0\right)
+$$</p>
+<p>随机负样本太容易会导致损失为 0；应进行 hard&#x2F;semi-hard negative mining，同时避免错误标签造成的“假负样本”。</p>
+<h4 id="二分类式验证"><a href="#二分类式验证" class="headerlink" title="二分类式验证"></a>二分类式验证</h4><p>也可将两个嵌入的差异输入逻辑回归，输出是否同一人。注册库嵌入可预计算，线上只需计算查询嵌入和距离。</p>
+<h4 id="神经风格迁移"><a href="#神经风格迁移" class="headerlink" title="神经风格迁移"></a>神经风格迁移</h4><p>优化生成图像 $G$，同时匹配内容图 $C$ 的高层激活和风格图 $S$ 的通道相关性：</p>
+<p>$$
+J(G)=\alpha J_{content}(C,G)+\beta J_{style}(S,G)
+$$</p>
+<p>内容损失常比较某层激活：</p>
+<p>$$
+J_{content}=\lVert a^{[l]}(C)-a^{[l]}(G)\rVert_F^2
+$$</p>
+<p>风格用 Gram 矩阵 $G^{[l]}=A^{[l]}(A^{[l]})^T$ 表示通道相关性，并在多层累加差异。优化变量是图像像素，而网络参数保持冻结。</p>
+<p>卷积思想也可推广到 1D 序列和 3D 体数据，只需相应改变卷积核与空间维度。</p>
+<hr>
+<p><span id="sequence-models"></span></p>
+<h2 id="第五门课：序列模型（补充）"><a href="#第五门课：序列模型（补充）" class="headerlink" title="第五门课：序列模型（补充）"></a>第五门课：序列模型（补充）</h2><p>前四门课主要处理固定尺寸输入。文本、语音、轨迹和时间序列还具有顺序、上下文和可变长度等性质。序列模型通过共享参数处理每个时间步，并在不同位置之间传递信息。</p>
+<h3 id="序列记号与任务类型"><a href="#序列记号与任务类型" class="headerlink" title="序列记号与任务类型"></a>序列记号与任务类型</h3><p>令输入序列为 $x^{\langle 1\rangle},\ldots,x^{\langle T_x\rangle}$，输出序列为 $y^{\langle 1\rangle},\ldots,y^{\langle T_y\rangle}$。</p>
+<table>
+<thead>
+<tr>
+<th>映射</th>
+<th>典型任务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一对一</td>
+<td>普通分类、回归</td>
+</tr>
+<tr>
+<td>一对多</td>
+<td>图像描述生成</td>
+</tr>
+<tr>
+<td>多对一</td>
+<td>情感分类、动作识别</td>
+</tr>
+<tr>
+<td>多对多且等长</td>
+<td>序列标注、逐帧分类</td>
+</tr>
+<tr>
+<td>多对多且不等长</td>
+<td>翻译、语音识别、摘要</td>
+</tr>
+</tbody></table>
+<h3 id="RNN-与时间反向传播"><a href="#RNN-与时间反向传播" class="headerlink" title="RNN 与时间反向传播"></a>RNN 与时间反向传播</h3><p>基本循环神经网络在每个时间步复用同一组参数：</p>
+<p>$$
+a^{\langle t\rangle}=\tanh\left(W_{aa}a^{\langle t-1\rangle}+W_{ax}x^{\langle t\rangle}+b_a\right)
+$$</p>
+<p>$$
+\hat y^{\langle t\rangle}=g_y\left(W_{ya}a^{\langle t\rangle}+b_y\right)
+$$</p>
+<pre class="mermaid">flowchart LR
+    X1[x¹] --> A1[a¹]
+    A0[a⁰] --> A1
+    A1 --> Y1[ŷ¹]
+    X2[x²] --> A2[a²]
+    A1 --> A2
+    A2 --> Y2[ŷ²]
+    X3[x³] --> A3[a³]
+    A2 --> A3
+    A3 --> Y3[ŷ³]</pre>
+
+<p>训练时将网络沿时间展开，损失对共享参数的梯度由所有时间步累加，这就是 BPTT（Backpropagation Through Time）。反复连乘雅可比矩阵会造成：</p>
+<ul>
+<li><strong>梯度消失</strong>：较早的信息难以影响较晚的输出；</li>
+<li><strong>梯度爆炸</strong>：梯度数值急剧增大，可用梯度裁剪缓解；</li>
+<li><strong>顺序计算瓶颈</strong>：时间步之间存在依赖，难以充分并行。</li>
+</ul>
+<p>双向 RNN 同时编码左、右上下文，适合整段序列已知的标注任务；它不适合要求严格在线、不能读取未来信息的场景。</p>
+<h3 id="GRU-与-LSTM"><a href="#GRU-与-LSTM" class="headerlink" title="GRU 与 LSTM"></a>GRU 与 LSTM</h3><p>GRU 用门控决定保留多少旧状态、写入多少候选状态。一个常见形式为：</p>
+<p>$$
+\begin{aligned}
+z_t&=\sigma(W_z[x_t,h_{t-1}]+b_z)\\
+r_t&=\sigma(W_r[x_t,h_{t-1}]+b_r)\\
+\tilde h_t&=\tanh(W_h[x_t,r_t\odot h_{t-1}]+b_h)\\
+h_t&=(1-z_t)\odot h_{t-1}+z_t\odot\tilde h_t
+\end{aligned}
+$$</p>
+<p>LSTM 额外维护细胞状态 $c_t$，通过遗忘门、输入门和输出门控制信息流：</p>
+<p>$$
+\begin{aligned}
+f_t&=\sigma(W_f[x_t,h_{t-1}]+b_f)\\
+i_t&=\sigma(W_i[x_t,h_{t-1}]+b_i)\\
+\tilde c_t&=\tanh(W_c[x_t,h_{t-1}]+b_c)\\
+c_t&=f_t\odot c_{t-1}+i_t\odot\tilde c_t\\
+o_t&=\sigma(W_o[x_t,h_{t-1}]+b_o)\\
+h_t&=o_t\odot\tanh(c_t)
+\end{aligned}
+$$</p>
+<p>二者都为梯度和信息提供较稳定的长距离通道。GRU 参数更少；LSTM 状态划分更细。实际选择应由数据规模、序列长度、延迟和验证结果决定。</p>
+<h3 id="词表示与-Embedding"><a href="#词表示与-Embedding" class="headerlink" title="词表示与 Embedding"></a>词表示与 Embedding</h3><p>One-hot 向量能够区分词，却不能表达词义相似性，而且维度等于词表大小。Embedding 矩阵 $E\in\mathbb{R}^{d\times |V|}$ 把离散词元映射为低维稠密向量：</p>
+<p>$$
+e_t=E x_t
+$$</p>
+<p>Word2Vec 的 Skip-gram 根据中心词预测上下文，CBOW 根据上下文预测中心词；负采样用少量负例近似大词表 softmax。GloVe 则从全局共现统计学习词向量。现代网络通常把 Embedding 与下游任务端到端训练，并用子词切分处理未登录词。</p>
+<p>词向量中的距离只反映训练语料和目标函数形成的统计关系，可能继承语料偏见，不能直接视为可靠知识库。</p>
+<h3 id="Encoder–Decoder、Beam-Search-与评价"><a href="#Encoder–Decoder、Beam-Search-与评价" class="headerlink" title="Encoder–Decoder、Beam Search 与评价"></a>Encoder–Decoder、Beam Search 与评价</h3><p>Seq2Seq 使用编码器读取输入，再由解码器自回归生成输出：</p>
+<p>$$
+P(y\mid x)=\prod_{t=1}^{T_y}P\left(y_t\mid y_{<t},x\right)
+$$</p>
+<p>训练时常把真实的上一个词作为解码器输入（teacher forcing）；推理时只能使用模型自己生成的词，这种差异可能造成误差累积。</p>
+<p>贪心搜索每一步只选择当前概率最大的词，却不保证整个序列概率最大。Beam Search 同时保留 $B$ 个候选序列，并常用长度归一化避免偏好过短输出。增大 beam width 会增加搜索量，但不会必然提高任务质量。</p>
+<p>BLEU 通过修正后的 n-gram 精确率和长度惩罚比较机器翻译与参考答案。它适合语料级比较，不能完整反映语义、事实性或单条样本质量，因此仍需人工误差分析。</p>
+<h3 id="Attention：解除固定长度瓶颈"><a href="#Attention：解除固定长度瓶颈" class="headerlink" title="Attention：解除固定长度瓶颈"></a>Attention：解除固定长度瓶颈</h3><p>只把整段输入压缩到一个固定向量，会让长序列信息成为瓶颈。Attention 让解码器在每个输出时间步按需读取所有编码状态：</p>
+<p>$$
+e_{t,t'}=\operatorname{score}(s_{t-1},a^{\langle t'\rangle})
+$$</p>
+<p>$$
+\alpha_{t,t'}=\frac{\exp(e_{t,t'})}{\sum_j\exp(e_{t,j})},
+\qquad
+c_t=\sum_{t'}\alpha_{t,t'}a^{\langle t'\rangle}
+$$</p>
+<p>其中 $\alpha_{t,t'}$ 表示生成第 $t$ 个输出时对第 $t’$ 个输入位置的关注程度，$c_t$ 是动态上下文向量。</p>
+<pre class="mermaid">flowchart LR
+    X[输入序列] --> E[编码器状态 h₁…hₙ]
+    E --> A[计算与当前 Query 的相关性]
+    A --> W[Softmax 注意力权重]
+    W --> C[加权求和得到上下文]
+    C --> Y[预测当前输出]</pre>
+
+<h3 id="从-RNN-Attention-到-Transformer"><a href="#从-RNN-Attention-到-Transformer" class="headerlink" title="从 RNN Attention 到 Transformer"></a>从 RNN Attention 到 Transformer</h3><p>Transformer 去掉循环状态，直接用 Self-Attention 建模任意位置之间的关系：</p>
+<p>$$
+\operatorname{Attention}(Q,K,V)=operatorname{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$</p>
+<p>它能并行处理序列，并缩短远距离位置之间的信息路径；代价是标准注意力的时间和显存通常随序列长度平方增长。由于网络本身没有顺序递归，还需要位置编码表示次序。</p>
+<p>本节用于说明从 RNN、门控单元到 Attention 的演进。多头注意力、Transformer Block、视觉 Transformer 和 DETR 的结构详见<a href="/DL/#Transformer">深度学习概念笔记</a>。</p>
+<h3 id="序列模型排错清单"><a href="#序列模型排错清单" class="headerlink" title="序列模型排错清单"></a>序列模型排错清单</h3><ul>
+<li>变长序列的 padding 是否正确 mask，损失是否排除填充位置；</li>
+<li>训练和推理的词表、分词器、特殊 token 是否完全一致；</li>
+<li>自回归解码是否正确处理起止 token、最大长度和缓存；</li>
+<li>是否出现梯度爆炸，梯度裁剪是否在反向传播后、更新前执行；</li>
+<li>是否将双向模型或未来时间步错误用于在线预测；</li>
+<li>评价是否同时覆盖自动指标、事实错误和典型失败样本。</li>
+</ul>
+<hr>
+<h2 id="从课程到训练与部署"><a href="#从课程到训练与部署" class="headerlink" title="从课程到训练与部署"></a>从课程到训练与部署</h2><p>课程公式说明模型为何能学习，完整项目还需要把训练、复现和部署串起来：</p>
+<pre class="mermaid">flowchart LR
+    A[数据版本与切分] --> B[可复现训练]
+    B --> C[混合精度与检查点]
+    C --> D[验证集选模]
+    D --> E[导出与数值对齐]
+    E --> F[延迟、内存与精度验收]</pre>
+
+<ul>
+<li>优化器、学习率计划、梯度控制和常见训练策略见<a href="/DL/">深度学习概念笔记</a>与<a href="/DLtrain/">训练经验</a>；</li>
+<li>PyTorch 数据、模型保存、GPU 训练和常用 API 见<a href="/Pytorch/">PyTorch 笔记</a>；</li>
+<li>ONNX、量化、剪枝、算子优化和部署验收见<a href="/DLdeploy/">部署与量化</a>；</li>
+<li>BEV、车道线、多任务感知等具体视觉项目见<a href="/Car/">汽车与自动驾驶笔记</a>。</li>
+</ul>
+<p>使用自动混合精度时，前向计算在合适算子上采用低精度，梯度缩放用于降低半精度下溢风险。它需要通过验证集精度、吞吐和显存共同验收；保存检查点时应同时保存模型、优化器、学习率调度器、缩放器、当前步数和配置。</p>
+<hr>
+<h2 id="公式与排错速查"><a href="#公式与排错速查" class="headerlink" title="公式与排错速查"></a>公式与排错速查</h2><h3 id="常见输出层"><a href="#常见输出层" class="headerlink" title="常见输出层"></a>常见输出层</h3><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>输出</th>
+<th>损失</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>回归</td>
+<td>线性</td>
+<td>MSE&#x2F;MAE</td>
+</tr>
+<tr>
+<td>二分类</td>
+<td>1 个 logit + sigmoid</td>
+<td>二元交叉熵</td>
+</tr>
+<tr>
+<td>互斥多分类</td>
+<td>$K$ 个 logits + softmax</td>
+<td>多类交叉熵</td>
+</tr>
+<tr>
+<td>多标签</td>
+<td>$K$ 个独立 sigmoid</td>
+<td>逐类二元交叉熵</td>
+</tr>
+</tbody></table>
+<h3 id="训练异常排查"><a href="#训练异常排查" class="headerlink" title="训练异常排查"></a>训练异常排查</h3><h4 id="损失不下降"><a href="#损失不下降" class="headerlink" title="损失不下降"></a>损失不下降</h4><ol>
+<li>先让模型在极小数据集上过拟合，验证代码链路。</li>
+<li>检查标签、损失和输出层是否匹配。</li>
+<li>检查学习率、梯度是否为 0&#x2F;NaN、参数是否真正参与优化。</li>
+<li>关闭 dropout&#x2F;增强，确认基础目标可学习。</li>
+<li>检查归一化和数据类型。</li>
+</ol>
+<h4 id="训练好、验证差"><a href="#训练好、验证差" class="headerlink" title="训练好、验证差"></a>训练好、验证差</h4><p>检查数据泄漏和分布划分，再考虑增加数据、增强、正则化、减小模型或 early stopping。</p>
+<h4 id="训练-推理结果不一致"><a href="#训练-推理结果不一致" class="headerlink" title="训练&#x2F;推理结果不一致"></a>训练&#x2F;推理结果不一致</h4><p>检查 <code>train/eval</code> 模式、BatchNorm 移动统计量、dropout、预处理、类别映射和随机性。</p>
+<h4 id="出现-NaN-Inf"><a href="#出现-NaN-Inf" class="headerlink" title="出现 NaN&#x2F;Inf"></a>出现 NaN&#x2F;Inf</h4><p>降低学习率、检查除零和对数输入、使用稳定损失、做梯度裁剪，并定位首次出现非有限值的层。</p>
+<h3 id="复习清单-1"><a href="#复习清单-1" class="headerlink" title="复习清单"></a>复习清单</h3><ul>
+<li><input disabled="" type="checkbox"> 能写出逻辑回归和多层网络的向量化前向&#x2F;反向传播。</li>
+<li><input disabled="" type="checkbox"> 能解释 ReLU、初始化、BatchNorm 和残差连接对梯度传播的影响。</li>
+<li><input disabled="" type="checkbox"> 能比较 L2、dropout、数据增强与 early stopping。</li>
+<li><input disabled="" type="checkbox"> 能写出 Momentum、RMSprop、Adam 的核心更新。</li>
+<li><input disabled="" type="checkbox"> 能用偏差、方差和数据不匹配拆解模型问题。</li>
+<li><input disabled="" type="checkbox"> 能计算卷积输出尺寸和参数量。</li>
+<li><input disabled="" type="checkbox"> 能解释 IoU、NMS、anchor 与 YOLO 的关系。</li>
+<li><input disabled="" type="checkbox"> 能说明 Siamese、Triplet Loss 和风格迁移的目标。</li>
+<li><input disabled="" type="checkbox"> 能写出 RNN、GRU&#x2F;LSTM 的状态更新并解释长依赖问题。</li>
+<li><input disabled="" type="checkbox"> 能说明 Embedding、Seq2Seq、Beam Search 和 Attention 的作用。</li>
+<li><input disabled="" type="checkbox"> 能解释 Transformer 相比循环网络的并行优势与序列长度代价。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+              <a href="/tags/Andrew-Ng/" rel="tag"># Andrew Ng</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Pytorch/" rel="prev" title="Py：conda，Pycharm，Pytorch">
+      <i class="fa fa-chevron-left"></i> Py：conda，Pycharm，Pytorch
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/DLtrain/" rel="next" title="DL train：Code, Ideas, Workflow">
+      DL train：Code, Ideas, Workflow <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%AF%BC%E8%88%AA"><span class="nav-number">1.</span> <span class="nav-text">学习路线与导航</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">第一部分：机器学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B0%E5%8F%B7%E7%BA%A6%E5%AE%9A"><span class="nav-number">2.1.</span> <span class="nav-text">记号约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%BC%95%E8%A8%80%EF%BC%88p-3%E2%80%934%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">1. 引言（p.3–4）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.1 监督学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2 无监督学习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%EF%BC%88p-5%E2%80%9310%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">2. 单变量线性回归（p.5–10）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%A8%A1%E5%9E%8B%E4%B8%8E%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.1 模型与代价函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.2 梯度下降</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9B%9E%E9%A1%BE%EF%BC%88p-11%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">3. 线性代数回顾（p.11）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%EF%BC%88p-12%E2%80%9316%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">4. 多变量线性回归（p.12–16）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%90%91%E9%87%8F%E5%8C%96%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.5.1.</span> <span class="nav-text">4.1 向量化模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E7%89%B9%E5%BE%81%E7%BC%A9%E6%94%BE%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%8E%87"><span class="nav-number">2.5.2.</span> <span class="nav-text">4.2 特征缩放与学习率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%89%B9%E5%BE%81"><span class="nav-number">2.5.3.</span> <span class="nav-text">4.3 多项式特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B"><span class="nav-number">2.5.4.</span> <span class="nav-text">4.4 正规方程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%EF%BC%88p-17%E2%80%9321%EF%BC%89"><span class="nav-number">2.6.</span> <span class="nav-text">6. 逻辑回归（p.17–21）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E5%81%87%E8%AE%BE%E5%87%BD%E6%95%B0%E4%B8%8E%E6%A6%82%E7%8E%87%E8%A7%A3%E9%87%8A"><span class="nav-number">2.6.1.</span> <span class="nav-text">6.1 假设函数与概率解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E4%BA%A4%E5%8F%89%E7%86%B5%E4%BB%A3%E4%BB%B7"><span class="nav-number">2.6.2.</span> <span class="nav-text">6.2 交叉熵代价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96%E4%B8%8E%E5%A4%9A%E5%88%86%E7%B1%BB"><span class="nav-number">2.6.3.</span> <span class="nav-text">6.3 高级优化与多分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%AD%A3%E5%88%99%E5%8C%96%EF%BC%88p-22%E2%80%9324%EF%BC%89"><span class="nav-number">2.7.</span> <span class="nav-text">7. 正则化（p.22–24）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E7%A4%BA%EF%BC%88p-26%E2%80%9330%EF%BC%89"><span class="nav-number">2.8.</span> <span class="nav-text">8. 神经网络：表示（p.26–30）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E9%97%A8%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="nav-number">2.8.1.</span> <span class="nav-text">逻辑门直观理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88p-31%E2%80%9339%EF%BC%89"><span class="nav-number">2.9.</span> <span class="nav-text">9. 神经网络的学习（p.31–39）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0"><span class="nav-number">2.9.1.</span> <span class="nav-text">9.1 代价函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">2.9.2.</span> <span class="nav-text">9.2 反向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-%E6%A2%AF%E5%BA%A6%E6%A3%80%E9%AA%8C"><span class="nav-number">2.9.3.</span> <span class="nav-text">9.3 梯度检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-%E9%9A%8F%E6%9C%BA%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.9.4.</span> <span class="nav-text">9.4 随机初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE%EF%BC%88p-40%E2%80%9347%EF%BC%89"><span class="nav-number">2.10.</span> <span class="nav-text">10. 应用机器学习的建议（p.40–47）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86"><span class="nav-number">2.10.1.</span> <span class="nav-text">10.1 数据集划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-%E5%81%8F%E5%B7%AE%E4%B8%8E%E6%96%B9%E5%B7%AE"><span class="nav-number">2.10.2.</span> <span class="nav-text">10.2 偏差与方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-3-%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BF"><span class="nav-number">2.10.3.</span> <span class="nav-text">10.3 学习曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-4-%E5%86%B3%E7%AD%96%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.10.4.</span> <span class="nav-text">10.4 决策顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%88p-48%E2%80%9352%EF%BC%89"><span class="nav-number">2.11.</span> <span class="nav-text">11. 机器学习系统设计（p.48–52）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-1-%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90"><span class="nav-number">2.11.1.</span> <span class="nav-text">11.1 误差分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-2-%E7%B1%BB%E5%88%AB%E4%B8%8D%E5%B9%B3%E8%A1%A1"><span class="nav-number">2.11.2.</span> <span class="nav-text">11.2 类别不平衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-3-%E6%95%B0%E6%8D%AE%E8%A7%84%E6%A8%A1"><span class="nav-number">2.11.3.</span> <span class="nav-text">11.3 数据规模</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%EF%BC%88p-53%E2%80%9359%EF%BC%89"><span class="nav-number">2.12.</span> <span class="nav-text">12. 支持向量机（p.53–59）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E4%B8%93%E9%A2%98%EF%BC%9A%E6%A0%91%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.13.</span> <span class="nav-text">补充专题：树模型与集成学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E4%B8%8E-CART"><span class="nav-number">2.13.1.</span> <span class="nav-text">决策树与 CART</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bagging-%E4%B8%8E%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97"><span class="nav-number">2.13.2.</span> <span class="nav-text">Bagging 与随机森林</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boosting-%E4%B8%8E%E6%A2%AF%E5%BA%A6%E6%8F%90%E5%8D%87%E6%A0%91"><span class="nav-number">2.13.3.</span> <span class="nav-text">Boosting 与梯度提升树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-%E8%81%9A%E7%B1%BB%EF%BC%88p-61%E2%80%9364%EF%BC%89"><span class="nav-number">2.14.</span> <span class="nav-text">13. 聚类（p.61–64）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#K-means"><span class="nav-number">2.14.1.</span> <span class="nav-text">K-means</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-%E9%99%8D%E7%BB%B4%E4%B8%8E-PCA%EF%BC%88p-65%E2%80%9372%EF%BC%89"><span class="nav-number">2.15.</span> <span class="nav-text">14. 降维与 PCA（p.65–72）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">2.15.1.</span> <span class="nav-text">算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%EF%BC%88p-73%E2%80%9377%EF%BC%89"><span class="nav-number">2.16.</span> <span class="nav-text">15. 异常检测（p.73–77）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%EF%BC%88p-78%E2%80%9382%EF%BC%89"><span class="nav-number">2.17.</span> <span class="nav-text">16. 推荐系统（p.78–82）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88p-83%E2%80%9386%EF%BC%89"><span class="nav-number">2.18.</span> <span class="nav-text">17. 大规模机器学习（p.83–86）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%EF%BC%9A%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%EF%BC%88p-87%E2%80%9389%EF%BC%89"><span class="nav-number">2.19.</span> <span class="nav-text">18. 应用实例：图片文字识别（p.87–89）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-%E6%80%BB%E7%BB%93%EF%BC%88p-90%EF%BC%89"><span class="nav-number">2.20.</span> <span class="nav-text">19. 总结（p.90）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E4%B8%93%E9%A2%98%EF%BC%9A%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%88%B0%E5%8F%AF%E4%BF%A1%E8%AF%84%E4%BC%B0"><span class="nav-number">2.21.</span> <span class="nav-text">补充专题：从数据到可信评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.21.1.</span> <span class="nav-text">正确的数据处理顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E6%A0%87%E3%80%81%E9%98%88%E5%80%BC%E4%B8%8E%E6%A6%82%E7%8E%87%E6%A0%A1%E5%87%86"><span class="nav-number">2.21.2.</span> <span class="nav-text">指标、阈值与概率校准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%A4%8D%E7%8E%B0%E6%80%A7%E4%B8%8E%E7%BB%93%E6%9E%9C%E8%AE%B0%E5%BD%95"><span class="nav-number">2.21.3.</span> <span class="nav-text">可复现性与结果记录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95-A%EF%BC%9A%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E9%80%9F%E6%9F%A5"><span class="nav-number">2.22.</span> <span class="nav-text">附录 A：线性代数速查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95-B%EF%BC%9A%E6%A6%82%E7%8E%87%E9%80%9F%E6%9F%A5"><span class="nav-number">2.23.</span> <span class="nav-text">附录 B：概率速查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0%E6%B8%85%E5%8D%95"><span class="nav-number">2.24.</span> <span class="nav-text">复习清单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%88%B0%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.25.</span> <span class="nav-text">从机器学习到深度学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">第二部分：深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E8%AE%B0%E5%8F%B7"><span class="nav-number">3.1.</span> <span class="nav-text">统一记号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%97%A8%E8%AF%BE%EF%BC%9A%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.2.</span> <span class="nav-text">第一门课：神经网络和深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-1-%E5%91%A8%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%BC%95%E8%A8%80%EF%BC%88p-3%E2%80%935%EF%BC%89"><span class="nav-number">3.2.1.</span> <span class="nav-text">第 1 周：深度学习引言（p.3–5）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">什么是神经网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%B4%E8%B5%B7%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">深度学习兴起的原因</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-2-%E5%91%A8%EF%BC%9A%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%EF%BC%88p-6%E2%80%938%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">第 2 周：神经网络编程基础（p.6–8）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E7%B1%BB%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BD%A2%E7%8A%B6"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">二分类与数据形状</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">交叉熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E5%8C%96"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">向量化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-3-%E5%91%A8%EF%BC%9A%E6%B5%85%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88p-9%E2%80%9314%EF%BC%89"><span class="nav-number">3.2.3.</span> <span class="nav-text">第 3 周：浅层神经网络（p.9–14）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">前向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">激活函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">3.2.3.3.</span> <span class="nav-text">反向传播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-4-%E5%91%A8%EF%BC%9A%E6%B7%B1%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88p-15%E2%80%9321%EF%BC%89"><span class="nav-number">3.2.4.</span> <span class="nav-text">第 4 周：深层神经网络（p.15–21）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%B1%82%E5%89%8D%E5%90%91%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">3.2.4.1.</span> <span class="nav-text">深层前向与反向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%B1%82%E8%A1%A8%E7%A4%BA%E4%B8%BA%E4%BD%95%E6%9C%89%E6%95%88"><span class="nav-number">3.2.4.2.</span> <span class="nav-text">深层表示为何有效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%B8%8E%E8%B6%85%E5%8F%82%E6%95%B0"><span class="nav-number">3.2.4.3.</span> <span class="nav-text">参数与超参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%97%A8%E8%AF%BE%EF%BC%9A%E6%94%B9%E5%96%84%E6%B7%B1%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">3.3.</span> <span class="nav-text">第二门课：改善深层神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-1-%E5%91%A8%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%AE%9E%E8%B7%B5%E5%B1%82%E9%9D%A2%EF%BC%88p-22%E2%80%9329%EF%BC%89"><span class="nav-number">3.3.1.</span> <span class="nav-text">第 1 周：深度学习的实践层面（p.22–29）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83-%E9%AA%8C%E8%AF%81-%E6%B5%8B%E8%AF%95%E9%9B%86"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">训练&#x2F;验证&#x2F;测试集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%8F%E5%B7%AE%E2%80%94%E6%96%B9%E5%B7%AE%E8%AF%8A%E6%96%AD"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">偏差—方差诊断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#L2-%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">3.3.1.3.</span> <span class="nav-text">L2 正则化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dropout"><span class="nav-number">3.3.1.4.</span> <span class="nav-text">Dropout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">3.3.1.5.</span> <span class="nav-text">其他正则化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%BD%92%E4%B8%80%E5%8C%96"><span class="nav-number">3.3.1.6.</span> <span class="nav-text">输入归一化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1-%E7%88%86%E7%82%B8%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.3.1.7.</span> <span class="nav-text">梯度消失&#x2F;爆炸与初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E6%A3%80%E9%AA%8C"><span class="nav-number">3.3.1.8.</span> <span class="nav-text">梯度检验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-2-%E5%91%A8%EF%BC%9A%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%EF%BC%88p-30%E2%80%9338%EF%BC%89"><span class="nav-number">3.3.2.</span> <span class="nav-text">第 2 周：优化算法（p.30–38）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Mini-batch-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">Mini-batch 梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E6%95%B0%E5%8A%A0%E6%9D%83%E5%B9%B3%E5%9D%87"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">指数加权平均</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Momentum"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">Momentum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RMSprop"><span class="nav-number">3.3.2.4.</span> <span class="nav-text">RMSprop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Adam"><span class="nav-number">3.3.2.5.</span> <span class="nav-text">Adam</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%A1%B0%E5%87%8F%E4%B8%8E%E5%B1%80%E9%83%A8%E5%87%A0%E4%BD%95"><span class="nav-number">3.3.2.6.</span> <span class="nav-text">学习率衰减与局部几何</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-3-%E5%91%A8%EF%BC%9A%E8%B6%85%E5%8F%82%E6%95%B0%E3%80%81BatchNorm-%E4%B8%8E%E6%A1%86%E6%9E%B6%EF%BC%88p-39%E2%80%9347%EF%BC%89"><span class="nav-number">3.3.3.</span> <span class="nav-text">第 3 周：超参数、BatchNorm 与框架（p.39–47）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">超参数搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">Batch Normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Softmax"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E9%80%89%E6%8B%A9"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">框架选择</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%97%A8%E8%AF%BE%EF%BC%9A%E7%BB%93%E6%9E%84%E5%8C%96%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.4.</span> <span class="nav-text">第三门课：结构化机器学习项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-1-%E5%91%A8%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AD%96%E7%95%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%88p-48%E2%80%9352%EF%BC%89"><span class="nav-number">3.4.1.</span> <span class="nav-text">第 1 周：机器学习策略（一）（p.48–52）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E4%BA%A4%E5%8C%96"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">正交化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">单一评估指标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%86%E5%B8%83%E4%B8%8E%E5%A4%A7%E5%B0%8F"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">数据集分布与大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E4%BF%AE%E6%94%B9%E6%8C%87%E6%A0%87"><span class="nav-number">3.4.1.4.</span> <span class="nav-text">何时修改指标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E7%B1%BB%E6%B0%B4%E5%B9%B3%E4%B8%8E%E5%8F%AF%E9%81%BF%E5%85%8D%E5%81%8F%E5%B7%AE"><span class="nav-number">3.4.1.5.</span> <span class="nav-text">人类水平与可避免偏差</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-2-%E5%91%A8%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AD%96%E7%95%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%88p-53%E2%80%9357%EF%BC%89"><span class="nav-number">3.4.2.</span> <span class="nav-text">第 2 周：机器学习策略（二）（p.53–57）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E4%B8%8D%E5%8C%B9%E9%85%8D"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">分布不匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">迁移学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E4%BB%BB%E5%8A%A1%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.4.2.3.</span> <span class="nav-text">多任务学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.4.2.4.</span> <span class="nav-text">端到端学习</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E9%97%A8%E8%AF%BE%EF%BC%9A%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">3.5.</span> <span class="nav-text">第四门课：卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-1-%E5%91%A8%EF%BC%9A%E5%8D%B7%E7%A7%AF%E5%9F%BA%E7%A1%80%EF%BC%88p-58%E2%80%9368%EF%BC%89"><span class="nav-number">3.5.1.</span> <span class="nav-text">第 1 周：卷积基础（p.58–68）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BE%93%E5%87%BA%E5%B0%BA%E5%AF%B8"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">二维卷积与输出尺寸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">多通道卷积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%A0%E5%8C%96"><span class="nav-number">3.5.1.3.</span> <span class="nav-text">池化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B-CNN"><span class="nav-number">3.5.1.4.</span> <span class="nav-text">典型 CNN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-2-%E5%91%A8%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E3%80%81ResNet-%E4%B8%8E-Inception%EF%BC%88p-69%E2%80%9377%EF%BC%89"><span class="nav-number">3.5.2.</span> <span class="nav-text">第 2 周：经典网络、ResNet 与 Inception（p.69–77）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C"><span class="nav-number">3.5.2.1.</span> <span class="nav-text">经典网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ResNet"><span class="nav-number">3.5.2.2.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#$1%5Ctimes1$-%E5%8D%B7%E7%A7%AF"><span class="nav-number">3.5.2.3.</span> <span class="nav-text">$1\times1$ 卷积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Inception"><span class="nav-number">3.5.2.4.</span> <span class="nav-text">Inception</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%A2%9E%E5%BC%BA"><span class="nav-number">3.5.2.5.</span> <span class="nav-text">迁移学习与增强</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-3-%E5%91%A8%EF%BC%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%EF%BC%88p-78%E2%80%9384%EF%BC%89"><span class="nav-number">3.5.3.</span> <span class="nav-text">第 3 周：目标检测（p.78–84）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E4%B8%8E%E6%A3%80%E6%B5%8B"><span class="nav-number">3.5.3.1.</span> <span class="nav-text">定位与检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E5%8D%B7%E7%A7%AF%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.5.3.2.</span> <span class="nav-text">滑动窗口的卷积实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IoU"><span class="nav-number">3.5.3.3.</span> <span class="nav-text">IoU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6%EF%BC%88NMS%EF%BC%89"><span class="nav-number">3.5.3.4.</span> <span class="nav-text">非极大值抑制（NMS）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Anchor-Boxes-%E4%B8%8E-YOLO"><span class="nav-number">3.5.3.5.</span> <span class="nav-text">Anchor Boxes 与 YOLO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%80%99%E9%80%89%E5%8C%BA%E5%9F%9F%E6%96%B9%E6%B3%95"><span class="nav-number">3.5.3.6.</span> <span class="nav-text">候选区域方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-4-%E5%91%A8%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%B8%8E%E7%A5%9E%E7%BB%8F%E9%A3%8E%E6%A0%BC%E8%BF%81%E7%A7%BB%EF%BC%88p-85%E2%80%9390%EF%BC%89"><span class="nav-number">3.5.4.</span> <span class="nav-text">第 4 周：人脸识别与神经风格迁移（p.85–90）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E8%84%B8%E9%AA%8C%E8%AF%81%E4%B8%8E%E8%AF%86%E5%88%AB"><span class="nav-number">3.5.4.1.</span> <span class="nav-text">人脸验证与识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Siamese-%E7%BD%91%E7%BB%9C"><span class="nav-number">3.5.4.2.</span> <span class="nav-text">Siamese 网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Triplet-Loss"><span class="nav-number">3.5.4.3.</span> <span class="nav-text">Triplet Loss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E7%B1%BB%E5%BC%8F%E9%AA%8C%E8%AF%81"><span class="nav-number">3.5.4.4.</span> <span class="nav-text">二分类式验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E9%A3%8E%E6%A0%BC%E8%BF%81%E7%A7%BB"><span class="nav-number">3.5.4.5.</span> <span class="nav-text">神经风格迁移</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E9%97%A8%E8%AF%BE%EF%BC%9A%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%EF%BC%88%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">3.6.</span> <span class="nav-text">第五门课：序列模型（补充）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E8%AE%B0%E5%8F%B7%E4%B8%8E%E4%BB%BB%E5%8A%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.6.1.</span> <span class="nav-text">序列记号与任务类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN-%E4%B8%8E%E6%97%B6%E9%97%B4%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">3.6.2.</span> <span class="nav-text">RNN 与时间反向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GRU-%E4%B8%8E-LSTM"><span class="nav-number">3.6.3.</span> <span class="nav-text">GRU 与 LSTM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%8D%E8%A1%A8%E7%A4%BA%E4%B8%8E-Embedding"><span class="nav-number">3.6.4.</span> <span class="nav-text">词表示与 Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder%E2%80%93Decoder%E3%80%81Beam-Search-%E4%B8%8E%E8%AF%84%E4%BB%B7"><span class="nav-number">3.6.5.</span> <span class="nav-text">Encoder–Decoder、Beam Search 与评价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Attention%EF%BC%9A%E8%A7%A3%E9%99%A4%E5%9B%BA%E5%AE%9A%E9%95%BF%E5%BA%A6%E7%93%B6%E9%A2%88"><span class="nav-number">3.6.6.</span> <span class="nav-text">Attention：解除固定长度瓶颈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E-RNN-Attention-%E5%88%B0-Transformer"><span class="nav-number">3.6.7.</span> <span class="nav-text">从 RNN Attention 到 Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E6%8E%92%E9%94%99%E6%B8%85%E5%8D%95"><span class="nav-number">3.6.8.</span> <span class="nav-text">序列模型排错清单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E8%AF%BE%E7%A8%8B%E5%88%B0%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2"><span class="nav-number">3.7.</span> <span class="nav-text">从课程到训练与部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E5%BC%8F%E4%B8%8E%E6%8E%92%E9%94%99%E9%80%9F%E6%9F%A5"><span class="nav-number">3.8.</span> <span class="nav-text">公式与排错速查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E8%BE%93%E5%87%BA%E5%B1%82"><span class="nav-number">3.8.1.</span> <span class="nav-text">常见输出层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E5%BC%82%E5%B8%B8%E6%8E%92%E6%9F%A5"><span class="nav-number">3.8.2.</span> <span class="nav-text">训练异常排查</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E4%B8%8D%E4%B8%8B%E9%99%8D"><span class="nav-number">3.8.2.1.</span> <span class="nav-text">损失不下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E5%A5%BD%E3%80%81%E9%AA%8C%E8%AF%81%E5%B7%AE"><span class="nav-number">3.8.2.2.</span> <span class="nav-text">训练好、验证差</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83-%E6%8E%A8%E7%90%86%E7%BB%93%E6%9E%9C%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="nav-number">3.8.2.3.</span> <span class="nav-text">训练&#x2F;推理结果不一致</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BA%E7%8E%B0-NaN-Inf"><span class="nav-number">3.8.2.4.</span> <span class="nav-text">出现 NaN&#x2F;Inf</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0%E6%B8%85%E5%8D%95-1"><span class="nav-number">3.8.3.</span> <span class="nav-text">复习清单</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Arrow</p>
+  <div class="site-description" itemprop="description">记录一些杂七杂八的东西</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Arrowes" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Arrowes" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:395841716@qq.com" title="E-Mail → mailto:395841716@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/wangyujie.site" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wangyujie.site" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/Arrowes?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;Arrowes?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/23930762?spm_id_from=333.1007.0.0" title="bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;23930762?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://oshwhub.com/arrows" title="立创EDA → https:&#x2F;&#x2F;oshwhub.com&#x2F;arrows" rel="noopener" target="_blank"><i class="fa fa-microchip fa-fw"></i>立创EDA</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+          <aside class="right-posts-card">
+            <div class="right-posts-title">
+              <i class="fa fa-list-ul fa-fw"></i>文章
+            </div>
+            <ol class="right-posts-list">
+                <li class="right-posts-item">
+                  <a href="/AI/" title="AI：Deepseek,DeepLive,sd,chat-on-wechat">
+                    AI：Deepseek,DeepLive,sd,chat-on-wechat
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Car/" title="Car：Automobiles">
+                    Car：Automobiles
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Computer/" title="Computer：电脑及服务器折腾记录">
+                    Computer：电脑及服务器折腾记录
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM4/" title="TDA4④：部署自定义深度学习模型">
+                    TDA4④：部署自定义深度学习模型
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM3/" title="TDA4③：YOLOX的模型转换与SK板端运行">
+                    TDA4③：YOLOX的模型转换与SK板端运行
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLdeploy/" title="DLdeploy：torch > onnx > deploy">
+                    DLdeploy：torch > onnx > deploy
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM2/" title="TDA4②：环境搭建，模型转换，Demo及Tools">
+                    TDA4②：环境搭建，模型转换，Demo及Tools
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/TDA4VM/" title="TDA4①：SDK, TIDL, OpenVX">
+                    TDA4①：SDK, TIDL, OpenVX
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/C/" title="C, C++, Cmake">
+                    C, C++, Cmake
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Paper/" title="Paper：科研方法总结">
+                    Paper：科研方法总结
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Project/" title="Project：多个项目汇总">
+                    Project：多个项目汇总
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DL/" title="DL：深度学习相关概念">
+                    DL：深度学习相关概念
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Embedded/" title="Embedded：嵌入式应用知识">
+                    Embedded：嵌入式应用知识
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Photograph/" title="Photograph：个人摄影笔记">
+                    Photograph：个人摄影笔记
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Linux/" title="Linux：Ubuntu，Git，Docker">
+                    Linux：Ubuntu，Git，Docker
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/DLtrain/" title="DL train：Code, Ideas, Workflow">
+                    DL train：Code, Ideas, Workflow
+                  </a>
+                </li>
+                <li class="right-posts-item right-posts-item-active">
+                  <a href="/ML-DL-Course-Notes/" title="机器学习与深度学习课程笔记">
+                    机器学习与深度学习课程笔记
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Pytorch/" title="Py：conda，Pycharm，Pytorch">
+                    Py：conda，Pycharm，Pytorch
+                  </a>
+                </li>
+                <li class="right-posts-item">
+                  <a href="/Blog/" title="Hello Blog! 从零开始搭建自己的博客网站">
+                    Hello Blog! 从零开始搭建自己的博客网站
+                  </a>
+                </li>
+            </ol>
+          </aside>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class=""></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Arrow</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">178k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">10:47</span>
+</div>
+
+<div>
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("11/22/2022 00:00:00");
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+</div>
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.right-posts-card',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  if (window.MathJax) {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    if (MathJax.typesetPromise) {
+      MathJax.typesetPromise();
+    } else {
+      MathJax.typeset();
+    }
+  }
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script data-pjax>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js?v=20260919"></script>
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'dark',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+    mermaid.init(undefined, document.querySelectorAll('pre.mermaid'));
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+<script src="https://awp-assets.meituan.net/thh/thh_feb_web_portal/js/jquery-3.6.0.min.js"></script>
+<script src="/js/code-unfold.js"></script>
+<script src="/js/highlight-keywords.js"></script>
+</body>
+</html>
